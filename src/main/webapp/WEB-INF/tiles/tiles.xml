@@ -3,48 +3,76 @@
 	"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
 	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-	<definition name="layout.login" template="/WEB-INF/tiles/layout/entrance.jsp">
-		<put-attribute name="title" value="Login Page" />
-	</definition>
-
-	<definition name="layout.page" template="/WEB-INF/tiles/layout/page.jsp">
-		<put-attribute name="title" value="HelpDesk" />
-		<put-attribute name="leftmenu" value="/WEB-INF/tiles/layout/leftmenu.jsp" />
-		<put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp" />
-	</definition>
-
-	<definition name="layout.upload" template="/WEB-INF/tiles/layout/upload.jsp">
-		<put-attribute name="title" value="HelpDesk" />
-		<put-attribute name="leftmenu" value="/WEB-INF/tiles/layout/leftmenu.jsp" />
-		<put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp" />
-	</definition>
-
-	<!-- login -->
-	<definition name="sample/login" extends="layout.login">
-		<put-attribute name="body" value="/WEB-INF/jsp/sample/login.jsp" />
-	</definition>
-
-	<!--  drag & drop -->
-	<definition name="common/upload/*" extends="layout.upload">
-        <put-attribute name="body" value="/WEB-INF/jsp/common/upload/{1}.jsp" />
-    </definition>
-
     <!-- page -->
-    <definition name="*" extends="layout.page">
-        <put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+    <definition name="*/*" extends="layout.page.htlf">
+        <put-attribute name="title" value="FIM::Financial Information Management" />
+        <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
     </definition>
 
-    <definition name="*/*" extends="layout.page">
-		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
-	</definition>
+    <definition name="*/*/*" extends="layout.page.htlf">
+        <put-attribute name="title" value="FIM::Financial Information Management" />
+        <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
+    </definition>
 
-    <definition name="*/*/*" extends="layout.page">
-		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
-	</definition>
+    <definition name="*/*/*/*" extends="layout.page.htlf">
+        <put-attribute name="title" value="FIM::Financial Information Management" />
+        <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}.jsp" />
+    </definition>
 
-    <definition name="*/*/*/*" extends="layout.page">
-		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}.jsp" />
-	</definition>
+    <!-- error -->
+    <definition name="error/*" extends="layout.error">
+        <put-attribute name="title" value="FIM::ERROR" />
+        <put-attribute name="body" value="/WEB-INF/jsp/error/{1}.jsp" />
+    </definition>
+
+    <!-- definition template -->
+    <definition name="layout.page.htlf" template="/WEB-INF/tiles/layout/pageHTLF.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/layout/topMenu.jsp" />
+        <put-attribute name="leftMenu" value="/WEB-INF/tiles/layout/leftMenu.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp" />
+    </definition>
+
+    <definition name="layout.page.htl" template="/WEB-INF/tiles/layout/pageHTL.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/layout/topMenu.jsp" />
+        <put-attribute name="leftMenu" value="/WEB-INF/tiles/layout/leftMenu.jsp" />
+    </definition>
+
+    <definition name="layout.page.htf" template="/WEB-INF/tiles/layout/pageHTF.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/layout/topMenu.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp" />
+    </definition>
+
+    <definition name="layout.page.hlf" template="/WEB-INF/tiles/layout/pageHLF.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+        <put-attribute name="leftMenu" value="/WEB-INF/tiles/layout/leftMenu.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp" />
+    </definition>
+
+    <definition name="layout.page.ht" template="/WEB-INF/tiles/layout/pageHT.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/layout/topMenu.jsp" />
+    </definition>
+
+    <definition name="layout.page.hl" template="/WEB-INF/tiles/layout/pageHL.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+        <put-attribute name="leftMenu" value="/WEB-INF/tiles/layout/leftMenu.jsp" />
+    </definition>
+
+    <definition name="layout.page.hf" template="/WEB-INF/tiles/layout/pageHF.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp" />
+    </definition>
+
+    <definition name="layout.page.h" template="/WEB-INF/tiles/layout/pageH.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+    </definition>
+
+    <definition name="layout.page" template="/WEB-INF/tiles/layout/page.jsp">
+    </definition>
+
+    <definition name="layout.error" template="/WEB-INF/tiles/layout/page.jsp">
+    </definition>
 </tiles-definitions>
