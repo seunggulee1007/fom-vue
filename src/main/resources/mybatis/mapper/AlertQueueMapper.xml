@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.smilegate.common.mapper.AlertQueueMapper">
+	<insert id="sendMail" parameterType="AlertQueue">
+		INSERT INTO EKP_WORKFLOW.DBO.ALERT_QUEUE
+		(
+		 CREATE_DATE, UPDATE_DATE, SEND_DATE, ALERT_STATUS, ALERT_TYPE, FROM_ID, FROM_NAME,
+		 FROM_MAIL, TO_ID, TO_NAME, TO_MAIL, ALERT_SUBJECT, ALERT_MESSAGE, APP_TYPE, APP_ID, PRIORITY)
+		VALUES (
+		 GETUTCDATE(), GETUTCDATE(), GETUTCDATE(), #{alertStatus}, #{alertType.code, jdbcType=INTEGER}, #{fromId}, #{fromName},
+		 #{fromMail}, #{toId}, #{toName}, #{toMail}, #{alertSubject}, #{alertMessage}, #{appType},  #{appId}, #{priority})
+	</insert>
+</mapper>

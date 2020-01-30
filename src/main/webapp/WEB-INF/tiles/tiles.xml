@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="layout.login" template="/WEB-INF/tiles/layout/entrance.jsp">
+		<put-attribute name="title" value="Login Page" />
+	</definition>
+
+	<definition name="layout.page" template="/WEB-INF/tiles/layout/page.jsp">
+		<put-attribute name="title" value="HelpDesk" />
+		<put-attribute name="leftmenu" value="/WEB-INF/tiles/layout/leftmenu.jsp" />
+		<put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp" />
+	</definition>
+
+	<definition name="layout.upload" template="/WEB-INF/tiles/layout/upload.jsp">
+		<put-attribute name="title" value="HelpDesk" />
+		<put-attribute name="leftmenu" value="/WEB-INF/tiles/layout/leftmenu.jsp" />
+		<put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp" />
+	</definition>
+
+	<!-- login -->
+	<definition name="sample/login" extends="layout.login">
+		<put-attribute name="body" value="/WEB-INF/jsp/sample/login.jsp" />
+	</definition>
+
+	<!--  drag & drop -->
+	<definition name="common/upload/*" extends="layout.upload">
+        <put-attribute name="body" value="/WEB-INF/jsp/common/upload/{1}.jsp" />
+    </definition>
+
+    <!-- page -->
+    <definition name="*" extends="layout.page">
+        <put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp" />
+    </definition>
+
+    <definition name="*/*" extends="layout.page">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+	</definition>
+
+    <definition name="*/*/*" extends="layout.page">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}.jsp" />
+	</definition>
+
+    <definition name="*/*/*/*" extends="layout.page">
+		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+</tiles-definitions>

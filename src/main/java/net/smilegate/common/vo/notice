@@ -1,0 +1,15 @@
+1.
+page에 대한 vo가 두가지 타입으로 정의되어 있습니다. 주임님.
+보시고 주임님 방식대로 정리 부탁드립니다.
+ 
+		1)
+		vo.response > Nonpagable.java, Pageable.java
+		vo > PageInfo.java
+		
+		2) 
+		vo > Criteria.java, PageMarker.java
+		 
+
+2. 
+vo > Result.java와 SKP에서 정의했던 vo > CommonResponse가 비슷한 역할이라 판단됩니다.
+보시고 정리 부탁드립니다.

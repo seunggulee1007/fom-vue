@@ -1,0 +1,63 @@
+## active profile 설정
+spring:
+    profiles:
+        active: local
+        
+    ## datasource 설정
+    datasource:
+        hikari:
+            mybatis:
+                jdbc-url: jdbc:sqlserver://10.2.211.70:3920;DatabaseName=MDI
+                username: app_svc
+                password: svc3920!
+                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+                pool-name: default-r-pool
+                read-only: true
+            helpdesk:
+                jdbc-url: jdbc:sqlserver://10.2.211.70:3920;DatabaseName=HelpDesk
+                username: app_svc
+                password: svc3920!
+                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            jft:
+                jdbc-url: jdbc:sqlserver://10.2.211.70:3920;DatabaseName=JFT
+                username: app_svc
+                password: svc3920!
+                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            ekporg:
+                jdbc-url: jdbc:sqlserver://10.2.211.70:3920;DatabaseName=EKPORG  
+                username: app_svc
+                password: svc3920!
+                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+    ## JPA
+    jpa:
+        show-sql: true
+        generate-ddl: true
+        hibernate:
+            ddl-auto: validate
+        
+server:
+    port: 80
+    servlet:
+        jsp:
+            init-parameters:
+                development: true
+    error:
+        whitelabel:
+             enabled: false
+custom:
+    server:
+        os-type: WINDOWS
+        system-id: HJF
+        system-name: hjf
+        domain: smiledev.net
+    
+    mail:
+        domain: smiledev.net
+        from-address: HJF@${custom.mail.domain}
+        attachment:
+            charset: euc-kr
+            encoding: b
+            
+file:
+    upload-dir: E://tmp

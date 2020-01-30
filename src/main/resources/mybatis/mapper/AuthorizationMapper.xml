@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.smilegate.common.mapper.AuthorizationMapper">
+	
+	<select id="selectMenuList" statementType="CALLABLE" parameterType="string" resultType="RbacDetail">
+		{ call MDI.DBO.RBAC_MENU_LIST(#{systemCd}, #{userId}) }
+	</select>
+	
+	<select id="selectSystemAuth" statementType="CALLABLE" parameterType="string" resultType="RbacDetail">
+		{ call MDI.DBO.RBAC_CHK_SYSTEM_AUTH(#{systemCd}, #{userId}) }
+	</select>
+	
+	<select id="selectAuthList" statementType="CALLABLE" parameterType="string" resultType="RbacDetail">
+		{ call MDI.DBO.RBAC_MENU_LIST_EX_TEXT(#{systemCd}, #{userId}) }
+	</select>
+	
+</mapper>

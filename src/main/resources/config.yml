@@ -1,0 +1,83 @@
+##active profile 설정
+spring:
+                
+    ##file updload 설정 
+    servlet:
+        multipart:
+            max-file-size: 10MB
+            max-request-size: 10MB
+            
+    ##messageSource 설정
+    messages:
+        cache-duration: 60
+        basename: messages/message
+        encoding: utf-8               
+
+    #Encoding 설정
+    http:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+            
+    ##view resolver 설정
+    mvc:
+        view:
+            prefix: /WEB-INF/jsp
+            suffix: .jsp
+        #contentnegotiation:
+        #    favor-parameter: true
+        #    favor-path-extension: true
+        ##static 자원 설정            
+        #static-path-pattern: /resources/**
+    #resources:
+        #static-locations: /**
+        
+    ##war배포시 추가
+    jmx:
+        enabled: false
+                
+    ##mail 설정
+    mail:
+        host: mail.${custom.server.domain}
+        port: 25
+        protocol: smtp
+        default-encoding: UTF-8
+        username: 
+        password: 
+        properties:
+            smtp:
+                auth: true
+                starttls.enable: true
+
+##mybatis 설정             
+mybatis:
+    type-aliases-package: net.smilegate
+    mapper-locations: mybatis/mapper/*.xml
+    configuration:
+        mapUnderscoreToCamelCase: true
+        #lazyLoadingEnabled: true
+        #aggressiveLazyLoading: false
+        #default-fetch-size: 100
+        #default-statement-timeout: 30  
+                        
+##jsp auto reload            
+server:
+    servlet:
+        jsp:
+            init-parameters:
+                development: true
+        #context-path: /smileq
+        
+    error:
+        whitelabel:
+             enabled: false
+             
+custom:
+    wwwHost: https://hjf.${custom.server.domain}
+    static-url: https://static.${custom.server.domain}
+    system-code : HJF  
+    sso-page : http://sso.smiledev.net/Logon/LogoutSSO.aspx 
+
+test:
+    property: test1

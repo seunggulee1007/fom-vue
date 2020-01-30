@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.smilegate.common.mapper.MemberMapper">
+	
+	<!-- SELECT 결과가 너무많아 편의상 몇개만 결과로 반환 -->
+	<select id="selectMember" parameterType="Member" resultType="Member">
+		SELECT 
+			USER_ID
+			, LOGON_ID
+			, USER_NM
+		FROM EKPORG.DBO.TB_BASE_USER WITH(NOLOCK)
+		WHERE 1 = 1 
+			AND LOGON_ID = #{logonId}
+	</select>
+	
+	<select id="selectMemberById" statementType="CALLABLE" parameterType="string" resultType="Member">
+		{ call RealTMS.dbo.G_SelectMemberInfoById(#{id, jdbcType=VARCHAR}) }
+	</select>
+	
+	<select id="selectMemberByLogonId" parameterType="string" resultType="Member">
+		SELECT
+			*
+		FROM EKPORG.DBO.TB_BASE_USER WITH(NOLOCK)
+		WHERE 1=1
+			AND LOGON_ID = #{logonId}
+			AND USE_FG = 'Y'
+	</select>
+	
+</mapper>
