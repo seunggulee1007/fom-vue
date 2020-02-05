@@ -202,7 +202,62 @@
 		    <artifactId>guava</artifactId>
 		    <version>28.0-jre</version>
 		</dependency>
+        
+        <!-- jquery block ui -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery-blockui</artifactId>
+            <version>2.70-1</version>
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.10.3</version>
+        </dependency>
+        
+        <!-- axios -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>axios</artifactId>
+            <version>0.19.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>babel-polyfill</artifactId>
+            <version>7.0.0-beta.3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>babel-standalone</artifactId>
+            <version>6.21.1</version>
+        </dependency>
+        
+        <!-- jquery -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        
+        <!-- vue.js -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>vue</artifactId>
+            <version>2.6.11</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
 	</dependencies>
+    
 
 	<build>
 		<finalName>fim</finalName>
