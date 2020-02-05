@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.smilegate.fim.mappers.sgerp.SgerpMapper">
+    
+    <select id="selectExRate" resultType="map">
+        select
+            companySeq --법인 코드
+            ,CurrSeq -- 통화내부 코드
+            ,SMFirstOrLast -- 환율받기조건코드
+            ,SMFirstOrLastName -- 환율받기 조건
+            ,TTM --매매기준율
+            ,TTB -- 송금 보낼때
+            ,TTS -- 송금 받을때
+            ,CASHB -- 현찰 살때
+            ,CASHS --  현찰팔때
+            ,USAExrate -- 대미 환산
+            ,ChangeRate -- 환가로율
+            ,CurrName -- 통화
+            ,ExRateDate -- 환율일
+        from v_mstm_ExRate
+        where
+            CompanySeq = '1'
+            <choose>
+                <when test="ExRateDate != null and ExRateDate != ''">
+                    and ExRateDate = #{ExRateDate}
+                </when>
+                <otherwise>
+                    and ExRateDate = '20200107' 
+                </otherwise>
+            </choose>
+            <if test="indexYn != null and indexYn != '' and indexYn =='Y'.toString()">
+                and CurrName in ('USD','JPY','EUR','CNY')
+            </if>
+    </select>
+    
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.smilegate.fim.mappers.my.TaxScheduleMapper">
+
+    <sql id="taxScheduleColumn">
+        tax_month as taxMonth
+        ,tax_day as taxDay
+        ,tax_plan as taxPlan
+        ,note as note
+        ,reg_dt as regDt
+    </sql>
+    
+    <!-- 인덱스 페이지 조회 -->
+    <select id="selectTaxScheduleByIndex" resultType="map">
+        select
+            <include refid="taxScheduleColumn"/>
+            ,concat(tax_month, '/', tax_day) as taxDate
+        from tb_tax_schedule
+        where
+            concat(tax_month,tax_DAY) > DATE_FORMAT(NOW(), '%m%d') 
+        LIMIT 4
+    </select>
+    
+    <!-- 세부일정 조회 -->
+    <select id="selectTaxSchedule" resultType="map">
+        select
+            concat(date_format(now(),'%Y'),'-', tax_month,'-', tax_day) as start
+            ,tax_plan as title
+            ,tax_plan as description
+        from tb_tax_schedule
+    </select>
+    
+    <!-- 월별 세부 일정 조회 -->
+    <select id="selectTaxScheduleByMonth" resultType="map">
+        select 
+            <include refid="taxScheduleColumn"/>
+        from tb_tax_schedule
+        where
+            tax_month = #{taxMonth}
+    </select>
+    
+    <!-- 세부일정 저장 -->
+    <insert id="insertTaxSchedule" parameterType="map">
+        insert into tb_tax_schedule(
+            tax_month
+            ,tax_day
+            ,tax_plan
+            ,note
+        ) values (
+            #{taxMonth}
+            ,#{taxDay}
+            ,#{taxPlan}
+            ,#{note}
+        )
+    </insert>
+    
+    <!-- 세부 일정 전체 삭제 -->
+    <delete id="deleteTaxSchedule">
+        delete from tb_tax_schedule
+    </delete>
+    
+    
+</mapper>
