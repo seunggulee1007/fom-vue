@@ -10,7 +10,7 @@ public class IndexController {
     @RequestMapping("/")
     public String index() {
     	
-    	return "sample/index";
+    	return "/fim/index/index";
     }
     
     @ResponseBody
