@@ -28,7 +28,16 @@ spring:
                 username: app_svc
                 password: svc3920!
                 driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-
+            sgerp : 
+                jdbc-url: jdbc:sqlserver://10.2.211.84:3920;DatabaseName=SGERP
+                username: app_svc
+                password: svc3920!
+                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            mydatabase : 
+                jdbc-url: jdbc:mysql://10.2.2.72:3306/smilegate?characterEncoding=UTF-8&serverTimezone=UTC
+                username: smilegate
+                password: tmakdlfrpdlxm&&7
+                driver-class-name: com.mysql.cj.jdbc.Driver
     ## JPA
     jpa:
         show-sql: true
@@ -61,3 +70,11 @@ custom:
             
 file:
     upload-dir: E://tmp
+    
+# scraping setting
+nts :
+    url : https://www.nts.go.kr/support/support_schedule.asp?smonth=
+hometax :
+    post_url : https://teht.hometax.go.kr/wqAction.do?actionId=ATTABZAA001R08&screenId=UTEABAAA13&popupYn=false&realScreenId=
+    xml_rows : <map id="ATTABZAA001R08"><pubcUserNo/><mobYn>N</mobYn><inqrTrgtClCd>1</inqrTrgtClCd><txprDscmNo>{CRN}</txprDscmNo><dongCode>86</dongCode><psbSearch>Y</psbSearch><map id="userReqInfoVO"/></map><nts<nts>nts>383yw7ik8JoaPjHuwqt5WssGccMvXjwi329rvoaFfeqM27
+    
