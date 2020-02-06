@@ -1,4 +1,4 @@
-package net.smilegate.fim.controller;
+package net.smilegate.fim.controller.taxplan;
 
 import java.util.ArrayList;
 import java.util.List;

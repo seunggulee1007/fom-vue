@@ -1,4 +1,4 @@
-package net.smilegate.fim.controller;
+package net.smilegate.fim.controller.busnp;
 
 import java.util.HashMap;
 import java.util.Map;

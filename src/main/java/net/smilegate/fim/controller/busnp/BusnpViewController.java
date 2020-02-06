@@ -1,4 +1,4 @@
-package net.smilegate.fim.controller;
+package net.smilegate.fim.controller.busnp;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

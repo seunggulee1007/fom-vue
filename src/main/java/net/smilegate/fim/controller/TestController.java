@@ -29,7 +29,7 @@ public class TestController {
     
     @GetMapping("/test/testUpload")
     public String testUpload() {
-        return "test/testUpload";
+        return "/fim/test/testUpload";
     }
     
 }
