@@ -74,6 +74,9 @@
                         </div>
                     </div>
                 </div>
+                <div id="grid_wrap">
+                
+                </div>
             </div>
         </div>
     </div>
