@@ -137,6 +137,9 @@
                     <li class="gnb_depth2">
                         <a href="/bm/vender_mng">거래처 등록/수정 (스마일넷)</a>
                     </li>
+                    <li class="gnb_depth2">
+                        <a href="/bm/busnp/busnpInfo">사업자등록상태조회</a>
+                    </li>
                 </ul>
             </li>
             <li class="gnb_depth1">

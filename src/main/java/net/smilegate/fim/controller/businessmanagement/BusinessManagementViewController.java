@@ -100,4 +100,9 @@ public class BusinessManagementViewController {
         return "/fim/business_management/work/dept_ratio";
     }
     
+    @ApiOperation(value="사업자등록상태 조회", notes="넘겨진 사업자번호로 등록상태 조회하는 화면")
+    @GetMapping("/busnp/busnpInfo")
+    public String testBusnpInfo() {
+        return "/fim/business_management/busnp/busnpInfo";
+    }
 }

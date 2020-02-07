@@ -8,11 +8,11 @@ const MyPlugin = {
       // Anything added to a mixin will be injected into all components.
       // In this case, the mounted() method runs when the component is added to the DOM.
       mounted() {
-        console.log('Mounted!');
+        
       }
       ,methods : {
           doAxios : function(url, method, rtnFunction, data) {
-              $.blockUI({ message: '<h3><img src="busy.gif" /> 조회 중입니다.</h3>' }); 
+              $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' }); 
               axios({
                   method : method
                   ,url : url
@@ -32,7 +32,7 @@ const MyPlugin = {
                   $.unblockUI();
               });
           }
-          , checkBusnpNo : function(busnpNo) {      // 사업자 번호 체크
+          , checkBusnpNo (busnpNo) {      // 사업자 번호 체크
               
               let checkID = new Array(1, 3, 7, 1, 3, 7, 1, 3, 5, 1); 
               let tmpbusnpNo, i, chkSum=0, c2, remander; 
@@ -50,7 +50,7 @@ const MyPlugin = {
 
               return (Math.floor(busnpNo.charAt(9)) == remander);
           }
-          , getToday : function() {         // 현재 날짜 조회
+          , getToday () {         // 현재 날짜 조회
               let date = new Date();
               let year = date.getFullYear();
               let month =new String(date.getMonth() +1);
@@ -64,7 +64,7 @@ const MyPlugin = {
               
               return year + "-" + month + "-" + day;
           }
-          , isNull : function(value) {      // null 체크 함수
+          , isNull (value) {      // null 체크 함수
               if(!value || value === undefined || value === '') {
                   return true;
               }else {

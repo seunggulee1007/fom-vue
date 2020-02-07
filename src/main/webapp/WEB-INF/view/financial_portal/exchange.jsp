@@ -11,6 +11,26 @@
                             <em class="lst__txt">총 {{exchangeList.length}} <span class="lst__txt--gray"></span></em>
                         </div>
                     </div>
+                    <div class="component-group component-group--align-right">
+                        <div class="component-box">
+                            <fieldset>
+                                <legend>검색 영역</legend>
+                                <div class="search-form">
+                                    <div class="search-form__inner">
+                                        <span class="ip icon-search"><span class="blind">search</span></span>
+                                        <input type="search" placeholder="검색어를 입력하세요." v-model="search" @keyup.enter="doSearch">
+                                        <div class="search-form__bx-btn">
+                                            <input type="reset" class="search-form__btn-delete">
+                                            <span class="blind">reset</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="component-box">
+                            <button type="button" class="btn btn--bgtype" @click="doSearch"><span class="btn__txt">검색</span></button>
+                        </div>
+                   </div>
                 </div>
                 <div class="component-area">
                     <div class="component-group">
@@ -73,9 +93,6 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                <div id="grid_wrap">
-                
                 </div>
             </div>
         </div>

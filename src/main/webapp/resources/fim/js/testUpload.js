@@ -102,7 +102,6 @@ function createAUIGrid(csvStr) {
         AUIGrid.destroy(myGridID);
         myGridID = null;
     }
-    $.blockUI({ message: '<h3><img src="busy.gif" /> 엑셀 파일을 읽는 중 입니다.</h3>' }); 
     var jsonData = parseCsv(csvStr);
     let tempArray = JSON.parse(JSON.stringify(jsonData));
     tempArray.shift();
@@ -179,12 +178,13 @@ function createAUIGrid(csvStr) {
     
     // 그리드 생성
     myGridID = AUIGrid.create("#grid_wrap", columnLayout, gridProps);
+    AUIGrid.showAjaxLoader(myGridID);
     // 그리드에 CSV 데이터 삽입
     AUIGrid.setGridData(myGridID, excelData, false);
     // 3depth까지 보여주기.
     AUIGrid.showItemsOnDepth(myGridID, 3);
     // AUIGrid.setCsvGridData(myGridID, testRow, false);
-    $.unblockUI();
+    AUIGrid.removeAjaxLoader(myGridID);
 
 };
 

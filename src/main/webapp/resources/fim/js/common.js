@@ -87,3 +87,7 @@ function getDate(date, type){
     
     return today;
 }
+
+let isNull = (data) => {
+    return data == 'undefined' || data == undefined || data == null || data == "";
+}

@@ -95,7 +95,7 @@
                             <em class="lst__txt">총 342 <span class="lst__txt--gray">(1/24 page)</span></em>
                         </div>
                     </div>                    
-                   <div class="component-group component-group--align-right">
+                    <div class="component-group component-group--align-right">
                         <div class="component-box">
                             <div class="dropdown">
                                 <a href="#" class="dropdown__button">
@@ -191,13 +191,13 @@
                                     <span class="blind">공지사항 게시판</span>
                                 </caption>
                                 <colgroup>
-                                        <col style="width:9.5%">
-                                        <col>
-                                        <col style="width: 9%">
-                                        <col style="width: 10%">
-                                        <col style="width: 7.2%">
-                                        <col style="width: 5.4%">
-                                    </colgroup>
+                                    <col style="width:9.5%">
+                                    <col>
+                                    <col style="width: 9%">
+                                    <col style="width: 10%">
+                                    <col style="width: 7.2%">
+                                    <col style="width: 5.4%">
+                                </colgroup>
                                 <thead>
                                     <tr>
                                         <th scope="col" class="table__th">번호</th>

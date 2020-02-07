@@ -1,11 +1,12 @@
-package net.smilegate.fim.controller.busnp;
+package net.smilegate.fim.controller.businessmanagement;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -14,7 +15,8 @@ import io.swagger.annotations.ApiOperation;
 import net.smilegate.fim.service.hometax.HomeTaxService;
 
 @RestController
-public class BusnpProcController {
+@RequestMapping("/bm")
+public class BusinessManagementProcController {
 
     @Autowired
     private HomeTaxService homeTaxService;
@@ -23,8 +25,8 @@ public class BusnpProcController {
     @ApiImplicitParams({
         @ApiImplicitParam(name="busnpNo", value="사업자번호", required = true, dataType="string", defaultValue = "214-86-08930")
     })
-    @PostMapping("/busnp/busnpInfo")
-    public Map<String, Object> getBusnpInfo(String busnpNo) {
+    @GetMapping("/busnp/busnpInfo/{busnpNo}")
+    public Map<String, Object> getBusnpInfo(@PathVariable("busnpNo") String busnpNo) {
         Map<String, Object> map = new HashMap<String, Object>();
         
         try {
