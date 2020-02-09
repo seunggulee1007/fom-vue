@@ -19,9 +19,7 @@ $(document).ready(function(){
                 }
             
                 , buttonText : {
-                    prev : "이전달"
-                    ,next : "다음달"
-                    ,dayGridMonth : "월"
+                    dayGridMonth : "월"
                     ,dayGridWeek : "주"
                     ,listDay : "일"
                     ,listWeek : "해당 주"
