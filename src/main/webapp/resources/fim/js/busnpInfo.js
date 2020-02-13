@@ -21,9 +21,10 @@ $(document).ready(function(){
                     this.$refs.busnpNo.focus();
                     return;
                 }
-                this.doAxios("/bm/busnp/busnpInfo/"+busnpNo,"get",this.setData);
+                this.doAxios("/bm/busnp/busnpInfo/fim/"+busnpNo,"get",this.setData);
             }
             ,setData (res) {
+                console.log(res);
                 this.trtCntn = res.trtCntn;
                 this.complBusnpNo = this.busnpNo;
             }
