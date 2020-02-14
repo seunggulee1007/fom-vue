@@ -1,5 +1,12 @@
 package net.smilegate.fim.enums;
 
+/**
+ * 통화 관련 enum
+ * @since 2020-02-10
+ * @version 1.0
+ * @author es-seungglee
+ *
+ */
 public enum Currency {
     AUD("호주")
     ,AFN("아프카니스탄")
@@ -176,6 +183,15 @@ public enum Currency {
     
     public String getCurrNm() {
         return currNm;
+    }
+    
+    public Currency getServers(String currNm) {
+        for(Currency server : values()) {
+            if(currNm.equals(server.getCurrNm())) {
+                return server;
+            }
+        }
+        return null;
     }
     
 }
