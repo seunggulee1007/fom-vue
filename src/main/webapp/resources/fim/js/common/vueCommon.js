@@ -22,13 +22,7 @@ const MyPlugin = {
                   $.unblockUI();
               })
               .catch(function(e){
-                  if(e.toString().indexOf("401") != -1) {
-                      alert("세션이 만료되었습니다. 다시 로그인 해 주세요");
-                      location.replace="/";
-                      return;
-                  }else {
-                      alert(e);
-                  }
+                  alert(e.response.data.resultMsg);
                   $.unblockUI();
               });
           }
