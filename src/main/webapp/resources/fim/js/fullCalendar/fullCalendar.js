@@ -3,7 +3,7 @@ $(document).ready(function(){
     let calendarEl = document.getElementById('calendar');
     
     $.ajax({
-        url : "/taxPlan/taxPlanMonth"
+        url : "/fp/taxPlan/taxPlanMonth"
         , dataType: "json"
         , type : "get"
         , async : true
@@ -15,7 +15,7 @@ $(document).ready(function(){
                 , header: {
                     left: 'prev,next,today',
                     center: 'title',
-                    right: 'dayGridMonth,dayGridWeek,listDay,listWeek,listMonth'
+                    right: 'dayGridMonth,listWeek,listMonth'
                 }
             
                 , buttonText : {
