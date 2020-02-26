@@ -1,8 +1,8 @@
 $(document).ready(function() { 
     var $header = $('#header');
     var $gnb = $('#gnb');
-    var $container = $('#container');
-    var $popupCloseBtn = $('.popup-wrap .popup-wrap__inner .popup__btn-close');
+    var $container = $('#container');    
+    var $tabList = $('.tab-area .lst-tab');
 
     /* header */   
     
@@ -23,16 +23,23 @@ $(document).ready(function() {
             }
         }
     });
-
     
     //gnb-bg_main
-    $gnb.on('mouseenter', function() {
+    $gnb.children('.lst-gnb').on('mouseenter', function() {
         $header.addClass('gnb--open');        
     });
     $gnb.on('mouseleave', function() {
         $header.removeClass('gnb--open');
     });
-
+    $gnb.on('focusin', function() {
+        $header.addClass('gnb--open');
+    });
+    $gnb.find('.lst-gnb .gnb_depth1:last .lst-gnb-sub .gnb_depth2:last a').on('focusout', function() {
+        $header.removeClass('gnb--open');
+    });
+    $header.find('.header__util .header__util-item:last a').on('focusin', function() {
+        $header.removeClass('gnb--open');
+    });  
     
     /* popup close */
     $('.popup__btn-close').on('click', function() {
@@ -71,17 +78,54 @@ $(document).ready(function() {
         $container.toggleClass('lnb--close');
     });
     
-    /* container */
+    /* container */    
+
+    //sub - bookmark add btn
     $container.find('.btn-box--absolute .btn-bookmark').on('click', function() {
         $(this).toggleClass('btn-bookmark--active');        
     })
 
+    //tab - openclosing
+    $tabList.find('.lst-tab__item .lst-tab__menu').on('click', function() {
+        var tabNum = $(this).parent().index();
+        
+        $(this).parent().addClass('lst-tab__item--active').siblings().removeClass('lst-tab__item--active');
+
+        $(this).parents('.tab-area').next('.tab-cnt').children().eq(tabNum).addClass('tab-cnt--active').siblings().removeClass('tab-cnt--active')
+    })
+
+    //btn-alert
+    $container.find('.btn-alert').on('click', function() {
+        if ($(this).hasClass('btn-alert--active')) {
+            $(this).removeClass('btn-alert--active').siblings('.btn-alert').addClass('btn-alert--active');
+        } else{
+            $(this).addClass('btn-alert--active').siblings().removeClass('btn-alert--active');
+        }
+    });
 
     //dropdown_button
     var $dropdown = $('.dropdown')
     $dropdown.find('.dropdown__button').on('click', function() {
         $(this).parent('.dropdown').toggleClass('dropdown--active');
     });
+
+    $dropdown.find('.dropdown__list .dropdown__item .dropdown__menu').on('click', function() {
+        var selectLi = $(this).children('.dropdown__menu-txt').text();
+        $(this).parents('.dropdown').removeClass('dropdown--active').find('.dropdown__button .dropdown__button-text').text(selectLi)        
+    })
+
+    //search-form
+    var $search = $('.search-form');
+    
+    $search.on('focusin', function() {
+        $(this).addClass('search-form--active');
+    })
+
+    $search.on('focusout', function() {
+        if ($(this).find('input[type="search"]').val() == '') {
+            $(this).removeClass('search-form--active');
+        }
+    })
 
     /* datepicker */
     var $datepicker = $('.datepicker');
@@ -138,6 +182,9 @@ $(document).ready(function() {
         })        
     })    
 
+
+
+/*  community
     //동호회등록 탈퇴처리 체크유무
     var $chkMemberLeave = $('.checkbox_member-leave');    
     
@@ -149,5 +196,5 @@ $(document).ready(function() {
             $(this).parents('.table__td').next().addClass('table__td--disabled').find('.datepicker .input-field__input').attr('readonly', true).siblings('.input-field__btn-datepicker').attr('disabled', true);
             $(this).parents('.table__td').next().next().addClass('table__td--disabled').find('.input-field .input-field__input').attr('readonly', true);
         }
-    })    
+    })    */ 
 });

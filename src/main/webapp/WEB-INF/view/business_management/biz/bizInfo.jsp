@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-    <script type="text/babel" src="/resources/fim/js/busnpInfo.js"></script>
+    <script type="text/babel" src="/resources/fim/js/bizInfo.js"></script>
 <div id="bunspInfoApp" class="container" v-cloak>
     <h2 class="page-title">사업자등록상태조회(홈택스 정보)</h2>
     <div class="grid-layout" style="background: #f4f8fd;border-color: #e0e7ee;">
@@ -26,7 +26,7 @@
                             <div class="search-form">
                                 <div class="search-form__inner">
                                     <span class="ip icon-search"><span class="blind">search</span></span>
-                                    <input type="search" placeholder="사업자 번호를 입력해 주세요" v-model="busnpNo" ref="busnpNo" maxlength="13" @keyup.enter="getInfo(busnpNo)">
+                                    <input type="search" placeholder="사업자 번호를 입력해 주세요" v-model="bizNo" ref="bizNo" maxlength="13" @keyup.enter="getInfo(bizNo)">
                                     <div class="search-form__bx-btn">
                                         <input type="reset" class="search-form__btn-delete">
                                         <span class="blind">reset</span>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="component-box">
-                            <button type="button" class="btn btn--bgtype" @click="getInfo(busnpNo)"><span class="btn__txt">검색</span></button>
+                            <button type="button" class="btn btn--bgtype" @click="getInfo(bizNo)"><span class="btn__txt">검색</span></button>
                         </div>
                    </div>
             </div>
@@ -62,9 +62,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-show="!isNull(complBusnpNo)">
+                                    <tr v-show="!isNull(complbizNo)">
                                         <td class="table__td">
-                                            <span class="table__txt">{{complBusnpNo | busnpNoFilter}}</span>
+                                            <span class="table__txt">{{complbizNo | bizNoFilter}}</span>
                                         </td>
                                         <td class="table__td">
                                             <span class="table__txt">{{trtCntn}}</span>

@@ -81,3 +81,5 @@ custom:
 
 test:
     property: test1
+exrate :
+  indexItem : USD,JPY,EUR,CNY

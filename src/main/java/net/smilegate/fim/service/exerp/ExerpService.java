@@ -9,6 +9,12 @@ import java.util.Map;
  */
 public interface ExerpService {
     
-    public Map<String, Object> selectExRate(Map<String, String> reqMap);
+    /**
+     * 환율 정보 조회
+     * @author es-seungglee
+     * @param exReteDate
+     * @return
+     */
+    public Map<String, Object> selectExRate( String exRateDate);
     
 }

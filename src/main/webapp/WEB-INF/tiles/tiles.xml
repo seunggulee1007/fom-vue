@@ -21,6 +21,7 @@
     <definition name="layout.fim" template="/WEB-INF/tiles/layout/fim/layout.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/layout/fim/header.jsp" />
         <put-attribute name="leftmenu" value="/WEB-INF/tiles/layout/fim/leftmenu.jsp" />
+        <put-attribute name="include" value="/WEB-INF/tiles/layout/fim/include.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/tiles/layout/fim/footer.jsp" />
     </definition>
     <!-- page -->

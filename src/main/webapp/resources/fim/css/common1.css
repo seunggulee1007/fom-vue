@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+/* tag reset */
+html,body{height: 100%}
+*{padding: 0; margin: 0;}
+body{font-family: 'Spoqa Han Sans', 'Sans-serif'; font-size: 14px;color: #595959;line-height: 1.6;letter-spacing:  -0.02em}
+body::-webkit-scrollbar{width: 24px;height: 24px;border-radius: 10px;background-color: transparent;}
+a:link, a:visited, a:hover, a:active{color: inherit;text-decoration: none;}
+h1,h2,h3,h4,h5,h6{font-size: inherit;line-height: 1.4}
+ul{list-style: none}
+table{border-spacing: 0px;border-collapse: collapse}
+img{border: none;vertical-align: top;}
+img, figure, video{max-width: 100%;height: auto}
+input,select,textarea{border: 1px solid #dadce0;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;color: #1c1c1c;font-family: 'Spoqa Han Sans', 'Sans-serif'}
+textarea{line-height: 24px;padding: 16px;}
+input[type="button"]{border: 0}
+button{border: none;background: none;cursor: pointer}
+button, input{font-family: inherit;font-size: inherit;color: inherit}
+em, address{font-style: normal}
+
+::placeholder{color: #b3b3b3}
+
+/* common class */
+.hide{font-size: 0;line-height: 0;text-indent: -9999px}
+.p_r{position: relative}
+.p_a{position: absolute;}
+.clearfix:after{content: "";display: block;clear: both}
+.top_tit{font-size: 28px;}
+
+/* table */
+.table{display: table;width: 100%;border-bottom: 1px solid #dadce0}
+.table:first-child{border-top: 1px solid #dadce0}
+.table > div{display: table-cell;height: 40px;vertical-align: middle;text-align: left;padding: 0 16px;}
+.table > div + div{border-left: 1px solid #dadce0}
+.tb_label{color: #b3b3b3;font-weight: 700}
+.tb_label.required{position: relative}
+.tb_label.required:after{content: "";position: absolute;top: 10px; left: 12px;width: 4px;height: 4px;background: #ff5000;-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;}
+.table1 > div, .table2 > div{table-layout: fixed}
+.table1 .tb_label{width: 20%}
+.table1-1{border-bottom: 1px solid #dadce0;}
+.cell_pick{background-color: #daffff}
+.cell_txt{background-color: #fff}
+.cell_data{background: #eee;}
+.table select, .table input[type="text"]{width: 100%;height: 40px;background-color: transparent;border: none;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box}
+.table select{-webkit-appearance: none; appearance: none}
+.table_row div{height: 40px;}
+
+.table .cell_txt .datepicker{width: calc(100% - 32px)}
+.btn_datepicker{width: 16px;height: 16px;background: yellow}
+
+/* button */
+.btn{padding: 0 16px;height: 32px;font-weight: 700;border: 1px solid #ccc;background-color: #efefef;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px}
+.btn--large{height: 36px}
+.btn_red{background-color: #fff;border-color: #ff5000;color: #e64900}
+
+
+/* header */
+.header_top{height: 60px;;padding: 18px 24px 0;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box}
+.header_top .logo{color: #1c1c1c;font-size: 20px;}
+.header_top .logo span{margin-left: 8px}
+.header_top .service_tit1{font-size: 17px;}
+.header_top .service_tit2{font-size: 15px;font-weight: normal}
+
+/* gnb */
+#gnb{color: #1c1c1c;height: 60px;border-bottom: 1px solid #f0f2f5}
+#gnb ul li{float: left;width: 25%;height: 100%}
+#gnb ul li a{display: block;width: 100%;height: 100%;text-align: center;line-height: 60px;font-weight: 700}
+#gnb ul li a:hover, #gnb ul li a:focus{color: #ff5000}
+
+/* wrap */
+.wrap{height: 100%}
+.content_wrap{height: calc(100% - 121px);width: 100%}
+
+/* lnb */
+.content_wrap .lnb{width: 236px;height: 100%;padding-top: 24px;padding-left: 24px;background-color: #eff1f3;vertical-align: top;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box}
+.lnb_tit{height: 40px;line-height: 40px;font-weight: 700;color: #ff5000}
+.lnb_sub{padding-left: 8px;}
+.lnb_sub li{height: 32px;line-height: 32px;}
+.lnb_sub li.on{color: #ff5000}
+.lnb_sub li a{display: block;width: 100%;height: 100%}
+
+/* content */
+.content_wrap .content{padding: 24px;vertical-align: top;}
+.content .top_tit{color: #1c1c1c; font-size: 28px;padding-bottom: 24px;border-bottom: 1px solid #dadce0;margin-bottom: 24px;}
+.cnt_box{padding: 24px;border: 1px solid #dadce0;margin-bottom: 24px;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px}

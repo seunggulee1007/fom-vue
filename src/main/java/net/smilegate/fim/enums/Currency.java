@@ -7,7 +7,7 @@ package net.smilegate.fim.enums;
  * @author es-seungglee
  *
  */
-public enum Currency {
+public enum Currency implements EnumMapperType {
     AUD("호주")
     ,AFN("아프카니스탄")
     ,ALL("알바니아")
@@ -185,13 +185,9 @@ public enum Currency {
         return currNm;
     }
     
-    public Currency getServers(String currNm) {
-        for(Currency server : values()) {
-            if(currNm.equals(server.getCurrNm())) {
-                return server;
-            }
-        }
-        return null;
-    }
+    @Override
+    public String getCode() {return name();}
+    @Override
+    public String getTitle() {return currNm;}
     
 }

@@ -24,16 +24,13 @@
         where
             A.CompanySeq = '1'
             <choose>
-                <when test="ExRateDate != null and ExRateDate != ''">
-                    and ExRateDate = #{ExRateDate}
+                <when test="exRateDate != null and exRateDate != ''">
+                    and ExRateDate = #{exRateDate}
                 </when>
                 <otherwise>
                     and ExRateDate = '20200107' 
                 </otherwise>
             </choose>
-            <if test="indexYn != null and indexYn != '' and indexYn =='Y'.toString()">
-                and A.CurrName in ('USD','JPY','EUR','CNY')
-            </if>
         order by QryOrder
     </select>
     

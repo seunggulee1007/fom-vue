@@ -7,7 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/bm")
 public class BusinessManagementViewController {
-
+    
+    /**
+     * 비즈 카페
+     * @return
+     */
+    @GetMapping("/cafe")
+    public String cafe() {
+        return "/fim/business_management/cafe";
+    }
+    
     /**
      * 프로젝트 손익조회 -> 당월손익
      * @return
@@ -147,8 +156,9 @@ public class BusinessManagementViewController {
      * 넘겨진 사업자번호로 등록상태 조회하는 화면
      * @return
      */
-    @GetMapping("/busnp/busnpInfo")
+    @GetMapping("/biz/bizInfo")
     public String testBusnpInfo() {
-        return "/fim/business_management/busnp/busnpInfo";
+        return "/fim/business_management/biz/bizInfo";
     }
+    
 }

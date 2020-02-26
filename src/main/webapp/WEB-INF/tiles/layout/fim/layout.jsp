@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'> -->
+   <meta charset="UTF-8">
+    <title>Smilegate 재무지원포탈 S-FIM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">  
     <link rel="stylesheet" type="text/css" href="/resources/fim/css/smilegate_ux_template.css">    
     <link rel="stylesheet" type="text/css" href="/resources/fim/css/style.css">
     
@@ -44,9 +44,15 @@
     <script type="text/javascript" src="/resources/fim/js/common.js"></script>
 </head>
 <body>
-    <tiles:insertAttribute name="header" />
-    <tiles:insertAttribute name="leftmenu" />
-    <tiles:insertAttribute name="body" />
-    <tiles:insertAttribute name="footer" />
+    <ul class="skip">
+        <li><a href="#gnb" onclick="document.getElementById('gnb').tabIndex=-1;document.getElementById('gnb').focus();return false;">메뉴 바로가기</a></li>
+        <li><a href="#container" onclick="document.getElementById('container').tabIndex=-1;document.getElementById('container').focus();return false">본문 바로가기</a></li>
+    </ul>
+    <div class="wrap">
+        <tiles:insertAttribute name="header" />
+        <tiles:insertAttribute name="leftmenu" />
+        <tiles:insertAttribute name="body" />
+        <tiles:insertAttribute name="footer" />
+    </div>
 </body>
 </html>

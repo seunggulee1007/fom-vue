@@ -3,9 +3,8 @@ package net.smilegate.fim.service.exerp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,22 +17,26 @@ public class ExerpServiceImpl implements ExerpService {
     @Autowired
     private SgerpMapper sgerpMapper;
     
-    public Map<String, Object> selectExRate(Map<String, String> reqMap) {
+    /**
+     * 환율 정보 조회
+     * @author es-seungglee
+     * @param reqMap
+     * @return
+     */
+    public Map<String, Object> selectExRate(String exRateDate) {
         Map<String, Object> map = new HashMap<String, Object>();
         
         try {
             
-            List<Map<String, String>> exRateList = sgerpMapper.selectExRate(reqMap); 
+            List<Map<String, String>> exRateList = sgerpMapper.selectExRate(exRateDate);            // erp데이터베이스에서 환율 정보 조회
+            
             for(Map<String, String> exRate : exRateList) {
-                String currName = exRate.get("CurrName");
-                Currency currency = Currency.valueOf(currName);
-                exRate.put("KorCurrName", currency.getCurrNm()+" " + currName);
+                String currName = exRate.get("CurrName");                                       // 통화
+                Optional<String> optional = Optional.ofNullable(Currency.valueOf(currName).getCurrNm());        // null처리를 하기 위한 optional 객체 생성
+                exRate.put("KorCurrName", optional.orElse(""));                                 // 한글 통화명을 담는다.
             }
             
-            String search = reqMap.getOrDefault("search", "").toUpperCase();
-            if(StringUtils.isNotEmpty(search)) {
-                exRateList = exRateList.stream().filter(exRate -> exRate.get("KorCurrName").indexOf(search) != -1).collect(Collectors.toList());
-            }
+            
             map.put("exRateList", exRateList);
             
         }catch (Exception e) {

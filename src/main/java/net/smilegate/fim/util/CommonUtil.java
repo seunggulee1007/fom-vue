@@ -8,8 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -23,7 +26,7 @@ public class CommonUtil {
      * @param format
      * @return
      */
-    public static String getDate(String format) {
+    public static String getToday(String format) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         String date = simpleDateFormat.format(new Date());
         return date;
@@ -67,6 +70,45 @@ public class CommonUtil {
             
         }
         return xmlList;
+    }
+    
+    /**
+     * 사업자 번호 유효성 체크
+     * @param str
+     * @return boolean
+     */
+    public static boolean isBusinessId(String str) {
+        String[] strs = str.split("");
+        if (strs.length != 10) return false;
+        int[] ints = new int[10];
+        for(int i=0; i< strs.length; i++) {
+            ints[i] = Integer.valueOf(strs[i]);
+        }
+        int sum = 0;
+        int[] indexs = new int[] { 1, 3, 7, 1, 3, 7, 1, 3 };
+        for (int i = 0; i < 8; i++) {
+            sum += ints[i] * indexs[i];
+        }
+        int num = ints[8] * 5;
+        sum += (num / 10) + (num % 10);
+        sum = 10 - (sum % 10);
+        if(sum== 10){
+             return 0 == ints[9] ? true : false;
+        }else{
+             return sum == ints[9] ? true : false;
+        }
+    }
+
+    /**
+     * flag 가 true면 client ip, 아니면 web server 혹은 load balancer ip
+     * @param flag
+     * @return
+     */
+    public static String getClientIp(boolean flag) {
+        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+        String ip = request.getHeader("X-Forwarded-For");
+        if (flag || ip == null) ip = request.getRemoteAddr();
+        return ip;
     }
     
 }
