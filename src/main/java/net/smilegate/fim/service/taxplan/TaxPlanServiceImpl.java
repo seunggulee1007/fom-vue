@@ -8,20 +8,21 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import net.smilegate.fim.mappers.my.TaxScheduleMapper;
-
+import lombok.RequiredArgsConstructor;
+import net.smilegate.fim.mappers.fim.TaxScheduleMapper;
+import net.smilegate.fim.vo.TaxScheduleVO;
+import net.smilegate.fim.vo.TaxScheduleVO.TaxSchedulePK;
+@RequiredArgsConstructor
 @Service
 public class TaxPlanServiceImpl implements TaxPlanService {
 
     @Value("${nts.url}")
     private String NTS_URL;             // 국세청 url 주소
     
-    @Autowired 
-    private TaxScheduleMapper taxScheduleMapper;
+    private final TaxScheduleMapper taxScheduleMapper;
     
     public void getNtsInfo() {
         taxScheduleMapper.deleteTaxSchedule();
@@ -39,18 +40,22 @@ public class TaxPlanServiceImpl implements TaxPlanService {
             
             Elements elements = doc.select("article.contents");                                     // 해당 정보가 있는 최상단 엘리먼트
             
-            Map<String, Object> map;
+            Map<String, String> map;
             
             for(Element element : elements.select("table.tb_grey_list > tbody > tr")) {             // 각 로우별 정보를 저장하기 위해 tr까지
-                map = new HashMap<String, Object>();
+                map = new HashMap<String, String>();
                 for(int j=0; j< element.select("td").size(); j++) {
                     String text = element.select("td").get(j).text().replaceAll("\'", "\''");       // database에 싱글 쿼터가 들어가면 에러가 나기 때문에 싱글 쿼터를 하나 더 붙여주는 작업
                     map.put(titleList[j], text);                                                    // 순서별로 월, 일, 일정, 비고
                 }
+                TaxSchedulePK taxSchedulePK = TaxSchedulePK.builder().taxMonth(map.get("taxMonth")).taxDay(map.get("taxDay")).taxPlan(map.get("taxPlan")).build();
+                TaxScheduleVO taxScheduleVO = new TaxScheduleVO();
+                taxScheduleVO.setTaxSchedulePK(taxSchedulePK);
+                taxScheduleVO.setNote(map.get("note"));
                 
-                  if(taxScheduleMapper.insertTaxSchedule(map) < 1) { // 실패시 전체 끝 
-                      break e; 
-                  }
+                if(taxScheduleMapper.insertTaxSchedule(taxScheduleVO) < 1) { // 실패시 전체 끝 
+                    break e; 
+                }
                  
             }
             

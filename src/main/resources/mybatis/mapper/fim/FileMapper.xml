@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.smilegate.fim.mappers.fim.FileMapper">
+
+    <insert id="insertFile" parameterType="fileVO">
+        <selectKey keyProperty="fileId" resultType="int" order="BEFORE">
+            select next value for seq_file
+        </selectKey>
+        insert into tb_file(
+            file_id
+            ,file_nm
+            ,original_file_nm
+            ,file_path
+            ,content_type
+            ,extention
+            ,file_size
+            ,board_id
+        )values(
+            #{fileId}
+            ,#{fileNm}
+            ,#{originalFileNm}
+            ,#{filePath}
+            ,#{contentType}
+            ,#{extention}
+            ,#{fileSize}
+            ,#{boardVO.boardId}
+        )
+    </insert>
+        
+</mapper>

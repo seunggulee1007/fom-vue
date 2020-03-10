@@ -12,9 +12,10 @@ $(document).ready(function() {
                 title: 'MMMM YYYY',     // 날짜 타이틀
                 input: 'YYYY-MM-DD',    // input에 보여질 포맷
             }
-            ,selectedDate: new Date()
+            ,selectedDate: getDate(new Date(),'-')
             ,selectedName : "전체"
             ,toggleYn : false
+            ,openFlag : false
         }
         , mounted () {
             this.getCurrencyCode();
@@ -25,6 +26,9 @@ $(document).ready(function() {
                 this.filterExchange();
             }
             ,selectedDate() {
+                if(typeof(this.selectedDate) == 'object') {
+                    this.selectedDate = getDate(this.selectedDate,'-');
+                }
                 this.getExchangeList();
             }
         }
@@ -32,7 +36,7 @@ $(document).ready(function() {
             getExchangeList () {
                 axios({
                     method : "get"
-                    ,url : "/financial_link/exRate/" + getDate(this.selectedDate)
+                    ,url : "/financial_link/exRate/" + this.selectedDate.replace(/-/gi, "")
                 }).then(res => {
                     this.exchangeList = res.data.data.exRateList;       // 환율 정보 리스트(뷰 용도)
                     this.originDataList = this.exchangeList;            // 원본 데이터 (필터처리 위한 용도)

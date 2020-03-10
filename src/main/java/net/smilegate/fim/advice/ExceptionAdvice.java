@@ -27,6 +27,7 @@ public class ExceptionAdvice {
                 .result(CommonCode.FAIL.getCode())
                 .resultMsg(e.getMessage())
                 .build();
+        e.printStackTrace();
         return commonResultVo;
     }
     

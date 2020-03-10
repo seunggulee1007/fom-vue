@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.smilegate.fim.mappers.fim.BizMapper">
+
+    <sql id="bizColumn">
+        biz_chk_hist_id         as bizChkHistId
+        ,biz_no                 as bizNo
+        ,user_id                as userId
+        ,user_nm                as userNm
+        ,dept_nm                as deptNm
+        ,result_msg             as resultMsg
+        ,detail_msg             as detailMsg
+        ,detail_msg_engl        as detailMsgEngl
+        ,crt_date               as crtDate
+        ,convert(varchar, crt_date, 111)               as crtDateStr
+    </sql>
+    
+    <insert id="insertBizInfo" parameterType="bizVO">
+        <selectKey keyProperty="bizChkHistId" resultType="int" order="BEFORE">
+            select next value for seq_biz_chk_hist
+        </selectKey>
+        insert into tb_biz_chk_hist(
+            biz_chk_hist_id
+            ,biz_no         
+            ,user_id        
+            ,user_nm        
+            ,dept_nm        
+            ,result_msg     
+            ,detail_msg     
+            ,detail_msg_engl
+        )values (
+            #{bizChkHistId}
+            ,#{bizNo}
+            ,#{userId}
+            ,#{userNm}
+            ,#{deptNm}
+            ,#{resultMsg}
+            ,#{detailMsg}
+            ,#{detailMsgEngl}
+        )
+    </insert>
+    
+    <select id="selectBizInfoList" parameterType="bizVO" resultType="bizVO">
+        select
+            <include refid="bizColumn"/>
+        from tb_biz_chk_hist
+        where
+             convert(varchar, crt_date, 112) between replace(#{searchStdDt},'-','') and replace(#{searchEndDt},'-','')
+             <if test="userNm != null and userNm != ''">
+                and user_nm like concat('%',#{userNm},'%')
+             </if>
+             <if test="bizNo != null and bizNo != ''">
+                and biz_no like concat('%', #{bizNo}, '%')
+             </if>
+             <if test="deptNm != null and deptNm != ''">
+                and dept_nm like concat('%', #{deptNm}, '%')
+             </if>
+    </select>
+    
+</mapper>

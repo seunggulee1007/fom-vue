@@ -3,7 +3,7 @@
             <div class="header__inner">
                 <!-- Logo & Title -->
                 <div class="header__group-title">
-                    <a href="../index.html" class="header__title-menu">
+                    <a href="/" class="header__title-menu">
                         <h1 class="sp icon-logo"><span class="blind">Smilegate</span></h1>
                         <em class="header__title-txt service_tit1">재무지원포탈</em>
                         <p class="header__title-txt service_tit2">S-FIM</p>
@@ -160,13 +160,13 @@
                         <a href="#">재무 전용 사이트</a>
                         <ul class="lst-gnb-sub">
                             <li class="gnb_depth2">
-                                <a href="../financial_link/tax_schedule.html">월별 세무 일정</a>
+                                <a href="/financial_link/tax_schedule">월별 세무 일정</a>
                             </li>
                             <li class="gnb_depth2">
-                                <a href="../financial_link/exchange.html">환율 정보</a>
+                                <a href="/financial_link/exchange">환율 정보</a>
                             </li>
                             <li class="gnb_depth2">
-                                <a href="../financial_link/biz_num.html">거래처 휴/폐업 조회</a>
+                                <a href="/financial_link/biz_chk/biz_num">거래처 휴/폐업 조회</a>
                             </li>
                             <li class="gnb_depth2">
                                 <a href="https://txsi.hometax.go.kr/docs/main.jsp" target="_blank">국제법령정보시스템</a>

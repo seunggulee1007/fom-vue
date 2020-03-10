@@ -65,8 +65,32 @@ const MyPlugin = {
                   return false;
               }
           }
+          , menuOpen () {
+              this.openFlag = !this.openFlag;
+          }
           , handleSuccess : (res) => {res.data}
           , handleError : (error) => { return {success: false, message: error}}
+          , getPagingVO(pageNo, totalBoardCount, totalPages, pageCount) {
+              let pageVO = {};
+              if(totalBoardCount > 0) {
+                  let num = pageNo + 1;
+                  var arr = [];
+                  pageVO.num = num;      // 현재 페이지
+                  pageVO.totalGroupNo = Math.ceil(totalPages / 10);       // 총 그룹이 몇개인지 계산.(나머지가 있다면 무조건 올림)
+                  let nowGroupCount = nowGroupCount = Math.floor((num -1) / pageCount) + 1;     // 현재 그룹 카운트
+                  pageVO.nowGroupCount = nowGroupCount;
+                  let cnt = pageCount;      // 현재 그룹의 글 갯수
+                  if(pageVO.totalGroupNo == pageVO.nowGroupCount) {     // 현재 그룹이 마지막 그룹이라면
+                      cnt = (pageVO.totalGroupNo % 10) + 1;             // 마지막 그룹의 갯수를 계산
+                  }
+                  for(let i=pageVO.nowGroupCount; i <= cnt; i++) {      // 그룹의 갯수 만큼 반복문을 돌려서 번호 리스트를 정한다.
+                      arr.push(i);
+                  }
+                  pageVO.pageList = arr;
+              }
+              return pageVO;
+              
+          }
       }
     });
   }

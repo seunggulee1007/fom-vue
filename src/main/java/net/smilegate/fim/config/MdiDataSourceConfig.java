@@ -14,39 +14,42 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@MapperScan(basePackages = "net.smilegate.fim.mappers.my", sqlSessionFactoryRef = "mySqlSessionFactory")
-public class MyDataSourceConfig {
+@EnableTransactionManagement
+@MapperScan(basePackages = "net.smilegate.fim.mappers.mdi", sqlSessionFactoryRef = "mdiSqlSessionFactory")
+public class MdiDataSourceConfig extends HikariConfig {
     
-    @Bean(name = "myDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.hikari.mydatabase")
+    @Bean(name = "mdiDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.hikari.mdi")
     public DataSource secondDataSource() {
         return DataSourceBuilder.create().type(HikariDataSource.class).build();
     }
     
-    @Bean(name = "mySqlSessionFactory")
+    @Bean(name = "mdiSqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory(
-            @Qualifier("myDataSource") DataSource dataSource,
+            @Qualifier("mdiDataSource") DataSource dataSource,
             ApplicationContext context) throws Exception {
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
         
         sqlSessionFactory.setDataSource(dataSource);
-        sqlSessionFactory.setMapperLocations(context.getResources("classpath:mybatis/mapper/my/*.xml"));
+        sqlSessionFactory.setMapperLocations(context.getResources("classpath:mybatis/mapper/mdi/*.xml"));
         sqlSessionFactory.setConfigLocation(context.getResource("classpath:mybatis/Mybatis-config.xml"));
         
         return sqlSessionFactory.getObject();
     }
     
-    @Bean(name = "mySqlSession")
-    public SqlSessionTemplate sqlSession(@Qualifier("mySqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
+    @Bean(name = "mdiSqlSession")
+    public SqlSessionTemplate sqlSession(@Qualifier("mdiSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
     
-    @Bean(name = "myTransactionManager")
-    public DataSourceTransactionManager transactionManager(@Autowired @Qualifier("myDataSource") DataSource secondaryDataSource) {
+    @Bean(name = "mdiTransactionManager")
+    public DataSourceTransactionManager transactionManager(@Autowired @Qualifier("mdiDataSource") DataSource secondaryDataSource) {
         return new DataSourceTransactionManager(secondaryDataSource);
     }
     

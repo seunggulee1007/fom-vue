@@ -1,9 +1,10 @@
-package net.smilegate.fim.mappers.my;
+package net.smilegate.fim.mappers.fim;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import net.smilegate.fim.vo.TaxScheduleVO;
 
 @Mapper
 public interface TaxScheduleMapper {
@@ -12,21 +13,21 @@ public interface TaxScheduleMapper {
      * 월별 세부 일정 조회
      * @return
      */
-    public List<Map<String, Object>> selectTaxSchedule();
+    public List<TaxScheduleVO> selectTaxSchedule();
     
     /**
      * 월별 세부 일정 조회
      * @param taxMonth
      * @return
      */
-    public Map<String,String> selectTaxScheduleByMonth(String taxMonth);
+    public TaxScheduleVO selectTaxScheduleByMonth(String taxMonth);
     
     /**
      * 세부 일정 저장
      * @param map
      * @return
      */
-    public int insertTaxSchedule(Map<String, Object> map);
+    public int insertTaxSchedule(TaxScheduleVO taxScheduleVO);
     
     /**
      * 세부 일정 전체 삭제
@@ -38,6 +39,6 @@ public interface TaxScheduleMapper {
      * 인덱스 페이지 조회
      * @return
      */
-    public List<Map<String, Object>> selectTaxScheduleByIndex();
+    public List<TaxScheduleVO> selectTaxScheduleByIndex();
     
 }

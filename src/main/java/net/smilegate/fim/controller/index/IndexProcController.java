@@ -35,9 +35,10 @@ public class IndexProcController {
         Map<String, Object> map = new HashMap<>();
         try {
             // map = exerpService.selectExRate(CommonUtil.getToday("yyyyMMdd"));
-            map = exerpService.selectExRate("");
-            List<Map<String, String>> exRateList = (List<Map<String, String>>)map.get("exRateList");
-            List<String> list = Arrays.stream(EXRATE_INDEX_ITEM.split(",",-1)).collect(Collectors.toList());
+            map = exerpService.selectExRate("");        // 오늘자 환율 정보 전체 조회
+            @SuppressWarnings("unchecked")
+            List<Map<String, String>> exRateList = (List<Map<String, String>>)map.get("exRateList");            // 환율정보
+            List<String> list = Arrays.stream(EXRATE_INDEX_ITEM.split(",",-1)).collect(Collectors.toList());    // filter처리 할 환율 정보
             
             map.put("exRateList", exRateList.stream().filter(exRate -> 
                 list.stream().anyMatch(Predicate.isEqual(exRate.get("CurrName")))

@@ -1,83 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script type="text/babel" src="/resources/fim/js/bizInfo.js"></script>
+<script type="text/babel" src="/resources/fim/js/financial_link/biz_chk/bizInfo.js"></script>
 <div id="container" class="container container--include-lnb container--fullview">
-    <div class="lnb lnb-area">
-        <ul class="lst-lnb">      
-            <li class="lst-lnb__item">
-                <a href="tax_schedule.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">월별 세무 일정</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="exchange.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">환율 정보</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item lst-lnb__item--active">
-                <a href="biz_num.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">거래처 휴/폐업 조회</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="https://txsi.hometax.go.kr/docs/main.jsp" target="_blank" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">국세법령정보시스템</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="https://www.kebhana.com/cont/mall/mall15/mall1501/index.jsp?_menuNo=23100" target="_blank" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">하나은행 (환율)</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="http://www.smbs.biz/index.jsp" target="_blank" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">서울외국환중개</span>
-                </a>
-            </li>
-        </ul>
-
-        <footer class="footer footer--lnb-type">
-            <div class="footer__inner">
-                <!-- <ul class="footer__util">
-                    <li class="footer__util-item">
-                        <a href="#" class="footer__util-menu">
-                            <span class="footer__util-menu-txt">스마일넷 배너등록</span>
-                        </a>
-                    </li>
-                    <li class="footer__util-item">
-                        <a href="#" class="footer__util-menu">
-                            <span class="footer__util-menu-txt">개선 및 건의</span>
-                        </a>
-                    </li>
-                </ul>
-                <div class="dropdown">
-                    <a href="#" class="dropdown__button">
-                        <span class="dropdown__button-text">패밀리 사이트 바로가기</span>
-                        <span class="sp icon-arrow">
-                            <span class="blind">옵션창 열기</span>
-                        </span>
-                    </a>
-                    <ul class="dropdown__list">
-                    <li class="dropdown__item">
-                        <a href="#" class="dropdown__menu">
-                            <span class="dropdown__menu-txt">List 1_All</span>
-                        </a>
-                    </li>
-                    <li class="dropdown__item">
-                        <a href="#" class="dropdown__menu">
-                            <span class="dropdown__menu-txt">List 2</span>
-                        </a>
-                    </li>
-                    </ul>
-                </div> -->
-                <small class="footer__copyright">&copy; Smilegate. All Rights Reserved.</small>
-            </div>
-        </footer>
-        
-        <button type="button" class="btn btn-lnb">
-            <span class="icon-arrow"><span class="blind">메뉴 열기</span></span>
-        </button>
-    </div>
+    <jsp:include page="/WEB-INF/view/include/financial_include.jsp"/>
     <h2 class="page-title">거래처 휴/폐업 조회</h2>
     <p class="page-title__dsc">
         · 실시간 거래처 휴/폐업 조회는 홈택스에서 제공되는 서비스와 동일한 기능입니다.<br>
@@ -97,22 +22,20 @@
             <div class="section section--border section--align-horizontal">
                 <div class="component-area">
                     <div class="component-group">
-                        <form>
-                            <fieldset>
-                                <legend>거래처 사업자등록번호 조회 영역</legend>
-                                <div class="search-form">
-                                    <em class="search-form__title">사업자등록번호</em>
-                                    <div class="search-form__inner">
-                                        <span class="sp icon-search"><span class="blind">Search</span></span>
-                                        <input type="search" placeholder="사업자 번호를 입력해 주세요" v-model="bizNo" ref="bizNo" maxlength="13" @keyup.enter="getInfo(bizNo)">
-                                        <div class="search-form__bx-btn">
-                                            <input type="reset" class="search-form__btn-delete">
-                                            <span class="blind">Reset</span>
-                                        </div>
+                        <fieldset>
+                            <legend>거래처 사업자등록번호 조회 영역</legend>
+                            <div class="search-form">
+                                <em class="search-form__title">사업자등록번호</em>
+                                <div class="search-form__inner">
+                                    <span class="sp icon-search"><span class="blind">Search</span></span>
+                                    <input type="search" placeholder="사업자 번호를 입력해 주세요" v-model="bizNo" ref="bizNo" maxlength="13" @keyup.enter="getInfo(bizNo)">
+                                    <div class="search-form__bx-btn">
+                                        <input type="reset" class="search-form__btn-delete">
+                                        <span class="blind">Reset</span>
                                     </div>
                                 </div>
-                            </fieldset>
-                        </form>
+                            </div>
+                        </fieldset>
                     </div>                    
                     <div class="component-group">
                         <button type="button" class="btn btn--bgtype" @click="getInfo(bizNo)">

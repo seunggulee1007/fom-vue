@@ -8,6 +8,7 @@ $(document).ready(function(){
             ,smpcBmanEnglTrtCntn : ''
             ,smpcBmanTrtCntn : ''
             ,complBizNo : ''              // 완료 이후 사업자 번호(화면에 보여주는 용도)
+            ,openFlag : true
         }
         ,methods : {
             getInfo (bizNo) {
@@ -21,12 +22,16 @@ $(document).ready(function(){
                     this.$refs.bizNo.focus();
                     return;
                 }
-                this.doAxios("/bm/biz/bizInfo/fim/"+bizNo,"get",this.setData);
-            }
-            ,setData (res) {
-                console.log(res);
-                this.trtCntn = res.trtCntn;
-                this.complBizNo = this.bizNo;
+                axios({
+                    url : "/financial_link/biz/bizInfo/"+bizNo
+                    ,method : "get"
+                }).then(res => {
+                    let result = res.data.data;
+                    this.trtCntn = result.trtCntn;
+                    this.complBizNo = result.bizVO.bizNo;
+                }).catch(error => {
+                    alert(error);
+                });
             }
         }
     });

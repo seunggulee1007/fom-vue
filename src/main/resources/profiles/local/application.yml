@@ -33,17 +33,33 @@ spring:
                 username: app_svc
                 password: svc3920!
                 driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#            mydatabase : 
+#                jdbc-url: jdbc:mysql://10.2.2.72:3306/smilegate?characterEncoding=UTF-8&serverTimezone=UTC
+#                username: smilegate
+#                password: tmakdlfrpdlxm&&7
+#                driver-class-name: com.mysql.cj.jdbc.Driver
             mydatabase : 
-                jdbc-url: jdbc:mysql://10.2.2.72:3306/smilegate?characterEncoding=UTF-8&serverTimezone=UTC
-                username: smilegate
-                password: tmakdlfrpdlxm&&7
-                driver-class-name: com.mysql.cj.jdbc.Driver
+                jdbc-url : jdbc:sqlserver://10.2.211.70:3920;DatabaseName=FIM
+                username: app_svc
+                password: svc3920!
+                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            mdi : 
+                jdbc-url: jdbc:sqlserver://10.2.211.70:3920;DatabaseName=MDI
+                username: app_svc
+                password: svc3920!
+                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+                pool-name: default-r-pool
+                read-only: true
     ## JPA
     jpa:
         show-sql: true
         generate-ddl: true
         hibernate:
             ddl-auto: udpate
+            naming:              implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+              physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:            hibernate : 
+                format_sql : true
     devtools:      livereload:        enabled: true
       freemarker:        cache: false
 server:
@@ -70,12 +86,19 @@ custom:
             encoding: b
             
 file:
-    upload-dir: D://tmp
+    upload-dir: D://tmp/
     
 # scraping setting
 nts :
     url : https://www.nts.go.kr/support/support_schedule.asp?smonth=
-hometax :
+biz :
     post_url : https://teht.hometax.go.kr/wqAction.do?actionId=ATTABZAA001R08&screenId=UTEABAAA13&popupYn=false&realScreenId=
     xml_rows : <map id="ATTABZAA001R08"><pubcUserNo/><mobYn>N</mobYn><inqrTrgtClCd>1</inqrTrgtClCd><txprDscmNo>{CRN}</txprDscmNo><dongCode>86</dongCode><psbSearch>Y</psbSearch><map id="userReqInfoVO"/></map><nts<nts>nts>383yw7ik8JoaPjHuwqt5WssGccMvXjwi329rvoaFfeqM27
     
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace

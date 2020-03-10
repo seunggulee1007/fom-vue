@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.enums.Currency;
 import net.smilegate.fim.mappers.sgerp.SgerpMapper;
 
+@RequiredArgsConstructor
 @Service
 public class ExerpServiceImpl implements ExerpService {
 
-    @Autowired
-    private SgerpMapper sgerpMapper;
+    private final SgerpMapper sgerpMapper;
     
     /**
      * 환율 정보 조회

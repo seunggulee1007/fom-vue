@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.smilegate.fim.mappers.mdi.MdiMapper">
+    
+    <select id="selectDeptList" resultType="deptVO">
+        select
+            DEPT_CD         as deptCd
+            ,PARENT_CD      as parentCd
+            ,DEPT_NM        as deptNm
+            ,DEPT_LEVEL     as deptLevel
+            ,DEPT_SORT      as deptSort
+            ,DEPT_CD_PATH   as deptCdPath
+            ,DEPT_NM_PATH   as deptNmPath
+            ,COM_CD         as comCd
+            ,COM_NM         as comNm
+        FROM VW_MDI_DEPT_INFO
+    </select>
+    
+</mapper>

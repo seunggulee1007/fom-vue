@@ -52,8 +52,8 @@ spring:
 
 ##mybatis 설정             
 mybatis:
-    type-aliases-package: net.smilegate
-    mapper-locations: mybatis/mapper/*.xml
+    type-aliases-package: net.smilegate.fim.vo
+    mapper-locations: mybatis/mapper/**/*.xml
     configuration:
         mapUnderscoreToCamelCase: true
         #lazyLoadingEnabled: true
