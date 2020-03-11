@@ -11,7 +11,7 @@
         <result property="userId" column="userId"/>
         <result property="userNm" column="userNm"/>
         <result property="boardMasterId" column="boardMasterId"/>
-        <result property="sendMmailYn" column="sendMailYn"/>
+        <result property="sendMailYn" column="sendMailYn"/>
         <collection property="fileList" javaType="java.util.ArrayList" resultMap="fileResultMap"/> 
     </resultMap>
     
