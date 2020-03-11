@@ -111,4 +111,7 @@ public class CommonUtil {
         return ip;
     }
     
+    public static String makeLikeCause(String str) {
+        return "%"+str+"%";
+    }
 }
