@@ -124,6 +124,7 @@ a:hover {
 .input-field input[type=text][readonly]::placeholder{
     color: $txt_black;
 }
+
 .table {
     .table__row--top{
         font-weight: 700;    
@@ -132,6 +133,12 @@ a:hover {
     .table__txt{
         font-size: 13px;
     }
+    .table__txt-caption{
+        font-size: 12px;
+    }
+}
+.table__th.align-center{
+    text-align: center;
 }
 
 .table-chain{
@@ -248,8 +255,6 @@ a:hover {
 
 
 //input 
-
-
 .datepicker__v-calendar{
     position: relative;
     input[type=text].input-field__input{
@@ -646,6 +651,10 @@ a:hover {
 .container{
     min-height: calc(100% - 117px);
     @include transition(padding-left, 0.4s);
+    
+    .section{
+        max-height: 70vh;
+    }
 }
 
 /* ===== main ===== */
@@ -682,7 +691,7 @@ a:hover {
             margin-top: -3px;
         }
         a span{
-            font-size: 14px;                      
+            font-size: 13px;                      
         }
     }
     .section-link .component-area-quicklink{
@@ -971,9 +980,9 @@ a:hover {
 
 .container .page-title{
     font-family: "Spoqa Han Sans";
-    padding: 24px 0;
+    padding: 24px 0 0 0;
     margin: 0 24px;
-    border-bottom: 1px solid $border_dark;
+    //border-bottom: 1px solid $border_dark;
 
     + .page-title__dsc{
         @include font-size(14px, 1.6em, false);
@@ -1046,8 +1055,14 @@ a:hover {
 }
 
 .container-write{
+    
+    &.container--include-tab .section{
+        max-height: calc(100% - 219px); //600px;
+    }
     .section{
-        max-height: 632px;
+        //height: calc(100% - 248px); 
+        max-height: 66vh;
+        //max-height: 632px;
         overflow: auto;
     }
     .component-group--horizontal{
@@ -1067,9 +1082,6 @@ a:hover {
         }
     }
 
-    /* .input-field__title, .dropdown__title{
-        font-size: 14px;
-    } */
     .btn-box .component-box{
         margin-left: 8px;
     }
@@ -1092,9 +1104,6 @@ a:hover {
     }
     .table tr > *:last-child{
         border-right: 0;
-    }
-    .table__th.align-center{
-        text-align: center;
     }
 
     .table__td {
@@ -1134,13 +1143,6 @@ a:hover {
             padding: 0;
             .sp{
                 margin-right: 0;
-            }
-        }
-        .btn-choice{
-            width: 100%;
-            .btn__txt{
-                font-weight: normal;
-                color: $txt_gray2
             }
         }
     }
@@ -1221,6 +1223,13 @@ a:hover {
     }
 }
 
+/* expense.html */
+.section-expense{
+    .table__txt.table__txt-caption{
+        font-weight: 700;
+    }
+}
+
 /* expense_history.html */
 .section-expense-history .component-area {
     &:first-of-type {
@@ -1228,6 +1237,7 @@ a:hover {
             display: inline-block;
             .component-box + .component-box{
                 margin-left: 16px;
+                &.component-box--non-label{margin-left: 8px;}
             }
         }
     }
@@ -1235,6 +1245,7 @@ a:hover {
        float: left;
        + .search-form__inner{
            margin-left: 16px;
+           width: 144px;
        }
     }
     .component-group .table{
@@ -1248,30 +1259,6 @@ a:hover {
         } */
     }
 }
-/* .section-expense-history .component-area:first-child .component-group{
-    margin-top: 16px;
-    > .datepicker--range-type .datepicker .input-field{
-        width: 168px
-    }
-    > .component-box {
-        width: calc( (100% - 360px - 96px) / 3);
-        > div{width: 100%}
-    }
-    &:nth-child(2){
-        .component-box:last-of-type{
-            width: calc( (100% - 424px - ((100% - 456px) / 3)));
-        }
-    }
-    &:last-of-type{
-        > .component-box{
-            width: calc((100% - 96px - 90px) / 4);
-            &:last-child{
-                width: auto;
-                margin-top: 22px
-            }
-        }
-    }
-} */
 
 
 /* info.html */
@@ -1341,7 +1328,8 @@ a:hover {
 /* exchange.html */
 .section-exchange{
     .table--scroll-vertical .table-box{
-        max-height: 532px;
+        max-height: 55vh;
+        //max-height: 532px;
         thead {
             table-layout: fixed;
             .table__th:first-of-type{
@@ -1540,11 +1528,6 @@ a:hover {
         border-width: 0 1px 1px 0;              
     }    
     
-    
-    tr {
-        .table__th:last-child{border-right: 0}
-        .table__td:last-child{border-right: 0}
-    }
     .table__td{
         padding: 4px 7px;
         border: 1px solid $border_light;
@@ -1662,6 +1645,79 @@ a:hover {
 
 //expenses
 .popup-layer--expenses{
+    .popup__contents{
+        padding: 0;
+        overflow-x: hidden;
+    }
+    .popup__contents-search{
+        padding-bottom: 24px;
+        .component-box{
+            &:first-child{
+                width: calc(100% - 92px);
+            }
+            &:last-child{
+                margin-top: 21px;
+            }
+        }
+        
+        .search-form{
+            display: inline-block;
+            + .search-form{
+                margin-left: 16px;
+            }
+            input[type=search]{
+                padding: 1px 8px;
+                font-size: 12px;
+            }
+        }
+    }   
+    
+    .popup__contents-table {
+        padding-right: 24px;
+        .table .table-box{
+            max-height: 379px;
+            margin-top: 82px;
+            //margin-right: 0;
+           thead {
+               
+               table-layout: fixed;
+               tr + tr{
+                  border-top: 1px solid $border_light;
+               }
+               .table__th + .table__th {
+                   border-left: 1px solid $border_light;
+               }
+            }
+            
+            .table__txt{font-size: 12px;}
+        }
+    }
+
+}
+
+//expense-all
+.popup-layer--expenses-all{
+    .popup-wrap__inner{
+        width: 1000px;
+    }
+    .popup__contents-search{
+        .search-form{
+            width: calc((100% - 48px) / 4);
+        }
+    }
+}
+
+//expense-SGMA
+.popup-layer--expenses-sgma{
+    .popup__contents-search{
+        .search-form{
+            width: calc((100% - 16px) / 2);
+        }
+    }
+}
+
+//expenses-detail
+.popup-layer--expenses-detail{
     .popup__contents .table__expenses{
         margin-bottom: 16px;
         .table__th{
@@ -1670,14 +1726,23 @@ a:hover {
         .table__td > div{
             width: 100%
         }
+        tr > *:last-child{
+            border-right: 0;
+        }
+        
+        
     }
     .input-field input[type=text]{
         padding: 1px 8px;
     }
     .popup__contents-txt{
         padding: 8px 0;
+        @include font-size(12px, 18px, normal);
         + .popup__contents-txt{
             padding-top: 0;
+            .btn__txt{
+                font-size: 13px;
+            }
         }
     }
 }
@@ -1747,3 +1812,4 @@ a:hover {
         }
     }
 }
+

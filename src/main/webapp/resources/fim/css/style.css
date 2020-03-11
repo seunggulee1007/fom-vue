@@ -110,6 +110,13 @@ a:hover {
 .table .table__txt {
   font-size: 13px;
 }
+.table .table__txt-caption {
+  font-size: 12px;
+}
+
+.table__th.align-center, .table-chain tr:first-child .align-center.table__td {
+  text-align: center;
+}
 
 .table-chain thead {
   border-bottom: 1px solid #f0f2f5;
@@ -641,6 +648,9 @@ a:hover {
   -o-transition: padding-left 0.4s;
   transition: padding-left 0.4s;
 }
+.container .section {
+  max-height: 70vh;
+}
 
 /* ===== main ===== */
 .container__main {
@@ -680,7 +690,7 @@ a:hover {
   margin-top: -3px;
 }
 .container__main .link-box .component-box a span {
-  font-size: 14px;
+  font-size: 13px;
 }
 .container__main .section-link .component-area-quicklink .section-title .btn--open {
   border: none;
@@ -980,9 +990,8 @@ a:hover {
 
 .container .page-title {
   font-family: "Spoqa Han Sans";
-  padding: 24px 0;
+  padding: 24px 0 0 0;
   margin: 0 24px;
-  border-bottom: 1px solid #dadce0;
 }
 .container .page-title + .page-title__dsc {
   font-size: 14px;
@@ -1055,13 +1064,11 @@ a:hover {
   border-radius: 50%;
 }
 
-.container-write {
-  /* .input-field__title, .dropdown__title{
-      font-size: 14px;
-  } */
+.container-write.container--include-tab .section {
+  max-height: calc(100% - 219px);
 }
 .container-write .section {
-  max-height: 632px;
+  max-height: 66vh;
   overflow: auto;
 }
 .container-write .component-group--horizontal .component-box {
@@ -1104,9 +1111,6 @@ a:hover {
 }
 .container-write .table tr > *:last-child {
   border-right: 0;
-}
-.container-write .table__th.align-center, .container-write .table-chain tr:first-child .align-center.table__td, .table-chain tr:first-child .container-write .align-center.table__td {
-  text-align: center;
 }
 .container-write .table__td {
   padding: 4px 8px;
@@ -1154,13 +1158,6 @@ a:hover {
 }
 .container-write .table__td--btn .btn-change-user .sp {
   margin-right: 0;
-}
-.container-write .table__td--btn .btn-choice {
-  width: 100%;
-}
-.container-write .table__td--btn .btn-choice .btn__txt {
-  font-weight: normal;
-  color: #b3b3b3;
 }
 .container-write .table__td--datepicker-range .component-group .component-box {
   width: 46%;
@@ -1231,6 +1228,11 @@ a:hover {
   min-height: 22px;
 }
 
+/* expense.html */
+.section-expense .table__txt.table__txt-caption {
+  font-weight: 700;
+}
+
 /* expense_history.html */
 .section-expense-history .component-area:first-of-type .component-group:first-of-type {
   display: inline-block;
@@ -1238,11 +1240,15 @@ a:hover {
 .section-expense-history .component-area:first-of-type .component-group:first-of-type .component-box + .component-box {
   margin-left: 16px;
 }
+.section-expense-history .component-area:first-of-type .component-group:first-of-type .component-box + .component-box.component-box--non-label {
+  margin-left: 8px;
+}
 .section-expense-history .component-area .search-form .search-form__inner {
   float: left;
 }
 .section-expense-history .component-area .search-form .search-form__inner + .search-form__inner {
   margin-left: 16px;
+  width: 144px;
 }
 .section-expense-history .component-area .component-group .table {
   /* .table__th + .table__th, .table__td + .table__td{
@@ -1256,30 +1262,6 @@ a:hover {
   height: 41px;
 }
 
-/* .section-expense-history .component-area:first-child .component-group{
-    margin-top: 16px;
-    > .datepicker--range-type .datepicker .input-field{
-        width: 168px
-    }
-    > .component-box {
-        width: calc( (100% - 360px - 96px) / 3);
-        > div{width: 100%}
-    }
-    &:nth-child(2){
-        .component-box:last-of-type{
-            width: calc( (100% - 424px - ((100% - 456px) / 3)));
-        }
-    }
-    &:last-of-type{
-        > .component-box{
-            width: calc((100% - 96px - 90px) / 4);
-            &:last-child{
-                width: auto;
-                margin-top: 22px
-            }
-        }
-    }
-} */
 /* info.html */
 .section-info .component-area:first-child {
   margin-bottom: 16px;
@@ -1340,7 +1322,7 @@ a:hover {
 
 /* exchange.html */
 .section-exchange .table--scroll-vertical .table-box {
-  max-height: 532px;
+  max-height: 55vh;
 }
 .section-exchange .table--scroll-vertical .table-box thead {
   table-layout: fixed;
@@ -1532,12 +1514,6 @@ a:hover {
   border: 1px solid #f0f2f5;
   border-width: 0 1px 1px 0;
 }
-.table.table-financial tr .table__th:last-child, .table.table-financial .table-chain tr:first-child .table__td:last-child, .table-chain .table.table-financial tr:first-child .table__td:last-child {
-  border-right: 0;
-}
-.table.table-financial tr .table__td:last-child {
-  border-right: 0;
-}
 .table.table-financial .table__td {
   padding: 4px 7px;
   border: 1px solid #f0f2f5;
@@ -1646,23 +1622,86 @@ a:hover {
   max-height: 200px;
 }
 
-.popup-layer--expenses .popup__contents .table__expenses {
+.popup-layer--expenses .popup__contents {
+  padding: 0;
+  overflow-x: hidden;
+}
+.popup-layer--expenses .popup__contents-search {
+  padding-bottom: 24px;
+}
+.popup-layer--expenses .popup__contents-search .component-box:first-child {
+  width: calc(100% - 92px);
+}
+.popup-layer--expenses .popup__contents-search .component-box:last-child {
+  margin-top: 21px;
+}
+.popup-layer--expenses .popup__contents-search .search-form {
+  display: inline-block;
+}
+.popup-layer--expenses .popup__contents-search .search-form + .search-form {
+  margin-left: 16px;
+}
+.popup-layer--expenses .popup__contents-search .search-form input[type=search] {
+  padding: 1px 8px;
+  font-size: 12px;
+}
+.popup-layer--expenses .popup__contents-table {
+  padding-right: 24px;
+}
+.popup-layer--expenses .popup__contents-table .table .table-box {
+  max-height: 379px;
+  margin-top: 82px;
+}
+.popup-layer--expenses .popup__contents-table .table .table-box thead {
+  table-layout: fixed;
+}
+.popup-layer--expenses .popup__contents-table .table .table-box thead tr + tr {
+  border-top: 1px solid #f0f2f5;
+}
+.popup-layer--expenses .popup__contents-table .table .table-box thead .table__th + .table__th, .popup-layer--expenses .popup__contents-table .table .table-box thead .table-chain tr:first-child .table__td + .table__th, .table-chain tr:first-child .popup-layer--expenses .popup__contents-table .table .table-box thead .table__td + .table__th, .popup-layer--expenses .popup__contents-table .table .table-box thead .table-chain tr:first-child .table__th + .table__td, .table-chain tr:first-child .popup-layer--expenses .popup__contents-table .table .table-box thead .table__th + .table__td, .popup-layer--expenses .popup__contents-table .table .table-box thead .table-chain tr:first-child .table__td + .table__td, .table-chain tr:first-child .popup-layer--expenses .popup__contents-table .table .table-box thead .table__td + .table__td {
+  border-left: 1px solid #f0f2f5;
+}
+.popup-layer--expenses .popup__contents-table .table .table-box .table__txt {
+  font-size: 12px;
+}
+
+.popup-layer--expenses-all .popup-wrap__inner {
+  width: 1000px;
+}
+.popup-layer--expenses-all .popup__contents-search .search-form {
+  width: calc((100% - 48px) / 4);
+}
+
+.popup-layer--expenses-sgma .popup__contents-search .search-form {
+  width: calc((100% - 16px) / 2);
+}
+
+.popup-layer--expenses-detail .popup__contents .table__expenses {
   margin-bottom: 16px;
 }
-.popup-layer--expenses .popup__contents .table__expenses .table__th, .popup-layer--expenses .popup__contents .table__expenses .table-chain tr:first-child .table__td, .table-chain tr:first-child .popup-layer--expenses .popup__contents .table__expenses .table__td {
+.popup-layer--expenses-detail .popup__contents .table__expenses .table__th, .popup-layer--expenses-detail .popup__contents .table__expenses .table-chain tr:first-child .table__td, .table-chain tr:first-child .popup-layer--expenses-detail .popup__contents .table__expenses .table__td {
   width: 38%;
 }
-.popup-layer--expenses .popup__contents .table__expenses .table__td > div {
+.popup-layer--expenses-detail .popup__contents .table__expenses .table__td > div {
   width: 100%;
 }
-.popup-layer--expenses .input-field input[type=text] {
+.popup-layer--expenses-detail .popup__contents .table__expenses tr > *:last-child {
+  border-right: 0;
+}
+.popup-layer--expenses-detail .input-field input[type=text] {
   padding: 1px 8px;
 }
-.popup-layer--expenses .popup__contents-txt {
+.popup-layer--expenses-detail .popup__contents-txt {
   padding: 8px 0;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
 }
-.popup-layer--expenses .popup__contents-txt + .popup__contents-txt {
+.popup-layer--expenses-detail .popup__contents-txt + .popup__contents-txt {
   padding-top: 0;
+}
+.popup-layer--expenses-detail .popup__contents-txt + .popup__contents-txt .btn__txt {
+  font-size: 13px;
 }
 
 .popup-wrap.popup-layer--user .popup-wrap__inner {

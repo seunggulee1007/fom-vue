@@ -1,65 +1,6 @@
 $(document).ready(function(){
     
-    let EventBus = new Vue();           // 이벤트 전달용 vue
-    
     Vue.use(MyPlugin);                  // 전역 vue 플러그인
-    
-    Vue.component('tree-item', {        // tree 구조를 위한 컴포넌트 추가
-        template : `<li>
-                        <div@click="toggle">
-                            <span v-if="isFolder" class="btn__txt">[{{ isOpen ? '-' : '+' }}]</span>
-                            <span class="btn__txt" @click="clickDept(item);">{{ item.deptNm }}</span>
-                        </div>
-                        <ul v-show="isOpen" v-if="isFolder" style="padding-left: 1em;">
-                          <tree-item
-                            class="item"
-                            v-for="(child, index) in item.child"
-                            :key="index"
-                            :item="child"
-                          ></tree-item>
-                        </ul>
-                      </li>`
-        , props: {                      // 컴포넌트에서 사용할 변수
-            item: Object
-        },
-        data () {
-            return {
-                isOpen: false           // tree가 열렸는지 확인.
-                ,userList : []
-            }
-        },
-        computed: {
-            isFolder: function () {
-                return this.item.child && this.item.child.length
-            }
-        },
-        methods: {
-            toggle: function () {
-                if (this.isFolder) {
-                    this.isOpen = !this.isOpen
-                }
-            }
-            ,clickDept(data) {
-                if(data.child.length > 0) {
-                    return;
-                }
-                axios({
-                    url : "/expense_management/approval/getUserList"
-                    ,params : {
-                        deptCd : data.deptCd
-                    }
-                }).then(res=>{
-                    this.userList = res.data.data.userList;
-                    this.sender();
-                }).catch(err=>{
-                    alert(err);
-                });
-            }
-            ,sender () {
-                EventBus.$emit('userList', this.userList);
-            }
-        }
-    })
     
     let app = new Vue({
         el : "#container"
@@ -73,18 +14,22 @@ $(document).ready(function(){
             }
             , expenseList : [
                 {
-                    DeptVO : {}
+                    deptVO : {}
                     , useDate : getDate(new Date(), '-')
                     , remark : ""
                     , curAmt : 0
+                    , expenseVO : {}
                 }
             ]
             ,expenseIdx : 0
+            ,expenseAllIdx : 0
+            ,expenseAllPopupFlag : false
         }
         ,created () {
             this.getDeptList();
         }
         ,mounted () {
+            EventBus.$on('setExpenseData', this.setExpenseData);
         }
         ,watch : {
             
@@ -104,82 +49,121 @@ $(document).ready(function(){
                     alert(err);
                 });
             }
-            ,addExpenseList() {
+            ,addExpenseList() {         // 비용 항목 리스트 추가
                 this.expenseList.push(
                     {
-                        DeptVO : {}
+                        deptVO : {}
                         , useDate : getDate(new Date(), '-')
                         , remark : ""
                         , curAmt : 0
+                        , expenseVO : {}
                     }
                 );
             }
             ,openDeptPopup(idx) {                   // 부서 조회 팝업 열기
                 this.expenseIdx = idx;
-                userApp.openDeptPopup(idx);
+                EventBus.$emit('openDeptPopup', idx);
             }
-            ,setExpenseList (data) {                // 부서 정보 세팅
-                this.expenseList[this.expenseIdx].DeptVO = data;
+            ,setExpenseData (data) {                // 부서 정보 세팅
+                this.expenseList[this.expenseIdx].deptVO = data;
+            }
+            ,openExpenseAll(idx, midDivCdNm) {                  // 비용항목(중분류 더블클릭시)
+                this.expenseIdx = idx;
+                expenseAllApp.openExpenseAllPopup(midDivCdNm);
+            }
+            ,setExpenseItemAll(data) {
+                this.expenseList[this.expenseIdx].expenseVO = data;
+                console.log(this.expenseList[this.expenseIdx]);
+            }
+            ,openExpenseSgma(idx, activityCdNm) {
+                this.expenseIdx = idx;
+                expenseSgmaApp.openExpenseSgmaPopup(activityCdNm);
+            }
+            ,setExpenseItemSgma(data) {
+                let expenseVO = this.expenseList[this.expenseIdx].expenseVO;
+                expenseVO.activityCdNm = data.activityCdNm;
+                expenseVO.activityCd = data.activityCd;
+                expenseVO.expenseItemCdNm = data.expenseItemCdNm;
+                expenseVO.expenseItemCd = data.expenseItemCd;
             }
         }
     });
     
-    let userApp = new Vue({
-        el : '.popup-layer--user'
+    let expenseAllApp = new Vue({
+        el : ".popup-layer--expenses-all"
         ,data : {
-            deptList : []
-            , userList : []
-            , selectedUserList : []
-            , deptPopupFlag : false
-        }
-        ,created() {
-            EventBus.$on('deptList', this.onReceive);
-            EventBus.$on('userList', this.userReceive);
-        }
-        ,mounted () {
-        }
-        ,components : {
-            'draggable' : vuedraggable
+            expenseVO : {}
+            ,expenseList : []
+            ,expenseAllPopupFlag : false
         }
         ,methods : {
-            onReceive(data) {
-                console.log("receive!!!!");
-                console.log(data);
-                this.deptList = data;
+            openExpenseAllPopup(midDivCdNm) {
+                this.expenseAllPopupFlag = true;
+                this.expenseVO.midDivCdNm = midDivCdNm;
+                console.log(this.expenseVO);
+                this.selectExpenseList();
             }
-            ,userReceive(data) {
-                this.userList = data;
+            ,selectExpenseList () {
+                axios({
+                    url : "/expense_management/approval/getExpense"
+                    ,params : {
+                        midDivCdNm : this.expenseVO.midDivCdNm
+                        ,smDivCdNm : this.expenseVO.smDivCdNm
+                        ,activityCdNm : this.expenseVO.activityCdNm
+                        ,expenseItemCdNm : this.expenseVO.expenseItemCdNm
+                    }
+                }).then(res=>{
+                    this.expenseList = res.data.data.expenseList;
+                }).catch(err=>{
+                    alert(err);
+                });
             }
-            , log: function(evt) {
-                window.console.log(evt);
+            ,closePopup() {
+                this.expenseAllPopupFlag = false;
+                this.expenseVO = {};
             }
-            ,moveUser(flag, idx) {
-                if(flag === 'user') {
-                    this.selectedUserList.push(this.userList[idx]);
-                    this.userList.splice(idx,1);
-                }else {
-                    this.userList.push(this.selectedUserList[idx]);
-                    this.selectedUserList.splice(idx,1);
-                    
-                }
+            ,choiceItem(data) {
+                app.setExpenseItemAll(data);
+                this.closePopup();
             }
-            ,openDeptPopup(idx) {
-                this.deptPopupFlag = true;
+        }
+    });
+    
+    let expenseSgmaApp = new Vue({
+        el : ".popup-layer--expenses-sgma"
+        , data : {
+            expenseList : []
+            ,expenseVO : {}
+            ,expenseSgmaPopupFlag : false
+        }
+        ,methods : {
+            openExpenseSgmaPopup(activityCdNm) {
+                this.expenseSgmaPopupFlag = true;
+                this.expenseVO.activityCdNm = activityCdNm;
+                this.selectExpenseList();
             }
-            ,closeDeptPopup() {
-                this.deptPopupFlag = false;
+            ,selectExpenseList () {
+                axios({
+                    url : "/expense_management/approval/getExpense"
+                    ,params : {
+                        activityCdNm : this.expenseVO.activityCdNm
+                        ,expenseItemCdNm : this.expenseVO.expenseItemCdNm
+                    }
+                }).then(res=>{
+                    this.expenseList = res.data.data.expenseList;
+                }).catch(err=>{
+                    alert(err);
+                });
             }
-            ,sendData() {
-                if(this.selectedUserList.length > 1) {
-                    alert("1명 이상은 추가하실 수 없습니다.");
-                    return;
-                }else if(this.selectedUserList.length == 0) {
-                    alert("사용자를 선택해 주세요");
-                    return;
-                }
-                app.setExpenseList(this.selectedUserList[0]);
-                this.closeDeptPopup();
+            ,closePopup() {
+                this.expenseSgmaPopupFlag = false;
+                this.expenseVO = {};
+            }
+            ,choiceItem(data) {
+                app.setExpenseItemSgma(data);
+                this.closePopup();
             }
         }
     });
 });
+

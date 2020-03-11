@@ -1,13 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- <script type="text/javascript" src="/resources/fim/js/jstree.min.js"></script>   -->
 <script type="text/babel" src="/resources/fim/js/expense_management/expense.js"></script>
-<!-- CDNJS :: Sortable (https://cdnjs.com/) -->
-<script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
-<!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
 <script src='https://unpkg.com/v-calendar@next'></script>
-<div id="container" class="container container--include-lnb container--fullview container-write">
+<div id="container" class="container container--include-lnb container--fullview container-write" v-cloak>
     <div class="lnb lnb-area">
         <ul class="lst-lnb">
             <li class="lst-lnb__item lst-lnb__item--active">
@@ -225,27 +220,30 @@
                                         </div>
                                     </td>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt">{{expense.DeptVO.budgetDeptNm}}</span>
+                                        <span class="table__txt">{{expense.deptVO.budgetDeptNm}}</span>
                                     </td>
                                     <td class="table__td table__td--btn">
-                                        <span class="table__txt">{{expense.DeptVO.userNm}}<br>{{expense.DeptVO.deptNm}}</span>
+                                        <span class="table__txt">{{expense.deptVO.userNm}}<br>{{expense.deptVO.deptNm}}</span>
                                         <button type="button" class="btn btn-change-user" @click="openDeptPopup(idx)">
                                             <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
                                         </button>
                                     </td>
-                                    <td class="table__td table__td--btn">
-                                        <button type="button" class="btn btn-choice">
-                                            <!-- <span class="btn__txt">선택</span> -->
-                                        </button>
+                                    <td class="table__td">
+                                        <div class="input-field input-field-table">
+                                            <input type="text" class="input-field__input" v-model="expense.expenseVO.midDivCdNm" @dblclick="openExpenseAll(idx, expense.expenseVO.midDivCdNm)" @keyup.enter="openExpenseAll(idx, expense.expenseVO.midDivCdNm)">
+                                        </div>
                                     </td>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt"></span>
+                                        <span class="table__txt">{{ expense.expenseVO.smDivCdNm }}</span>
                                     </td>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt"></span>
+                                        <div class="input-field input-field-table">
+                                            <input type="text" class="input-field__input" @dblclick="openExpenseSgma(idx, expense.expenseVO.activityCdNm)" @keyup.enter="openExpenseSgma(idx, expense.expenseVO.activityCdNm)" v-model="expense.expenseVO.activityCdNm" v-if="expense.expenseVO.midDivCdNm">
+                                            <span class="table__txt" v-else="!expense.expenseVO.midDivCdNm"></span>
+                                        </div>
                                     </td>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt"></span>
+                                        <span class="table__txt">{{ expense.expenseVO.expenseItemCdNm }}</span>
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
@@ -266,6 +264,7 @@
                                         <div class="input-field input-field-table">
                                             <input type="text" class="input-field__input" v-model="expense.remark">
                                         </div>
+                                        <span class="table__txt table__txt-caption txt--blue"></span>
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
@@ -393,88 +392,10 @@
         </div>
     </div>
 </div>
- <!-- Change User -->
-<div class="popup-wrap popup-layer--user" :class="{'popup-wrap--active' : deptPopupFlag}">
-    <div class="popup-wrap__align-box">
-        <div class="popup-wrap__inner">
-            <div class="popup__header">
-                <strong class="popup__header-txt">사용자 조직도</strong>
-            </div>
-            <div class="popup__contents clearfix">
-                <div class="popup__contents-inner">
-                    <div class="component-group">
-                        <div class="tree-area">
-                            <ul>
-                                <tree-item v-for="list in deptList" :item="list">
-                                </tree-item>
-                            </ul>
-                        </div>
-                    </div>    
-                </div>
-                <div class="popup__contents-inner popup__contents-search">
-                    <em class="popup__contents-title">검색결과</em>
-                    <div class="contents--draggable">
-                        <draggable v-model="userList" group="people" @change="log">
-                            <div class="popup__contents-txt" v-for="(list,idx) in userList" @dblclick="moveUser('user',idx);">
-                                <span class="user_name">{{list.userNm}}</span>
-                                <span class="user_position txt--blue">{{list.title2Nm}}</span>
-                                <span class="user_dept txt--green">{{list.deptNm}}</span>
-                                <span class="user_office txt--gray">{{list.comNm}}</span>
-                            </div>
-                        </draggable>
-                    </div>
-                </div>
-                <div class="component-group">
-                    <div class="btn-box">
-                        <button type="button" class="btn-select">
-                            <span class="sp icon-next">
-                                <span class="blind">선택하기</span>
-                            </span>
-                        </button>
-                        <button type="button" class="btn-remove">
-                            <span class="sp icon-prev">
-                                <span class="blind">선택에서 제외하기</span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="popup__contents-inner popup__contents-selected">
-                    <em class="popup__contents-title">선택된 사용자</em>
-                        <div class="contents--droppable">
-                            <draggable v-model="selectedUserList" group="people" style="min-height:200px;"  @change="log">
-                                <div class="popup__contents-txt" v-for="list in selectedUserList" @dblclick="moveUser('selectedUser',idx);">
-                                    <span class="user_name">{{list.userNm}}</span>
-                                    <span class="user_position txt--blue">{{list.title2Nm}}</span>
-                                    <span class="user_dept txt--green">{{list.deptNm}}</span>
-                                    <span class="user_office txt--gray">{{list.comNm}}</span>
-                                </div>
-                            </draggable>
-                        </div>
-                </div>
-                <rawDisplayer class="col-3" :value="userList" title="List 1" />
-            
-                <rawDisplayer class="col-3" :value="selectedUserList" title="List 2" />
-            </div>
-            <div class="popup__bottom">
-                <p class="popup__contents-txt">*검색된 결과는 <span class="txt--orange">Drag&Drop</span> 혹은 <span class="txt--orange">더블클릭</span> 하시면 선택됩니다.</p>
-                <div class="popup__btn-box">
-                   <button type="button" class="btn btn--bgtype" @click="closeDeptPopup();">
-                       <span class="btn__txt">취소</span>
-                   </button>
-                   <button type="button" class="btn btn--orange" @click="sendData();">
-                       <span class="btn__txt">확인</span>
-                   </button>
-                </div>
-            </div>
-            <button type="button" class="popup__btn-close" @click="closeDeptPopup();">
-                <span class="sp icon-close"><span class="blind">닫기</span></span>
-            </button>
-        </div>
-    </div>
-</div>
+<jsp:include page="/WEB-INF/view/include/expense_user_layer.jsp"/>
 
 <!-- expense item-all -->
-<div class="popup-wrap popup-layer--expenses popup-layer--expenses-all">
+<div class="popup-wrap popup-layer--expenses popup-layer--expenses-all" :class="{'popup-wrap--active' : expenseAllPopupFlag}" v-cloak>
     <div class="popup-wrap__align-box">
         <div class="popup-wrap__inner">
             <div class="popup_header">
@@ -489,33 +410,33 @@
                                 <div class="search-form">
                                     <em class="search-form__title">비용항목 - 중분류</em>
                                     <div class="search-form__inner">
-                                        <input type="search">                                                
+                                        <input type="search" v-model="expenseVO.midDivCdNm">                                                
                                     </div>
                                 </div>
                                 <div class="search-form">
                                     <em class="search-form__title">비용항목 - 소분류</em>
                                     <div class="search-form__inner">         
-                                        <input type="search">
+                                        <input type="search" v-model="expenseVO.smDivCdNm">
                                     </div>
                                 </div>
                             
                                 <div class="search-form">
                                     <em class="search-form__title">SGMA - Activity</em>
                                     <div class="search-form__inner">         
-                                        <input type="search">
+                                        <input type="search" v-model="expenseVO.activityCdNm">
                                     </div>
                                 </div>
                                 <div class="search-form">
                                     <em class="search-form__title">SGMA - 비용항목</em>
                                     <div class="search-form__inner">         
-                                        <input type="search">
+                                        <input type="search" v-model="expenseVO.expenseItemCdNm">
                                     </div>
                                 </div>
                             </fieldset>
                         </form>
                     </div>
                     <div class="component-box">
-                        <button type="button" class="btn btn--bgtype">
+                        <button type="button" class="btn btn--bgtype" @click="selectExpenseList();">
                           <span class="btn__txt">검색</span>
                         </button>
                     </div>
@@ -544,200 +465,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr v-for="list in expenseList" @dblclick="choiceItem(list)">
                                         <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
+                                            <span class="table__txt">{{list.midDivCdNm}}</span>
                                         </td>
                                         <td class="table__td">
-                                            <span class="table__txt">야근식대</span>
+                                            <span class="table__txt">{{list.smDivCdNm}}</span>
                                         </td>
                                         <td class="table__td">
-                                            <span class="table__txt">복리후생_식대</span>
+                                            <span class="table__txt">{{list.activityCdNm}}</span>
                                         </td>
                                         <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">식대(야근식대x)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_식대</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사내커뮤니케이션비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">회의비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">간식대(회의비)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">회의비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사내커뮤니케이션</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">회의비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">경조사-복리</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_경조</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">카페물품구매(식품)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_기타</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">건강검진</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_건강검진</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">기타-복리</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_기타</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">수수료,통신,기타</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">게임관련(소액결제)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">게임소액결제</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">총무(카드)-국내출장</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">기타수수료-총무(국내)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">국내출장_기타</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">총무(카드)-국내출장</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">외부인사지원-총무(해외)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">접대비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">교육</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">직무/소통교육</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">교육_직무/소통_인재개발실</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생-사내이벤트(ER팀)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">ER_사내이벤트</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
+                                            <span class="table__txt">{{list.expenseItemCdNm}}</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -746,7 +485,7 @@
                     </div>
                 </div>
             </div>
-            <button type="button" class="popup__btn-close">
+            <button type="button" class="popup__btn-close" @click="closePopup();">
                 <span class="sp icon-close">
                     <span class="blind">닫기</span>
                 </span>
@@ -757,7 +496,7 @@
 
 
 <!-- expense item-SGMA -->
-<div class="popup-wrap popup-layer--medium popup-layer--expenses popup-layer--expenses-sgma">
+<div class="popup-wrap popup-layer--medium popup-layer--expenses popup-layer--expenses-sgma" :class="{'popup-wrap--active' : expenseSgmaPopupFlag}">
     <div class="popup-wrap__align-box">
         <div class="popup-wrap__inner">
             <div class="popup_header">
@@ -772,20 +511,20 @@
                                     <div class="search-form">
                                         <em class="search-form__title">SGMA - Activity</em>
                                         <div class="search-form__inner">         
-                                            <input type="search">
+                                            <input type="search" v-model="expenseVO.activityCdNm">
                                         </div>
                                     </div>
                                     <div class="search-form">
                                         <em class="search-form__title">SGMA - 비용항목</em>
                                         <div class="search-form__inner">         
-                                            <input type="search">
+                                            <input type="search" v-model="expenseVO.expenseItemCdNm">
                                         </div>
                                     </div>
                             </fieldset>
                         </form>
                     </div>
                     <div class="component-box">
-                        <button type="button" class="btn btn--bgtype">
+                        <button type="button" class="btn btn--bgtype" @click="selectExpenseList();">
                           <span class="btn__txt">검색</span>
                         </button>
                     </div>
@@ -809,100 +548,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr v-for="list in expenseList" @dblclick="choiceItem(list)">
                                         <td class="table__td">
-                                            <span class="table__txt">복리후생_식대</span>
+                                            <span class="table__txt">{{list.activityCdNm}}</span>
                                         </td>
                                         <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">회의비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_경조</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_기타</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_건강검진</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">교통비_야근택시</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">일반관리비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">교통비_기타</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">일반관리비</span>
-                                        </td>
-                                    </tr>                                            
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">게임소액결제</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">국내출장_기타</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">접대비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">교육_직무/소통_인재개발실</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">ER_사내이벤트</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
+                                            <span class="table__txt">{{list.expenseItemCdNm}}</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -911,7 +562,7 @@
                     </div>
                 </div>
             </div>
-            <button type="button" class="popup__btn-close">
+            <button type="button" class="popup__btn-close" @click="closePopup();">
                 <span class="sp icon-close">
                     <span class="blind">닫기</span>
                 </span>
