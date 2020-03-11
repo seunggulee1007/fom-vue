@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import lombok.RequiredArgsConstructor;
+import net.smilegate.fim.advice.exception.ExpenseException;
 import net.smilegate.fim.advice.exception.NotAcceptedServerException;
 import net.smilegate.fim.advice.exception.NotbizNoException;
 import net.smilegate.fim.enums.CommonCode;
@@ -44,6 +45,16 @@ public class ExceptionAdvice {
     @ExceptionHandler(NotAcceptedServerException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     protected CommonResultVO NotAcceptedServerException(Exception e) {
+        CommonResultVO commonResultVo = CommonResultVO.builder()
+                .result(CommonCode.FORBIDDEN.getCode())
+                .resultMsg(e.getMessage())
+                .build();
+        return commonResultVo;
+    }
+    
+    @ExceptionHandler(ExpenseException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    protected CommonResultVO ExpenseException(Exception e) {
         CommonResultVO commonResultVo = CommonResultVO.builder()
                 .result(CommonCode.FORBIDDEN.getCode())
                 .resultMsg(e.getMessage())
