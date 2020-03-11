@@ -17,4 +17,23 @@
         FROM VW_MDI_DEPT_INFO
     </select>
     
+    <select id="selectUserList" resultType="userVO">
+        SELECT
+            USER_ID  AS userId
+            ,emp_no  AS empNo
+            ,user_nm    AS userNm
+            ,title2_nm  AS title2Nm
+            ,duty_sort  AS dutySort
+            ,title_sort AS titleSort
+            ,main_yn    AS mainYn
+            ,dept_cd    AS deptCd
+            ,dept_nm    AS deptNm
+            ,com_cd AS comCd
+            ,com_nm AS comNm
+            ,dept_sort  AS deptSort
+        FROM VW_MDI_USER_INFO
+        WHERE
+            dept_cd = #{deptCd}
+    </select>
+    
 </mapper>

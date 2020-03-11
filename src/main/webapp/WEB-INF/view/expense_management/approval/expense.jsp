@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <!-- <script type="text/javascript" src="/resources/fim/js/jstree.min.js"></script>   -->
 <script type="text/babel" src="/resources/fim/js/expense_management/expense.js"></script>
+<!-- CDNJS :: Sortable (https://cdnjs.com/) -->
+<script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+<!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
 <script src='https://unpkg.com/v-calendar@next'></script>
 <div id="container" class="container container--include-lnb container--fullview container-write">
     <div class="lnb lnb-area">
@@ -211,7 +215,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr v-for="(expense, idx) in expenseList">
                                     <td class="table__td">
                                         <div class="btn_group">
                                             <span class="btn-checkbox">
@@ -221,11 +225,11 @@
                                         </div>
                                     </td>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt"></span>
+                                        <span class="table__txt">{{expense.DeptVO.budgetDeptNm}}</span>
                                     </td>
                                     <td class="table__td table__td--btn">
-                                        <span class="table__txt">홍길동A<br>정보개발시스템실</span>
-                                        <button type="button" class="btn btn-change-user" onclick="$('.popup-layer--user').addClass('popup-wrap--active');">
+                                        <span class="table__txt">{{expense.DeptVO.userNm}}<br>{{expense.DeptVO.deptNm}}</span>
+                                        <button type="button" class="btn btn-change-user" @click="openDeptPopup(idx)">
                                             <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
                                         </button>
                                     </td>
@@ -250,8 +254,8 @@
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field datepicker__v-calendar">
-                                            <input type="text" v-model='searchEndDt' readonly id="date_input_exchange2" class="input-field__input">
-                                            <v-date-picker :mode='mode' v-model='searchEndDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
+                                            <input type="text" v-model='expense.useDate' readonly id="date_input_exchange2" class="input-field__input">
+                                            <v-date-picker :mode='mode' v-model='expense.useDate' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}' :is-dark='true'>
                                                 <span class="sp icon-datepicker">
                                                     <span class="blind">Calendar 열기</span>
                                                 </span>
@@ -260,12 +264,12 @@
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" v-model="expense.remark">
                                         </div>
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" v-model="expense.curAmt">
                                         </div>
                                     </td>
                                 </tr>
@@ -292,7 +296,7 @@
                             </button>
                         </div>
                         <div class="component-box">
-                            <button type="button" class="btn btn--small btn--orange">
+                            <button type="button" class="btn btn--small btn--orange" @click="addExpenseList();">
                                 <span class="btn__txt">+ 추가</span>
                             </button>
                         </div>
@@ -366,12 +370,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="tree-area__inner">
-                            <ul>
-                                <tree-item v-for="list in treeData" :item="list">
-                                </tree-item>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="component-group btn-box align-center">
@@ -396,7 +394,7 @@
     </div>
 </div>
  <!-- Change User -->
-<div class="popup-wrap popup-layer--user">
+<div class="popup-wrap popup-layer--user" :class="{'popup-wrap--active' : deptPopupFlag}">
     <div class="popup-wrap__align-box">
         <div class="popup-wrap__inner">
             <div class="popup__header">
@@ -406,134 +404,24 @@
                 <div class="popup__contents-inner">
                     <div class="component-group">
                         <div class="tree-area">
-                            <strong class="content-title content-title--bold">Smilegate Group</strong>
-                            <div id="jstree" class="tree-area__inner" ref="jstree">
-                                <ul>
-                                    <li data-jstree="{"type":"tree"}">스마일게이트 홀딩스
-                                        <ul>
-                                            <li data-jstree="{"type":"tree"}">CDO
-                                                <ul>
-                                                   <li data-jstree="{"type":"tree"}">글로벌IP사업담당</li>
-                                                </ul>
-                                            </li>
-                                            <li data-jstree="{"type":"tree"}">CFO
-                                                <ul>
-                                                   <li data-jstree="{"type":"tree"}">투자관리실</li>
-                                                   <li>SGL재무회계팀</li>
-                                                   <li>SGR재무회계팀</li>
-                                                </ul>
-                                            </li>
-                                            <li data-jstree="{"type":"tree"}">SG Irvine
-                                                <ul>
-                                                   <li>Business Development</li>
-                                                   <li>Finance/HR</li>
-                                                   <li>SGP U.S</li>
-                                                </ul>
-                                            </li>
-                                            <li data-jstree="{"type":"tree"}">CRO
-                                                <ul>
-                                                   <li data-jstree="{"type":"tree"}">홍보/ER담당</li>
-                                                   <li data-jstree="{"type":"tree"}">자금실</li>
-                                                   <li>대외협력팀</li>
-                                                </ul>
-                                            </li>
-                                            <li data-jstree="{"type":"tree"}">IT기술본부
-                                                <ul>
-                                                   <li data-jstree="{"type":"tree"}">기술지원담당
-                                                       <ul>
-                                                           <li data-jstree="{"type":"tree"}">정보시스템실
-                                                               <ul>
-                                                                   <li>정보개발팀</li>
-                                                                   <li>인사시스템팀</li>
-                                                                   <li>협업시스템팀</li>
-                                                               </ul>
-                                                           </li>
-                                                       </ul>
-                                                   </li>
-                                                </ul>
-                                            </li>
-                                            <li data-jstree="{"type":"tree"}">정보서비스실
-                                                <ul>
-                                                   <li>정보서비스팀</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li data-jstree="{"type":"tree"}">QA
-                                        <ul>
-                                            <li data-jstree="{"type":"tree"}">사내시스템 TEST
-                                                <ul>
-                                                   <li>TEST</li>
-                                                   <li>TEST</li>
-                                                   <li>TEST</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li data-jstree="{"type":"tree"}">스마일게이트 엔터테인먼트
-                                        <ul>
-                                            <li data-jstree="{"type":"tree"}">사내시스템 TEST
-                                                <ul>
-                                                   <li>TEST</li>
-                                                   <li>TEST</li>
-                                                   <li>TEST</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li data-jstree="{"type":"tree"}">스마일게이트 알피지
-                                        <ul>
-                                            <li data-jstree="{"type":"tree"}">사내시스템 TEST
-                                                <ul>
-                                                   <li>TEST</li>
-                                                   <li>TEST</li>
-                                                   <li>TEST</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li data-jstree="{"type":"tree"}">스마일게이트 메가포트
-                                        <ul>
-                                            <li data-jstree="{"type":"tree"}">사내시스템 TEST
-                                                <ul>
-                                                   <li>TEST</li>
-                                                   <li>TEST</li>
-                                                   <li>TEST</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li data-jstree="{"type":"tree"}">스마일게이트 스토브
-                                        <ul>
-                                            <li data-jstree="{"type":"tree"}">사내시스템 TEST
-                                                <ul>
-                                                   <li>TEST</li>
-                                                   <li>TEST</li>
-                                                   <li>TEST</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
+                            <ul>
+                                <tree-item v-for="list in deptList" :item="list">
+                                </tree-item>
+                            </ul>
                         </div>
                     </div>    
                 </div>
                 <div class="popup__contents-inner popup__contents-search">
                     <em class="popup__contents-title">검색결과</em>
                     <div class="contents--draggable">
-                        <div class="popup__contents-txt">
-                            <span class="user_name">이덕호</span>
-                            <span class="user_position txt--blue">[실장]</span>
-                            <span class="user_dept txt--green">정보시스템실</span>
-                            <span class="user_office txt--gray">스마일게이트홀딩스</span>
-                        </div>
-                        <div class="popup__contents-txt">
-                            <span class="user_name">박성균</span>
-                            <span class="user_position txt--blue">[차장]</span>
-                            <span class="user_dept txt--green">정보개발팀</span>
-                            <span class="user_office txt--gray">스마일게이트홀딩스</span>
-                        </div>
+                        <draggable v-model="userList" group="people" @change="log">
+                            <div class="popup__contents-txt" v-for="(list,idx) in userList" @dblclick="moveUser('user',idx);">
+                                <span class="user_name">{{list.userNm}}</span>
+                                <span class="user_position txt--blue">{{list.title2Nm}}</span>
+                                <span class="user_dept txt--green">{{list.deptNm}}</span>
+                                <span class="user_office txt--gray">{{list.comNm}}</span>
+                            </div>
+                        </draggable>
                     </div>
                 </div>
                 <div class="component-group">
@@ -552,23 +440,33 @@
                 </div>
                 <div class="popup__contents-inner popup__contents-selected">
                     <em class="popup__contents-title">선택된 사용자</em>
-                    <div class="contents--droppable">
-                        
-                    </div>
+                        <div class="contents--droppable">
+                            <draggable v-model="selectedUserList" group="people" style="min-height:200px;"  @change="log">
+                                <div class="popup__contents-txt" v-for="list in selectedUserList" @dblclick="moveUser('selectedUser',idx);">
+                                    <span class="user_name">{{list.userNm}}</span>
+                                    <span class="user_position txt--blue">{{list.title2Nm}}</span>
+                                    <span class="user_dept txt--green">{{list.deptNm}}</span>
+                                    <span class="user_office txt--gray">{{list.comNm}}</span>
+                                </div>
+                            </draggable>
+                        </div>
                 </div>
+                <rawDisplayer class="col-3" :value="userList" title="List 1" />
+            
+                <rawDisplayer class="col-3" :value="selectedUserList" title="List 2" />
             </div>
             <div class="popup__bottom">
                 <p class="popup__contents-txt">*검색된 결과는 <span class="txt--orange">Drag&Drop</span> 혹은 <span class="txt--orange">더블클릭</span> 하시면 선택됩니다.</p>
                 <div class="popup__btn-box">
-                   <button type="button" class="btn btn--bgtype">
+                   <button type="button" class="btn btn--bgtype" @click="closeDeptPopup();">
                        <span class="btn__txt">취소</span>
                    </button>
-                   <button type="button" class="btn btn--orange">
+                   <button type="button" class="btn btn--orange" @click="sendData();">
                        <span class="btn__txt">확인</span>
                    </button>
                 </div>
             </div>
-            <button type="button" class="popup__btn-close">
+            <button type="button" class="popup__btn-close" @click="closeDeptPopup();">
                 <span class="sp icon-close"><span class="blind">닫기</span></span>
             </button>
         </div>

@@ -1,5 +1,6 @@
 package net.smilegate.fim.service.mdi;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +24,20 @@ public class MdiServiceImpl implements MdiService {
         for(DeptVO deptVO : deptList) {
             deptVO.setChild(deptList.stream().filter(dept -> dept.getParentCd().equals(deptVO.getDeptCd())).collect(Collectors.toList()));
         }
-        deptList = deptList.stream().filter(dept -> 1 == dept.getDeptLevel()).collect(Collectors.toList());
+        deptList = deptList.stream()
+                            .filter(dept -> 1 == dept.getDeptLevel())
+                            .sorted(
+                                    Comparator.comparing((DeptVO deptVO) -> deptVO.getDeptSort()))
+                            .collect(Collectors.toList());
         map.put("deptList", deptList);
+        return map;
+    }
+    
+    public Map<String, Object> selectUserList(String deptCd) {
+        Map<String, Object> map = new HashMap<>();
+        
+        map.put("userList", mdiMapper.selectUserList(deptCd));
+        
         return map;
     }
     

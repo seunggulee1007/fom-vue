@@ -24,5 +24,11 @@ public class ApprovalProcController {
         return CommonResultVO.builder().data(map).build();
     }
     
+    @RequestMapping("/getUserList")
+    public CommonResultVO getUserList(String deptCd) {
+        Map<String, Object> map =new HashMap<>();
+        map = mdiService.selectUserList(deptCd);
+        return CommonResultVO.builder().data(map).build();
+    }
 
 }
