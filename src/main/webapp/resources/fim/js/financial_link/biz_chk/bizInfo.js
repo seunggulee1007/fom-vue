@@ -23,7 +23,7 @@ $(document).ready(function(){
                     return;
                 }
                 axios({
-                    url : "/financial_link/biz/bizInfo/"+bizNo
+                    url : "/financial_link/biz/bizInfo/fim/"+bizNo
                     ,method : "get"
                 }).then(res => {
                     let result = res.data.data;

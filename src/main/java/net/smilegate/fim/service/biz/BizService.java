@@ -12,7 +12,7 @@ public interface BizService {
      * @param busnpNo
      * @return
      */
-    public Map<String, Object> getBizInfo(String busnpNo);
+    public Map<String, Object> getBizInfo(String serverName, String busnpNo);
     
     public Map<String, Object> selectBuzInfoList(BizVO bizVO);
     

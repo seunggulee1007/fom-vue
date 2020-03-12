@@ -38,6 +38,9 @@ public class BizVO {
     /** 조회자 부서 */
     @Column(name="DEPT_NM", length=30)
     private String deptNm;
+    /** 요청 서버 */
+    @Column(name="REQ_SERVER", length=5)
+    private String reqServer;
     /** 결과 값 */
     @Column(name="RESULT_MSG", length=300)
     private String resultMsg;

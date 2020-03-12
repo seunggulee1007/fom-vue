@@ -7,12 +7,15 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import net.smilegate.fim.advice.exception.NotAcceptedServerException;
 import net.smilegate.fim.advice.exception.NotbizNoException;
+import net.smilegate.fim.enums.AcceptServer;
 import net.smilegate.fim.mappers.fim.BizMapper;
 import net.smilegate.fim.util.CommonUtil;
 import net.smilegate.fim.vo.BizVO;
@@ -33,19 +36,16 @@ public class BizServiceImpl implements BizService {
      * @param bizNo
      * @return
      */
-    public Map<String, Object> getBizInfo(/* String serverName, */String bizNo) {
+    public Map<String, Object> getBizInfo(String serverName, String bizNo) {
         Map<String, Object> map = new HashMap<String, Object>();
         if(bizNo.indexOf("-") != -1) {
             bizNo = bizNo.replaceAll("-", "");
         }
-        /*
-         * Optional<AcceptServer> optional =
-         * Optional.ofNullable(AcceptServer.getServers(serverName.toLowerCase()));
-         * optional.orElseThrow(() -> new
-         * NotAcceptedServerException("등록되지 않은 서버입니다. 서비스 담당자에게 요청해 주세요")); String ip =
-         * CommonUtil.getClientIp(true); String clientIp =
-         * CommonUtil.getClientIp(false);
-         */
+        
+        Optional<AcceptServer> optional =
+                Optional.ofNullable(AcceptServer.getServers(serverName.toLowerCase()));
+        optional.orElseThrow(() -> new
+                            NotAcceptedServerException("등록되지 않은 서버입니다. 서비스 담당자에게 요청해 주세요"));
         if(!CommonUtil.isBusinessId(bizNo)) {
             throw new NotbizNoException("유효한 사업자 번호가 아닙니다. 사업자 번호를 다시 확인해 주세요");
         } else {

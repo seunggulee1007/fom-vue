@@ -9,6 +9,7 @@
         ,user_id                as userId
         ,user_nm                as userNm
         ,dept_nm                as deptNm
+        ,req_server             as reqServer
         ,result_msg             as resultMsg
         ,detail_msg             as detailMsg
         ,detail_msg_engl        as detailMsgEngl
@@ -16,6 +17,7 @@
         ,convert(varchar, crt_date, 111)               as crtDateStr
     </sql>
     
+    <!-- 휴폐업 조회 이력 저장 -->
     <insert id="insertBizInfo" parameterType="bizVO">
         <selectKey keyProperty="bizChkHistId" resultType="int" order="BEFORE">
             select next value for seq_biz_chk_hist
@@ -26,6 +28,7 @@
             ,user_id        
             ,user_nm        
             ,dept_nm        
+            ,req_server
             ,result_msg     
             ,detail_msg     
             ,detail_msg_engl
@@ -35,12 +38,14 @@
             ,#{userId}
             ,#{userNm}
             ,#{deptNm}
+            ,#{reqServer}
             ,#{resultMsg}
             ,#{detailMsg}
             ,#{detailMsgEngl}
         )
     </insert>
     
+    <!-- 휴폐업 조회 이력 조회 -->
     <select id="selectBizInfoList" parameterType="bizVO" resultType="bizVO">
         select
             <include refid="bizColumn"/>
