@@ -11,6 +11,7 @@ public enum AcceptServer {
     ,EXERP("exerp")
     ,HELPDESK("helpdesk")
     ,JFT("jft")
+    ,MDI("mdi")
     ;
     private final String serverName;
     
