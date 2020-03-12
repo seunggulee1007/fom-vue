@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.smilegate.fim.mappers.sgerpma.SgerpmaMapper">
+    
+    <!--  공통 (SFG제외) 비용매핑정보 조회-->
+    <select id="selectResultCostMap" parameterType="expenseVO" resultType="expenseVO">
+        select
+            CostSeq as costSeq
+            ,CostName as costName
+            ,COST_ITEM_CD as costItemCd
+            ,COST_ITEM_NM as costItemNm
+            ,ACTIVITY_CD as activityCd
+            ,ACTIVITY_NM as activityNm
+            ,DEPT_TYPE as deptType
+            ,DEPT_TYPE_NM as deptTypeNm
+            ,SMKindSeq as smKindSeq
+            ,SMKindName as smKindName
+        from tb_result_cost_map
+        <where>
+            <if test="smKindName != null and smKindName != ''">
+                and SMKindName like concat('%',#{smKindName},'%')
+            </if>
+            <if test="activityNm != null and activityNm != ''">
+                and activity_nm like concat('%',#{activityNm},'%')
+            </if>
+            <if test="costItemNm != null and costItemNm != ''">
+                and cost_item_nm like concat('%',#{costItemNm},'%')
+            </if>
+            <if test="costName != null and costName != ''">
+                and CostName like concat('%',#{costName},'%')
+            </if>
+            
+            
+        </where>
+    </select>
+    
+    <!--  SFG 비용매핑정보 조회-->
+    <select id="selectResultCostMap1" parameterType="expenseVO" resultType="expenseVO">
+        select
+            costseq as costSeq
+            ,CostName as costName
+            ,new_cost_item_cd as costItemCd
+            ,new_cost_item_nm as costItemNm
+            ,new_activity_cd as activityCd
+            ,new_activity_nm as activityNm
+            ,dept_type as deptType
+            ,dept_type_nm as deptTypeNm
+            ,SMKindSeq as smKindSeq
+            ,SMKindName as smKindName
+        from tb_result_cost_map
+        <where>
+            <if test="smKindName != null and smKindName != ''">
+                and SMKindName like concat('%',#{smKindName},'%')
+            </if>
+            <if test="activityNm != null and activityNm != ''">
+                and new_activity_nm like concat('%',#{activityNm},'%')
+            </if>
+            <if test="costItemNm != null and costItemNm != ''">
+                and new_cost_item_nm like concat('%',#{costItemNm},'%')
+            </if>
+            <if test="costName != null and costName != ''">
+                and CostName like concat('%',#{costName},'%')
+            </if>
+        </where>
+    </select>
+    
+    <!--  임원 비용매핑 정보 조회-->
+    <select id="selectResultCardCostMap" parameterType="expenseVO" resultType="expenseVO">
+        select
+            CostSeq as costSeq
+            ,CostName as costName
+            ,COST_ITEM_CD as costItemCd
+            ,COST_ITEM_NM as costItemNm
+            ,ACTIVITY_CD as activityCd
+            ,ACTIVITY_NM as activityNm
+            ,DEPT_TYPE as deptType
+            ,DEPT_TYPE_NM as deptTypeNm
+            ,SMKindSeq as smKindSeq
+            ,SMKindName as smKindName
+        from tb_result_card_cost_map
+        <where>
+            <if test="smKindName != null and smKindName != ''">
+                and SMKindName like concat('%',#{smKindName},'%')
+            </if>
+            <if test="activityNm != null and activityNm != ''">
+                and activity_nm like concat('%',#{activityNm},'%')
+            </if>
+            <if test="costItemNm != null and costItemNm != ''">
+                and cost_item_nm like concat('%',#{costItemNm},'%')
+            </if>
+            <if test="costName != null and costName != ''">
+                and CostName like concat('%',#{costName},'%')
+            </if>
+        </where>
+    </select>
+    
+    <!-- 임원 여부 조회 -->
+    <select id="getImwonCheck" resultType="String">
+        select dbo.FN_GET_IMWON_CHECK ( LEFT(CONVERT(VARCHAR, GETDATE(), 112),6), #{userNm} )
+    </select>
+    
+</mapper>

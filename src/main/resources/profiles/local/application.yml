@@ -50,6 +50,13 @@ spring:
                 driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
                 pool-name: default-r-pool
                 read-only: true
+            sgerpma : 
+                jdbc-url: jdbc:sqlserver://10.2.211.70:3920;DatabaseName=SGERPMA
+                username: app_svc
+                password: svc3920!
+                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+                pool-name: default-r-pool
+                read-only: true
     ## JPA
     jpa:
         show-sql: true
