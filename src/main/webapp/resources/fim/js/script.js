@@ -91,7 +91,7 @@ $(document).ready(function() {
         
         $(this).parent().addClass('lst-tab__item--active').siblings().removeClass('lst-tab__item--active');
 
-        $(this).parents('.tab-area').next('.tab-cnt').children().eq(tabNum).addClass('tab-cnt--active').siblings().removeClass('tab-cnt--active')
+        $(this).parents('.tab-area').next('.tab-cnt').children().eq(tabNum).addClass('lst-tab-cnt--active').siblings().removeClass('lst-tab-cnt--active')
     })
 
     //btn-alert

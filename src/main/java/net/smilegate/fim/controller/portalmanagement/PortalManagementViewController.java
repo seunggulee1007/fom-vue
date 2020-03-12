@@ -31,4 +31,24 @@ public class PortalManagementViewController {
         return "/fim/portal_management/info_write";
     }
     
+    @GetMapping("/info_view")
+    public String infoView() {
+        return "/fim/portal_management/info_view";
+    }
+    
+    @GetMapping("/approval_pending")
+    public String approvalPending() {
+        return "/fim/portal_management/approval_pending";
+    }
+    
+    @GetMapping("/approval_pre")
+    public String approvalPre() {
+        return "/fim/portal_management/approval_pre";
+    }
+    
+    @GetMapping("/approval_progress")
+    public String approvalProgress() {
+        return "/fim/portal_management/approval_progress";
+    }
+    
 }

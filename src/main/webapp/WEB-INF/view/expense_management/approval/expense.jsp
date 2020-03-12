@@ -3,123 +3,7 @@
 <script type="text/babel" src="/resources/fim/js/expense_management/expense.js"></script>
 <script src='https://unpkg.com/v-calendar@next'></script>
 <div id="container" class="container container--include-lnb container--fullview container-write" v-cloak>
-    <div class="lnb lnb-area">
-        <ul class="lst-lnb">
-            <li class="lst-lnb__item lst-lnb__item--active">
-                <a href="#" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">전자결재</span>
-                    <span class="sp icon-arrow--ms"><span class="blind">메뉴 열기</span></span>
-                </a>
-                <ul class="lst-lnb-sub">
-                    <li class="lst-lnb-sub__item">
-                        <a href="approval_form.html" class="lst-lnb-sub__menu">
-                            <span class="lst-lnb-sub__menu-txt">기안서</span>
-                        </a>
-                    </li>
-                    <li class="lst-lnb-sub__item">
-                        <a href="approval_report.html" class="lst-lnb-sub__menu">
-                            <span class="lst-lnb-sub__menu-txt">기안서(보고)</span>    
-                        </a>                                
-                    </li>  
-                    <li class="lst-lnb-sub__item lst-lnb-sub__item--active">
-                        <a href="expense.html" class="lst-lnb-sub__menu">
-                            <span class="lst-lnb-sub__menu-txt">지출결의서</span>
-                        </a>
-                    </li>
-                    <li class="lst-lnb-sub__item">
-                        <a href="budget_change.html" class="lst-lnb-sub__menu">
-                            <span class="lst-lnb-sub__menu-txt">예산변경신청</span>    
-                        </a>                                
-                    </li>  
-                </ul>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="#" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">전자세금계산서</span>
-                    <span class="sp icon-arrow--ms"><span class="blind">메뉴 열기</span></span>
-                </a>
-                <ul class="lst-lnb-sub">
-                    <li class="lst-lnb-sub__item">
-                        <a href="../bill/tax_bill.html" class="lst-lnb-sub__menu">
-                            <span class="lst-lnb-sub__menu-txt">전자세금계산서</span>
-                        </a>
-                    </li>
-                    <li class="lst-lnb-sub__item">
-                        <a href="../bill/bill.html" class="lst-lnb-sub__menu">
-                            <span class="lst-lnb-sub__menu-txt">전자계산서</span>    
-                        </a>                                
-                    </li>  
-                </ul>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="../workshop.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">워크샵 정산</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="../cafeteria.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">중석식 정산</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="../cafeteria_mobile.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">모바일식권 정산</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="../advance_payment.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">전도금 정산</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="../taxi.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">택시비 정산</span>
-                </a>
-            </li>
-        </ul>
-
-        <footer class="footer footer--lnb-type">
-            <div class="footer__inner">
-                <!-- <ul class="footer__util">
-                    <li class="footer__util-item">
-                        <a href="#" class="footer__util-menu">
-                            <span class="footer__util-menu-txt">스마일넷 배너등록</span>
-                        </a>
-                    </li>
-                    <li class="footer__util-item">
-                        <a href="#" class="footer__util-menu">
-                            <span class="footer__util-menu-txt">개선 및 건의</span>
-                        </a>
-                    </li>
-                </ul>
-                <div class="dropdown">
-                    <a href="#" class="dropdown__button">
-                        <span class="dropdown__button-text">패밀리 사이트 바로가기</span>
-                        <span class="sp icon-arrow">
-                            <span class="blind">옵션창 열기</span>
-                        </span>
-                    </a>
-                    <ul class="dropdown__list">
-                    <li class="dropdown__item">
-                        <a href="#" class="dropdown__menu">
-                            <span class="dropdown__menu-txt">List 1_All</span>
-                        </a>
-                    </li>
-                    <li class="dropdown__item">
-                        <a href="#" class="dropdown__menu">
-                            <span class="dropdown__menu-txt">List 2</span>
-                        </a>
-                    </li>
-                    </ul>
-                </div> -->
-                <small class="footer__copyright">&copy; Smilegate. All Rights Reserved.</small>
-            </div>
-        </footer>
-        
-        <button type="button" class="btn btn-lnb">
-            <span class="icon-arrow"><span class="blind">메뉴 열기</span></span>
-        </button>
-    </div>
+    <jsp:include page="/WEB-INF/view/include/expense_management_include.jsp"/>
     <h2 class="page-title">지출결의서</h2>
     <!-- <p class="page-title__dsc">· 지출결의서를 작성할 수 있는 페이지입니다.</p> -->
     <div class="component-group align-right btn-box--absolute">
@@ -410,26 +294,26 @@
                                 <div class="search-form">
                                     <em class="search-form__title">비용항목 - 중분류</em>
                                     <div class="search-form__inner">
-                                        <input type="search" v-model="expenseVO.midDivCdNm">                                                
+                                        <input type="search" v-model="expenseVO.midDivCdNm" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                                 <div class="search-form">
                                     <em class="search-form__title">비용항목 - 소분류</em>
                                     <div class="search-form__inner">         
-                                        <input type="search" v-model="expenseVO.smDivCdNm">
+                                        <input type="search" v-model="expenseVO.smDivCdNm" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                             
                                 <div class="search-form">
                                     <em class="search-form__title">SGMA - Activity</em>
                                     <div class="search-form__inner">         
-                                        <input type="search" v-model="expenseVO.activityCdNm">
+                                        <input type="search" v-model="expenseVO.activityCdNm" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                                 <div class="search-form">
                                     <em class="search-form__title">SGMA - 비용항목</em>
                                     <div class="search-form__inner">         
-                                        <input type="search" v-model="expenseVO.expenseItemCdNm">
+                                        <input type="search" v-model="expenseVO.expenseItemCdNm" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                             </fieldset>
@@ -511,13 +395,13 @@
                                     <div class="search-form">
                                         <em class="search-form__title">SGMA - Activity</em>
                                         <div class="search-form__inner">         
-                                            <input type="search" v-model="expenseVO.activityCdNm">
+                                            <input type="search" v-model="expenseVO.activityCdNm" @keyup.enter="selectExpenseList();">
                                         </div>
                                     </div>
                                     <div class="search-form">
                                         <em class="search-form__title">SGMA - 비용항목</em>
                                         <div class="search-form__inner">         
-                                            <input type="search" v-model="expenseVO.expenseItemCdNm">
+                                            <input type="search" v-model="expenseVO.expenseItemCdNm" @keyup.enter="selectExpenseList();">
                                         </div>
                                     </div>
                             </fieldset>

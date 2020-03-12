@@ -23,19 +23,13 @@ public class FinancialLinkViewController {
         return "/fim/financial_link/tax_schedule";
     }
     
+    /**
+     * 환율 페이지
+     * @return
+     */
     @GetMapping("/exchange")
     public String exchange() {
         return "/fim/financial_link/exchange";
-    }
-    
-    @GetMapping("/biz_chk/biz_num")
-    public String bizNum() {
-        return "/fim/financial_link/biz_chk/biz_num";
-    }
-    
-    @GetMapping("/biz_chk/biz_chk_history")
-    public String bizChkHistory() {
-        return "/fim/financial_link/biz_chk/biz_chk_history";
     }
     
 }

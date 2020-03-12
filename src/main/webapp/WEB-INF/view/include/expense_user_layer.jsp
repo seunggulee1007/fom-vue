@@ -27,7 +27,7 @@
                     <em class="popup__contents-title">검색결과</em>
                     <div class="contents--draggable">
                         <draggable v-model="userList" group="people" @change="log">
-                            <div class="popup__contents-txt" v-for="(list,idx) in userList" @dblclick="moveUser('user',idx);">
+                            <div class="popup__contents-txt" v-for="(list, idx) in userList" @dblclick="moveUser('user',idx);">
                                 <span class="user_name">{{list.userNm}}</span>
                                 <span class="user_position txt--blue">{{list.title2Nm}}</span>
                                 <span class="user_dept txt--green">{{list.deptNm}}</span>
@@ -54,7 +54,7 @@
                     <em class="popup__contents-title">선택된 사용자</em>
                         <div class="contents--droppable">
                             <draggable v-model="selectedUserList" group="people" style="min-height:200px;"  @change="log">
-                                <div class="popup__contents-txt" v-for="list in selectedUserList" @dblclick="moveUser('selectedUser',idx);">
+                                <div class="popup__contents-txt" v-for="(list, idx) in selectedUserList" @dblclick="moveUser('selectedUser',idx);">
                                     <span class="user_name">{{list.userNm}}</span>
                                     <span class="user_position txt--blue">{{list.title2Nm}}</span>
                                     <span class="user_dept txt--green">{{list.deptNm}}</span>
