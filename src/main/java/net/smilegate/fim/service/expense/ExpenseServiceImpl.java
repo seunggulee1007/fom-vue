@@ -19,8 +19,11 @@ public class ExpenseServiceImpl implements ExpenseService {
     
     public Map<String, Object> selectExpenseList(Map<String, Object> searchRequest) {
         Map<String, Object> map = new HashMap<>();
-        List<ExpenseVO> expenseList = jpaExpenseMapper.findAll(ExpenseSpecification.searchWith(searchRequest));
-        map.put("expenseList", expenseList);
+        /*
+         * List<ExpenseVO> expenseList =
+         * jpaExpenseMapper.findAll(ExpenseSpecification.searchWith(searchRequest));
+         * map.put("expenseList", expenseList);
+         */
         return map;
     }
 }

@@ -98,8 +98,8 @@
                                     <td class="table__td">
                                         <div class="btn_group">
                                             <span class="btn-checkbox">
-                                                <input type="checkbox" id="checkbox_memberChk1" class="checkbox_member-leave">
-                                                <label for="checkbox_memberChk1" class="btn-checkbox__label"><span class="blind">선택</span></label>
+                                                <input type="checkbox" class="checkbox_member-leave" v-model="expense.checked" :id="'checkbox_memberChk'+idx">
+                                                <label :for="'checkbox_memberChk'+idx" class="btn-checkbox__label"><span class="blind">선택</span></label>
                                             </span>
                                         </div>
                                     </td>
@@ -114,20 +114,20 @@
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" v-model="expense.expenseVO.midDivCdNm" @dblclick="openExpenseAll(idx, expense.expenseVO.midDivCdNm)" @keyup.enter="openExpenseAll(idx, expense.expenseVO.midDivCdNm)">
+                                            <input type="text" class="input-field__input" v-model="expense.expenseVO.smKindName" @dblclick="openExpenseAll(idx, expense.expenseVO.smKindName)" @keyup.enter="openExpenseAll(idx, expense.expenseVO.smKindName)">
                                         </div>
                                     </td>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt">{{ expense.expenseVO.smDivCdNm }}</span>
+                                        <span class="table__txt">{{ expense.expenseVO.costName }}</span>
                                     </td>
                                     <td class="table__td table__td--data">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" @dblclick="openExpenseSgma(idx, expense.expenseVO.activityCdNm)" @keyup.enter="openExpenseSgma(idx, expense.expenseVO.activityCdNm)" v-model="expense.expenseVO.activityCdNm" v-if="expense.expenseVO.midDivCdNm">
-                                            <span class="table__txt" v-else="!expense.expenseVO.midDivCdNm"></span>
+                                            <input type="text" class="input-field__input" @dblclick="openExpenseSgma(idx, expense.expenseVO.activityNm)" @keyup.enter="openExpenseSgma(idx, expense.expenseVO.activityNm)" v-model="expense.expenseVO.activityNm" v-if="expense.expenseVO.smKindName">
+                                            <span class="table__txt" v-else="!expense.expenseVO.smKindName"></span>
                                         </div>
                                     </td>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt">{{ expense.expenseVO.expenseItemCdNm }}</span>
+                                        <span class="table__txt">{{ expense.expenseVO.costItemNm }}</span>
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
@@ -174,7 +174,7 @@
                     </div>
                     <div class="component-box btn-box align-right">
                         <div class="component-box">
-                            <button type="button" class="btn btn--small btn--bgtype">
+                            <button type="button" class="btn btn--small btn--bgtype" @click="removeExpenseList();">
                                 <span class="btn__txt">삭제</span>
                             </button>
                         </div>
@@ -223,16 +223,13 @@
                                     <td class="table__td" colspan="5">
                                         <div class="input-field input-field-table">
                                             <button type="button" class="btn btn-file">
-                                                <label for="file2" class="btn__txt">파일선택</label>
+                                                <label for="btnFile" class="btn__txt">파일선택</label>
                                             </button>
-                                            <input type="file" id="file2" class="input-field__file blind">
-                                            <span class="input__dsc-txt">0 Bytes / 100 MB</span>  
-                                            <div class="input-field__file-box">
-                                                <div class="file-info">smilegate_test.xlsx</div>
-                                                <div class="file-info">smilegate_test.xlsx</div>
-                                                <div class="file-info">smilegate_test.xlsx</div>
-                                                <div class="file-info">smilegate_test.xlsx</div>
-                                            </div>
+                                            <input type="file" id="btnFile" class="input-field__file blind" multiple v-on:change="handleFilesUpload()" ref="files">
+                                            <span class="input__dsc-txt">{{fileSize}} Bytes / 100 MB</span>  
+                                        <div class="input-field__file-box" v-show="files.length > 0">
+                                            <div class="file-info" v-for="(file, key) in files">{{ file.name }} <span class="remove-file" v-on:click="removeFile( key )">Remove</span></div>
+                                        </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -294,26 +291,26 @@
                                 <div class="search-form">
                                     <em class="search-form__title">비용항목 - 중분류</em>
                                     <div class="search-form__inner">
-                                        <input type="search" v-model="expenseVO.midDivCdNm" @keyup.enter="selectExpenseList();">
+                                        <input type="search" v-model="expenseVO.smKindName" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                                 <div class="search-form">
                                     <em class="search-form__title">비용항목 - 소분류</em>
                                     <div class="search-form__inner">         
-                                        <input type="search" v-model="expenseVO.smDivCdNm" @keyup.enter="selectExpenseList();">
+                                        <input type="search" v-model="expenseVO.costName" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                             
                                 <div class="search-form">
                                     <em class="search-form__title">SGMA - Activity</em>
                                     <div class="search-form__inner">         
-                                        <input type="search" v-model="expenseVO.activityCdNm" @keyup.enter="selectExpenseList();">
+                                        <input type="search" v-model="expenseVO.activityNm" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                                 <div class="search-form">
                                     <em class="search-form__title">SGMA - 비용항목</em>
                                     <div class="search-form__inner">         
-                                        <input type="search" v-model="expenseVO.expenseItemCdNm" @keyup.enter="selectExpenseList();">
+                                        <input type="search" v-model="expenseVO.costItemNm" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                             </fieldset>
@@ -351,16 +348,16 @@
                                 <tbody>
                                     <tr v-for="list in expenseList" @dblclick="choiceItem(list)">
                                         <td class="table__td">
-                                            <span class="table__txt">{{list.midDivCdNm}}</span>
+                                            <span class="table__txt">{{list.smKindName}}</span>
                                         </td>
                                         <td class="table__td">
-                                            <span class="table__txt">{{list.smDivCdNm}}</span>
+                                            <span class="table__txt">{{list.costName}}</span>
                                         </td>
                                         <td class="table__td">
-                                            <span class="table__txt">{{list.activityCdNm}}</span>
+                                            <span class="table__txt">{{list.activityNm}}</span>
                                         </td>
                                         <td class="table__td">
-                                            <span class="table__txt">{{list.expenseItemCdNm}}</span>
+                                            <span class="table__txt">{{list.costItemNm}}</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -395,13 +392,13 @@
                                     <div class="search-form">
                                         <em class="search-form__title">SGMA - Activity</em>
                                         <div class="search-form__inner">         
-                                            <input type="search" v-model="expenseVO.activityCdNm" @keyup.enter="selectExpenseList();">
+                                            <input type="search" v-model="expenseVO.activityNm" @keyup.enter="selectExpenseList();">
                                         </div>
                                     </div>
                                     <div class="search-form">
                                         <em class="search-form__title">SGMA - 비용항목</em>
                                         <div class="search-form__inner">         
-                                            <input type="search" v-model="expenseVO.expenseItemCdNm" @keyup.enter="selectExpenseList();">
+                                            <input type="search" v-model="expenseVO.costItemNm" @keyup.enter="selectExpenseList();">
                                         </div>
                                     </div>
                             </fieldset>
@@ -434,10 +431,10 @@
                                 <tbody>
                                     <tr v-for="list in expenseList" @dblclick="choiceItem(list)">
                                         <td class="table__td">
-                                            <span class="table__txt">{{list.activityCdNm}}</span>
+                                            <span class="table__txt">{{list.activityNm}}</span>
                                         </td>
                                         <td class="table__td">
-                                            <span class="table__txt">{{list.expenseItemCdNm}}</span>
+                                            <span class="table__txt">{{list.costItemNm}}</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -456,7 +453,7 @@
 </div>
 
 <!-- expenses detail -->
-<div class="popup-wrap popup-layer--medium popup-layer--expenses-detail">
+<div class="popup-wrap popup-layer--medium popup-layer--expenses-detail popup-wrap--active">
     <div class="popup-wrap__align-box">
         <div class="popup-wrap__inner">
             <div class="popup__header">

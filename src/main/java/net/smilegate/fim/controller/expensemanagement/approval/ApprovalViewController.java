@@ -8,13 +8,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/expense_management/approval")
 public class ApprovalViewController {
     
+    private String preFix ="/fim/expense_management/approval";
+    
+    /**
+     * 
+     * @return
+     */
+    @GetMapping("/approval_form")
+    public String approvalForm() {
+        return preFix+"/approval_form";
+    }
+    
+    @GetMapping("/approval_report")
+    public String approvalReport() {
+        return preFix + "/approval_form";
+    }
+    
+    
     /**
      * 지출결의서 조회 페이지
      * @return
      */
     @GetMapping("/expense_history")
     public String expenseHistory() {
-        return "/fim/expense_management/approval/expense_history";
+        return preFix + "/expense_history";
     }
     
     /**
@@ -23,7 +40,7 @@ public class ApprovalViewController {
      */
     @GetMapping("/expense")
     public String expense() {
-        return "/fim/expense_management/approval/expense";
+        return preFix + "/expense";
     }
     
 }

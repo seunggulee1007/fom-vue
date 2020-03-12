@@ -35,9 +35,10 @@ $(document).ready(function(){
                     }
                 }
             ,clickDept(data) {
-                if(data.child.length > 0) {
+                /*if(data.child.length > 0) {
                     return;
-                }
+                }*/
+                $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
                 axios({
                     url : "/expense_management/approval/getUserList"
                         ,params : {
@@ -46,8 +47,10 @@ $(document).ready(function(){
                 }).then(res=>{
                     this.userList = res.data.data.userList;
                     this.sender();
-                }).catch(err=>{
-                    alert(err);
+                    $.unblockUI();
+                }).catch(e =>{
+                    alert(e.response.data.resultMsg);
+                    $.unblockUI();
                 });
             }
             ,sender () {

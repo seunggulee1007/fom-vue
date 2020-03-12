@@ -19,11 +19,15 @@ $(document).ready(function(){
                     , remark : ""
                     , curAmt : 0
                     , expenseVO : {}
+                    , checked : false
                 }
             ]
             ,expenseIdx : 0
             ,expenseAllIdx : 0
             ,expenseAllPopupFlag : false
+            ,fileName : ''
+            ,files: []
+            ,fileSize : 0
         }
         ,created () {
             this.getDeptList();
@@ -39,14 +43,17 @@ $(document).ready(function(){
                 EventBus.$emit('deptList', data);
             }
             , getDeptList() {         // 부서 정보 가져오기
+                $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
                 axios({
                     url : "/expense_management/approval/getDeptList"
                     ,method : "get"
                 }).then(res=>{
                     console.log(res);
                     this.sender(res.data.data.deptList);
-                }).catch(err => {
-                    alert(err);
+                    $.unblockUI();
+                }).catch(e =>{
+                    alert(e.response.data.resultMsg);
+                    $.unblockUI();
                 });
             }
             ,addExpenseList() {         // 비용 항목 리스트 추가
@@ -67,24 +74,73 @@ $(document).ready(function(){
             ,setExpenseData (data) {                // 부서 정보 세팅
                 this.expenseList[this.expenseIdx].deptVO = data;
             }
-            ,openExpenseAll(idx, midDivCdNm) {                  // 비용항목(중분류 더블클릭시)
+            ,openExpenseAll(idx, smKindName) {                  // 비용항목(중분류 더블클릭시)
                 this.expenseIdx = idx;
-                expenseAllApp.openExpenseAllPopup(midDivCdNm);
+                let userNm = this.expenseList[idx].deptVO.userNm;       // 사용자 명
+                let comCd = this.expenseList[idx].deptVO.comCd;       // 사용자 명
+                expenseAllApp.openExpenseAllPopup(smKindName, userNm, comCd);
             }
-            ,setExpenseItemAll(data) {
+            ,setExpenseItemAll(data) {                          // 비용항목 데이터 세팅
                 this.expenseList[this.expenseIdx].expenseVO = data;
                 console.log(this.expenseList[this.expenseIdx]);
             }
-            ,openExpenseSgma(idx, activityCdNm) {
+            ,openExpenseSgma(idx, activityNm) {               // 비용항목 activity 더블 클릭시
                 this.expenseIdx = idx;
-                expenseSgmaApp.openExpenseSgmaPopup(activityCdNm);
+                expenseSgmaApp.openExpenseSgmaPopup(activityNm);
             }
-            ,setExpenseItemSgma(data) {
+            ,setExpenseItemSgma(data) {                         // 비용항목 activity 세팅
                 let expenseVO = this.expenseList[this.expenseIdx].expenseVO;
-                expenseVO.activityCdNm = data.activityCdNm;
+                expenseVO.activityNm = data.activityNm;
                 expenseVO.activityCd = data.activityCd;
-                expenseVO.expenseItemCdNm = data.expenseItemCdNm;
+                expenseVO.costItemNm = data.costItemNm;
                 expenseVO.expenseItemCd = data.expenseItemCd;
+            }
+            ,getImwonCheck (idx, userNm) {         // 임원 여부 확인
+                $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
+                axios({
+                    url : "/expense_management/approval/getImwonCheck/" + userNm
+                }).then(res =>{
+                    this.expenseList[this.expenseIdx].imwonYn = res.data.data.imwonYn;
+                    $.unblockUI();
+                }).catch(e =>{
+                    alert(e.response.data.resultMsg);
+                    $.unblockUI();
+                });
+                
+            }
+            ,handleFilesUpload(){
+                let uploadedFiles = this.$refs.files.files;
+                /*
+                  Adds the uploaded file to the files array
+                */
+                for( var i = 0; i < uploadedFiles.length; i++ ){
+                  this.files.push( uploadedFiles[i] );
+                }
+                console.log(this.files);
+                this.fileSize = this.files[0].size;
+                this.fileName = this.files[0].name;
+            }   // end handleFilesUpload
+            ,removeFile( key ){
+                if(!confirm("삭제하시겠습니까?")) {
+                    return;
+                }
+                this.files.splice( key, 1 );
+            }       // end removeFile
+            , saveExpense () {                      // 지출결의 저장
+                let formData = new FormData();
+                for(let i=0; i< this.files.length;i++) {
+                    formData.append('files['+i+']', this.files[i]);
+                }
+                
+            }
+            , removeExpenseList() {
+                let expenseList = this.expenseList;
+                for(let expense of this.expenseList) {
+                    if(expense.checked) {
+                        expenseList.push(expense);
+                    }
+                }
+                this.expenseList = expenseList;
             }
         }
     });
@@ -97,25 +153,32 @@ $(document).ready(function(){
             ,expenseAllPopupFlag : false
         }
         ,methods : {
-            openExpenseAllPopup(midDivCdNm) {
+            openExpenseAllPopup(smKindName, userNm, comCd) {
                 this.expenseAllPopupFlag = true;
-                this.expenseVO.midDivCdNm = midDivCdNm;
+                this.expenseVO.smKindName = smKindName;
+                this.expenseVO.userNm = userNm;
+                this.expenseVO.comCd = comCd;
                 console.log(this.expenseVO);
                 this.selectExpenseList();
             }
             ,selectExpenseList () {
+                $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
                 axios({
                     url : "/expense_management/approval/getExpense"
                     ,params : {
-                        midDivCdNm : this.expenseVO.midDivCdNm
-                        ,smDivCdNm : this.expenseVO.smDivCdNm
-                        ,activityCdNm : this.expenseVO.activityCdNm
-                        ,expenseItemCdNm : this.expenseVO.expenseItemCdNm
+                        smKindName : this.expenseVO.smKindName
+                        ,costName : this.expenseVO.costName
+                        ,activityNm : this.expenseVO.activityNm
+                        ,costItemNm : this.expenseVO.costItemNm
+                        ,userNm : this.expenseVO.userNm
+                        ,comCd : this.expenseVO.comCd
                     }
                 }).then(res=>{
                     this.expenseList = res.data.data.expenseList;
-                }).catch(err=>{
-                    alert(err);
+                    $.unblockUI();
+                }).catch(e =>{
+                    alert(e.response.data.resultMsg);
+                    $.unblockUI();
                 });
             }
             ,closePopup() {
@@ -137,22 +200,49 @@ $(document).ready(function(){
             ,expenseSgmaPopupFlag : false
         }
         ,methods : {
-            openExpenseSgmaPopup(activityCdNm) {
+            openExpenseSgmaPopup(activityNm, userNm, comCd) {
                 this.expenseSgmaPopupFlag = true;
-                this.expenseVO.activityCdNm = activityCdNm;
+                this.expenseVO.activityNm = activityNm;
+                this.expenseVO.userNm = userNm;
+                this.expenseVO.comCd = comCd;
                 this.selectExpenseList();
             }
             ,selectExpenseList () {
+                $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
                 axios({
                     url : "/expense_management/approval/getExpense"
                     ,params : {
-                        activityCdNm : this.expenseVO.activityCdNm
-                        ,expenseItemCdNm : this.expenseVO.expenseItemCdNm
+                        activityNm : this.expenseVO.activityNm
+                        ,costItemNm : this.expenseVO.costItemNm
+                        ,userNm : this.expenseVO.userNm
+                        ,comCd : this.expenseVO.comCd
                     }
                 }).then(res=>{
-                    this.expenseList = res.data.data.expenseList;
-                }).catch(err=>{
-                    alert(err);
+                    let tempList = [];
+                    console.log('res :::');
+                    console.log(res.data.data.expenseList);
+                    for(let temp of res.data.data.expenseList) {
+                        tempList.push({
+                            activityNm : temp.activityNm
+                            ,activityCd : temp.activityCd
+                            ,costItemNm : temp.costItemNm
+                            ,costItemCd : temp.costItemCd
+                        });
+                    }
+                    console.log('tempList ::::: ');
+                    console.log(tempList);
+                    this.expenseList = tempList.filter((item, i)=>{
+                        return tempList.findIndex((item2, j)=>{
+                            return item.key === item2.key;
+                        }) === i;
+                    });
+                    console.log('expenseList ::: ');
+                    console.log(this.expenseList);
+                    $.unblockUI();
+                }).catch(e =>{
+                    console.log(e);
+                    //alert(e.response.data.resultMsg);
+                    $.unblockUI();
                 });
             }
             ,closePopup() {

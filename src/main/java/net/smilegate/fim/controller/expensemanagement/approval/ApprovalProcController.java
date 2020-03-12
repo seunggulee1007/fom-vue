@@ -4,17 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import net.smilegate.fim.service.expense.ExpenseService;
 import net.smilegate.fim.service.mdi.MdiService;
+import net.smilegate.fim.service.sgerpma.SgerpmaService;
 import net.smilegate.fim.vo.CommonResultVO;
+import net.smilegate.fim.vo.ExpenseVO;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ import net.smilegate.fim.vo.CommonResultVO;
 public class ApprovalProcController {
     
     private final MdiService mdiService;
-    private final ExpenseService expenseService;
+    private final SgerpmaService sgerpmaService;
     
     @ApiOperation(value="부서리스트 조회", notes ="스마일 게이트 부서리스트 가져오는 메서드")
     @GetMapping("/getDeptList")
@@ -45,9 +46,27 @@ public class ApprovalProcController {
     
     @ApiOperation(value="비용항목 조회", notes="넘겨진 검색조건으로 비용항목 조회하는 메서드")
     @GetMapping("/getExpense")
-    public CommonResultVO getExpense(@RequestParam(required = false) Map<String, Object> searchRequest) {
+    public CommonResultVO getExpense(ExpenseVO expenseVO) {
         Map<String, Object> map = new HashMap<>();
-        map = expenseService.selectExpenseList(searchRequest);
+        map = sgerpmaService.selectResultCostMap(expenseVO);
         return CommonResultVO.builder().data(map).build();
     }
+
+    /*
+     * @ApiOperation(value="비용항목 조회", notes="넘겨진 검색조건으로 비용항목 조회하는 메서드")
+     * 
+     * @GetMapping("/getExpense") public CommonResultVO
+     * getExpense(@RequestParam(required = false) Map<String, Object> searchRequest)
+     * { Map<String, Object> map = new HashMap<>(); map =
+     * expenseService.selectExpenseList(searchRequest); return
+     * CommonResultVO.builder().data(map).build(); }
+     */    
+    @ApiOperation(value="임원 여부 조회", notes="해당 이름이 임원인지 여부 조회")
+    @GetMapping("/getImwonCheck/{userName}")
+    public CommonResultVO getImwonCheck(@PathVariable("userNm")String userNm) {
+        Map<String, Object> map = new HashMap<>();
+        map = sgerpmaService.getImwonCheck(userNm);
+        return CommonResultVO.builder().data(map).build();
+    }
+    
 }
