@@ -2,30 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.smilegate.fim.mappers.fim.BoardMapper">
-    
-    <resultMap id="boardResultMap" type="net.smilegate.fim.vo.BoardVO">
-        <id property="boardId" column="boardId"/>
-        <result property="cont" column="cont"/>
-        <result property="hit" column="hit"/>
-        <result property="title" column="title"/>
-        <result property="userId" column="userId"/>
-        <result property="userNm" column="userNm"/>
-        <result property="boardMasterId" column="boardMasterId"/>
-        <result property="sendMailYn" column="sendMailYn"/>
-        <collection property="fileList" javaType="java.util.ArrayList" resultMap="fileResultMap"/> 
-    </resultMap>
-    
-    <resultMap id="fileResultMap" type="net.smilegate.fim.vo.FileVO">
-        <id property="fileId" column="fileId"/>
-        <result property="fileNm" column="fileNm"/>
-        <result property="originalFileNm" column="originalFileNm"/>
-        <result property="filePath" column="filePath"/>
-        <result property="contentType" column="contentType"/>
-        <result property="extention" column="extention"/>
-        <result property="fileSize" column="fileSize"/>
-        <result property="boardId" column="boardId"/>
-    </resultMap>
-    
+
+<!--      <resultMap id="boardResultMap" type="net.smilegate.fim.vo.BoardVO"> -->
+<!--         <id property="boardId" column="boardId"/> -->
+<!--         <result property="cont" column="cont"/> -->
+<!--         <result property="hit" column="hit"/> -->
+<!--         <result property="title" column="title"/> -->
+<!--         <result property="userId" column="userId"/> -->
+<!--         <result property="userNm" column="userNm"/> -->
+<!--         <result property="boardMasterId" column="boardMasterId"/> -->
+<!--         <result property="sendMailYn" column="sendMailYn"/> -->
+<!--         <collection property="fileList" javaType="java.util.ArrayList" resultMap="fileResultMap"/> -->
+<!--     </resultMap> -->
+
+<!--     <resultMap id="fileResultMap" type="net.smilegate.fim.vo.FileVO"> -->
+<!--         <id property="fileId" column="fileId"/> -->
+<!--         <result property="fileNm" column="fileNm"/> -->
+<!--         <result property="originalFileNm" column="originalFileNm"/> -->
+<!--         <result property="filePath" column="filePath"/> -->
+<!--         <result property="contentType" column="contentType"/> -->
+<!--         <result property="extention" column="extention"/> -->
+<!--         <result property="fileSize" column="fileSize"/> -->
+<!--         <result property="boardId" column="boardId"/> -->
+<!--     </resultMap> -->
+
     <insert id="insertBoard" parameterType="boardVO">
         <selectKey keyProperty="boardId" resultType="int" order="BEFORE">
             select next value for seq_board
@@ -50,7 +50,7 @@
             ,#{sendMailYn}
         )
     </insert>
-    
+
     <!-- 게시판 조회수 증가 -->
     <update id="updateBoardHit">
         update
@@ -60,8 +60,8 @@
             where
                 board_id = #{boardId}
     </update>
-    
-    
+
+
     <select id="selectBoardList" resultType="boardVO">
         SELECT
             board_id AS boardId
@@ -72,32 +72,32 @@
             ,user_nm as userNm
             ,board_master_id AS boardMasterId
             ,send_mail_yn AS sendMailYn
-         FROM TB_BOARD 
+         FROM TB_BOARD
          where
             1=1
     </select>
-    
-    <select id="selectBoardByBoardId" resultMap="boardResultMap">
-        SELECT
-            b.board_id AS boardId
-            ,cont
-            ,hit
-            ,title
-            ,USER_ID AS userID
-            ,user_nm as userNm
-            ,board_master_id AS boardMasterId
-            ,send_mail_yn AS sendMailYn
-            ,FILE_ID AS fileId
-            ,file_nm AS fileNm
-            ,original_file_nm AS originalFileNm
-            ,file_path AS filePath
-            ,content_type AS contentType
-            ,extention 
-            ,file_size AS fileSize
-        FROM TB_BOARD b
-        LEFT JOIN TB_FILE f
-        ON b.board_id = f.board_id
-        where
-            b.board_id = #{boardId}
-    </select>
+
+<!--     <select id="selectBoardByBoardId" resultMap="boardResultMap"> -->
+<!--         SELECT -->
+<!--             b.board_id AS boardId -->
+<!--             ,cont -->
+<!--             ,hit -->
+<!--             ,title -->
+<!--             ,USER_ID AS userID -->
+<!--             ,user_nm as userNm -->
+<!--             ,board_master_id AS boardMasterId -->
+<!--             ,send_mail_yn AS sendMailYn -->
+<!--             ,FILE_ID AS fileId -->
+<!--             ,file_nm AS fileNm -->
+<!--             ,original_file_nm AS originalFileNm -->
+<!--             ,file_path AS filePath -->
+<!--             ,content_type AS contentType -->
+<!--             ,extention -->
+<!--             ,file_size AS fileSize -->
+<!--         FROM TB_BOARD b -->
+<!--         LEFT JOIN TB_FILE f -->
+<!--         ON b.board_id = f.board_id -->
+<!--         where -->
+<!--             b.board_id = #{boardId} -->
+<!--     </select> -->
 </mapper>
