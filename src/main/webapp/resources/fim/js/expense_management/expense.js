@@ -67,98 +67,86 @@ $(document).ready(function(){
                     }
                 );
             }
-            ,openDeptPopup(idx) {                   // 부서 조회 팝업 열기
+            ,openDeptPopup(idx) {                                       // 부서 조회 팝업 열기
                 this.expenseIdx = idx;
                 EventBus.$emit('openDeptPopup', idx);
             }
-            ,setExpenseData (data) {                // 부서 정보 세팅
+            ,setExpenseData (data) {                                    // 부서 정보 세팅
                 this.expenseList[this.expenseIdx].deptVO = data;
             }
-            ,openExpenseAll(idx, smKindName) {                  // 비용항목(중분류 더블클릭시)
+            ,openExpenseAll(idx, smKindName) {                          // 비용항목(중분류 더블클릭시)
                 this.expenseIdx = idx;
                 let userNm = this.expenseList[idx].deptVO.userNm;       // 사용자 명
-                let comCd = this.expenseList[idx].deptVO.comCd;       // 사용자 명
+                let comCd = this.expenseList[idx].deptVO.comCd;         // 사용자 명
                 expenseAllApp.openExpenseAllPopup(smKindName, userNm, comCd);
             }
-            ,setExpenseItemAll(data) {                          // 비용항목 데이터 세팅
+            ,setExpenseItemAll(data) {                                  // 비용항목 데이터 세팅
                 this.expenseList[this.expenseIdx].expenseVO = data;
                 console.log(this.expenseList[this.expenseIdx]);
             }
-            ,openExpenseSgma(idx, activityNm) {               // 비용항목 activity 더블 클릭시
+            ,openExpenseSgma(idx, activityNm) {                         // 비용항목 activity 더블 클릭시
                 this.expenseIdx = idx;
                 expenseSgmaApp.openExpenseSgmaPopup(activityNm);
             }
-            ,setExpenseItemSgma(data) {                         // 비용항목 activity 세팅
+            ,setExpenseItemSgma(data) {                                 // 비용항목 activity 세팅
                 let expenseVO = this.expenseList[this.expenseIdx].expenseVO;
                 expenseVO.activityNm = data.activityNm;
                 expenseVO.activityCd = data.activityCd;
                 expenseVO.costItemNm = data.costItemNm;
                 expenseVO.expenseItemCd = data.expenseItemCd;
             }
-            ,getImwonCheck (idx, userNm) {         // 임원 여부 확인
-                $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
-                axios({
-                    url : "/expense_management/approval/getImwonCheck/" + userNm
-                }).then(res =>{
-                    this.expenseList[this.expenseIdx].imwonYn = res.data.data.imwonYn;
-                    $.unblockUI();
-                }).catch(e =>{
-                    alert(e.response.data.resultMsg);
-                    $.unblockUI();
-                });
-                
-            }
             ,handleFilesUpload(){
-                let uploadedFiles = this.$refs.files.files;
+                let uploadedFiles = this.$refs.files.files;             // 해당 파일의 엘리먼트에 접근해서 변수에 담는다.
                 /*
                   Adds the uploaded file to the files array
                 */
                 for( var i = 0; i < uploadedFiles.length; i++ ){
                   this.files.push( uploadedFiles[i] );
                 }
-                console.log(this.files);
                 this.fileSize = this.files[0].size;
                 this.fileName = this.files[0].name;
             }   // end handleFilesUpload
-            ,removeFile( key ){
+            ,removeFile( key ){                                         // 파일 삭제(해당 순서)
                 if(!confirm("삭제하시겠습니까?")) {
                     return;
                 }
                 this.files.splice( key, 1 );
             }       // end removeFile
-            , saveExpense () {                      // 지출결의 저장
+            , saveExpense () {                                          // 지출결의 저장
                 let formData = new FormData();
                 for(let i=0; i< this.files.length;i++) {
                     formData.append('files['+i+']', this.files[i]);
                 }
+                const param = {};                                       // 저장용 객체
                 
             }
             , removeExpenseList() {
-                let expenseList = this.expenseList;
+                let expenseCopyList = this.expenseList;
                 for(let expense of this.expenseList) {
                     if(expense.checked) {
-                        expenseList.push(expense);
+                        console.log('checked !!!');
+                        expenseCopyList.push(expense);
                     }
                 }
-                this.expenseList = expenseList;
+                this.expenseList = expenseCopyList;
             }
         }
     });
     
+    // 비용항목 중분류 더블 클릭시 뜨는 팝업
     let expenseAllApp = new Vue({
         el : ".popup-layer--expenses-all"
         ,data : {
             expenseVO : {}
             ,expenseList : []
-            ,expenseAllPopupFlag : false
+            ,expenseAllPopupFlag : false                                        // 팝업 보기 변수
         }
         ,methods : {
-            openExpenseAllPopup(smKindName, userNm, comCd) {
-                this.expenseAllPopupFlag = true;
-                this.expenseVO.smKindName = smKindName;
-                this.expenseVO.userNm = userNm;
-                this.expenseVO.comCd = comCd;
-                console.log(this.expenseVO);
+            openExpenseAllPopup(smKindName, userNm, comCd) {                    // 팝업 띄우기 
+                this.expenseAllPopupFlag = true;                                // true면 팝업이 뜬다.
+                this.expenseVO.smKindName = smKindName;                         // 중분류 명
+                this.expenseVO.userNm = userNm;                                 // 사용자 이름 (임원 체크용)
+                this.expenseVO.comCd = comCd;                                   // 부서명(sfg체크용)
                 this.selectExpenseList();
             }
             ,selectExpenseList () {
@@ -192,6 +180,7 @@ $(document).ready(function(){
         }
     });
     
+    // sgma activity더블 클릭 혹은 엔터 입력시 뜨는 팝업
     let expenseSgmaApp = new Vue({
         el : ".popup-layer--expenses-sgma"
         , data : {
@@ -200,7 +189,7 @@ $(document).ready(function(){
             ,expenseSgmaPopupFlag : false
         }
         ,methods : {
-            openExpenseSgmaPopup(activityNm, userNm, comCd) {
+            openExpenseSgmaPopup(activityNm, userNm, comCd) {                       // 팝업 오픈
                 this.expenseSgmaPopupFlag = true;
                 this.expenseVO.activityNm = activityNm;
                 this.expenseVO.userNm = userNm;
@@ -229,13 +218,12 @@ $(document).ready(function(){
                             ,costItemCd : temp.costItemCd
                         });
                     }
+                    tempList.filter((data,idx,list)=> {
+                        
+                    })
                     console.log('tempList ::::: ');
                     console.log(tempList);
-                    this.expenseList = tempList.filter((item, i)=>{
-                        return tempList.findIndex((item2, j)=>{
-                            return item.key === item2.key;
-                        }) === i;
-                    });
+                    this.expenseList = Array.from(new Set(tempList));
                     console.log('expenseList ::: ');
                     console.log(this.expenseList);
                     $.unblockUI();
