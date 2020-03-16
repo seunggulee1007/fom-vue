@@ -49,7 +49,7 @@
 			</properties>
 		</profile>
 	</profiles>
-	
+
 	<repositories>
 		<repository>
 			<id>nexus</id>
@@ -83,7 +83,7 @@
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>2.1.1</version>
 		</dependency>
-        
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -114,7 +114,7 @@
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -132,7 +132,7 @@
             <artifactId>modelmapper</artifactId>
             <version>2.3.0</version>
         </dependency>
-		
+
 		<!-- TILES 3 -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
@@ -177,7 +177,7 @@
 			<artifactId>jxls-core</artifactId>
 			<version>1.0.6</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-text</artifactId>
@@ -201,81 +201,88 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
-		
+
 		<dependency>
 		    <groupId>com.google.guava</groupId>
 		    <artifactId>guava</artifactId>
 		    <version>28.0-jre</version>
 		</dependency>
-        
+
         <!-- jquery block ui -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery-blockui</artifactId>
             <version>2.70-1</version>
         </dependency>
-        
+
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.10.3</version>
         </dependency>
-        
+
         <!-- axios -->
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>axios</artifactId>
             <version>0.19.0</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>babel-polyfill</artifactId>
             <version>7.0.0-beta.3</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>babel-standalone</artifactId>
             <version>6.21.1</version>
         </dependency>
-        
+
         <!-- jquery -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>3.4.1</version>
         </dependency>
-        
+
         <!-- vue.js -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>vue</artifactId>
             <version>2.6.11</version>
         </dependency>
-        
+
         <!-- jquery form -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery-form</artifactId>
             <version>4.2.2</version>
         </dependency>
-        
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        
+
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
-        
+
+        <!-- JSON -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+        </dependency>
+
 	</dependencies>
-    
+
 
 	<build>
 		<finalName>fim</finalName>
