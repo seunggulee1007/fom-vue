@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -16,6 +18,7 @@ import net.smilegate.fim.service.mdi.MdiService;
 import net.smilegate.fim.service.sgerpma.SgerpmaService;
 import net.smilegate.fim.vo.CommonResultVO;
 import net.smilegate.fim.vo.ExpenseVO;
+import net.smilegate.fim.vo.TiarCostVO;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,6 +54,14 @@ public class ApprovalProcController {
         map = sgerpmaService.selectResultCostMap(expenseVO);
         return CommonResultVO.builder().data(map).build();
     }
+    
+    @ApiOperation(value="비용항목 조회", notes="넘겨진 검색조건(activityNm)으로 비용항목 조회하는 메서드")
+    @GetMapping("/getExpenseByActivityNm")
+    public CommonResultVO getExpenseByActivityNm(ExpenseVO expenseVO) {
+        Map<String, Object> map = new HashMap<>();
+        map = sgerpmaService.selectResultCostMapByActivityNm(expenseVO);
+        return CommonResultVO.builder().data(map).build();
+    }
 
     /*
      * @ApiOperation(value="비용항목 조회", notes="넘겨진 검색조건으로 비용항목 조회하는 메서드")
@@ -67,6 +78,12 @@ public class ApprovalProcController {
         Map<String, Object> map = new HashMap<>();
         map = sgerpmaService.getImwonCheck(userNm);
         return CommonResultVO.builder().data(map).build();
+    }
+    
+    @PostMapping("/expense")
+    public CommonResultVO insertExpense(MultipartHttpServletRequest request, TiarCostVO tiarCost) {
+        System.err.println(tiarCost.toString());
+        return CommonResultVO.builder().build();
     }
     
 }
