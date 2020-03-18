@@ -47,29 +47,29 @@ public class SgerpmaServiceImpl implements SgerpmaService {
     }
 
     /**
-     * SFG 비용매핑정보 조회
+     * 비용매핑정보 조회(activityNm)
      * @Param expenseVO
      * @return Map<String, Object>
      */
     @Override
-    public Map<String, Object> selectResultCostMap1(ExpenseVO expenseVO) {
+    public Map<String, Object> selectResultCostMapByActivityNm(ExpenseVO expenseVO) {
         // TODO Auto-generated method stub
         Map<String, Object> map = new HashMap<>();
-        map.put("expenseList", sgerpmaMapper.selectResultCostMap1(expenseVO));
+        List<ExpenseVO> expenseList = null;
+        String imwonYn = sgerpmaMapper.getImwonCheck(expenseVO.getUserNm());
+        if("N".equals(imwonYn)) {
+            if("C0000000".equals(expenseVO.getComCd())) {
+                expenseList = sgerpmaMapper.selectResultCostMap1ByActivityNm(expenseVO);
+            }else {
+                expenseList = sgerpmaMapper.selectResultCostMapByActivityNm(expenseVO);
+            }
+        }else {
+            expenseList = sgerpmaMapper.selectResultCardCostMapByActivityNm(expenseVO);
+        }
+        map.put("expenseList", expenseList);
         return map; 
     }
 
-    /**
-     * 임원 비용매핑 정보 조회
-     * @Param expenseVO
-     * @return
-     */
-    @Override
-    public Map<String, Object> selectResultCardCostMap(ExpenseVO expenseVO) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("expenseList", sgerpmaMapper.selectResultCardCostMap(expenseVO));
-        return map; 
-    }
 
     /**
      * 임원 여부 확인

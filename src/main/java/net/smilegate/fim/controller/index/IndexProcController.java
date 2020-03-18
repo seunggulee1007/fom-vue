@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.enums.CommonCode;
-import net.smilegate.fim.service.exerp.ExerpService;
+import net.smilegate.fim.service.sgerp.SgerpService;
 import net.smilegate.fim.service.taxplan.TaxPlanService;
 import net.smilegate.fim.vo.CommonResultVO;
 
@@ -22,7 +22,7 @@ import net.smilegate.fim.vo.CommonResultVO;
 @RestController
 public class IndexProcController {
     
-    private final ExerpService exerpService;
+    private final SgerpService exerpService;
     
     private final TaxPlanService taxPlanService;
     

@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.enums.Currency;
 import net.smilegate.fim.enums.EnumMapperValue;
 import net.smilegate.fim.mappers.fim.TaxScheduleMapper;
-import net.smilegate.fim.service.exerp.ExerpService;
+import net.smilegate.fim.service.sgerp.SgerpService;
 import net.smilegate.fim.vo.CommonResultVO;
 import net.smilegate.fim.vo.TaxScheduleVO;
 
@@ -31,7 +31,7 @@ import net.smilegate.fim.vo.TaxScheduleVO;
 @RequestMapping("/financial_link")
 public class FinancialLinkProcController {
     
-    private final ExerpService exerpService;
+    private final SgerpService sgerpService;
     private final TaxScheduleMapper taxScheduleMapper;
     
     @ApiOperation(value="환율코드", notes="환율 코드를 enum에서 읽어오는 api")
@@ -59,7 +59,7 @@ public class FinancialLinkProcController {
      */
     @GetMapping("/exRate/{exRateDate}")
     public CommonResultVO getExRate(@PathVariable("exRateDate") String exRateDate) {
-        Map<String, Object> map = exerpService.selectExRate(exRateDate);
+        Map<String, Object> map = sgerpService.selectExRate(exRateDate);
         CommonResultVO commonResultVO = CommonResultVO.builder().data(map).build();
         return commonResultVO;
     }

@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <script src="/resources/fim/js/fp/exchange.js" type="text/babel"></script>
-<script src='https://unpkg.com/v-calendar@next'></script>
+<script type="text/babel" src='https://unpkg.com/v-calendar@next'></script>
 <!-- <script src="https://unpkg.com/vuejs-datepicker"></script> -->
 
+<jsp:include page="/WEB-INF/view/include/financial_include.jsp"/>
+
 <div id="container" class="container container--include-lnb container--fullview" v-cloak>
-    <jsp:include page="/WEB-INF/view/include/financial_include.jsp"/>
     <h2 class="page-title">환율 정보</h2>
     <div class="component-group align-right btn-box--absolute">
         <div class="component-box">

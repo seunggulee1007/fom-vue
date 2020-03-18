@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <script type="text/babel" src="/resources/fim/js/financial_link/biz_chk/bizInfo.js"></script>
+    
+<jsp:include page="/WEB-INF/view/include/financial_include.jsp"/>
+    
 <div id="container" class="container container--include-lnb container--fullview">
-    <jsp:include page="/WEB-INF/view/include/financial_include.jsp"/>
     <h2 class="page-title">거래처 휴/폐업 조회</h2>
     <p class="page-title__dsc">
         · 실시간 거래처 휴/폐업 조회는 홈택스에서 제공되는 서비스와 동일한 기능입니다.<br>

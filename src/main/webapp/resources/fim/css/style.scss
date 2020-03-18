@@ -1,8 +1,12 @@
 @charset "UTF-8";
 
-/* ========== smilegate_ux_template ========== */
+/* ========== import ========== */
+@import "style_table.scss";
+
+/* //smilegate_ux_template
 @import "mixins/mixins.scss";
 @import "common/variable.scss";
+ */
 
 /* ========== mixin ========== */
 @mixin border-radius($val) {
@@ -48,6 +52,7 @@
     -o-background-size: cover;
     background-size: cover;
 }
+
 
 /* ========== common ========== */
 body{
@@ -146,128 +151,6 @@ a:hover {
     text-align: center;
 }
 
-.table {
-    tbody + tbody{
-        border-top: 1px solid $border;
-    }
-    tbody.table__row-group--top{
-        border-bottom: 1px solid $border_dark;
-    }
-
-    .table__th{
-        //padding: 4px 8px 5px;
-        color: $txt;
-        font-size: 13px;
-        &.table__txt--blue-dark{
-            color: $blue_dark;
-        }
-    }
-    .table__row--top, .table__row--highlight{
-        font-weight: 700;    
-        background-color: $blue_light;        
-        .table__td--data span{
-            background-color: $white
-        }
-    }
-    .table__row--item.table__row--selected{
-        background-color: transparent;
-    }
-    tr.table__row-sub--detail{
-        display: none;
-        &.table__row--expanded{
-            display: table-row;
-        }
-        
-    }
-    .table__row-sub--item .table__th{
-        padding-left: 24px;
-        &.table__th--btn-front{
-            padding-left: 32px;         
-            .sp{
-                left: 18px;
-            }
-        }
-    }
-    .table__row--expanded .table__td{
-        height: auto;
-    }
-
-    .table__txt{
-        font-size: 13px;
-    }
-    .table__txt-caption{
-        font-size: 12px;
-    }
-}
-
-.table.table-chain{
-    thead{border-bottom: 1px solid $border_light;}
-    .table__th{    
-        border: 1px solid $border_light;    
-        border-width: 1px 1px 0 0;        
-    }
-    .table__td{
-        border-width: 1px 1px 0 0;
-    }
-    tr:first-child {
-        .table__th{border-top: 0}
-        .table__td{
-            @extend .table__th;
-            &:last-child{border-right: 0}            
-        }
-    }   
-}
-
-.table--scroll-vertical .table-box{
-    max-height: 48vh;
-    //max-height: 532px;
-    thead {
-        table-layout: fixed;
-        .table__th:first-of-type{
-            width: 14%;
-        }
-    }        
-    &.table-box-monthly-card{
-        max-height: 41vh;
-        margin-top: 60px;
-        thead{
-            .table__th:first-of-type{
-                width: 188px;
-            }  
-        }
-        .table thead{
-            position: static;
-            display: table-header-group;
-            tr:hover{
-                background-color: transparent
-            }
-            .table__th:first-of-type{
-                width: inherit;
-            } 
-        }
-    }
-}
-
-.table table tbody .table__td.table__td--table{
-    padding: 16px 24px;
-    .table{
-        max-height: 251px;
-        overflow-y: auto;
-    }
-}
-
-.table .table__td .table.table__border--non{
-    border: 0;
-    height: 184px;
-    overflow-y: auto;
-    tr:first-child .table__td{
-        border-right: 0;
-    }
-    .table__td{
-        border: 0;
-        min-height: 20px;
-    }
-}
 
 //popup
 .popup-wrap.popup-layer--xxlarge .popup-wrap__inner{
@@ -279,10 +162,14 @@ a:hover {
 .datepicker__v-calendar{
     position: relative;
     input[type=text].input-field__input{
+        padding: 1px 6px;
         max-width: 144px;
-        
         &[readonly]{
             background-color: $white;
+        }
+        &::placeholder{
+            font-size: 12px;
+            color: $txt_gray2;
         }
     }
     input[type=input]{
@@ -312,14 +199,6 @@ a:hover {
     }
     
 }
-
-/* 
-.datepicker{
-    &.datepicker--active{
-        z-index: 2;
-    }    
-}
-*/
 select{
     background-position-x: 95%;
 }
@@ -788,7 +667,7 @@ select{
 .lnb-area{
     border: 0;
     z-index: 10;
-    @include position(absolute, 0, null, 0, 0);
+    @include position(absolute, 117px, null, 0, 0);
     @include transition(left, 0.4s);
 
     .btn-lnb{
@@ -824,18 +703,19 @@ select{
     }
 }
 
+.lnb.lnb--close{
+    left: -220px;
+
+    .icon-arrow{
+        border-right: none;
+        border-left: 5px solid $orange;       
+    }
+}
+
 .container.lnb--close{
     padding-left: 16px;
     .grid-layout iframe{
         width: calc(100% - 64px);
-    }
-    .lnb{
-        left: -220px;
-
-        .icon-arrow{
-            border-right: none;
-            border-left: 5px solid $orange;       
-        }
     }
 }
 
@@ -865,7 +745,6 @@ select{
     }
     .link-box .component-box{
         float: left;
-        //width: calc(100% / 6);
         margin-left: 0;
         
         a{
@@ -1267,19 +1146,8 @@ select{
             }
         }
     }
-    .table{
-        margin-top: 24px;
-        &:first-of-type{margin-top: 0;}
-        + .btn-box{
-            display: block;
-            margin-top: 16px;
-        }
-        .table__td, .table__th{
-            padding: 4px 8px 5px;
-            position: relative;
-        }
-    }
-     .component-box--required{
+    
+    .component-box--required{
         .btn-add{margin-right: 8px;}
         .input-field__title::before, .dropdown__title::before{
             content: "";
@@ -1296,138 +1164,6 @@ select{
     .dropdown--multi-type{
         width: 100%;
     }
-    .table tr > *:last-child{
-        border-right: 0;
-    }
-
-
-
-    .table__td {
-        
-        > div {width: 100%}
-        .btn-add, .btn-delete{
-            font-size: 13px;
-            margin: 4px 16px 4px 0;            
-        }
-        .btn-checkbox__label:before{
-            left: 50%;
-            margin-left: -8px;
-        }
-        .tooltip-box{
-            .table__txt{
-                display: inline;                
-            }
-            .icon-info{
-                margin-top: 3px;
-            }
-            .tooltip__inner{
-                max-width: inherit;
-            }
-            .tooltip__txt{
-                max-width: inherit;
-                padding: 1px 0;
-            }
-        }
-    }
-    
-    .table__td--data span{
-        display: block;
-        background-color: $bg_default;
-        padding: 6px 8px;
-        border-radius: 4px;
-        word-break: break-all;
-        min-height: 20px;
-    }
-    .table__th--btn, .table__td--btn{
-        &.table__th--btn-front{
-            padding-left: 22px;
-        }
-        .btn{
-            border: 0;
-            background-color: transparent;
-            padding: 0;
-        }
-        .btn-change-user{
-            @include position(absolute, 0, 8px, false, false);
-            @include transform(scale(0.8));
-            .sp{
-                margin-right: 0;
-            }
-        }
-        .btn-lst--open{
-            width: 100%;
-            min-height: 20px;
-            text-align: left;
-            @include ellipsis;
-            .btn__txt{
-                color: $txt;
-                padding: 0;
-                font-size: 13px;
-            }
-            .btn__txt-caption{
-                font-size: 12px;
-                font-weight: 400;
-            }
-            .sp{
-                @include position(absolute, 50%, false, false, 8px);
-                margin-top: -5px;
-                min-height: 10px;
-                width: 10px;
-            }
-            .icon-arrow--triangle-right{
-                @include transform(scale(0.7));
-            }
-            .icon-arrow{
-                @include transform(rotate(-90deg));
-            }
-        }
-        
-    }
-    
-    .table__td--datepicker-range{
-        .component-group .component-box{
-            width: 46%;
-            + .component-box{
-                margin-left: 4px;
-            }
-            &:nth-child(2){
-                width: 4%;
-            }
-        }
-    }
-
-    .input-field-table {
-        position: relative;  
-        .input-field__input{
-            padding: 1px 8px;
-            font-size: 13px;
-        }      
-        .btn-file{
-            padding: 0;
-            margin-bottom: 8px;            
-            .btn__txt{
-                padding: 6px 15px 7px;
-            }
-            + .input__dsc-txt{
-                display: inline-block;
-                margin-left: 16px;
-                @include verticalMiddle(32px);
-            }
-        }     
-        .input-field__file-box{
-            padding: 1px 8px;
-            height: 63px;
-            overflow-y: auto;
-            background: $bg_default;
-            border: 1px solid $border_dark;
-            border-radius: 4px;
-            .file-info{
-                font-size: 13px;
-                padding: 2px 0;
-    
-            }
-        }
-    }    
 }
 
 /* container-view */
@@ -1453,10 +1189,10 @@ select{
             display: inline-block;
             position: relative;
             top: 4px;
-            max-width: 680px;
+            max-width: 662px;
             .file-box-lst{
                 display: inline-block;
-                max-width: 648px;
+                max-width: 624px;
                 @include ellipsis;
             }
 
@@ -1520,12 +1256,6 @@ select{
     }       
 }
 
-.section-history .component-area:last-child{
-    .table__td .table__txt{
-        min-height: 22px;
-    }
-}
-
 /* account_info.html */
 .table__row--selected{
     .table__th--btn .btn-lst--open{
@@ -1538,12 +1268,38 @@ select{
         }
     }
 }
+.table--scroll-vertical .table-box-monthly-card{
+    max-height: 41vh;
+    margin-top: 60px;
+    thead{
+        .table__th:first-of-type{
+            width: 188px;
+        }  
+    }
+    .table {
+        table{
+            border: 1px solid $border_dark;
+            border-width: 1px 0;
+        }        
+        thead{
+            position: static;
+            display: table-header-group;
+            tr:hover{
+                background-color: transparent
+            }
+            .table__th:first-of-type{
+                width: inherit;
+            } 
+        }
+    }
+}
 
 
 /* expense.html */
 .section-expense{
     .table__txt.table__txt-caption{
         font-weight: 700;
+        min-height: auto;
     }
 }
 
@@ -1570,10 +1326,6 @@ select{
             border-bottom: 1px solid $border_light;
             .table__th{height: 41px;}
         }
-        
-        /* .table__th + .table__th, .table__td + .table__td{
-            border-left:1px solid $border_light;
-        } */
     }
 }
 
@@ -1619,7 +1371,6 @@ select{
                 color: $txt_gray;
             }
         }
-        
     }
     .dropdown{
         width: 148px;
@@ -1712,12 +1463,12 @@ select{
     }
 
     .fc-view-container {
-        max-height: 584px;
+        max-height: 523px;
         overflow-y: auto;
     }
     .fc-view-container table .fc-head{
         .fc-day-header {
-            background-color: $bg_lightgray;
+            background-color: $table_th;
             span{
                 @include verticalMiddle(32px);
             }
@@ -1846,10 +1597,6 @@ select{
             padding: 1px;
         }
     }
-    
-    /* .table__td--select{        
-        background-color: #daffff;        
-    } */
     .table__td--disabled{
         background-color: $bg_default;
     }
@@ -1980,26 +1727,12 @@ select{
     }   
     
     .popup__contents-table {
-        padding-right: 24px;
         .table .table-box{
             max-height: 376px;
-            margin-top: 60px;
+            margin-top: 77px;
             //margin-right: 0;
-           thead {
-               
-               table-layout: fixed;
-               tr + tr{
-                  border-top: 1px solid $border_light;
-               }
-               .table__th + .table__th {
-                   border-left: 1px solid $border_light;
-               }
-            }
-            
-            .table__txt{font-size: 12px;}
         }
     }
-
 }
 
 //expense-all
@@ -2019,6 +1752,12 @@ select{
     .popup__contents-search{
         .search-form{
             width: calc((100% - 16px) / 2);
+        }
+    }
+    .popup__contents-table{
+        .table-box{
+            width: calc(100% + 8px);
+            padding-right: 8px;
         }
     }
 }
@@ -2054,9 +1793,28 @@ select{
     }
 }
 
-//expense.html -> popup-layer--user
+//card payment-history
+.popup-layer--payment-history {
+    .popup-wrap__inner{
+        width: 1200px;
+    }
+    .popup__header .popup__header-txt{
+        margin-bottom: 0;
+        border-bottom: 0;
+    }
+    .popup__contents {
+        padding: 0;
+        overflow-x: hidden;
+        .table-box {
+            max-height: 428px;
+            margin-top: 39px;            
+        }
+    }
+}
+
+//popup-layer--user
 .popup-wrap.popup-layer--user .popup-wrap__inner{
-    width: 1000px;
+    width: 1200px;
     .popup__contents{        
         height: 458px;
         overflow-y: hidden;

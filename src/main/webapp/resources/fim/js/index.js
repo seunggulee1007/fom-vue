@@ -11,7 +11,7 @@ $(document).ready(function() {
             ,taxDate : getDate(new Date(), '-')
         }
         ,mounted : function() {
-            this.doAxios("/index/getInitData", "get", this.setData);
+            this.doAxios("/index/getInitData", "get",null, this.setData);
         }
         ,methods : {
             setData : function(res) {

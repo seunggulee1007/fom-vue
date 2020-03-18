@@ -1,4 +1,4 @@
-package net.smilegate.fim.service.exerp;
+package net.smilegate.fim.service.sgerp;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ import java.util.Map;
  * @author es-seungglee
  *
  */
-public interface ExerpService {
+public interface SgerpService {
     
     /**
      * 환율 정보 조회

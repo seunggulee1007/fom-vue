@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<jsp:include page="/WEB-INF/view/include/expense_management_include.jsp"/>
+    
 <div id="container" class="container container--include-lnb container--fullview container-write">
-    <jsp:include page="/WEB-INF/view/include/expense_management_include.jsp"/>
     <h2 class="page-title">지출결의서 조회</h2>
     <!-- <p class="page-title__dsc">· 지출결의서를 조회할 수 있는 페이지입니다.</p> -->
     <div class="component-group align-right btn-box--absolute">

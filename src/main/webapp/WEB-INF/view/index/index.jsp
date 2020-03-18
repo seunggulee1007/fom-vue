@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="/resources/fim/js/index.js" type="text/babel"></script>
+<script type="text/babel" src="/resources/fim/js/index.js"></script>
 <div id="container" class="container container__main">            
     <div class="grid-layout">
         <div class="grid-column grid-column9">
@@ -8,9 +8,6 @@
                 <div class="component-area component-area-quicklink">
                     <em class="section-title">
                         Quick Menu (공통)
-                        <!-- <button type="button" class="btn btn--open">
-                            <span class="sp icon-arrow--round"><span class="blind">펼쳐서 모두 보기</span></span>
-                        </button> -->
                     </em>
                     <div class="group-item-info">
                         <ul class="component-group link-box">

@@ -1,4 +1,4 @@
-package net.smilegate.fim.service.exerp;
+package net.smilegate.fim.service.sgerp;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +13,7 @@ import net.smilegate.fim.mappers.sgerp.SgerpMapper;
 
 @RequiredArgsConstructor
 @Service
-public class ExerpServiceImpl implements ExerpService {
+public class SgerpServiceImpl implements SgerpService {
 
     private final SgerpMapper sgerpMapper;
     

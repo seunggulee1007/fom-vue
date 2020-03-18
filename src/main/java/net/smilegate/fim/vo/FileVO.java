@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -54,5 +55,8 @@ public class FileVO {
     
     @Column(name="CRT_DATE", columnDefinition = "DATETIME DEFAULT GETDATE()")
     private Date crtDate;
+    /** 참조 아이디 값(임시) */
+    @Transient
+    private int refId;
     
 }

@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<jsp:include page="/WEB-INF/view/include/expense_management_include.jsp"/>
+    
 <div id="container" class="container container--include-lnb container--fullview container--iframe">
-    <jsp:include page="/WEB-INF/view/include/expense_management_include.jsp"/>
     <h2 class="page-title">기안서</h2>
     <!-- <p class="page-title__dsc">· 기안서를 작성할 수 있는 페이지입니다.</p> -->
     <div class="component-group align-right btn-box--absolute">

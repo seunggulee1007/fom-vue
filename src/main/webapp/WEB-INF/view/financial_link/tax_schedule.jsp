@@ -14,8 +14,10 @@
 <script src="/resources/fim/js/fullCalendar/core/tooltip.min.js" type="text/javascript"></script>
 <script src="/resources/fim/js/fullCalendar/fullCalendar.js" type="text/javascript"></script>
 
+<jsp:include page="/WEB-INF/view/include/financial_include.jsp"/>
+
+
 <div id="container" class="container container--include-lnb container--fullview">
-    <jsp:include page="/WEB-INF/view/include/financial_include.jsp"/>
     <h2 class="page-title">월별 세무 일정</h2>
     
     <div class="component-group align-right btn-box--absolute">

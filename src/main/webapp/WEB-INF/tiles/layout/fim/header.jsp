@@ -3,7 +3,7 @@
     <div class="header__inner">
         <!-- Logo & Title -->
         <div class="header__group-title">
-            <a href="index" class="header__title-menu">
+            <a href="/" class="header__title-menu">
                 <h1 class="sp icon-logo"><span class="blind">Smilegate</span></h1>
                 <em class="header__title-txt service_tit1">재무지원포탈</em>
                 <p class="header__title-txt service_tit2">S-FIM</p>

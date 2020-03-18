@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.smilegate.fim.mappers.fim.TiarCostMapper">
+
+    <insert id="insertTiarCost" parameterType="tiarCostVO">
+        <selectKey keyProperty="tiCostSeq" resultType="int" order="BEFORE">
+            select next value for seq_tiar_cost
+        </selectKey>
+        insert into tb_tiar_cost(
+            company_seq
+            ,ti_cost_seq
+            ,ti_cost_no
+            ,contents
+            ,slip_seq
+            ,grstatus
+            ,gr_end_status
+            ,confirm
+            ,com_cd
+            ,reg_dept_cd
+            ,pid
+            ,acc_dept_seq
+            ,input_kind
+            ,acc_date
+            ,due_date
+            ,is_stop
+            ,stop_date
+            ,memo
+            ,reg_date
+            ,reg_emp_seq
+            ,reg_emp_id
+            ,reg_dept_seq
+            ,last_user_seq
+            ,last_date_time
+        )values (
+            #{companySeq}
+            ,#{tiCostSeq}
+            ,#{contents}
+            ,#{slipSeq}
+            ,#{grstatus}
+            ,#{grEndStatus}
+            ,#{confirm}
+            ,#{comCd}
+            ,#{regDeptCd}
+            ,#{pid}
+            ,#{accDeptSeq}
+            ,#{inputKind}
+            ,#{accDate}
+            ,#{dueDate}
+            ,#{isStop}
+            ,#{stopDate}
+            ,#{memo}
+            ,#{regDate}
+            ,#{regEmpSeq}
+            ,#{regEmpId}
+            ,#{regDeptSeq}
+            ,#{lastUserSeq}
+            ,#{lastDateTime}
+        )
+        
+    </insert>
+    
+    
+</mapper>

@@ -94,6 +94,64 @@
             </if>
         </where>
     </select>
+    <!--  공통 (SFG제외) 비용매핑정보 조회-->
+    <select id="selectResultCostMapByActivityNm" parameterType="expenseVO" resultType="expenseVO">
+        select 
+            distinct 
+            COST_ITEM_CD as costItemCd
+            ,COST_ITEM_NM as costItemNm
+            ,ACTIVITY_CD as activityCd
+            ,ACTIVITY_NM as activityNm
+        from tb_result_cost_map
+        <where>
+            <if test="activityNm != null and activityNm != ''">
+                and activity_nm like concat('%',#{activityNm},'%')
+            </if>
+            <if test="costItemNm != null and costItemNm != ''">
+                and cost_item_nm like concat('%',#{costItemNm},'%')
+            </if>
+            
+            
+        </where>
+    </select>
+    
+    <!--  SFG 비용매핑정보 조회-->
+    <select id="selectResultCostMap1ByActivityNm" parameterType="expenseVO" resultType="expenseVO">
+        select
+            distinct
+            new_cost_item_cd as costItemCd
+            ,new_cost_item_nm as costItemNm
+            ,new_activity_cd as activityCd
+            ,new_activity_nm as activityNm
+        from tb_result_cost_map
+        <where>
+            <if test="activityNm != null and activityNm != ''">
+                and new_activity_nm like concat('%',#{activityNm},'%')
+            </if>
+            <if test="costItemNm != null and costItemNm != ''">
+                and new_cost_item_nm like concat('%',#{costItemNm},'%')
+            </if>
+        </where>
+    </select>
+    
+    <!--  임원 비용매핑 정보 조회-->
+    <select id="selectResultCardCostMapByActivityNm" parameterType="expenseVO" resultType="expenseVO">
+        select
+            distinct
+            COST_ITEM_CD as costItemCd
+            ,COST_ITEM_NM as costItemNm
+            ,ACTIVITY_CD as activityCd
+            ,ACTIVITY_NM as activityNm
+        from tb_result_card_cost_map
+        <where>
+            <if test="activityNm != null and activityNm != ''">
+                and activity_nm like concat('%',#{activityNm},'%')
+            </if>
+            <if test="costItemNm != null and costItemNm != ''">
+                and cost_item_nm like concat('%',#{costItemNm},'%')
+            </if>
+        </where>
+    </select>
     
     <!-- 임원 여부 조회 -->
     <select id="getImwonCheck" resultType="String">

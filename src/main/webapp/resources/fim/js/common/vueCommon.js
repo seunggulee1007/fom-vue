@@ -1,3 +1,13 @@
+Vue.config.devtools=true;       // 개발용 빌드시 true, 배포용 빌드시 false
+Vue.config.errorHandler = function(err, vm, info) {
+    console.log(err);
+    console.log(vm);
+    console.log(info);
+}
+Vue.config.keyCodes = {
+    'press-esc' : 27
+}
+Vue.config.performance = true; // devtool의 타임라인에서 컴포넌트 초기화, 컴파일, 렌더링 및 패치 성능 추적 활성화.
 // unblock when ajax activity stops 
 const MyPlugin = {
   // The install method is all that needs to exist on the plugin object.
@@ -11,21 +21,37 @@ const MyPlugin = {
         
       }
       ,methods : {
-          doAxios : function(url, method, rtnFunction, data) {
-              $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' }); 
+          /**********************************************
+           * @method : doAxios
+           * @note  넘겨진 정보에 따라 비동기 통신하는 함수(공통)
+           * @author : es-seungglee
+           ***********************************************/
+          doAxios : function(url, method, data, rtnFunction, errFucntion) {
+              $.blockUI({ message: '<h3><img src="/resources/fim/img/icon_loading.gif" /> 처리중입니다. 잠시만 기다려 주세요.</h3>' }); 
               axios({
                   method : method
                   ,url : url
-                  ,data : data
-              }).then(function(res){
-                  rtnFunction(res.data.data);
+                  ,params : data
+              }).then(res => {
+                  if(typeof(rtnFunction) === 'function') {
+                      rtnFunction(res.data.data);
+                  }
                   $.unblockUI();
               })
               .catch(function(e){
                   alert(e.response.data.resultMsg);
+                  if(typeof(errFunction) === 'function') {
+                      errFunction();
+                  }
+                  $.unblockUI();
                   
               });
           }
+          /**********************************************
+           * @method : checkBizNo
+           * @note  넘겨진 번호가 사업자 번호에 알맞는지 체크(유효성 체크)
+           * @author : es-seungglee
+           ***********************************************/
           , checkBizNo (bizNo) {      // 사업자 번호 체크
               
               let checkID = new Array(1, 3, 7, 1, 3, 7, 1, 3, 5, 1); 
@@ -44,7 +70,12 @@ const MyPlugin = {
 
               return (Math.floor(bizNo.charAt(9)) == remander);
           }
-          , getToday () {         // 현재 날짜 조회
+          /**********************************************
+           * @method : getToday
+           * @note  현재 날짜 리턴
+           * @author : es-seungglee
+           ***********************************************/
+          , getToday () {
               let date = new Date();
               let year = date.getFullYear();
               let month =new String(date.getMonth() +1);
@@ -58,7 +89,12 @@ const MyPlugin = {
               
               return year + "-" + month + "-" + day;
           }
-          , isNull (value) {      // null 체크 함수
+          /**********************************************
+           * @method : isNull
+           * @note  null 체크 함수
+           * @author : es-seungglee
+           ***********************************************/
+          , isNull (value) {
               if(!value || value === undefined || value === '') {
                   return true;
               }else {
@@ -68,8 +104,11 @@ const MyPlugin = {
           , menuOpen () {
               this.openFlag = !this.openFlag;
           }
-          , handleSuccess : (res) => {res.data}
-          , handleError : (error) => { return {success: false, message: error}}
+          /**********************************************
+           * @method : getPagingVO
+           * @note  넘겨진 페이지 정보로 페이지 리스트를 만들어 리턴해 주는 함수
+           * @author : es-seungglee
+           ***********************************************/
           , getPagingVO(pageNo, totalBoardCount, totalPages, pageCount) {
               let pageVO = {};
               if(totalBoardCount > 0) {
@@ -91,11 +130,83 @@ const MyPlugin = {
               return pageVO;
               
           }
+          /**********************************************
+           * @method : setComma
+           * @note  3자리마다 ,(컴마)를 찍어주는 함수
+           * @author : es-seungglee
+           ***********************************************/
+          , setComma(value) {
+              value = value.toString();
+              if(value.indexOf(".") != -1) {          // 소수점 들어왔을 시
+                  if(flag) {                          // 반올림 여부
+                      value = Math.round(value);
+                  }else {
+                      let values = value.split(".");
+                      return values[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "." + values[1];
+                  }
+              }
+              return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          }
+          /**********************************************
+           * @method : viewFormData
+           * @note  formData는 console에 안 찍히므로 해당 정보를 보여주는 함수
+           * @author : es-seungglee
+           ***********************************************/
+          , viewFormData(formData) {
+              for (var key of formData.keys()) {
+                  console.log(key);
+              }
+              for (var value of formData.values()) {
+                  console.log(value);
+              } 
+          }
+          , getDate(date, type){
+              
+              let year = date.getFullYear();
+              let month = date.getMonth() +1;
+              let day = date.getDate();
+              
+              if(month < 10) {
+                  month = "0"+month;
+              }
+              if(day < 10) {
+                  day = "0" + day;
+              }
+              let today;
+              if(!type) {
+                  type = "";
+              }
+              
+              today = year + type + month + type + day;
+              
+              return today;
+          }
       }
     });
   }
 };
 
+// 숫자만 입력해 주는 지시자
+const onlyInt = {
+  install(Vue, options = null) {
+    const directiveName = options && typeof options === 'object' && 'name' in options ?
+      options.name : 'int';
+
+    Vue.directive(directiveName, {
+      inserted(el) {
+        el.oninput = (event) => {
+            if(el.value.indexOf(",") != -1) {
+                el.value = el.value.replace(/,/gi,"");
+            }
+            const formattedValue = parseInt(event.target.value, 10);
+            el.value = isNaN(formattedValue) ? '' : formattedValue;
+        };
+      }
+    });
+  },
+};
+
+// 통화로 변경해 주는 필터링
 Vue.filter('currency', function(value, flag) {
     if(!value) {
         return;
@@ -113,6 +224,8 @@ Vue.filter('currency', function(value, flag) {
     }
     
 });
+
+// 넘겨진 번호를 사업자 번호 포맷에 맞춰서 마스킹 해주는 필터링
 Vue.filter('bizNoFilter', function(value, type) {
     if(value.includes('-')){
         return value;
@@ -131,25 +244,4 @@ Vue.filter('bizNoFilter', function(value, type) {
         console.log(e);
     }
     return formatNum;
-})
-Vue.component('rawDisplayer', {
-    template : `<div> <h3>{{title}} </h3>
-    <pre>{{valueString}}</pre>
-    </div>
-    `
-    ,props : {
-        name : "raw-displayer"
-        ,title : {
-            required : true,
-            type : String
-        }
-        ,value : {
-            required : true
-        }
-    }
-    ,computed : {
-        valueString(){
-            return JSON.stringify(this.value, null, 2);
-        }
-    }
 });

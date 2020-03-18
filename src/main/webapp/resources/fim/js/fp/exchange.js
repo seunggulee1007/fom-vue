@@ -22,9 +22,19 @@ $(document).ready(function() {
             this.getExchangeList();
         }
         ,watch : {
+            /**********************************************
+             * @method : selectedCurrency
+             * @note 환율 변경 감지되면 해당 환율로 필터링 처리
+             * @author : es-seungglee
+             ***********************************************/
             selectedCurrency () {
                 this.filterExchange();
             }
+            /**********************************************
+             * @method : selectedDate
+             * @note 날짜가 변경되면 해당 날짜를 string으로 변경 후 재조회
+             * @author : es-seungglee
+             ***********************************************/
             ,selectedDate() {
                 if(typeof(this.selectedDate) == 'object') {
                     this.selectedDate = getDate(this.selectedDate,'-');
@@ -33,6 +43,11 @@ $(document).ready(function() {
             }
         }
         , methods : {
+            /**********************************************
+             * @method : getExchangeList
+             * @note 넘겨진 날짜로 해당 날짜의 환율 조회
+             * @author : es-seungglee
+             ***********************************************/
             getExchangeList () {
                 axios({
                     method : "get"
@@ -46,6 +61,11 @@ $(document).ready(function() {
                     console.log(e);
                 });
             }       // end getExchangeList
+            /**********************************************
+             * @method : getCurrencyCode
+             * @note 자바 Enum클래스로 작성 된 환율 정보(코드) 가져오는 함수
+             * @author : es-seungglee
+             ***********************************************/
             ,getCurrencyCode () {
                 axios({
                     method : "get"
@@ -58,13 +78,28 @@ $(document).ready(function() {
                     console.log(e);
                 });
             }   // end getCurrencyCode
+            /**********************************************
+             * @method : selectCurrency
+             * @note 
+             * @author : es-seungglee
+             ***********************************************/
             , selectCurrency(data) {
                 this.selectedCurrency = data.code;
                 this.selectedName = data.title;
             }   // end selectCurrency
+            /**********************************************
+             * @method : getCurrencyCode
+             * @note 자바 Enum클래스로 작성 된 환율 정보(코드) 가져오는 함수
+             * @author : es-seungglee
+             ***********************************************/
             , clickToggle() {
                 this.toggleYn = !this.toggleYn;
             }   // end clickToggle
+            /**********************************************
+             * @method : filterExchange
+             * @note 바뀐 환율로 환율리스트를 필터링 처리 한다.(셀렉트 박스 변경시 작동)
+             * @author : es-seungglee
+             ***********************************************/
             , filterExchange () {
                 if(!this.selectedCurrency) {        // 전체 선택이라면
                     this.exchangeList = this.originDataList;

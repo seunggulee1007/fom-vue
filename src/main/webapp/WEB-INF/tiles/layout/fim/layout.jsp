@@ -30,8 +30,10 @@
     <script type="text/javascript" src="http://static.smiledev.net/static/AUIGrid/AUIGridLicense.js"></script>
     <script type="text/javascript" src="http://static.smiledev.net/static/AUIGrid/AUIGrid.js"></script>
     <!-- WEBJARS JS -->
-    <script type="text/javascript" src="/webjars/babel-polyfill/7.0.0-beta.3/dist/polyfill.min.js"></script>
+    <script type="text/javascript" src="/webjars/babel__polyfill/7.8.7/dist/polyfill.min.js"></script>
     <script type="text/javascript" src="/webjars/babel-standalone/6.21.1/babel.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script> 
 
     <script type="text/javascript" src="/resources/fim/js/script.js"></script>    
 
@@ -41,7 +43,7 @@
     <!-- vue.js -->
     <script type="text/javascript" src="/webjars/vue/2.6.11/vue.js"></script>
     <script type="text/babel" src="/resources/fim/js/common/vueCommon.js"></script>
-    <script type="text/javascript" src="/resources/fim/js/common.js"></script>
+    <script type="text/babel" src="/resources/fim/js/common.js"></script>
 </head>
 <body>
     <ul class="skip">

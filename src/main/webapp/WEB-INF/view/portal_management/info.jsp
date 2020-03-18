@@ -2,73 +2,73 @@
     pageEncoding="UTF-8"%>
 <script src='https://unpkg.com/v-calendar@next'></script>
 <script type="text/babel" src="/resources/fim/js/portal_management/info.js"></script>
-<div id="container" class="container container--include-lnb container--fullview">
-    <div class="lnb lnb-area">
-        <ul class="lst-lnb">                    
-            <li class="lst-lnb__item lst-lnb__item--active">
-                <a href="info.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">공지사항</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="approval_pending.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">전자결재 - 미결함</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="approval_pre.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">전자결재 - 예정함</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="approval_progress.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">전자결재 - 진행함</span>
-                </a>
-            </li>
-        </ul>
+<div class="lnb lnb-area">
+    <ul class="lst-lnb">                    
+        <li class="lst-lnb__item lst-lnb__item--active">
+            <a href="info.html" class="lst-lnb__menu">
+                <span class="lst-lnb__menu-txt">공지사항</span>
+            </a>
+        </li>
+        <li class="lst-lnb__item">
+            <a href="approval_pending.html" class="lst-lnb__menu">
+                <span class="lst-lnb__menu-txt">전자결재 - 미결함</span>
+            </a>
+        </li>
+        <li class="lst-lnb__item">
+            <a href="approval_pre.html" class="lst-lnb__menu">
+                <span class="lst-lnb__menu-txt">전자결재 - 예정함</span>
+            </a>
+        </li>
+        <li class="lst-lnb__item">
+            <a href="approval_progress.html" class="lst-lnb__menu">
+                <span class="lst-lnb__menu-txt">전자결재 - 진행함</span>
+            </a>
+        </li>
+    </ul>
 
-        <footer class="footer footer--lnb-type">
-            <div class="footer__inner">
-                <!-- <ul class="footer__util">
-                    <li class="footer__util-item">
-                        <a href="#" class="footer__util-menu">
-                            <span class="footer__util-menu-txt">스마일넷 배너등록</span>
-                        </a>
-                    </li>
-                    <li class="footer__util-item">
-                        <a href="#" class="footer__util-menu">
-                            <span class="footer__util-menu-txt">개선 및 건의</span>
-                        </a>
-                    </li>
-                </ul>
-                <div class="dropdown">
-                    <a href="#" class="dropdown__button">
-                        <span class="dropdown__button-text">패밀리 사이트 바로가기</span>
-                        <span class="sp icon-arrow">
-                            <span class="blind">옵션창 열기</span>
-                        </span>
+    <footer class="footer footer--lnb-type">
+        <div class="footer__inner">
+            <!-- <ul class="footer__util">
+                <li class="footer__util-item">
+                    <a href="#" class="footer__util-menu">
+                        <span class="footer__util-menu-txt">스마일넷 배너등록</span>
                     </a>
-                    <ul class="dropdown__list">
-                    <li class="dropdown__item">
-                        <a href="#" class="dropdown__menu">
-                            <span class="dropdown__menu-txt">List 1_All</span>
-                        </a>
-                    </li>
-                    <li class="dropdown__item">
-                        <a href="#" class="dropdown__menu">
-                            <span class="dropdown__menu-txt">List 2</span>
-                        </a>
-                    </li>
-                    </ul>
-                </div> -->
-                <small class="footer__copyright">&copy; Smilegate. All Rights Reserved.</small>
-            </div>
-        </footer>
-        
-        <button type="button" class="btn btn-lnb">
-            <span class="icon-arrow"><span class="blind">메뉴 열기</span></span>
-        </button>
-    </div>
+                </li>
+                <li class="footer__util-item">
+                    <a href="#" class="footer__util-menu">
+                        <span class="footer__util-menu-txt">개선 및 건의</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="dropdown">
+                <a href="#" class="dropdown__button">
+                    <span class="dropdown__button-text">패밀리 사이트 바로가기</span>
+                    <span class="sp icon-arrow">
+                        <span class="blind">옵션창 열기</span>
+                    </span>
+                </a>
+                <ul class="dropdown__list">
+                <li class="dropdown__item">
+                    <a href="#" class="dropdown__menu">
+                        <span class="dropdown__menu-txt">List 1_All</span>
+                    </a>
+                </li>
+                <li class="dropdown__item">
+                    <a href="#" class="dropdown__menu">
+                        <span class="dropdown__menu-txt">List 2</span>
+                    </a>
+                </li>
+                </ul>
+            </div> -->
+            <small class="footer__copyright">&copy; Smilegate. All Rights Reserved.</small>
+        </div>
+    </footer>
+    
+    <button type="button" class="btn btn-lnb">
+        <span class="icon-arrow"><span class="blind">메뉴 열기</span></span>
+    </button>
+</div>
+<div id="container" class="container container--include-lnb container--fullview">
     <h2 class="page-title">공지사항</h2>
     <!-- <p class="page-title__dsc">· 재무회계 공지사항 게시판입니다.</p> -->
     <div class="component-group align-right btn-box--absolute">
@@ -146,22 +146,20 @@
                             </select>
                         </div>
                         <div class="component-box">
-                            <form>
-                                <fieldset>
-                                    <legend>검색 영역</legend>
-                                    <div class="search-form">
-                                        <em class="search-form__title">검색어로 찾기</em>
-                                        <div class="search-form__inner">
-                                            <span class="ip icon-search"><span class="blind">search</span></span>
-                                            <input type="search" placeholder="검색어를 입력하세요." maxlength="100" v-model="search">
-                                            <div class="search-form__bx-btn">
-                                                <input type="reset" class="search-form__btn-delete">
-                                                <span class="blind">reset</span>
-                                            </div>
+                            <fieldset>
+                                <legend>검색 영역</legend>
+                                <div class="search-form">
+                                    <em class="search-form__title">검색어로 찾기</em>
+                                    <div class="search-form__inner">
+                                        <span class="ip icon-search"><span class="blind">search</span></span>
+                                        <input type="search" placeholder="검색어를 입력하세요." maxlength="100" v-model="search" @keyup.enter="getInfoList();">
+                                        <div class="search-form__bx-btn">
+                                            <input type="reset" class="search-form__btn-delete">
+                                            <span class="blind">reset</span>
                                         </div>
                                     </div>
-                                </fieldset>
-                            </form>
+                                </div>
+                            </fieldset>
                         </div>
                         <div class="component-box">
                             <button type="button" class="btn btn--bgtype" @click="getInfoList();"><span class="btn__txt">검색</span></button>  

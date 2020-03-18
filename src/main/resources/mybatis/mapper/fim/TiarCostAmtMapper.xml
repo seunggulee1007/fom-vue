@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.smilegate.fim.mappers.fim.TiarCostMapper">
+
+    <insert id="insertTiarCostAmt" parameterType="tiarCostAmtVO">
+        <selectKey keyProperty="tiCostSerl" resultType="int" order="BEFORE">
+            select next value for seq_tiar_cost_amt
+        </selectKey>
+        insert into tb_tiar_cost_amt(
+            company_seq
+            ,ti_cost_seq
+            ,ti_cost_Serl
+            ,use_date
+            ,use_emp_Seq
+            ,use_emp_id
+            ,use_dept_seq
+            ,c_crt_seq
+            ,cost_item_cd
+            ,curr_seq
+            ,ex_rate
+            ,is_vat
+            ,cur_amt
+            ,cur_vat
+            dom_amt
+            ,dom_vat
+            ,cust_seq
+            ,cust_text
+            ,budget_dept_seq
+            ,evid_Seq
+            ,acc_seq
+            ,vat_Accseq
+            ,opp_Acc_seq
+            ,um_cost_type
+            ,remart
+            ,last_user_Seq
+            ,last_date_time
+            ,use_dept_cd
+            ,amt
+            ,use_acc_dept_seq
+            ,guest
+            ,store
+            ,trip_gubun
+            ,is_public_cost
+            ,card_seq
+            ,remark2
+            ,rem_Seq
+            ,rem_val_seq
+            ,rem_seq2
+            ,rem_val_seq2
+            ,sm_kind_seq
+            ,cost_seq
+            ,activity_cd
+            ,cust_name
+            ,user_name
+            ,purpose
+            ,busi_trip_code
+            ,busi_trip_type
+            ,start_area
+            ,dest_Area
+            ,work_start
+            ,work_end
+            ,distance
+            ,person_cnt
+            ,person_name
+            ,trnas_Amt
+        )values(
+            #{companySeq        }
+            ,#{tiCostSeq        }
+            ,#{tiCostSerl       }
+            ,#{useDate          }
+            ,#{useEmpSeq        }
+            ,#{useEmpId         }
+            ,#{useDeptSeq       }
+            ,#{cCrtSeq          }
+            ,#{costItemCd       }
+            ,#{currSeq          }
+            ,#{exRate           }
+            ,#{isVat            }
+            ,#{curAmt           }
+            ,#{curVat           }
+            ,#{domAmt           }
+            ,#{domVat           }
+            ,#{custSeq          }
+            ,#{custText         }
+            ,#{budgetDeptSeq    }
+            ,#{evidSeq          }
+            ,#{accSeq           }
+            ,#{vatAccseq        }
+            ,#{oppAccSeq        }
+            ,#{umVostType       }
+            ,#{remart           }
+            ,#{lastUserSeq      }
+            ,#{lastDateTime     }
+            ,#{useDeptCd        }
+            ,#{amt              }
+            ,#{useSccDeptSeq    }
+            ,#{guest            }
+            ,#{store            }
+            ,#{tripGubun        }
+            ,#{isPublicCost     }
+            ,#{cardSeq          }
+            ,#{remark2          }
+            ,#{remSeq           }
+            ,#{remValSeq        }
+            ,#{remSeq2          }
+            ,#{remValSeq2       }
+            ,#{smKindSeq        }
+            ,#{costSeq          }
+            ,#{costInfoVO.activityCd  }
+            ,#{costInfoVO.custName    }
+            ,#{costInfoVO.userName    }
+            ,#{costInfoVO.purpose     }
+            ,#{costInfoVO.busiTripCode}
+            ,#{costInfoVO.busiTripType}
+            ,#{costInfoVO.startArea   }
+            ,#{costInfoVO.destArea    }
+            ,#{costInfoVO.workStart   }
+            ,#{costInfoVO.worktEnd    }
+            ,#{costInfoVO.distance    }
+            ,#{costInfoVO.personCnt   }
+            ,#{costInfoVO.personName  }
+            ,#{costInfoVO.transAmt    }
+        )
+    </insert>
+</mapper>

@@ -2,13 +2,12 @@ package net.smilegate.fim.service.expense;
 
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import net.smilegate.fim.vo.TiarCostVO;
+
 public interface ExpenseService {
 
-    /**
-     * 비용 항목 조회
-     * @param expenseVO
-     * @return
-     */
-    public Map<String, Object> selectExpenseList(Map<String, Object> searchRequest);
+    public Map<String, Object> insertExpense(MultipartHttpServletRequest request ,TiarCostVO tiarCost);
     
 }

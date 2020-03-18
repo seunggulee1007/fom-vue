@@ -1,14 +1,9 @@
 package net.smilegate.fim.service.board;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.mappers.fim.BoardMapper;
 import net.smilegate.fim.mappers.fim.JpaBoardMapper;
 import net.smilegate.fim.service.file.FileService;
+import net.smilegate.fim.specification.BoardSpecification;
 import net.smilegate.fim.util.FileUtil;
 import net.smilegate.fim.vo.BoardVO;
 import net.smilegate.fim.vo.CommonResultVO;
@@ -58,44 +54,33 @@ public class BoardServiceImpl implements BoardService {
     
     public CommonResultVO infoList(Pageable pageable, BoardVO boardVO) {
         Map<String, Object> map = new HashMap<>();
-        String searchKind = boardVO.getSearchKind();
-        String search = boardVO.getSearch();
-        try {
-            search = URLDecoder.decode(search, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        Date startDate = Date.valueOf(boardVO.getSearchStdDt());
-        Date endDate = Date.valueOf(boardVO.getSearchEndDt());
-        Calendar c = Calendar.getInstance();
-        c.setTime(endDate);
-        c.add(Calendar.DATE, 1);
-        endDate = new Date(c.getTimeInMillis());
-        Page<BoardVO> boardList = null;
-        if(StringUtils.isNotEmpty(search)) {
-            search = "%" + search + "%";
-            if(search.indexOf("[") != -1) {
-                search = search.replaceAll("\\[", "\\[[]");
-            }
-            switch (searchKind) {
-                case "title" : 
-                    boardList = jpaBoardMapper.findByCrtDateBetweenAndTitleLike(pageable, startDate, endDate, search);
-                    break;
-                case "cont" : 
-                    boardList = jpaBoardMapper.findByCrtDateBetweenAndContLike(pageable, startDate, endDate, search);
-                    break;
-                case "titleAndCont" :
-                    boardList = jpaBoardMapper.findByCrtDateBetweenAndTitleLikeOrContLike(pageable, startDate, endDate, search, search);
-                    break;
-                case "userNm" : 
-                    boardList = jpaBoardMapper.findByCrtDateBetweenAndUserNmLike(pageable, startDate, endDate, search);
-                    break;
-            }
-            
-        }else {
-            boardList = jpaBoardMapper.findByCrtDateBetween(pageable, startDate, endDate);
-        }
+        /*
+         * String searchKind = boardVO.getSearchKind(); String search =
+         * boardVO.getSearch(); try { search = URLDecoder.decode(search, "UTF-8"); }
+         * catch (UnsupportedEncodingException e) { // TODO Auto-generated catch block
+         * e.printStackTrace(); }
+         */
+        Page<BoardVO> boardList = jpaBoardMapper.findAll(BoardSpecification.searchWith(boardVO), pageable);
+        /*
+         * Date startDate = Date.valueOf(boardVO.getSearchStdDt()); Date endDate =
+         * Date.valueOf(boardVO.getSearchEndDt()); Calendar c = Calendar.getInstance();
+         * c.setTime(endDate); c.add(Calendar.DATE, 1); endDate = new
+         * Date(c.getTimeInMillis()); Page<BoardVO> boardList = null;
+         * if(StringUtils.isNotEmpty(search)) { search = "%" + search + "%";
+         * if(search.indexOf("[") != -1) { search = search.replaceAll("\\[", "\\[[]"); }
+         * switch (searchKind) { case "title" : boardList =
+         * jpaBoardMapper.findByCrtDateBetweenAndTitleLike(pageable, startDate, endDate,
+         * search); break; case "cont" : boardList =
+         * jpaBoardMapper.findByCrtDateBetweenAndContLike(pageable, startDate, endDate,
+         * search); break; case "titleAndCont" : boardList =
+         * jpaBoardMapper.findByCrtDateBetweenAndTitleLikeOrContLike(pageable,
+         * startDate, endDate, search, search); break; case "userNm" : boardList =
+         * jpaBoardMapper.findByCrtDateBetweenAndUserNmLike(pageable, startDate,
+         * endDate, search); break; }
+         * 
+         * }else { boardList = jpaBoardMapper.findByCrtDateBetween(pageable, startDate,
+         * endDate); }
+         */
         map.put("boardList", boardList);
         
         return CommonResultVO.builder().data(map).build();

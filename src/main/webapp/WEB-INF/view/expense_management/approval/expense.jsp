@@ -2,8 +2,10 @@
     pageEncoding="UTF-8"%>
 <script type="text/babel" src="/resources/fim/js/expense_management/expense.js"></script>
 <script src='https://unpkg.com/v-calendar@next'></script>
-<div id="container" class="container container--include-lnb container--fullview container-write" v-cloak>
-    <jsp:include page="/WEB-INF/view/include/expense_management_include.jsp"/>
+
+<jsp:include page="/WEB-INF/view/include/expense_management_include.jsp"/>
+
+<div id="container" class="container container--include-lnb container--fullview container-write">
     <h2 class="page-title">지출결의서</h2>
     <!-- <p class="page-title__dsc">· 지출결의서를 작성할 수 있는 페이지입니다.</p> -->
     <div class="component-group align-right btn-box--absolute">
@@ -19,9 +21,9 @@
             </a>
         </div>                
     </div>
-    <div class="grid-layout">
+    <div class="grid-layout" v-cloak>
         <div class="grid-column grid-column10">                    
-            <div class="section section--border">
+            <div class="section section--border section-expense">
                 <div class="component-group">
                     <div class="table table-chain">
                         <table>
@@ -31,29 +33,29 @@
                                     <th class="table__th">문서번호</th>
                                     <td class="table__td table__td--data"><span class="table__txt">결재 완료 시, 발번됩니다.</span></td>
                                     <th class="table__th">기안일자</th>
-                                    <td class="table__td table__td--data"><span class="table__txt"></span></td>
+                                    <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.regDate}}</span></td>
                                     <th class="table__th">기안자</th>
-                                    <td class="table__td table__td--data"><span class="table__txt"></span></td>
+                                    <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.regEmpNm}}</span></td>
                                 </tr>
                                 <tr>
                                     <th class="table__th">기안부서</th>
-                                    <td colspan="5" class="table__td table__td--data"><span class="table__txt">SGH>IT기술본부>기술지원담당>정보시스템실>정보개발팀</span></td>
+                                    <td colspan="5" class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.regDeptNm}}</span></td>
                                 </tr>
                                 <tr>
                                     <th class="table__th table__th--required">제목</th>
                                     <td colspan="5" class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" value="[SGH][지출결의서(현금)_김연준_2020-02-20]">
+                                            <input type="text" class="input-field__input" v-model="tiarCostVO.title">
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="table__th">계좌번호</th>
-                                    <td class="table__td table__td--data"><span class="table__txt"></span></td>
+                                    <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.acctNo}}</span></td>
                                     <th class="table__th">은행명</th>
-                                    <td class="table__td table__td--data"><span class="table__txt"></span></td>
+                                    <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.bankNm}}</span></td>
                                     <th class="table__th">예금주</th>
-                                    <td class="table__td table__td--data"><span class="table__txt"></span></td>
+                                    <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.acctNo}}</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -114,24 +116,24 @@
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" v-model="expense.expenseVO.smKindName" @dblclick="openExpenseAll(idx, expense.expenseVO.smKindName)" @keyup.enter="openExpenseAll(idx, expense.expenseVO.smKindName)">
+                                            <input type="text" class="input-field__input" v-model="expense.costInfoVO.smKindName" @dblclick="openExpenseAll(idx, expense.costInfoVO.smKindName)" @keyup.enter="openExpenseAll(idx, expense.costInfoVO.smKindName)" placeholder="선택해주세요.">
                                         </div>
                                     </td>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt">{{ expense.expenseVO.costName }}</span>
+                                        <span class="table__txt">{{ expense.costInfoVO.costName }}</span>
                                     </td>
                                     <td class="table__td table__td--data">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" @dblclick="openExpenseSgma(idx, expense.expenseVO.activityNm)" @keyup.enter="openExpenseSgma(idx, expense.expenseVO.activityNm)" v-model="expense.expenseVO.activityNm" v-if="expense.expenseVO.smKindName">
-                                            <span class="table__txt" v-else="!expense.expenseVO.smKindName"></span>
+                                            <input type="text" class="input-field__input" @dblclick="openExpenseSgma(idx, expense.costInfoVO.activityNm)" @keyup.enter="openExpenseSgma(idx, expense.costInfoVO.activityNm)" v-model="expense.costInfoVO.activityNm" v-if="expense.costInfoVO.smKindName" placeholder="선택해주세요.">
+                                            <span class="table__txt" v-else="!expense.costInfoVO.smKindName"></span>
                                         </div>
                                     </td>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt">{{ expense.expenseVO.costItemNm }}</span>
+                                        <span class="table__txt">{{ expense.costInfoVO.costItemNm }}</span>
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" placeholder="입력해주세요." v-model="expense.store">
                                         </div>
                                     </td>
                                     <td class="table__td">
@@ -146,13 +148,13 @@
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" v-model="expense.remark">
+                                            <input type="text" class="input-field__input" v-model="expense.remark" placeholder="입력해주세요.">
                                         </div>
                                         <span class="table__txt table__txt-caption txt--blue"></span>
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" v-model="expense.curAmt">
+                                            <input type="text" class="input-field__input" v-model="expense.displayCurAmt" placeholder="입력해주세요." @change="calcTotalAmt(expense);" v-int>
                                         </div>
                                     </td>
                                 </tr>
@@ -166,7 +168,7 @@
                                 <tr>
                                     <th class="table__th" colspan="9">합계</th>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt"></span>
+                                        <span class="table__txt">{{totalAmt}}</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -259,7 +261,7 @@
                         </button>
                     </div>
                     <div class="component-box">
-                        <button type="button" class="btn btn--large">
+                        <button type="button" class="btn btn--large" @click="saveExpense();">
                             <span class="btn__txt">저장</span>
                         </button>
                     </div>
@@ -453,16 +455,16 @@
 </div>
 
 <!-- expenses detail -->
-<div class="popup-wrap popup-layer--medium popup-layer--expenses-detail popup-wrap--active">
+<div class="popup-wrap popup-layer--medium popup-layer--expenses-detail" :class="{'popup-wrap--active' : expenseDetailFlag}">
     <div class="popup-wrap__align-box">
         <div class="popup-wrap__inner">
             <div class="popup__header">
                 <strong class="popup__header-txt">
-                    <span>교통비</span> - <span>야근교통비</span> 정보 입력
+                    <span>{{costInfoVO.costName}}</span> 정보 입력
                 </strong>
             </div>
             <div class="popup__contents">
-                <div class="table__expenses table__expenses-transportation">
+                <div class="table__expenses table__expenses-transportation" v-show="costInfoVO.smKindSeq === '4503006'">
                     <div class="table table-chain">
                         <table>
                             <caption><span class="blind">교통비 추가 정보 기입</span></caption>
@@ -475,7 +477,7 @@
                                     <th class="table__th">출발지</th>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" v-model="costInfoVO.startArea" ref="startArea">
                                         </div>
                                     </td>
                                 </tr>
@@ -483,49 +485,49 @@
                                     <th class="table__th">목적지</th>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" v-model="costInfoVO.destArea" ref="destArea">
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr v-show="costInfoVO.costSeq === 10 || costInfoVO.costSeq === 11">
                                     <th class="table__th">금액</th>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" v-model="costInfoVO.transAmt" ref="transAmt">
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr v-show="costInfoVO.costSeq === 10">
                                     <th class="table__th">업무시작 / 종료시간</th>
                                     <td class="table__td table__td--data">
                                         <span class="table__txt"></span>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr v-show="costInfoVO.costSeq === 86">
                                     <th class="table__th">거리(km)</th>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" v-model="costInfoVO.distance" v-int ref="distance">
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr v-show="costInfoVO.costSeq === 86">
                                     <th class="table__th">인원수</th>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" v-model="costInfoVO.personCnt" v-int ref="personCnt">
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr v-show="costInfoVO.costSeq === 86">
                                     <th class="table__th">탑승자</th>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" v-model="costInfoVO.personName" ref="personName">
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr v-show="costInfoVO.costSeq === 86">
                                     <th class="table__th">(* 편도기준)</th>
                                     <td class="table__td table__td--btn align-center">
                                         <button type="button" class="btn btn-calc">
@@ -533,17 +535,17 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr v-show="costInfoVO.costSeq === 86">
                                     <th class="table__th">금액(자동계산)</th>
-                                    <td class="table__td table__td--data">
-                                        <span class="table__txt"></span>
+                                    <td class="table__td table__td--data" ref="autoTransAmt">
+                                        <span class="table__txt">{{costInfoVO.transAmt}}</span>
                                     </td>
                                 </tr>                                    
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="table__expenses table__expenses-entertainment">
+                <div class="table__expenses table__expenses-entertainment" v-show="costInfoVO.smKindSeq === '4503010'">
                     <div class="table table-chain">
                         <table>
                             <caption><span class="blind">접대비 추가 정보 기입</span></caption>
@@ -556,7 +558,7 @@
                                     <th class="table__th">업체명</th>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" v-model="costInfoVO.custName" ref="custName">
                                         </div>
                                     </td>
                                 </tr>
@@ -564,7 +566,7 @@
                                     <th class="table__th">업체담당자</th>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" v-model="costInfoVO.userName" ref="userName">
                                         </div>
                                     </td>
                                 </tr>
@@ -572,7 +574,7 @@
                                     <th class="table__th">목적</th>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input">
+                                            <input type="text" class="input-field__input" v-model="costInfoVO.purpose" ref="purpose">
                                         </div>
                                     </td>
                                 </tr>
@@ -587,7 +589,7 @@
                         </a>
                     </p>
                 </div>
-                <div class="table__expenses table__expenses-travel">
+                <div class="table__expenses table__expenses-travel" v-show="costInfoVO.smKindSeq === '4503008' || costInfoVO.smKindSeq === '4503009'">
                     <div class="table table-chain">
                         <table>
                             <caption><span class="blind">출장비 추가 정보 기입</span></caption>
@@ -599,7 +601,7 @@
                                 <tr>
                                     <th class="table__th">출장정보</th>
                                     <td class="table__td">
-                                        <select name="expenseBizTrip1" id="expenseBizTrip1" class="dropdown-select">
+                                        <select name="expenseBizTrip1" id="expenseBizTrip1" class="dropdown-select" v-model="costInfoVO.busiTripCode" ref="busiTripCode">
                                             <option value="search_period-draft" class="dropdown-select__menu">
                                                 <span class="dropdown__menu-txt">선택1</span>
                                             </option>
@@ -612,7 +614,7 @@
                                 <tr>
                                     <th class="table__th">출장구분</th>
                                     <td class="table__td">
-                                        <select name="expenseBizTrip2" id="expenseBizTrip2" class="dropdown-select">
+                                        <select name="expenseBizTrip2" id="expenseBizTrip2" class="dropdown-select" v-model="costInfoVO.busiTripType" ref="busiTripType">
                                             <option value="search_period-draft" class="dropdown-select__menu">
                                                 <span class="dropdown__menu-txt">선택1</span>
                                             </option>
@@ -630,15 +632,15 @@
             </div>
             <div class="popup__bottom">
                 <div class="popup__btn-box">
-                    <button type="button" class="btn btn--bgtype">
+                    <button type="button" class="btn btn--bgtype" @click="closePopup();">
                         <span class="btn__txt">취소</span>
                     </button>
-                    <button type="button" class="btn btn--orange">
+                    <button type="button" class="btn btn--orange" @click="saveData()">
                         <span class="btn__txt">저장</span>
                     </button>
                 </div>
             </div>
-            <button type="button" class="popup__btn-close">
+            <button type="button" class="popup__btn-close" @click="closePopup();">
                 <span class="sp icon-close">
                     <span class="blind">닫기</span>
                 </span>

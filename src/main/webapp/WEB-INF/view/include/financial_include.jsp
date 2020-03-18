@@ -16,10 +16,10 @@
             </a>
         </li>
         
-        <li class="lst-lnb__item" v-bind:class="{'lst-lnb__item--active' : openFlag}" @click="menuOpen();">
+        <li class="lst-lnb__item">
             <a href="#" class="lst-lnb__menu">
                 <span class="lst-lnb__menu-txt">거래처 휴/폐업 조회</span>
-                <span class="sp icon-arrow--ms"><span class="blind">{{ openFlag ? '메뉴닫기' : '메뉴열기'}}</span></span>                          
+                <span class="sp icon-arrow--ms"><span class="blind">메뉴닫기</span></span>                          
             </a>
             <ul class="lst-lnb-sub">
                 <li class="lst-lnb-sub__item <c:if test="${URI eq '/financial_link/biz_chk/biz_num' }"> lst-lnb-sub__item--active </c:if>">

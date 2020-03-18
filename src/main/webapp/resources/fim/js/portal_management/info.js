@@ -1,4 +1,5 @@
-$(document).ready(function() {
+window.onload = function(){
+    
     Vue.use(MyPlugin);
     let vue = new Vue({
         el : "#container"
@@ -36,7 +37,7 @@ $(document).ready(function() {
                 if(!num) {
                     num = 0;
                 }
-                console.log('num ::: ' + num);
+                $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
                 axios({
                     url : "/portal_management/infoList"
                     ,method : "get"
@@ -53,8 +54,10 @@ $(document).ready(function() {
                     let paging = this.paging;
                     this.infoList = this.paging.content;
                     this.pagingVO  = this.getPagingVO(paging.number, paging.totalElements, paging.totalPages, 10);
+                    $.unblockUI();
                 }).catch(err=>{
                     alert(err);
+                    $.unblockUI();
                 });
             }
             , goPage (num) {
@@ -73,4 +76,4 @@ $(document).ready(function() {
             }
         }
     });
-});
+};

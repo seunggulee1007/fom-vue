@@ -29,6 +29,24 @@ public interface SgerpmaMapper {
     public List<ExpenseVO> selectResultCardCostMap(ExpenseVO expenseVO);
     
     /**
+     * 공통 (SFG제외) 비용매핑정보 조회
+     * @return
+     */
+    public List<ExpenseVO> selectResultCostMapByActivityNm(ExpenseVO expenseVO);
+    
+    /**
+     * SFG 비용매핑정보 조회
+     * @return
+     */
+    public List<ExpenseVO> selectResultCostMap1ByActivityNm(ExpenseVO expenseVO);
+    
+    /**
+     * 임원 비용매핑 정보 조회
+     * @return
+     */
+    public List<ExpenseVO> selectResultCardCostMapByActivityNm(ExpenseVO expenseVO);
+    
+    /**
      * 임원 여부 확인
      * @param userNm
      * @return

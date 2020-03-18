@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<jsp:include page="/WEB-INF/view/include/company_card_include.jsp"/>
+    
 <div id="container" class="container container--include-lnb container--fullview container--iframe">
-    <jsp:include page="/WEB-INF/view/include/company_card_include.jsp"/>
     <h2 class="page-title">카드한도 증액신청</h2>
     <!-- <p class="page-title__dsc">· 카드한도 증액 신청 페이지입니다.</p> -->
     <div class="component-group align-right btn-box--absolute">

@@ -17,7 +17,7 @@
                     <div class="component-group">
                         <div class="tree-area">
                             <ul class="lst-tree">
-                                <tree-item v-for="list in deptList" :item="list" class="lst-tree__item">
+                                <tree-item v-for="(list,idx) in deptList" :item="list" class="lst-tree__item" :key="idx">
                                 </tree-item>
                             </ul>
                         </div>
@@ -63,9 +63,6 @@
                             </draggable>
                         </div>
                 </div>
-                <rawDisplayer class="col-3" :value="userList" title="List 1" />
-            
-                <rawDisplayer class="col-3" :value="selectedUserList" title="List 2" />
             </div>
             <div class="popup__bottom">
                 <p class="popup__contents-txt">*검색된 결과는 <span class="txt--orange">Drag&Drop</span> 혹은 <span class="txt--orange">더블클릭</span> 하시면 선택됩니다.</p>

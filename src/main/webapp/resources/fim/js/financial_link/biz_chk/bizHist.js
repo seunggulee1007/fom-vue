@@ -13,6 +13,8 @@ $(document).ready(function(){
             }
             ,bizNo : ''
             ,bizInfoList : []
+            ,userNm : ''
+            ,deptNm : ''
         }
         ,mounted () {
             this.getBizInfoList();
@@ -31,6 +33,7 @@ $(document).ready(function(){
         }
         ,methods : {
             getBizInfoList () {
+                $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
                 axios({
                     method : "get"
                     ,url : "/financial_link/biz/bizInfo/bizInfoList"
@@ -42,8 +45,10 @@ $(document).ready(function(){
                 }).then(res =>{
                     console.log(res);
                     this.bizInfoList = res.data.data.bizInfoList;
+                    $.unblockUI();
                 }).catch(error =>{
                     console.log(error.response);
+                    $.unblockUI();
                 });
             }
         }

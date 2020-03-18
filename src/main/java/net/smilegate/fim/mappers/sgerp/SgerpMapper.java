@@ -6,9 +6,13 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import net.smilegate.fim.vo.UserVO;
+
 @Mapper
 public interface SgerpMapper {
     
     List<Map<String, String>> selectExRate(@Param("exRateDate") String exRateDate);
+    
+    public Map<String, String> callBankInfo(UserVO userVO);
     
 }

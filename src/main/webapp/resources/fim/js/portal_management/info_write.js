@@ -41,8 +41,8 @@ $(document).ready(function() {
                 }else if(!confirm("등록하시겠습니까? ")) {
                     return;
                 }
-                let formData = new FormData();
-                for(var i=0; i<this.files.length; i++) {
+                let formData = new FormData();              // 파일 같이 올릴 formdata 선언
+                for(var i=0; i<this.files.length; i++) {    // 파일 객체만큼 반복 문 돌며 파일 추가.
                     let file = this.files[i];
                     formData.append('files['+i+']', file);
                 }
