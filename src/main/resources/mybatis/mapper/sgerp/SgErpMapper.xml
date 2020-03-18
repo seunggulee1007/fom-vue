@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="net.smilegate.fim.mappers.sgerp.SgerpMapper">
-    
+
     <!-- 환율 정보 조회 -->
     <select id="selectExRate" resultType="map">
         select
@@ -19,8 +19,8 @@
             ,A.CurrName         -- 통화
             ,ExRateDate         -- 환율일
             ,QryOrder
-        from v_mstm_ExRate AS A 
-        JOIN v_mstm_Curr AS B 
+        from v_mstm_ExRate AS A
+        JOIN v_mstm_Curr AS B
         ON A.CompanySeq = B.CompanySeq AND A.CurrSeq = B.CurrSeq
         where
             A.CompanySeq = '1'
@@ -29,17 +29,15 @@
                     and ExRateDate = #{exRateDate}
                 </when>
                 <otherwise>
-                    and ExRateDate = '20200107' 
+                    and ExRateDate = '20200107'
                 </otherwise>
             </choose>
         order by QryOrder
     </select>
-    
+
     <!-- 사용자 계좌 정보 조회 프로시져 -->
     <update id="callBankInfo" statementType="CALLABLE">
-        {
-            call SG_SHRIFEmpAccNoQuery(#{deptCd}, #{empNo})
-        }
+    	exec SG_SHRIFEmpAccNoQuery #{deptCd}, #{empNo}
     </update>
 
 
