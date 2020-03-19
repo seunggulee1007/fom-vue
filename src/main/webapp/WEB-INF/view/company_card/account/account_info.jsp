@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<script src="/resources/fim/js/jstree.min.js"></script>
 <script>
     // Tree JS
     $(function () {
@@ -32,8 +32,8 @@
     });
 
 </script>
+<jsp:include page="/WEB-INF/view/include/company_card_include.jsp"/>
 <div id="container" class="container container--include-lnb container--fullview container-write container--include-tab">
-    <jsp:include page="/WEB-INF/view/include/company_card_include.jsp"/>
     <h2 class="page-title">법인카드 정산</h2>
     <!-- <p class="page-title__dsc">· 법인카드 정산 페이지입니다.</p> -->
     <div class="component-group align-right btn-box--absolute">
