@@ -10,33 +10,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/mng_info")
+@RequestMapping("/mngInfo")
 public class MngInfoViewController {
-
+    
+    private final String prefix = "/fim/mngInfo";
     /**
      * 
      * @return
      */
-    @GetMapping("/mng_company")
+    @GetMapping("/mngCompany")
     public String mngCompany() {
-        return "/fim/mng_info/mng_company";
+        return prefix + "/mngCompany";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/mng_executives")
+    @GetMapping("/mngExecutives")
     public String mngExecutives() {
-        return "/fim/mng_info/mng_executives";
+        return prefix + "/mngExecutives";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/mng_group")
+    @GetMapping("/mngGroup")
     public String mngGroup() {
-        return "/fim/mng_info/mng_group";
+        return prefix + "/mngGroup";
     }
 }

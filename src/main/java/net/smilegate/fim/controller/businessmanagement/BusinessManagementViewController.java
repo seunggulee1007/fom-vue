@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/business_management")
+@RequestMapping("/businessManagement")
 public class BusinessManagementViewController {
     
     /**
@@ -14,7 +14,7 @@ public class BusinessManagementViewController {
      */
     @GetMapping("/cafe")
     public String cafe() {
-        return "/fim/business_management/cafe";
+        return "/fim/businessManagement/cafe";
     }
     
 }

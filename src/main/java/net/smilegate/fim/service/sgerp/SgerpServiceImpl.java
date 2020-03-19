@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.enums.Currency;
 import net.smilegate.fim.mappers.sgerp.SgerpMapper;
+import net.smilegate.fim.vo.UserVO;
 
 @RequiredArgsConstructor
 @Service
@@ -45,4 +46,16 @@ public class SgerpServiceImpl implements SgerpService {
         
         return map;
     }
+    
+    /**
+     * 은행 정보 조회
+     * @param userVO
+     * @return
+     */
+    public Map<String, Object> getBankInfo(UserVO userVO) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("bankInfoVO", sgerpMapper.callBankInfo(userVO));
+        return map;
+    }
+    
 }

@@ -5,24 +5,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/business_management/eis")
+@RequestMapping("/businessManagement/eis")
 public class EisViewController {
+    
+    private final String prefix = "/fim/businessManagement/eis";
+    
     /**
      * 프로젝트 손익조회 -> 당월손익
      * @return
      */
-    @GetMapping("/select_month_report")
+    @GetMapping("/selectMonthReport")
     public String selectMonthReport() {
-        return "/fim/business_management/eis/select_month_report";
+        return prefix + "/selectMonthReport";
     }
     
     /**
      * 프로젝트 손익조회 -> 월별손익
      * @return
      */
-    @GetMapping("/monthly_report")
+    @GetMapping("/monthlyReport")
     public String monthlyReport() {
-        return "/fim/business_management/eis/monthly_report";
+        return prefix + "/monthlyReport";
     }
     
     /**
@@ -31,25 +34,25 @@ public class EisViewController {
      */
     @GetMapping("/accumulation")
     public String accumulation() {
-        return "/fim/business_management/eis/accumulation";
+        return prefix + "/accumulation";
     }
     
     /**
      * 프로젝트 손익조회 -> 프로젝트 현황
      * @return
      */
-    @GetMapping("/current_pjt")
+    @GetMapping("/currentPjt")
     public String currentPjt() {
-        return "/fim/business_management/eis/current_pjt";
+        return prefix + "/currentPjt";
     }
     
     /**
      * 프로젝트 손익조회 -> 손익현황
      * @return
      */
-    @GetMapping("/current_profit")
+    @GetMapping("/currentProfit")
     public String currentProfit() {
-        return "/fim/business_management/eis/current_profit";
+        return prefix + "/currentProfit";
     }
     
 }

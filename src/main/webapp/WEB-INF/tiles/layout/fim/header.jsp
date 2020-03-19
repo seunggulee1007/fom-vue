@@ -72,10 +72,10 @@
                 <a href="#">법인카드</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
-                        <a href="/company_card/account/cd_apply_form">카드 신청/정산 처리</a>
+                        <a href="/company_card/account/cdApplyForm">카드 신청/정산 처리</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/company_card/managing/com_limit">카드 한도 관리</a>
+                        <a href="/company_card/managing/comLimit">카드 한도 관리</a>
                     </li>                            
                 </ul>
             </li>
@@ -83,25 +83,25 @@
                 <a href="#">비용 정산</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
-                        <a href="/expense_management/approval/approval_form">전자결재</a>
+                        <a href="/expenseManagement/approval/approvalForm">전자결재</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/expense_management/bill/tax_bill">전자세금계산서</a>
+                        <a href="/expenseManagement/bill/taxBill">전자세금계산서</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/expense_management/workshop">워크샵 정산</a>
+                        <a href="/expenseManagement/workshop">워크샵 정산</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/expense_management/cafeteria">중석식 정산</a>
+                        <a href="/expenseManagement/cafeteria">중석식 정산</a>
                     </li>                            
                     <li class="gnb_depth2">
-                        <a href="/expense_management/cafeteria_mobile">모바일식권 정산</a>
+                        <a href="/expenseManagement/cafeteriaMobile">모바일식권 정산</a>
                     </li>                            
                     <li class="gnb_depth2">
-                        <a href="/expense_management/advance_payment">전도금 정산</a>
+                        <a href="/expenseManagement/advancePayment">전도금 정산</a>
                     </li>                            
                     <li class="gnb_depth2">
-                        <a href="/expense_management/taxi">택시비 정산</a>
+                        <a href="/expenseManagement/taxi">택시비 정산</a>
                     </li>                            
                 </ul>
             </li>
@@ -109,19 +109,19 @@
                 <a href="#">업무관리</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
-                        <a href="/business_management/eis/select_month_report">프로젝트 손익조회</a>
+                        <a href="/businessManagement/eis/selectMonthReport">프로젝트 손익조회</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/business_management/budget/detail_result">비용 계획/실적 조회</a>
+                        <a href="/businessManagement/budget/detailResult">비용 계획/실적 조회</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/business_management/work/user_schedule">업무 투입율</a>
+                        <a href="/businessManagement/work/userSchedule">업무 투입율</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/business_management/cafe">비즈카페</a>
+                        <a href="/businessManagement/cafe">비즈카페</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/business_management/car/car_list">차량관리</a>
+                        <a href="/businessManagement/car/carList">차량관리</a>
                     </li>
                 </ul>
             </li>
@@ -129,17 +129,17 @@
                 <a href="#">포털 관리</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
-                        <a href="/portal_management/info">공지사항</a>
+                        <a href="/portalManagement/info">공지사항</a>
                     </li>
                     
                     <li class="gnb_depth2">
-                        <a href="/portal_management/approval_pending">전자결재 - 미결함</a>
+                        <a href="/portalManagement/approvalPending">전자결재 - 미결함</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/portal_management/approval_pre">전자결재 - 예정함</a>
+                        <a href="/portalManagement/approvalPre">전자결재 - 예정함</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/portal_management/approval_progress">전자결재 - 진행함</a>
+                        <a href="/portalManagement/approvalProgress">전자결재 - 진행함</a>
                     </li>
                 </ul>
             </li>
@@ -147,13 +147,13 @@
                 <a href="#">경영정보</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
-                        <a href="/mng_info/mng_group">Group</a>
+                        <a href="/mngInfo/mngGroup">Group</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/mng_info/mng_company">Company</a>
+                        <a href="/mngInfo/mngCompany">Company</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/mng_info/mng_executives">Executives</a>
+                        <a href="/mngInfo/mngExecutives">Executives</a>
                     </li>                            
                     
                 </ul>
@@ -162,13 +162,13 @@
                 <a href="#">재무 전용 사이트</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
-                        <a href="/financial_link/tax_schedule">월별 세무 일정</a>
+                        <a href="/financialLink/taxSchedule">월별 세무 일정</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/financial_link/exchange">환율 정보</a>
+                        <a href="/financialLink/exchange">환율 정보</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/financial_link/biz_chk/biz_num">거래처 휴/폐업 조회</a>
+                        <a href="/financialLink/bizChk/bizNum">거래처 휴/폐업 조회</a>
                     </li>
                     <li class="gnb_depth2">
                         <a href="https://txsi.hometax.go.kr/docs/main.jsp" target="_blank">국세법령정보시스템</a>

@@ -23,7 +23,7 @@ import net.smilegate.fim.vo.CommonResultVO;
 
 @RestController
 @Api(tags = {"2. 포털 관리"})
-@RequestMapping("/portal_management")
+@RequestMapping("/portalManagement")
 @RequiredArgsConstructor
 public class PortalManagementProcController {
     

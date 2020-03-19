@@ -10,43 +10,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/company_card/account")
+@RequestMapping("/companyCard/account")
 public class AccountViewController {
    
+    private final String prefix = "/fim/companyCard/account";
     /**
      * 
      * @return
      */
-    @GetMapping("/account_info")
+    @GetMapping("/accountInfo")
     public String accountInfo() {
-        return "/fim/company_card/account/account_info";
+        return prefix + "/accountInfo";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/cd_apply_form")
+    @GetMapping("/cdApplyForm")
     public String cdApplyForm() {
-        return "/fim/company_card/account/cd_apply_form";
+        return prefix + "/cdApplyForm";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/change_limit")
+    @GetMapping("/changeLimit")
     public String changeLimit() {
-        return "/fim/company_card/account/change_limit";
+        return prefix + "/changeLimit";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/com_cd_form")
+    @GetMapping("/comCdForm")
     public String comCdForm() {
-        return "/fim/company_card/account/com_cd_form";
+        return prefix + "/comCdForm";
     }
     
 }

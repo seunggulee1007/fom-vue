@@ -39,7 +39,7 @@ window.onload = function(){
                 }
                 $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
                 axios({
-                    url : "/portal_management/infoList"
+                    url : "/portalManagement/infoList"
                     ,method : "get"
                     ,params : {
                         searchStdDt : this.searchStdDt

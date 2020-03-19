@@ -5,23 +5,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/expense_management/approval")
+@RequestMapping("/expenseManagement/approval")
 public class ApprovalViewController {
     
-    private String preFix ="/fim/expense_management/approval";
+    private String preFix ="/fim/expenseManagement/approval";
     
     /**
      * 
      * @return
      */
-    @GetMapping("/approval_form")
+    @GetMapping("/approvalForm")
     public String approvalForm() {
-        return preFix+"/approval_form";
+        return preFix+"/approvalForm";
     }
     
-    @GetMapping("/approval_report")
+    @GetMapping("/approvalReport")
     public String approvalReport() {
-        return preFix + "/approval_form";
+        return preFix + "/approvalReport";
     }
     
     
@@ -29,9 +29,9 @@ public class ApprovalViewController {
      * 지출결의서 조회 페이지
      * @return
      */
-    @GetMapping("/expense_history")
+    @GetMapping("/expenseHistory")
     public String expenseHistory() {
-        return preFix + "/expense_history";
+        return preFix + "/expenseHistory";
     }
     
     /**

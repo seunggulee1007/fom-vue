@@ -32,7 +32,7 @@
     });
 
 </script>
-<jsp:include page="/WEB-INF/view/include/company_card_include.jsp"/>
+<jsp:include page="/WEB-INF/view/include/companyCardInclude.jsp"/>
 <div id="container" class="container container--include-lnb container--fullview container-write container--include-tab">
     <h2 class="page-title">법인카드 정산</h2>
     <!-- <p class="page-title__dsc">· 법인카드 정산 페이지입니다.</p> -->

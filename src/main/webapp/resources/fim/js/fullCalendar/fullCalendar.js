@@ -1,7 +1,7 @@
 $(document).ready(function(){
     let calendarEl = document.getElementById('calendar');
     $.ajax({
-        url : "/financial_link/taxPlan/taxPlanMonth"
+        url : "/financialLink/taxPlan/taxPlanMonth"
         , dataType: "json"
         , type : "get"
         , async : true

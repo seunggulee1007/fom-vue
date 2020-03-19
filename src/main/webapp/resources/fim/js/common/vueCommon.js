@@ -1,4 +1,4 @@
-Vue.config.devtools=true;       // 개발용 빌드시 true, 배포용 빌드시 false
+Vue.config.devtools=false;       // 개발용 빌드시 true, 배포용 빌드시 false
 Vue.config.errorHandler = function(err, vm, info) {
     console.log(err);
     console.log(vm);

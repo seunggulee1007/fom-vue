@@ -36,9 +36,11 @@
     </select>
 
     <!-- 사용자 계좌 정보 조회 프로시져 -->
-    <update id="callBankInfo" statementType="CALLABLE">
-    	exec SG_SHRIFEmpAccNoQuery #{deptCd}, #{empNo}
-    </update>
+    <select id="callBankInfo" statementType="CALLABLE" resultType="map">
+        
+        exec SG_SHRIFEmpAccNoQuery #{deptCd}, #{empNo}
+        
+    </select>
 
 
 

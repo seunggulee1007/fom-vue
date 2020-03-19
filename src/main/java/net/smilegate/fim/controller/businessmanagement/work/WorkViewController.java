@@ -5,78 +5,80 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/business/management/work")
+@RequestMapping("/businessManagement/work")
 public class WorkViewController {
+    
+    private final String prefix = "/fim/businessManagement/work";
     /**
      * 업무 투입율 -> 부서/프로젝트 관리
      * @return
      */
-    @GetMapping("/dept_mng")
+    @GetMapping("/deptMng")
     public String deptMng() {
-        return "/fim/business_management/work/dept_mng";
+        return prefix + "/deptMng";
     }
     
     /**
      * 업무 투입율 -> 전체투입률 관리
      * @return
      */
-    @GetMapping("//all_mng")
+    @GetMapping("/allMng")
     public String allMng() {
-        return "/fim/business_management/work/all_mng";
+        return prefix + "/allMng";
     }
     
     /**
      * 업무 투입율 -> 작업내역 관리
      * @return
      */
-    @GetMapping("/work_history")
+    @GetMapping("/workHistory")
     public String workHistory() {
-        return "/fim/business_management/work/work_history";
+        return prefix + "/workHistory";
     }
     
     /**
      * 업무 투입율 -> 귀속법인별 MM 집계
      * @return
      */
-    @GetMapping("/belong_com")
+    @GetMapping("/belongCom")
     public String belongCom() {
-        return "/fim/business_management/work/belong_com";
+        return prefix + "/belongCom";
     }
     
     /**
      * 업무 투입율 -> 프로젝트별 MM 추이분석
      * @return
      */
-    @GetMapping("/pjt_mm")
+    @GetMapping("/pjtMm")
     public String pjtMm() {
-        return "/fim/business_management/work/pjt_mm";
+        return prefix + "/pjtMm";
     }
     
     /**
      * 업무 투입율 -> 업무투입시간
      * @return
      */
-    @GetMapping("/user_schedule")
+    @GetMapping("/userSchedule")
     public String userSchedule() {
-        return "/fim/business_management/work/user_schedule";
+        return prefix + "/userSchedule";
     }
     
     /**
      * 업무 투입율 -> 나의 투입률 관리
      * @return
      */
-    @GetMapping("/user_ratio")
+    @GetMapping("/userRatio")
     public String userRatio() {
-        return "/fim/business_management/work/user_ratio";
+        return prefix + "/userRatio";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/dept_ratio")
+    @GetMapping("/deptRatio")
     public String deptRatio() {
-        return "/fim/business_management/work/dept_ratio";
+        return prefix + "/deptRatio";
     }
     
 }

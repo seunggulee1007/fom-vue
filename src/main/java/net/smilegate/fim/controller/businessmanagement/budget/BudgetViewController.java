@@ -10,25 +10,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/business_management/budget")
+@RequestMapping("/businessManagement/budget")
 public class BudgetViewController {
     
+    private final String prefix = "/fim/businessManagement/budget";
     /**
     * 비용계획/실적조회 -> 실적 상세내역
     * @return
     */
-    @GetMapping("/detail_result")
+    @GetMapping("/detailResult")
     public String detailResult() {
-        return "/fim/business_management/budget/detail_result";
+        return prefix+"/detailResult";
     }
     
     /**
      * 비용계획/실적조회 -> 계획대비 실적
      * @return
      */
-    @GetMapping("/plan_result")
+    @GetMapping("/planResult")
     public String planResult() {
-        return "/fim/business_management/budget/plan_result";
+        return prefix + "/planResult";
     }
     
 }

@@ -28,7 +28,7 @@ import net.smilegate.fim.vo.TaxScheduleVO;
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/financial_link")
+@RequestMapping("/financialLink")
 public class FinancialLinkProcController {
     
     private final SgerpService sgerpService;
@@ -57,6 +57,7 @@ public class FinancialLinkProcController {
      * @param reqMap
      * @return
      */
+    @ApiOperation(value="환율 조회", notes="넘겨진 파라미터로 SGERP의 환율을 조회하는 api")
     @GetMapping("/exRate/{exRateDate}")
     public CommonResultVO getExRate(@PathVariable("exRateDate") String exRateDate) {
         Map<String, Object> map = sgerpService.selectExRate(exRateDate);

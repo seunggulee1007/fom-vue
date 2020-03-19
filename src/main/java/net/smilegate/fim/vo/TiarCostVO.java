@@ -67,7 +67,7 @@ public class TiarCostVO {
     private List<TiarCostAmtVO> tiarCostAmtList;
     
     /** 계좌번호 */
-    private String acctNo;
+    private String accNo;
     /** 제목 */
     private String title;
     /** 은행명 */
@@ -75,6 +75,6 @@ public class TiarCostVO {
     /** 은행코드 */
     private String bankCd;
     /** 예금주 */
-    private String acctNm;
+    private String ownerNm;
     
 }

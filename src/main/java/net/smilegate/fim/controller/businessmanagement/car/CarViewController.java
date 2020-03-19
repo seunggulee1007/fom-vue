@@ -10,60 +10,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/business_management/car")
+@RequestMapping("/businessManagement/car")
 public class CarViewController {
 
+    private final String prefix = "/fim/businessManagement/car";
     /**
      * 
      * @return
      */
-    @GetMapping("/car_confirm")
+    @GetMapping("/carConfirm")
     public String carConfirm() {
-        return "/fim/business_management/car/car_confirm";
+        return prefix +"/carConfirm";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/car_cost_no_drive")
+    @GetMapping("/carCostNoDrive")
     public String carCostNoDrive() {
-        return "/fim/business_management/car/car_cost_no_drive";
+        return prefix+"/carCostNoDrive";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/car_cost_system")
+    @GetMapping("/carCostSystem")
     public String carCostSystem() {
-        return "/fim/business_management/car/car_cost_system";
+        return prefix + "/carCostSystem";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/car_costing")
+    @GetMapping("/carCosting")
     public String carCosting() {
-        return "/fim/business_management/car/car_costing";
+        return prefix + "/carCosting";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/car_drive")
+    @GetMapping("/carDrive")
     public String carDrive() {
-        return "/fim/business_management/car/car_drive";
+        return prefix + "/carDrive";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/car_list")
+    @GetMapping("/carList")
     public String carList() {
-        return "/fim/business_management/car/car_list";
+        return prefix + "/carList";
     }
 }

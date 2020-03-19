@@ -10,45 +10,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/portal_management")
+@RequestMapping("/portalManagement")
 public class PortalManagementViewController {
 
+    private final String prefix = "/fim/portalManagement";
     /**
      * 게시판 페이지
      * @return
      */
     @GetMapping("/info")
     public String info() {
-        return "/fim/portal_management/info";
+        return prefix + "/info";
     }
     
     /**
      * 게시판 등록 페이지
      * @return
      */
-    @GetMapping("/info_write")
+    @GetMapping("/infoWrite")
     public String infoWrite() {
-        return "/fim/portal_management/info_write";
+        return prefix + "/infoWrite";
     }
     
-    @GetMapping("/info_view")
+    @GetMapping("/infoView")
     public String infoView() {
-        return "/fim/portal_management/info_view";
+        return prefix + "/infoView";
     }
     
-    @GetMapping("/approval_pending")
+    @GetMapping("/approvalPending")
     public String approvalPending() {
-        return "/fim/portal_management/approval_pending";
+        return prefix + "/approvalPending";
     }
     
-    @GetMapping("/approval_pre")
+    @GetMapping("/approvalPre")
     public String approvalPre() {
-        return "/fim/portal_management/approval_pre";
+        return prefix + "/approvalPre";
     }
     
-    @GetMapping("/approval_progress")
+    @GetMapping("/approvalProgress")
     public String approvalProgress() {
-        return "/fim/portal_management/approval_progress";
+        return prefix + "/approvalProgress";
     }
     
 }

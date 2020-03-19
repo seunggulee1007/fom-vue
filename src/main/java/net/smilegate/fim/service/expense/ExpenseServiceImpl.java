@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import net.smilegate.fim.vo.TiarCostVO;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(value="fimTransactionManager")
 public class ExpenseServiceImpl implements ExpenseService {
     
     private final TiarCostMapper tiarCostMapper;
@@ -28,7 +30,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     public Map<String, Object> insertExpense(MultipartHttpServletRequest request ,TiarCostVO tiarCostVO) {
         Map<String, Object> map = new HashMap<String, Object>();
         
-        if(tiarCostMapper.insertTiarCostMapper(tiarCostVO) > 0 ) {
+        if(tiarCostMapper.insertTiarCost(tiarCostVO) > 0 ) {
             int tiCostSeq = tiarCostVO.getTiCostSeq();      // 지출결의서 내부 키
             
             for(TiarCostAmtVO tiarCostAmtVO : tiarCostVO.getTiarCostAmtList()) {

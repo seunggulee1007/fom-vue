@@ -18,6 +18,7 @@
             ,confirm
             ,com_cd
             ,reg_dept_cd
+            
             ,pid
             ,acc_dept_seq
             ,input_kind
@@ -28,6 +29,7 @@
             ,memo
             ,reg_date
             ,reg_emp_seq
+            
             ,reg_emp_id
             ,reg_dept_seq
             ,last_user_seq
@@ -35,6 +37,7 @@
         )values (
             #{companySeq}
             ,#{tiCostSeq}
+            ,#{tiCostNo}
             ,#{contents}
             ,#{slipSeq}
             ,#{grstatus}
@@ -42,6 +45,7 @@
             ,#{confirm}
             ,#{comCd}
             ,#{regDeptCd}
+            
             ,#{pid}
             ,#{accDeptSeq}
             ,#{inputKind}
@@ -50,8 +54,9 @@
             ,#{isStop}
             ,#{stopDate}
             ,#{memo}
-            ,#{regDate}
+            ,replace(#{regDate}, '-', '')
             ,#{regEmpSeq}
+            
             ,#{regEmpId}
             ,#{regDeptSeq}
             ,#{lastUserSeq}

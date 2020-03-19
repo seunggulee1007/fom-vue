@@ -34,7 +34,7 @@ public class CostInfoVO {
     /** 업무시작시간 */
     private String workStart;
     /** 업무 종료 시간 */
-    private String sorkEnd;
+    private String workEnd;
     /** 거리 */
     private int distance;
     /** 인원수 */

@@ -11,16 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/financial_link")
+@RequestMapping("/financialLink")
 public class FinancialLinkViewController {
+    
+    private final String prefix = "/fim/financialLink";
     
     /**
      * 국세청 월별 정산내역 조회 화면
      * @return
      */
-    @GetMapping("/tax_schedule")
-    public String info() {
-        return "/fim/financial_link/tax_schedule";
+    @GetMapping("/taxSchedule")
+    public String taxSchedule() {
+        return prefix + "/taxSchedule";
     }
     
     /**
@@ -29,7 +31,7 @@ public class FinancialLinkViewController {
      */
     @GetMapping("/exchange")
     public String exchange() {
-        return "/fim/financial_link/exchange";
+        return prefix + "/exchange";
     }
     
 }

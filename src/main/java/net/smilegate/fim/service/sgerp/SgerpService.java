@@ -2,6 +2,8 @@ package net.smilegate.fim.service.sgerp;
 
 import java.util.Map;
 
+import net.smilegate.fim.vo.UserVO;
+
 /**
  * 
  * @author es-seungglee
@@ -16,5 +18,12 @@ public interface SgerpService {
      * @return
      */
     public Map<String, Object> selectExRate( String exRateDate);
+    
+    /**
+     * 은행 정보 조회
+     * @param userVO
+     * @return
+     */
+    public Map<String, Object> getBankInfo(UserVO userVO);
     
 }

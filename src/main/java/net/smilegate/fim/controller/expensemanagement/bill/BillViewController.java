@@ -12,23 +12,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/expense_management/bill")
 public class BillViewController {
-
+    
+    private final String prefix = "/fim/expenseManagement/bill";
     /**
      * 
      * @return
      */
     @GetMapping("/bill")
     public String bill() {
-        return "/fim/expense_management/bill/bill";
+        return prefix + "/bill";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/tax_bill")
+    @GetMapping("/taxBill")
     public String taxBill() {
-        return "/fim/expense_management/bill/tax_bill";
+        return prefix + "/taxBill";
     }
     
 }

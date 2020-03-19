@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/company_card/managing")
+@RequestMapping("/companyCard/managing")
 public class MangingViewController {
     
     /**

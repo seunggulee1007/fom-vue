@@ -8,6 +8,6 @@ import net.smilegate.fim.vo.TiarCostVO;
 public interface TiarCostMapper {
 
     
-    public int insertTiarCostMapper(TiarCostVO tiarCostVO);
+    public int insertTiarCost(TiarCostVO tiarCostVO);
     
 }

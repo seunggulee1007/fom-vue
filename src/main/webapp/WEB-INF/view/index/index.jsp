@@ -12,25 +12,25 @@
                     <div class="group-item-info">
                         <ul class="component-group link-box">
                             <li class="component-box">
-                                <a href="/expense_management/approval/approval_form">
+                                <a href="/expenseManagement/approval/approvalForm">
                                     <img src="/resources/fim/img/icon_quick_link_1.png" alt="">
                                     <span>기안서 작성</span>
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="/expense_management/approval/approval_report">
+                                <a href="/expenseManagement/approval/approvalReport">
                                     <img src="/resources/fim/img/icon_quick_link_2.png" alt="">
                                     <span>기안서(보고)</span>
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="/expense_management/approval/expense">
+                                <a href="/expenseManagement/approval/expense">
                                     <img src="/resources/fim/img/mon_4_L2.png" alt="" style="width: 74px;margin-top: -9px">
                                     <span style="margin-top:-11px">지출결의서 작성</span>
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="/company_card/account/account_info">
+                                <a href="/companyCard/account/accountInfo">
                                     <img src="/resources/fim/img/mon_2_L2.png" alt="" style="width: 76px;margin-top: -9px">
                                     <span style="margin-top:-14px">법인카드 정산/신청</span>
                                 </a>
@@ -38,13 +38,13 @@
                         </ul>
                         <ul class="component-group link-box">
                             <li class="component-box">
-                                <a href="/business_management/work/user_ratio">
+                                <a href="/businessManagement/work/userRatio">
                                     <img src="/resources/fim/img/icon_quick_link_5.png" alt="">
                                     <span>업무 투입률 입력</span>
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="/business_management/budget/plan_result">
+                                <a href="/businessManagement/budget/planResult">
                                     <img src="/resources/fim/img/icon_quick_link_6.png" alt="">
                                     <span>예산 계획 대비<br>실적조회</span>
                                 </a>
@@ -64,7 +64,7 @@
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="/company_card/account/cd_apply_form">
+                                <a href="/companyCard/account/cd_apply_form">
                                     <img src="/resources/fim/img/mon_2_L2.png" alt="" style="width: 76px;margin-top: -9px">
                                     <span style="margin-top:-14px">공용카드 신청</span>
                                 </a>
@@ -72,7 +72,7 @@
                         </ul>
                         <ul class="component-group link-box">
                             <li class="component-box">
-                                <a href="/expense_management/workshop">
+                                <a href="/expenseManagement/workshop">
                                     <img src="/resources/fim/img/icon_quick_link_10.png" alt="">
                                     <span>워크샵 신청/정산</span>
                                 </a>
@@ -222,7 +222,7 @@
                             </div>
                         </div>
                         <div class="component-box component-box--align-right">
-                            <a href="/portal_management/info" class="btn btn--link"><span class="btn__txt">+ 더보기</span></a>
+                            <a href="/portalManagement/info" class="btn btn--link"><span class="btn__txt">+ 더보기</span></a>
                         </div>
                     </div>
                     <div class="component-area component-area-exchange lst-tab-cnt" :class="{'lst-tab-cnt--active' : exchange}">
@@ -255,7 +255,7 @@
                             </div>
                         </div>
                         <div class="component-box component-box--align-right">
-                            <a href="/financial_link/exchange" class="btn btn--link"><span class="btn__txt">+ 더보기</span></a>
+                            <a href="/financialLink/exchange" class="btn btn--link"><span class="btn__txt">+ 더보기</span></a>
                         </div>
                     </div>
                     <div class="component-area component-area-tax lst-tab-cnt" :class="{'lst-tab-cnt--active' : taxSchedule}">
@@ -292,7 +292,7 @@
                             </div>
                         </div>
                         <div class="component-box component-box--align-right">
-                            <a href="/financial_link/tax_schedule" class="btn btn--link"><span class="btn__txt">+ 더보기</span></a>
+                            <a href="/financialLink/taxSchedule" class="btn btn--link"><span class="btn__txt">+ 더보기</span></a>
                         </div>
                     </div>
                 </div>
@@ -315,19 +315,19 @@
                     </div>
                     <div class="component-group component-group-approvalbox">
                         <div class="component-box component-box--align-left align-center">
-                            <a href="/portal_management/approval_pending">
+                            <a href="/portalManagement/approvalPending">
                                 <span class="content-title">미결함</span>
                                 <span class="component-box__txt component-box__txt--bold txt--orange">6</span>
                             </a>
                         </div>
                         <div class="component-box component-box--align-left align-center">
-                            <a href="/portal_management/approval_pre">
+                            <a href="/portalManagement/approvalPre">
                                 <span class="content-title">예정함</span>
                                 <span class="component-box__txt component-box__txt--bold txt--blue">1</span>
                             </a>
                         </div>
                         <div class="component-box component-box--align-left align-center">
-                            <a href="/portal_management/approval_progress">
+                            <a href="/portalManagement/approvalProgress">
                                 <span class="content-title">진행함</span>
                                 <span class="component-box__txt component-box__txt--bold">21</span>
                             </a>
@@ -344,72 +344,72 @@
                                     <tbody>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/company_card/account/account_info" class="table__title">
+                                                <a href="/companyCard/account/accountInfo" class="table__title">
                                                    <span class="table__txt"><span class="sp icon-bookmark--small"></span>법인카드 정산</span>
                                                 </a>
                                             </td>
                                             <td class="table__td">
-                                                <a href="/expense_management/workshop" class="table__title">
+                                                <a href="/expenseManagement/workshop" class="table__title">
                                                     <span class="table__txt"><span class="sp icon-bookmark--small"></span>워크샵 정산</span>
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/business_management/eis/current_pjt" class="table__title">
+                                                <a href="/businessManagement/eis/currentPjt" class="table__title">
                                                     <span class="table__txt"><span class="sp icon-bookmark--small"></span>프로젝트 현황</span>
                                                 </a>
                                             </td>
                                             <td class="table__td">
-                                                <a href="/expense_management/cafeteria_mobile" class="table__title">
+                                                <a href="/expenseManagement/cafeteriaMobile" class="table__title">
                                                     <span class="table__txt"><span class="sp icon-bookmark--small"></span>모바일식권 정산</span>
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/business_management/work/work_history" class="table__title">
+                                                <a href="/businessManagement/work/workHistory" class="table__title">
                                                     <span class="table__txt"><span class="sp icon-bookmark--small"></span>작업내역 관리</span>
                                                 </a>
                                             </td>
                                             <td class="table__td">
-                                                <a href="/business_management/car/car_drive" class="table__title">
+                                                <a href="/businessManagement/car/carDrive" class="table__title">
                                                     <span class="table__txt"><span class="sp icon-bookmark--small"></span>차량 운행 일지</span>
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/business_management/car/car_cost_system" class="table__title">
+                                                <a href="/businessManagement/car/carCostSystem" class="table__title">
                                                     <span class="table__txt"><span class="sp icon-bookmark--small"></span>업무용 승용차 명세서 확인</span>
                                                 </a>
                                             </td>
                                             <td class="table__td">
-                                                <a href="/portal_management/exchange" class="table__title">
+                                                <a href="/portalManagement/exchange" class="table__title">
                                                     <span class="table__txt"><span class="sp icon-bookmark--small"></span>환율 정보</span>
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/expense_management/bill/tax_bill" class="table__title">
+                                                <a href="/expenseManagement/bill/taxBill" class="table__title">
                                                     <span class="table__txt"><span class="sp icon-bookmark--small"></span>전자세금계산서</span>
                                                 </a>
                                             </td>
                                             <td class="table__td">
-                                                <a href="/business_management/eis/accumulation" class="table__title">
+                                                <a href="/businessManagement/eis/accumulation" class="table__title">
                                                     <span class="table__txt"><span class="sp icon-bookmark--small"></span>누적손익</span>
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/business_management/budget/detail_result" class="table__title">
+                                                <a href="/businessManagement/budget/detailResult" class="table__title">
                                                     <span class="table__txt"><span class="sp icon-bookmark--small"></span>실적 상세 내역</span>
                                                 </a>
                                             </td>
                                             <td class="table__td">
-                                                <a href="/company_card/managing/limit_management" class="table__title">
+                                                <a href="/companyCard/managing/limitManagement" class="table__title">
                                                     <span class="table__txt"><span class="sp icon-bookmark--small"></span>카드 한도 관리</span>
                                                 </a>
                                             </td>
@@ -433,32 +433,32 @@
                                     <tbody>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/company_card/account/account_info"><span class="table__txt">법인카드 정산</span></a>
+                                                <a href="/companyCard/account/accountInfo"><span class="table__txt">법인카드 정산</span></a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/business_management/work/user_ratio"><span class="table__txt">나의 투입률 관리</span></a>
+                                                <a href="/businessManagement/work/userRatio"><span class="table__txt">나의 투입률 관리</span></a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/expense_management/bill/tax_bill"><span class="table__txt">전자세금계산서</span></a>
+                                                <a href="/expenseManagement/bill/taxBill"><span class="table__txt">전자세금계산서</span></a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/business_management/car/car_cost_system"><span class="table__txt">업무용 승용차 명세서 확인</span></a>
+                                                <a href="/businessManagement/car/carCostSystem"><span class="table__txt">업무용 승용차 명세서 확인</span></a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/expense_management/approval/expense"><span class="table__txt">지출결의서</span></a>
+                                                <a href="/expenseManagement/approval/expense"><span class="table__txt">지출결의서</span></a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="/business_management/budget/detail_result"><span class="table__txt">실적 상세 내역</span></a>
+                                                <a href="/businessManagement/budget/detailResult"><span class="table__txt">실적 상세 내역</span></a>
                                             </td>
                                         </tr>
                                     </tbody>

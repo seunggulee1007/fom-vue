@@ -39,7 +39,7 @@ import com.zaxxer.hikari.HikariDataSource;
 public class FimDataSourceConfig extends HikariConfig {
     
     @Bean(name = "fimDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.hikari.mydatabase")
+    @ConfigurationProperties(prefix = "spring.datasource.hikari.fim")
     public DataSource secondDataSource() {
         return DataSourceBuilder.create().type(HikariDataSource.class).build();
     }

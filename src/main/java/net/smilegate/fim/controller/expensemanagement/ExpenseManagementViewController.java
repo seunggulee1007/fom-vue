@@ -11,16 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/expense_management")
+@RequestMapping("/expenseManagement")
 public class ExpenseManagementViewController {
+    
+    private final String prefix = "/fim/expenseManagement";
     
     /**
      * 
      * @return
      */
-    @GetMapping("/advance_payment")
+    @GetMapping("/advancePayment")
     public String advancePayment() {
-        return "/fim/expense_management/advance_payment";
+        return prefix + "/advancePayment";
     }
     
     /**
@@ -29,16 +31,16 @@ public class ExpenseManagementViewController {
      */
     @GetMapping("/cafeteria")
     public String cafeteria() {
-        return "/fim/expense_management/cafeteria";
+        return prefix + "/cafeteria";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/cafeteria_mobile")
+    @GetMapping("/cafeteriaMobile")
     public String cafeteriaMobile() {
-        return "/fim/expense_management/cafeteria_mobile";
+        return prefix + "/cafeteriaMobile";
     }
     
     /**
@@ -47,7 +49,7 @@ public class ExpenseManagementViewController {
      */
     @GetMapping("/taxi")
     public String taxi() {
-        return "/fim/expense_management/taxi";
+        return prefix + "/taxi";
     }
     
     /**
@@ -56,7 +58,7 @@ public class ExpenseManagementViewController {
      */
     @GetMapping("/workshop")
     public String workshop() {
-        return "/fim/expense_management/workshop";
+        return prefix + "/workshop";
     }
     
 }
