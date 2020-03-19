@@ -1,0 +1,9 @@
+
+/**
+ *
+ * @returns
+ */
+
+$(document).ready(function(){
+
+});

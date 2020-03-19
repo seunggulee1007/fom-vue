@@ -72,11 +72,11 @@
                 <a href="#">법인카드</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
-                        <a href="/company_card/account/cdApplyForm">카드 신청/정산 처리</a>
+                        <a href="/companyCard/account/cdApplyForm">카드 신청/정산 처리</a>
                     </li>
                     <li class="gnb_depth2">
-                        <a href="/company_card/managing/comLimit">카드 한도 관리</a>
-                    </li>                            
+                        <a href="/companyCard/managing/comLimit">카드 한도 관리</a>
+                    </li>
                 </ul>
             </li>
             <li class="gnb_depth1">
@@ -93,16 +93,16 @@
                     </li>
                     <li class="gnb_depth2">
                         <a href="/expenseManagement/cafeteria">중석식 정산</a>
-                    </li>                            
+                    </li>
                     <li class="gnb_depth2">
                         <a href="/expenseManagement/cafeteriaMobile">모바일식권 정산</a>
-                    </li>                            
+                    </li>
                     <li class="gnb_depth2">
                         <a href="/expenseManagement/advancePayment">전도금 정산</a>
-                    </li>                            
+                    </li>
                     <li class="gnb_depth2">
                         <a href="/expenseManagement/taxi">택시비 정산</a>
-                    </li>                            
+                    </li>
                 </ul>
             </li>
             <li class="gnb_depth1">
@@ -131,7 +131,7 @@
                     <li class="gnb_depth2">
                         <a href="/portalManagement/info">공지사항</a>
                     </li>
-                    
+
                     <li class="gnb_depth2">
                         <a href="/portalManagement/approvalPending">전자결재 - 미결함</a>
                     </li>
@@ -154,8 +154,8 @@
                     </li>
                     <li class="gnb_depth2">
                         <a href="/mngInfo/mngExecutives">Executives</a>
-                    </li>                            
-                    
+                    </li>
+
                 </ul>
             </li>
             <li class="gnb_depth1">
