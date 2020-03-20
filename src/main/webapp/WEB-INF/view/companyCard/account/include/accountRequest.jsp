@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script>
-    function openPopup() {
-        EventBus.$emit('openDeptPopup');
-    }
 
-    function returnUserDept(data) {
-        console.log(data);
-    }
-</script>
                 <div class="lst-tab-cnt lst-tab-cnt--active">
                     <div class="section section--border section-expense">
                         <div class="component-group">
@@ -252,7 +244,7 @@
                                             </td>
                                             <td class="table__td table__td--btn">
                                                 <span class="table__txt">홍길동A<br><span class="table__txt-caption">정보시스템실</span></span>
-                                                <button type="button" class="btn btn-change-user" onclick="$('.popup-layer--user').addClass('popup-wrap--active');">
+                                                <button type="button" class="btn btn-change-user" onclick="openPopup()">
                                                     <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
                                                 </button>
                                             </td>
