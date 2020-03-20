@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    Vue.use(MyPlugin);
     // 비용항목 중분류 더블 클릭시 뜨는 팝업
     let expenseAllApp = new Vue({
         el : ".popup-layer--expenses-all"

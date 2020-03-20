@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    Vue.use(MyPlugin);
     // sgma activity더블 클릭 혹은 엔터 입력시 뜨는 팝업
     let expenseSgmaApp = new Vue({
         el : ".popup-layer--expenses-sgma"

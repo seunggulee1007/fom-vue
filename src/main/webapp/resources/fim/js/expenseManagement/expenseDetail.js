@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    Vue.use(MyPlugin);
     let expenseDetailApp = new Vue({                                                // 상세 등록 페이지
         el : ".popup-layer--expenses-detail"
             ,data : {
