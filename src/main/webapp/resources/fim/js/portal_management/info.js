@@ -14,6 +14,22 @@ let vue = new Vue({
         ,infoList : []
         ,paging : {}
         ,pagingVO : {}
+        ,columnLayout : [
+            {dataField : "", headerText : "분류", width : 80}
+            ,{dataField : "title", headerText : "제목", width : 300}
+            ,{dataField : "userNm", headerText : "작성자", width : 130}
+            ,{dataField : "crtDate", headerText : "작성일", width : 120}
+            ,{dataField : "hit", headerText : "조회수", width : 70}
+            ,{dataField : "", headerText : "첨부", width : 60}
+        ]
+        ,gridData : []
+        ,gridId: ""
+        , auigridProps : {
+            // 편집 가능 여부 (기본값 : false)
+            editable : true,
+            // 셀 선택 모드 (기본값 : singleCell)
+            selectionMode : "multipleCells"
+        }
     }
     , mounted () {
         this.getInfoList();
@@ -29,13 +45,30 @@ let vue = new Vue({
                 this.searchEndDt = getDate(this.searchEndDt,'-');
             }
         }
+        ,gridData () {
+            if(AUIGrid.isCreated("#grid_wrap")) {
+                AUIGrid.destroy("#grid_wrap");
+            }
+            this.girdId = AUIGrid.create("#grid_wrap", this.columnLayout, this.auigridProps);
+            AUIGrid.removeAjaxLoader(this.girdId);
+            console.log(this.gridData);
+            AUIGrid.setGridData(this.girdId, this.gridData);
+        }
     }
     , methods : {
         getInfoList (num) {
             if(!num) {
                 num = 0;
             }
-            $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
+            const param = {
+                searchStdDt : this.searchStdDt
+                ,searchEndDt : this.searchEndDt
+                ,searchKind : this.searchKind
+                ,search : encodeURIComponent(this.search)
+                ,page : num
+            }
+            this.doAxios( "/portalManagement/infoList", "get", param, this.setData )
+            /*$.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
             axios({
                 url : "/portalManagement/infoList"
                 ,method : "get"
@@ -56,7 +89,10 @@ let vue = new Vue({
             }).catch(err=>{
                 alert(err);
                 $.unblockUI();
-            });
+            });*/
+        }
+        , setData (data) {
+            this.gridData = data.boardList.content;
         }
         , goPage (num) {
             this.getInfoList(num-1);

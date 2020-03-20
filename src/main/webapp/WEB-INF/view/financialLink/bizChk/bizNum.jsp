@@ -19,7 +19,7 @@
             </button>
         </div>
     </div>
-    <div class="grid-layout">
+    <div class="grid-layout" id="app">
         <div class="grid-column grid-column10">
             <div class="section section--border section--align-horizontal">
                 <div class="component-area">

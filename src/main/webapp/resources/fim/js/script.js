@@ -23,7 +23,10 @@ $(document).ready(function() {
             }
         }
     });
-    
+    $('.btn-lnb').on('click', function() {
+        $('.lnb').toggleClass('lnb--close')
+        $container.toggleClass('lnb--close');
+    });
     //gnb-bg_main
     $gnb.children('.lst-gnb').on('mouseenter', function() {
         $header.addClass('gnb--open');        

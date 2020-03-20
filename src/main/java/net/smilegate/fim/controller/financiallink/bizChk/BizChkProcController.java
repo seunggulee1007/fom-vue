@@ -18,7 +18,7 @@ import net.smilegate.fim.vo.CommonResultVO;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/financial_link")
+@RequestMapping("/financialLink")
 public class BizChkProcController {
 
     private final BizService bizService;
@@ -52,4 +52,5 @@ public class BizChkProcController {
         CommonResultVO commonResultVO = CommonResultVO.builder().data(map).build();
         return commonResultVO;
     }
+    
 }

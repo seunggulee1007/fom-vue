@@ -1,7 +1,7 @@
 $(document).ready(function(){
     Vue.use(MyPlugin);
     let app = new Vue({
-        el : "#container"
+        el : "#app"
         , data : {
             trtCntn : ''                    // 결과 메시지
             ,bizNo : ''                   // 사업자 번호
@@ -11,6 +11,11 @@ $(document).ready(function(){
             ,openFlag : true
         }
         ,methods : {
+            /**********************************************
+             * @method : getInfo
+             * @note 사업자 휴폐업 조회
+             * @author : es-seungglee
+             ***********************************************/
             getInfo (bizNo) {
                 if(!bizNo) {
                     alert("사업자 번호를 입력해 주세요");
@@ -22,16 +27,16 @@ $(document).ready(function(){
                     this.$refs.bizNo.focus();
                     return;
                 }
-                axios({
-                    url : "/financialLink/biz/bizInfo/fim/"+bizNo
-                    ,method : "get"
-                }).then(res => {
-                    let result = res.data.data;
-                    this.trtCntn = result.trtCntn;
-                    this.complBizNo = result.bizVO.bizNo;
-                }).catch(error => {
-                    alert(error);
-                });
+                this.doAxios("/financialLink/biz/bizInfo/fim/"+bizNo, "get",null , this.setData);
+            }
+            /**********************************************
+             * @method : setData
+             * @note 서버 통신 이후 세팅용 콜백 함수
+             * @author : es-seungglee
+             ***********************************************/
+            , setData(data) {
+                this.trtCntn = data.trtCntn;
+                this.complBizNo = data.bizVO.bizNo;
             }
         }
     });

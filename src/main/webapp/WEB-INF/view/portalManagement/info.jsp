@@ -28,38 +28,6 @@
 
     <footer class="footer footer--lnb-type">
         <div class="footer__inner">
-            <!-- <ul class="footer__util">
-                <li class="footer__util-item">
-                    <a href="#" class="footer__util-menu">
-                        <span class="footer__util-menu-txt">스마일넷 배너등록</span>
-                    </a>
-                </li>
-                <li class="footer__util-item">
-                    <a href="#" class="footer__util-menu">
-                        <span class="footer__util-menu-txt">개선 및 건의</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="dropdown">
-                <a href="#" class="dropdown__button">
-                    <span class="dropdown__button-text">패밀리 사이트 바로가기</span>
-                    <span class="sp icon-arrow">
-                        <span class="blind">옵션창 열기</span>
-                    </span>
-                </a>
-                <ul class="dropdown__list">
-                <li class="dropdown__item">
-                    <a href="#" class="dropdown__menu">
-                        <span class="dropdown__menu-txt">List 1_All</span>
-                    </a>
-                </li>
-                <li class="dropdown__item">
-                    <a href="#" class="dropdown__menu">
-                        <span class="dropdown__menu-txt">List 2</span>
-                    </a>
-                </li>
-                </ul>
-            </div> -->
             <small class="footer__copyright">&copy; Smilegate. All Rights Reserved.</small>
         </div>
     </footer>
@@ -165,6 +133,9 @@
                             <button type="button" class="btn btn--bgtype" @click="getInfoList();"><span class="btn__txt">검색</span></button>  
                         </div>
                     </div>
+                </div>
+                <div id="grid_wrap">
+                
                 </div>
                 <div class="component-area"> 
                     <div class="component-group">                   

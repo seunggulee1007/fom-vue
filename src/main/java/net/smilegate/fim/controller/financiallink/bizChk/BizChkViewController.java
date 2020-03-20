@@ -10,25 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/financial_link/biz_chk")
+@RequestMapping("/financialLink/bizChk")
 public class BizChkViewController {
 
+    private final String prefix = "/fim/financialLink/bizChk";
+    
     /**
      * 사업자 번호로 휴폐업 상태 조회하는 페이지 
      * @return
      */
-    @GetMapping("/biz_num")
+    @GetMapping("/bizNum")
     public String bizNum() {
-        return "/fim/financial_link/biz_chk/biz_num";
+        return prefix + "/bizNum";
     }
     
     /**
      * 휴폐업 조회 이력 조회하는 페이지
      * @return
      */
-    @GetMapping("/biz_chk_history")
+    @GetMapping("/bizChkHistory")
     public String bizChkHistory() {
-        return "/fim/financial_link/biz_chk/biz_chk_history";
+        return prefix + "/bizChkHistory";
     }
     
 }

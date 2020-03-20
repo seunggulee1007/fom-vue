@@ -3,7 +3,7 @@ $(document).ready(function(){
     Vue.use(MyPlugin);                      // 전역 vue 플러그인
     Vue.use(onlyInt);
     let app = new Vue({
-        el : "#container"
+        el : "#app"
         , data : {
             openFlag : true
             , mode: 'single'                // 날짜 모드(single 단일 multi : 범위)

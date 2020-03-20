@@ -1,7 +1,7 @@
 $(document).ready(function(){
     Vue.use(MyPlugin);
     let app = new Vue({
-        el : "#container"
+        el : "#app"
         , data : {
             searchStdDt : getDate(new Date(), '-')
             ,searchEndDt : getDate(new Date(), '-')                   // 사업자 번호
@@ -33,23 +33,15 @@ $(document).ready(function(){
         }
         ,methods : {
             getBizInfoList () {
-                $.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
-                axios({
-                    method : "get"
-                    ,url : "/financialLink/biz/bizInfo/bizInfoList"
-                    ,params : {
-                        searchStdDt : this.searchStdDt
-                        ,searchEndDt : this.searchEndDt
-                        ,bizNo : this.bizNo
-                    }
-                }).then(res =>{
-                    console.log(res);
-                    this.bizInfoList = res.data.data.bizInfoList;
-                    $.unblockUI();
-                }).catch(error =>{
-                    console.log(error.response);
-                    $.unblockUI();
-                });
+                const param = {
+                    searchStdDt : this.searchStdDt
+                    ,searchEndDt : this.searchEndDt
+                    ,bizNo : this.bizNo
+                }
+                this.doAxios("/financialLink/biz/bizInfo/bizInfoList","get",param, this.setData);
+            }
+            , setData (data) {
+                this.bizInfoList = data.bizInfoList;
             }
         }
     });

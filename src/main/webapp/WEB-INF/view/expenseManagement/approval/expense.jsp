@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <script src='https://unpkg.com/v-calendar@next'></script>
 <script type="text/babel" src="/resources/fim/js/expenseManagement/expense.js"></script>
-<jsp:include page="/WEB-INF/view/include/expenseManagementInclude.jsp"/>jsp"/>
+<jsp:include page="/WEB-INF/view/include/expenseManagementInclude.jsp"/>
 
 <div id="container" class="container container--include-lnb container--fullview container-write">
     <h2 class="page-title">지출결의서</h2>
@@ -20,7 +20,7 @@
             </a>
         </div>                
     </div>
-    <div class="grid-layout" v-cloak>
+    <div class="grid-layout" v-cloak id="app">
         <div class="grid-column grid-column10">                    
             <div class="section section--border section-expense">
                 <div class="component-group">

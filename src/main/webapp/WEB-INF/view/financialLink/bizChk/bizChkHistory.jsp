@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <script type="text/babel" src="/resources/fim/js/financialLink/bizChk/bizHist.js"></script>
 <script src='https://unpkg.com/v-calendar@next'></script>
+<jsp:include page="/WEB-INF/view/include/financialLinkInclude.jsp"/>
 <div id="container" class="container container--include-lnb container--fullview">
-    <jsp:include page="/WEB-INF/view/include/financialLinkInclude.jsp"/>
     <h2 class="page-title">거래처 휴/폐업 조회 이력</h2>
     <p class="page-title__dsc">
         · 거래처 휴/폐업 조회 이력은 현재월 기준으로 최근 3개월 조회된 이력만 조회할 수 있습니다.
@@ -16,7 +16,7 @@
             </button>
         </div>
     </div>
-    <div class="grid-layout">
+    <div class="grid-layout" id="app" v-cloak>
         <div class="grid-column grid-column10">
             <div class="section section--border section-biz-history">
                 <div class="component-area clearfix">
