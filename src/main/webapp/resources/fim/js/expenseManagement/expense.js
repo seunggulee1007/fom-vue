@@ -153,6 +153,7 @@ $(document).ready(function(){
                 this.expenseList[this.expenseIdx].remark = data.costName;
                 this.onCompleted(this.expenseIdx, this.expenseList[this.expenseIdx].costInfoVO);
             }
+            
             /**********************************************
              * @method : openExpenseSgma
              * @note 비용항목 activity 더블 클릭시 팝업띄우는 함수
@@ -160,7 +161,9 @@ $(document).ready(function(){
              ***********************************************/
             ,openExpenseSgma(idx, activityNm) {                         // 
                 this.expenseIdx = idx;
-                EventBus.$emit('openExpenseSgmaPopup', activityNm);
+                let userNm = this.expenseList[idx].deptVO.userNm;       // 사용자 명
+                let comCd = this.expenseList[idx].deptVO.comCd;         // 회사 코드
+                EventBus.$emit('openExpenseSgmaPopup', activityNm, userNm, comCd);
             }
             /**********************************************
              * @method : setExpenseItemSgma
@@ -321,7 +324,7 @@ $(document).ready(function(){
                 let costSeq = costInfoVO.costSeq;            // 소분류
                 let arr = [
                     {
-                        smKind : '4503006'
+                        smKind : '4503006'      // 교통비
                             ,child : [
                                 10              // 야근 교통비
                                 ,11             // 외근 교통비

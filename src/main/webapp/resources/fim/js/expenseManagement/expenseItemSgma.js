@@ -61,7 +61,11 @@ $(document).ready(function(){
          * @author : es-seungglee
          ***********************************************/
         , choiceItem(data) {                                                    // 액티비티 선택
-            EventBus.$emit('setExpenseItemSgma', data);
+            if(typeof(returnSGMA) === 'function') {
+                returnSGMA(data);
+            }else {
+                EventBus.$emit('setExpenseItemSgma', data);
+            }
             this.closePopup();
         }
     }

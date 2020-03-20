@@ -1,5 +1,6 @@
 $(document).ready(function() {
     Vue.use(MyPlugin);
+    Vue.use(onlyInt);
     let expenseDetailApp = new Vue({                                                // 상세 등록 페이지
         el : ".popup-layer--expenses-detail"
             ,data : {
@@ -42,7 +43,11 @@ $(document).ready(function() {
             if(!this.validation()) {
                 return;
             }
-            EventBus.$emit('setExpenseDetail',this.costInfoVO);
+            if(typeof(returnCostItemDetail) === 'function') {
+                returnCostItemDetail(this.costInfoVO);
+            }else {
+                EventBus.$emit('setExpenseDetail',this.costInfoVO);
+            }
             this.closePopup(true);
         }
         , validation() {
