@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script type="text/babel" src="/resources/fim/js/expenseManagement/expenseUserLayer.js"></script>
 <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
 <script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
 <!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
-<script type="text/babel" src="/resources/fim/js/expenseManagement/expenseUserLayer.js"></script>
  <!-- Change User -->
 <div class="popup-wrap popup-layer--user" :class="{'popup-wrap--active' : deptPopupFlag}">
     <div class="popup-wrap__align-box">

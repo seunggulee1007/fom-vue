@@ -44,8 +44,8 @@ spring:
                 password: svc3920!
                 driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
             mdi : 
-#                jdbc-url: jdbc:sqlserver://10.2.209.118:1433;DatabaseName=MDI
-                jdbc-url: jdbc:sqlserver://10.2.211.70:3920;DatabaseName=MDI
+                jdbc-url: jdbc:sqlserver://10.2.209.118:1433;DatabaseName=MDI
+#                jdbc-url: jdbc:sqlserver://10.2.211.70:3920;DatabaseName=MDI
                 username: app_svc
                 password: svc3920!
                 driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver

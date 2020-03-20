@@ -1,6 +1,5 @@
 'use strict'
 $(document).ready(function(){
-    
     Vue.use(MyPlugin);                      // 전역 vue 플러그인
     Vue.use(onlyInt);
     let app = new Vue({
@@ -11,44 +10,45 @@ $(document).ready(function(){
             , masks : {                     // 날짜 마스킹 처리
                 title: 'MMMM YYYY',         // 날짜 타이틀
                 input: 'YYYY-MM-DD',        // input에 보여질 포맷
-                data: "YYYY-MM-DD",
             }
             , expenseList : [
                 {
                     deptVO : {}
-                    , useDate : getDate(new Date(), '-')
+                    , useDate : new Date()
                     , remark : ""
                     , curAmt : 0
                     , costInfoVO : {}
                     , checked : false
                 }
             ]
-            ,expenseIdx : 0
-            ,expenseAllPopupFlag : false
-            ,fileName : ''              // 파일 명
-            ,files: []                  // 파일 담을 객체(리스트)
-            ,fileSize : 0               // 보여줄 파일 전체 크기
-            ,totalAmt : 0               // 합계용 금액
-            ,tiarCostVO : {
-                title : "[SGH][지출결의서(현금)_김연준_2020-02-20]"
-                ,regDeptNm : "SGH>IT기술본부>기술지원담당>정보시스템실>정보개발팀"
-                ,regDate : ''
-                ,acno : ''
-                ,bankNm : ''
-                ,ownerNm : ''
-                ,regEmpNm : ''
-                ,companySeq : '1'
-            }            // 저장용 VO
-            ,deptList : []
+            , expenseIdx : 0
+            , expenseAllPopupFlag : false
+            , fileName : ''              // 파일 명
+            , files: []                  // 파일 담을 객체(리스트)
+            , fileSize : 0               // 보여줄 파일 전체 크기
+            , totalAmt : 0               // 합계용 금액
+            , tiarCostVO : {
+                 title : ""
+                 ,regDeptNm : ""
+                 ,regDate : ''
+                 ,acno : ''
+                 ,bankNm : ''
+                 ,ownerNm : ''
+                 ,regEmpNm : ''
+                 ,companySeq : '1'
+            }             // 저장용 VO
+            , deptList : []
         }
         ,created () {
-            this.getBankInfo();
+            // this.getBankInfo('h0000000','H20044');
         }
         ,mounted () {
             EventBus.$on('setExpenseData', this.setExpenseData);
             EventBus.$on('setExpenseItemAll', this.setExpenseItemAll);
             EventBus.$on('setExpenseItemSgma', this.setExpenseItemSgma);
             EventBus.$on('setExpenseDetail',this.setExpenseDetail);
+            // 임시... 삭제해야 함(sso가 없어서 임시로 만들라고 해서 만듦)
+            EventBus.$on('sendTempData',this.setTempData);
         }
         ,watch : {
             
@@ -60,18 +60,40 @@ $(document).ready(function(){
              * @author : es-seungglee
              ***********************************************/
             setBankInfo(data) {
-                this.tiarCostVO.accNo = data.bankInfoVO.AccNo;
-                this.tiarCostVO.bankNm = data.bankInfoVO.PayBankName;
-                this.tiarCostVO.ownerNm = data.bankInfoVO.OwnerName;
-                this.tiarCostVO.regDate = getDate(new Date(), '-');
-                this.tiarCostVO.regEmpNm = data.bankInfoVO.OwnerName;
-            }
-            , getBankInfo() {
-                const param = {
-                    deptCd : 'h0000000'
-                    ,empNo : 'H20044'
+                if(data.bankInfoVO) {
+                    this.tiarCostVO.accNo = data.bankInfoVO.AccNo;
+                    this.tiarCostVO.bankNm = data.bankInfoVO.PayBankName;
+                    this.tiarCostVO.ownerNm = data.bankInfoVO.OwnerName;
+                    this.tiarCostVO.regDate = getDate(new Date(), '-');
+                }else {
+                    this.tiarCostVO.accNo       = "";
+                    this.tiarCostVO.bankNm      = "";
+                    this.tiarCostVO.ownerNm     = "";
+                    this.tiarCostVO.regDate     = "";
                 }
-                this.doAxios("/expenseManagement/approval/getBankInfo","get", param,this.setBankInfo);
+            }
+            , getBankInfo(deptCd , empNo) {
+                const param = {
+                        deptCd : deptCd
+                        ,empNo : empNo
+                }
+                this.doAxios("/expenseManagement/approval/getBankInfo","get", param, this.setBankInfo);
+            }
+            ,setTempData(data) {
+                this.tiarCostVO.regDeptNm = data.deptNm;    // 부서 이름
+                this.tiarCostVO.regEmpNm = data.userNm;     // 사용자 이름
+                this.tiarCostVO.regDeptSeq = data.deptCd;   // 부서코드
+                this.tiarCostVO.comCd = data.comCd;         // 법인 코드
+                this.tiarCostVO.title = "[" + data.comNm+"][지출결의서(현금)_"+data.userNm+"_"+getDate(new Date(), "-")+"]";
+                this.getBankInfo(data.deptCd, data.empNo);
+                
+                this.expenseList[0].deptVO.comCd = data.comCd; // 법인 코드
+                this.expenseList[0].deptVO.deptCd = data.deptCd;
+                this.expenseList[0].deptVO.deptNm = data.deptNm;
+                this.expenseList[0].deptVO.comNm = data.comNm;
+                this.expenseList[0].deptVO.userNm = data.userNm;
+                
+                
             }
             /**********************************************
              * @method : addExpenseList
@@ -80,13 +102,13 @@ $(document).ready(function(){
              ***********************************************/
             ,addExpenseList() {
                 this.expenseList.push(
-                    {
-                        deptVO : {}
-                        , useDate : getDate(new Date(), '-')
+                        {
+                            deptVO : {}
+                        , useDate : new Date()
                         , remark : ""
-                        , curAmt : 0
-                        , costInfoVO : {}
-                    }
+                            , curAmt : 0
+                            , costInfoVO : {}
+                        }
                 );
             }
             /**********************************************
@@ -94,9 +116,13 @@ $(document).ready(function(){
              * @note 부서 조회 팝업 열기
              * @author : es-seungglee
              ***********************************************/
-            ,openDeptPopup(idx) {
-                this.expenseIdx = idx;
-                EventBus.$emit('openDeptPopup', idx);
+            ,openDeptPopup(idx, flag) {     // 임시...기안자도 이 팝업으로 가져와야 해서 임시로 만듦. 나중에 삭제.
+                // ,openDeptPopup(idx) {
+                if(typeof(idx) === 'number') {
+                    this.expenseIdx = idx;
+                }
+                // EventBus.$emit('openDeptPopup');
+                EventBus.$emit('openDeptPopup', flag);
             }
             /**********************************************
              * @method : setExpenseData
@@ -124,6 +150,7 @@ $(document).ready(function(){
              ***********************************************/
             ,setExpenseItemAll(data) { 
                 this.expenseList[this.expenseIdx].costInfoVO = data;
+                this.expenseList[this.expenseIdx].remark = data.costName;
                 this.onCompleted(this.expenseIdx, this.expenseList[this.expenseIdx].costInfoVO);
             }
             /**********************************************
@@ -157,9 +184,9 @@ $(document).ready(function(){
                 let uploadedFiles = this.$refs.files.files;             // 해당 파일의 엘리먼트에 접근해서 변수에 담는다.
                 /*
                   Adds the uploaded file to the files array
-                */
+                 */
                 for( var i = 0; i < uploadedFiles.length; i++ ){
-                  this.files.push( uploadedFiles[i] );
+                    this.files.push( uploadedFiles[i] );
                 }
                 this.fileSize = this.files[0].size;
                 this.fileName = this.files[0].name;
@@ -188,8 +215,6 @@ $(document).ready(function(){
                     }
                 }
                 
-                
-                
                 let formData = new FormData();
                 for(let i=0; i< this.files.length;i++) {                // 파일 내용 저장
                     formData.append('files['+i+']', this.files[i]);
@@ -201,6 +226,12 @@ $(document).ready(function(){
                 
                 let cnt = 0;
                 for(let expense of this.expenseList) {                  // 비용정산 상세 부분은 배열이므로 해당 배열은 직접 만들어 줘야 한다.
+                    if(typeof(expense.useDate) === 'string' && expense.useDate.indexOf('-') != -1) {
+                        expense.useDate = expense.useDate.replace(/-/gi, "");
+                    }
+                    if(expense.useDate.length > 8) {
+                        expense.useDate = getDate(expense.useDate);
+                    }
                     // 배열 생성하며 유효성 체크
                     if(!expense.costInfoVO.smKindSeq) {
                         alert((cnt+1) + "번째 항목의 중분류를 선택해 주세요");
@@ -289,48 +320,48 @@ $(document).ready(function(){
                 let smKindSeq = costInfoVO.smKindSeq;        // 중분류
                 let costSeq = costInfoVO.costSeq;            // 소분류
                 let arr = [
-                            {
-                                smKind : '4503006'
-                                ,child : [
-                                    10              // 야근 교통비
-                                    ,11             // 외근 교통비
-                                    ,86             // 유류대-직원
+                    {
+                        smKind : '4503006'
+                            ,child : [
+                                10              // 야근 교통비
+                                ,11             // 외근 교통비
+                                ,86             // 유류대-직원
                                 ]
-                            }
-                            ,{
-                                smKind : '4503010'
-                                ,child : [          // 접대비
-                                    42              // 해외-접대비
-                                    , 44            // 경조사-접대비
-                                    , 45            // 일반접대비
+                    }
+                    ,{
+                        smKind : '4503010'
+                            ,child : [          // 접대비
+                                42              // 해외-접대비
+                                , 44            // 경조사-접대비
+                                , 45            // 일반접대비
                                 ]
-                            }
-                            ,{
-                                smKind : '4503008'  // 해외 출장
-                                ,child : [
-                                    24              // 식대-해외출장
-                                    ,26             // 교통비-해외출장
-                                    ,31             // 기타
-                                    ,81             // 커뮤니케이션
-                                    ,87             // 렌터카
-                                    ,88             // 항공료
-                                    ,89             // 로밍
-                                    ,90             // 호텔 
-                                    ,25             // 접대비
+                    }
+                    ,{
+                        smKind : '4503008'  // 해외 출장
+                            ,child : [
+                                24              // 식대-해외출장
+                                ,26             // 교통비-해외출장
+                                ,31             // 기타
+                                ,81             // 커뮤니케이션
+                                ,87             // 렌터카
+                                ,88             // 항공료
+                                ,89             // 로밍
+                                ,90             // 호텔 
+                                ,25             // 접대비
                                 ]
-                            }
-                            ,{
-                                smKind : '4503009'  // 국내출장
-                                ,child : [
-                                    34              // 식대
-                                    ,36             // 교통비
-                                    ,82             // 커뮤니케이션
-                                    ,91             // 렌터카
-                                    ,92             // 호텔
-                                    ,93             // 항공료
+                    }
+                    ,{
+                        smKind : '4503009'  // 국내출장
+                            ,child : [
+                                34              // 식대
+                                ,36             // 교통비
+                                ,82             // 커뮤니케이션
+                                ,91             // 렌터카
+                                ,92             // 호텔
+                                ,93             // 항공료
                                 ]
-                            }
-                        ];
+                    }
+                    ];
                 for(let i=0; i<arr.length; i++) {
                     let smKind = arr[i].smKind;                         // 중분류
                     if(smKind === smKindSeq ) {                         // 해당 중분류가 배열에도 있다면
@@ -371,6 +402,4 @@ $(document).ready(function(){
             }
         }
     });
-    
-    
 });

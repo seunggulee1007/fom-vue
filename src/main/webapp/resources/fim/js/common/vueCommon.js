@@ -38,7 +38,8 @@ const MyPlugin = {
                   }
                   $.unblockUI();
               })
-              .catch(function(e){
+              .catch(e => {
+                  console.log(e);
                   alert(e.response.data.resultMsg);
                   if(typeof(errFunction) === 'function') {
                       errFunction();

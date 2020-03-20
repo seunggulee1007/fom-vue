@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script type="text/babel" src="/resources/fim/js/expenseManagement/expense.js"></script>
 <script src='https://unpkg.com/v-calendar@next'></script>
-
+<script type="text/babel" src="/resources/fim/js/expenseManagement/expense.js"></script>
 <jsp:include page="/WEB-INF/view/include/expenseManagementInclude.jsp"/>jsp"/>
 
 <div id="container" class="container container--include-lnb container--fullview container-write">
@@ -35,7 +34,12 @@
                                     <th class="table__th">기안일자</th>
                                     <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.regDate}}</span></td>
                                     <th class="table__th">기안자</th>
-                                    <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.regEmpNm}}</span></td>
+                                    <td class="table__td table__td--data">
+                                        <span class="table__txt">{{tiarCostVO.regEmpNm}}</span>
+                                        <button type="button" class="btn btn-change-user" @click="openDeptPopup('asdf', '1')">
+                                            <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th class="table__th">기안부서</th>
@@ -138,7 +142,7 @@
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field datepicker__v-calendar">
-                                            <input type="text" v-model='expense.useDate' readonly id="date_input_exchange2" class="input-field__input">
+                                            <span class="table__txt">{{getDate(expense.useDate,'-')}}</span>
                                             <v-date-picker :mode='mode' v-model='expense.useDate' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}' :is-dark='true'>
                                                 <span class="sp icon-datepicker">
                                                     <span class="blind">Calendar 열기</span>
