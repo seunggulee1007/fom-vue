@@ -21,6 +21,7 @@ public class MdiServiceImpl implements MdiService {
     public Map<String, Object> selectDeptList() {
         Map<String, Object> map = new HashMap<>();
         List<DeptVO> deptList = mdiMapper.selectDeptList();
+        
         for(DeptVO deptVO : deptList) {
             deptVO.setChild(deptList.stream().filter(dept -> dept.getParentCd().equals(deptVO.getDeptCd())).collect(Collectors.toList()));
         }

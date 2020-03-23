@@ -5,8 +5,10 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class TiarCostVO {
-
+public class TiarCostHistVO {
+    
+    /** 로그키 */
+    private int logSeq;
     /** 지출결의서 내부키 */
     private int tiCostSeq;
     /** 지출결의서 문서번호 */
@@ -36,7 +38,7 @@ public class TiarCostVO {
     /** GW전자결제 키 값 */
     private int pid;
     /** 등록자 소속실 부서 코드 */
-    private int accErpDeptSeq;
+    private int accDeptSeq;
     /** 입력 주체 */
     private String inputKind;
     /** 출금예정일 */

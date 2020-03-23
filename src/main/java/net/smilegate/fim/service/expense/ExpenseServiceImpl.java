@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.mappers.fim.TiarCostAmtMapper;
 import net.smilegate.fim.mappers.fim.TiarCostMapper;
 import net.smilegate.fim.service.file.FileService;
+import net.smilegate.fim.util.CommonUtil;
 import net.smilegate.fim.util.FileUtil;
 import net.smilegate.fim.vo.FileVO;
 import net.smilegate.fim.vo.TiarCostAmtVO;
@@ -44,6 +45,32 @@ public class ExpenseServiceImpl implements ExpenseService {
             }
         }
         
+        map.put("tiarCostVO", tiarCostVO);
+        
+        return map;
+    }
+    
+    public Map<String, Object> updateExpense(MultipartHttpServletRequest request ,TiarCostVO tiarCostVO) throws IllegalArgumentException, IllegalAccessException {
+        Map<String, Object> map = new HashMap<String, Object>();
+        int tiCostSeq = tiarCostVO.getTiCostSeq();
+        TiarCostVO compareTiarCostVO = tiarCostMapper.selectTiarCostByTiCostSeq(tiCostSeq);
+        System.err.println(compareTiarCostVO.toString());
+        if(!CommonUtil.compareObject(tiarCostVO, compareTiarCostVO)) {
+            if(tiarCostMapper.updateTiarCost(tiarCostVO) > 0) {
+                // TODO 이력 쌓기
+            }
+        }
+        for(TiarCostAmtVO tiarCostAmtVO : tiarCostVO.getTiarCostAmtList()) {
+            int tiCostSerl = tiarCostAmtVO.getTiCostSerl();
+            TiarCostAmtVO compareTiarCostAmtVO = tiarCostAmtMapper.selectTiarCostAmtBySeq(tiCostSeq, tiCostSerl);
+            System.err.println(compareTiarCostAmtVO.toString());
+            
+            if(!CommonUtil.compareObject(tiarCostAmtVO, compareTiarCostAmtVO)) {
+                if(tiarCostAmtMapper.updateTiarCostAmt(tiarCostAmtVO) > 0) {
+                    // TODO 이력쌓기
+                }
+            }
+        }
         return map;
     }
 }

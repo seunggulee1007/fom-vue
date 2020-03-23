@@ -1,15 +1,16 @@
 $(document).ready(function(){
     Vue.use(MyPlugin);                      // 전역 vue 플러그인
-    Vue.component('tree-item', {        // tree 구조를 위한 컴포넌트 추가
+    let TreeItem = {        // tree 구조를 위한 컴포넌트 추가
         template : `<li>
-                        <div @click="toggle" :class="{ 'lst-tree__menu' : isFolder }">
-                            <span v-if="isFolder"  class="icon-folder-open">[{{ isOpen ? '-' : '+' }}]</span>
-                            <span @click="clickDept(item);">{{ item.deptNm }}</span>
-                        </div>
-                        <ul class="lst-tree__sub" v-show="isOpen" v-if="isFolder" style="padding-left: 1em;">
-                            <tree-item lass="lst-tree__item" v-for="(child, index) in item.child" :key="index" :item="child" ></tree-item>
-                        </ul>
-                    </li>`
+            <div @click="toggle" :class="{ 'lst-tree__menu' : isFolder }">
+                <span v-if="isFolder"  class="icon-folder-open">[{{ isOpen ? '-' : '+' }}]</span>
+                <span @click="clickDept(item);">{{ item.deptNm }}</span>
+            </div>
+            <ul class="lst-tree__sub" v-show="isOpen" v-if="isFolder" style="padding-left: 1em;">
+                <tree-item class="lst-tree__item" v-for="(child, index) in item.child" :key="index" :item="child" ></tree-item>
+            </ul>
+        </li>`
+        , name : "tree-item"
         , props: {                      // 컴포넌트에서 사용할 변수
             item: Object
         }
@@ -20,7 +21,7 @@ $(document).ready(function(){
         },
         computed: {
             isFolder: function () {
-                return this.item.child && this.item.child.length
+                return this.item.child && this.item.child.length;
             }
         },
         methods: {
@@ -51,8 +52,7 @@ $(document).ready(function(){
                 EventBus.$emit('userList', data.userList);
             }
         }
-    });
-    
+    }
     let userApp = new Vue({
         el : '.popup-layer--user'
             ,data : {
@@ -71,6 +71,7 @@ $(document).ready(function(){
         }
         ,components : {
             'draggable' : vuedraggable
+            ,TreeItem
         }
         ,methods : {
             /**********************************************

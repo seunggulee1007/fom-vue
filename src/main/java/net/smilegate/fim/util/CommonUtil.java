@@ -1,6 +1,7 @@
 package net.smilegate.fim.util;
 
 import java.io.StringReader;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -113,5 +114,29 @@ public class CommonUtil {
     
     public static String makeLikeCause(String str) {
         return "%"+str+"%";
+    }
+    
+    public static boolean compareObject(Object obj, Object compareObj) throws IllegalArgumentException, IllegalAccessException {
+        for(Field field : obj.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            Object value = field.get(obj);
+            String fieldName = field.getName();
+            for(Field compareField : compareObj.getClass().getDeclaredFields()) {
+                compareField.setAccessible(true);
+                String compareFieldName = compareField.getName();
+                if(value instanceof List) {
+                    continue;
+                }
+                if(fieldName.equals(compareFieldName)) {
+                    Object compareValue = compareField.get(compareObj);
+                    if(value != null && !value.equals(compareValue)) {
+                        return false;
+                    }
+                    continue;
+                }
+                
+            }
+        }
+        return true;
     }
 }

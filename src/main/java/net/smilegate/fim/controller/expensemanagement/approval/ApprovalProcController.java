@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import net.smilegate.fim.enums.CommonMsg;
 import net.smilegate.fim.service.expense.ExpenseService;
 import net.smilegate.fim.service.mdi.MdiService;
 import net.smilegate.fim.service.sgerp.SgerpService;
@@ -90,9 +91,16 @@ public class ApprovalProcController {
     }
     
     @PostMapping("/expense")
-    public CommonResultVO insertExpense(MultipartHttpServletRequest request, TiarCostVO tiarCost) {
-        System.err.println(tiarCost.toString());
-        return CommonResultVO.builder().data(expenseService.insertExpense(request, tiarCost)).build();
+    public CommonResultVO insertExpense(MultipartHttpServletRequest request, TiarCostVO tiarCostVO)  throws IllegalArgumentException, IllegalAccessException {
+        System.err.println(tiarCostVO.toString());
+        Map<String, Object> map = new HashMap<>();
+        int tiCostSeq = tiarCostVO.getTiCostSeq();
+        if(tiCostSeq == 0) {
+            map = expenseService.insertExpense(request, tiarCostVO);
+        }else {
+            map = expenseService.updateExpense(request, tiarCostVO);
+        }
+        return CommonResultVO.builder().resultMsg(CommonMsg.SUCCESS_WRITE.getMsg()).data(map).build();
     }
     
     @ApiOperation(value="은행 정보 조회", notes="부서, 사번으로 해당 사원의 은행 정보 조회")

@@ -8,62 +8,127 @@
             select next value for seq_tiar_cost
         </selectKey>
         insert into tb_tiar_cost(
-            company_seq
-            ,ti_cost_seq
-            ,ti_cost_no
-            ,contents
-            ,slip_seq
-            ,grstatus
-            ,gr_end_status
-            ,confirm
-            ,com_cd
-            ,reg_dept_cd
-            
-            ,pid
-            ,acc_dept_seq
-            ,input_kind
-            ,acc_date
-            ,due_date
-            ,is_stop
-            ,stop_date
-            ,memo
-            ,reg_date
-            ,reg_emp_seq
-            
-            ,reg_emp_id
-            ,reg_dept_seq
-            ,last_user_seq
-            ,last_date_time
+            ti_cost_seq             -- 지출결의서 내부키
+            ,ti_cost_no             -- 지출결의서 문서번호
+            ,company_seq            -- 법인코드
+            ,contents               -- 지출내역(비고)
+            ,erp_slip_seq           -- 전표 내부 코드
+            ,title                  -- 제목
+            ,acct_no                -- 계좌번호
+            ,bank_cd                -- 은행코드
+            ,acct_owner_nm          -- 예금주
+            ,grstatus               -- 그룹웨어 상태값 코드
+            ,gr_end_status          -- 그룹웨어 최종결제 여부
+            ,confirm                -- erp확정 여부 코드
+            ,com_cd                 -- 인사법인 코드
+            ,pid                    -- GW 전자결제 키값
+            ,acc_erp_dept_seq       -- 등록자 소속실 erp 부서 코드
+            ,input_kind             -- 입력 주체
+            ,due_date               -- 출금예정일
+            ,memo                   -- 메모
+            ,reg_date               -- 기안 일자
+            ,reg_erp_emp_seq        -- 기안자 erp사원코드
+            ,reg_user_id            -- 기안자 사원 코드
+            ,reg_erp_dept_seq       -- 기언자 erp부서코드
+            ,reg_emp_no             -- 사용자 사번
+            ,reg_dept_cd            -- 등록자 부서 코드
+            ,last_user_id           -- 데이터 최종수정자 사원코드
+            ,last_date_time         -- 데이터 최종 수정일
         )values (
-            #{companySeq}
-            ,#{tiCostSeq}
-            ,#{tiCostNo}
-            ,#{contents}
-            ,#{slipSeq}
-            ,#{grstatus}
-            ,#{grEndStatus}
-            ,#{confirm}
-            ,#{comCd}
-            ,#{regDeptCd}
-            
-            ,#{pid}
-            ,#{accDeptSeq}
-            ,#{inputKind}
-            ,#{accDate}
-            ,#{dueDate}
-            ,#{isStop}
-            ,#{stopDate}
-            ,#{memo}
-            ,replace(#{regDate}, '-', '')
-            ,#{regEmpSeq}
-            
-            ,#{regEmpId}
-            ,#{regDeptSeq}
-            ,#{lastUserSeq}
-            ,#{lastDateTime}
+            #{tiCostSeq}                  -- 지출결의서 내부키          
+            ,#{tiCostNo}                  -- 지출결의서 문서번호         
+            ,#{companySeq}                -- 법인코드               
+            ,#{contents}                  -- 지출내역(비고)           
+            ,#{erpSlipSeq}                -- 전표 내부 코드           
+            ,#{title}                     -- 제목                 
+            ,replace(#{acctNo}, '-', '')  -- 계좌번호               
+            ,#{bankCd}                    -- 은행코드               
+            ,#{acctOwnerNm}               -- 예금주                
+            ,#{grstatus}                  -- 그룹웨어 상태값 코드        
+            ,#{grEndStatus}               -- 그룹웨어 최종결제 여부       
+            ,#{confirm}                   -- erp확정 여부 코드        
+            ,#{comCd}                     -- 인사법인 코드            
+            ,#{pid}                       -- GW 전자결제 키값         
+            ,#{accErpDeptSeq}             -- 등록자 소속실 erp 부서 코드  
+            ,#{inputKind}                 -- 입력 주체              
+            ,#{dueDate}                   -- 출금예정일              
+            ,#{memo}                      -- 메모                 
+            ,replace(#{regDate}, '-', '') -- 기안 일자              
+            ,#{regErpEmpSeq}              -- 기안자 erp사원코드        
+            ,#{regUserId}                 -- 기안자 사원 코드          
+            ,#{regErpDeptSeq}             -- 기언자 erp부서코드        
+            ,#{regEmpNo}                  -- 사용자 사번             
+            ,#{regDeptCd}                 -- 등록자 부서 코드          
+            ,#{lastUserId}                -- 데이터 최종수정자 사원코드     
+            ,getdate()              -- 데이터 최종 수정일         
         )
         
     </insert>
     
+    <!-- 지출 결의서 수정 -->
+    <update id="updateTiarCost" parameterType="tiarCostVO">
+        update
+            tb_tiar_cost
+                set
+                    ti_cost_no         = #{tiCostNo}                  
+                    ,company_seq       = #{companySeq}                
+                    ,contents          = #{contents}                  
+                    ,erp_slip_seq      = #{erpSlipSeq}                
+                    ,title             = #{title}                     
+                    ,acct_no           = replace(#{acctNo}, '-', '')  
+                    ,bank_cd           = #{bankCd}                    
+                    ,acct_owner_nm     = #{acctOwnerNm}               
+                    ,grstatus          = #{grstatus}                  
+                    ,gr_end_status     = #{grEndStatus}               
+                    ,confirm           = #{confirm}                   
+                    ,com_cd            = #{comCd}                     
+                    ,pid               = #{pid}                       
+                    ,acc_erp_dept_seq  = #{accErpDeptSeq}             
+                    ,input_kind        = #{inputKind}                 
+                    ,due_date          = #{dueDate}                   
+                    ,memo              = #{memo}                      
+                    ,reg_date          = replace(#{regDate}, '-', '') 
+                    ,reg_erp_emp_seq   = #{regErpEmpSeq}              
+                    ,reg_user_id       = #{regUserId}                 
+                    ,reg_erp_dept_seq  = #{regErpDeptSeq}             
+                    ,reg_emp_no        = #{regEmpNo}                  
+                    ,reg_dept_cd       = #{regDeptCd}                 
+                    ,last_user_id      = #{lastUserId}                
+                    ,last_date_time    = getdate()
+            where
+                ti_cost_seq = #{tiCostSeq}
+    </update>
+    
+    <select id="selectTiarCostByTiCostSeq" resultType="tiarCostVO">
+        select
+            ti_cost_Seq         AS tiCostSeq
+            ,ti_cost_no         AS tiCostNo             
+            ,company_seq        AS companySeq           
+            ,contents           AS contents             
+            ,erp_slip_seq       AS erpSlipSeq           
+            ,title              AS title                
+            ,acct_no            AS acctNo 
+            ,bank_cd            AS bankCd               
+            ,acct_owner_nm      AS acctOwnerNm          
+            ,grstatus           AS grstatus             
+            ,gr_end_status      AS grEndStatus          
+            ,confirm            AS confirm              
+            ,com_cd             AS comCd                
+            ,pid                AS pid                  
+            ,acc_erp_dept_seq   AS accErpDeptSeq        
+            ,input_kind         AS inputKind            
+            ,due_date           AS dueDate              
+            ,memo               AS memo                 
+            ,reg_date           AS regDate
+            ,reg_erp_emp_seq    AS regErpEmpSeq         
+            ,reg_user_id        AS regUserId            
+            ,reg_erp_dept_seq   AS regErpDeptSeq        
+            ,reg_emp_no         AS regEmpNo             
+            ,reg_dept_cd        AS regDeptCd            
+            ,last_user_id       AS lastUserId           
+        from tb_tiar_cost
+        where
+            ti_cost_seq = #{tiCostSeq}
+    </select>
     
 </mapper>

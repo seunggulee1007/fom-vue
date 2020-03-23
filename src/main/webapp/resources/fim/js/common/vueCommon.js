@@ -155,14 +155,13 @@ const MyPlugin = {
            ***********************************************/
           , viewFormData(formData) {
               for (var key of formData.keys()) {
-                  console.log(key);
+                  console.log(key +" :::" + formData.get(key));
               }
-              for (var value of formData.values()) {
-                  console.log(value);
-              } 
           }
           , getDate(date, type){
-              
+              if(!date instanceof Date) {
+                 return date;
+              }
               let year = date.getFullYear();
               let month = date.getMonth() +1;
               let day = date.getDate();

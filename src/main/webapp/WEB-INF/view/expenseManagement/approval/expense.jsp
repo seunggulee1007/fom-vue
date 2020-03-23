@@ -55,11 +55,11 @@
                                 </tr>
                                 <tr>
                                     <th class="table__th">계좌번호</th>
-                                    <td class="table__td table__td--data"><span class="table__txt" v-text="tiarCostVO.accNo"></span></td>
+                                    <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.acctNo}}</span></td>
                                     <th class="table__th">은행명</th>
                                     <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.bankNm}}</span></td>
                                     <th class="table__th">예금주</th>
-                                    <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.ownerNm}}</span></td>
+                                    <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.acctOwnerNm}}</span></td>
                                 </tr>
                             </tbody>
                         </table>

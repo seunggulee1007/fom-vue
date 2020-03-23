@@ -15,6 +15,8 @@ public class CostInfoVO {
     private String smKindSeq;
     /** 비용항목 소분류 */
     private String costSeq;
+    /** 비용항목 코드 */
+    private String costItemCd;
     /** 활동 센터 */
     private String activityCd;
     /** 업체명(접대비) */

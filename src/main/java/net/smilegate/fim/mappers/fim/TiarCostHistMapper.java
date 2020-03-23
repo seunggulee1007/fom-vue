@@ -1,12 +1,11 @@
 package net.smilegate.fim.mappers.fim;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import net.smilegate.fim.vo.TiarCostVO;
 
 @Mapper
-public interface TiarCostMapper {
+public interface TiarCostHistMapper {
 
     /**
      * 지출결의서 저장
@@ -21,12 +20,4 @@ public interface TiarCostMapper {
      * @return
      */
     public int updateTiarCost(TiarCostVO tiarCostVO);
-    
-    /**
-     * 지출결의서 조회
-     * @param tiCostSeq
-     * @return
-     */
-    public TiarCostVO selectTiarCostByTiCostSeq(@Param("tiCostSeq") int tiCostSeq);
-    
 }

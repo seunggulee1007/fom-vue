@@ -31,7 +31,7 @@ $(document).ready(function(){
                  title : ""
                  ,regDeptNm : ""
                  ,regDate : ''
-                 ,acno : ''
+                 ,acctNo : ''
                  ,bankNm : ''
                  ,ownerNm : ''
                  ,regEmpNm : ''
@@ -60,16 +60,17 @@ $(document).ready(function(){
              * @author : es-seungglee
              ***********************************************/
             setBankInfo(data) {
+                console.log(data);
                 if(data.bankInfoVO) {
-                    this.tiarCostVO.accNo = data.bankInfoVO.AccNo;
+                    this.tiarCostVO.acctNo = data.bankInfoVO.AccNo;
                     this.tiarCostVO.bankNm = data.bankInfoVO.PayBankName;
-                    this.tiarCostVO.ownerNm = data.bankInfoVO.OwnerName;
+                    this.tiarCostVO.acctOwnerNm = data.bankInfoVO.OwnerName;
                     this.tiarCostVO.regDate = getDate(new Date(), '-');
                 }else {
-                    this.tiarCostVO.accNo       = "";
-                    this.tiarCostVO.bankNm      = "";
-                    this.tiarCostVO.ownerNm     = "";
-                    this.tiarCostVO.regDate     = "";
+                    this.tiarCostVO.acctNo          = "";
+                    this.tiarCostVO.bankNm          = "";
+                    this.tiarCostVO.acctOwnerNm     = "";
+                    this.tiarCostVO.regDate         = "";
                 }
             }
             , getBankInfo(deptCd , empNo) {
@@ -82,7 +83,7 @@ $(document).ready(function(){
             ,setTempData(data) {
                 this.tiarCostVO.regDeptNm = data.deptNm;    // 부서 이름
                 this.tiarCostVO.regEmpNm = data.userNm;     // 사용자 이름
-                this.tiarCostVO.regDeptSeq = data.deptCd;   // 부서코드
+                this.tiarCostVO.regDeptCd = data.deptCd;   // 부서코드
                 this.tiarCostVO.comCd = data.comCd;         // 법인 코드
                 this.tiarCostVO.title = "[" + data.comNm+"][지출결의서(현금)_"+data.userNm+"_"+getDate(new Date(), "-")+"]";
                 this.getBankInfo(data.deptCd, data.empNo);
@@ -101,11 +102,12 @@ $(document).ready(function(){
              * @author : es-seungglee
              ***********************************************/
             ,addExpenseList() {
+                let deptVO = this.expenseList[this.expenseList.length-1].deptVO;
                 this.expenseList.push(
                         {
-                            deptVO : {}
-                        , useDate : new Date()
-                        , remark : ""
+                            deptVO
+                            , useDate : new Date()
+                            , remark : ""
                             , curAmt : 0
                             , costInfoVO : {}
                         }
@@ -130,6 +132,16 @@ $(document).ready(function(){
              * @author : es-seungglee
              ***********************************************/
             ,setExpenseData (data) {
+                let deptVO = {};
+                console.log(data);
+                deptVO.useErpEmpSeq = data.useErpEmpSeq;            // erp사용자 코드(*)
+                deptVO.useUserId = data.userId;                     // 사용자 코드
+                deptVO.useErpDeptSeq = data.deptCd;                 // 사용자 부서 코드
+                deptVO.useDeptCd = data.deptCd;
+                deptVO.useEmpNo = data.empNo;                       // 사용자 사번
+                deptVO.budgetDeptCd = data.budgetDeptCd;            // 예산부서코드2(*)
+                deptVO.budgetErpDeptSeq = data.budgetErpDeptSeq;    // 예산부서코드(*)
+                
                 this.expenseList[this.expenseIdx].deptVO = data;
             }
             /**********************************************
@@ -175,7 +187,7 @@ $(document).ready(function(){
                 costInfoVO.activityNm = data.activityNm;                 // activity 명
                 costInfoVO.activityCd = data.activityCd;                 // activity 코드
                 costInfoVO.costItemNm = data.costItemNm;                 // 비용항목 명
-                costInfoVO.expenseItemCd = data.expenseItemCd;           // 비용항목 코드
+                costInfoVO.costItemCd = data.expenseItemCd;           // 비용항목 코드
                 this.onCompleted(this.expenseIdx, this.expenseList[this.expenseIdx].costInfoVO);      // 4가지 다 입력시 발생하는 팝업
             }
             /**********************************************
@@ -232,7 +244,8 @@ $(document).ready(function(){
                     if(typeof(expense.useDate) === 'string' && expense.useDate.indexOf('-') != -1) {
                         expense.useDate = expense.useDate.replace(/-/gi, "");
                     }
-                    if(expense.useDate.length > 8) {
+                    if(expense.useDate instanceof Date) {
+                        console.log(expense.useDate);
                         expense.useDate = getDate(expense.useDate);
                     }
                     // 배열 생성하며 유효성 체크
@@ -265,7 +278,7 @@ $(document).ready(function(){
                     }
                     cnt++;
                 }
-                
+                this.viewFormData(formData);
                 axios.post("/expenseManagement/approval/expense"
                         ,formData
                         ,{
@@ -273,10 +286,30 @@ $(document).ready(function(){
                         }
                 ).then(res => {
                     console.log(res);
+                    if(!flag) {
+                        alert(res.data.resultMsg);
+                    }
+                    this.tiarCostVO = res.data.data.tiarCostVO;
+                    this.expenseList =  this.tiarCostVO.tiarCostAmtList;
+                    delete this.tiarCostVO.tiarCostAmtList;
+                    console.log(this.tiarCostVO);
+                    for(let expense of this.expenseList) {
+                        delete expense.deptVO.child;
+                    }
+                    console.log(JSON.stringify(this.expenseList));
                 }).catch(err => {
-                    
+                    console.log(err);
+                    alert(err.response.data.resultMsg);
                 })
                 
+            }
+            ,doApproval () {
+                if(!confirm("상신하시겠습니까? ")) {
+                    return;
+                }
+                if(!this.tiarCostVO.tiCostSeq) {
+                    this.saveExpense();
+                }
             }
             /**********************************************
              * @method : removeExpenseList
@@ -364,7 +397,7 @@ $(document).ready(function(){
                                 ,93             // 항공료
                                 ]
                     }
-                    ];
+                ];
                 for(let i=0; i<arr.length; i++) {
                     let smKind = arr[i].smKind;                         // 중분류
                     if(smKind === smKindSeq ) {                         // 해당 중분류가 배열에도 있다면
