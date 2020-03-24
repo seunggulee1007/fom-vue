@@ -1,6 +1,6 @@
 $(document).ready(function() {
     Vue.use(MyPlugin);
-    let vue = new Vue({
+    new Vue({
         el : "#container"
         ,data : {
             exchangeList : []
@@ -11,12 +11,14 @@ $(document).ready(function() {
             ,taxDate : getDate(new Date(), '-')
         }
         ,mounted : function() {
-            this.doAxios("/index/getInitData", "get",null, this.setData);
+            this.getInitData();
         }
         ,methods : {
-            setData : function(res) {
-                this.exchangeList = res.exRateList;
-                this.taxPlanList = res.taxPlanList;
+            async getInitData () {
+                let initData = await this.doAxios("/index/getInitData","get"); 
+                console.log(initData);
+                this.exchangeList = initData.data.exRateList;
+                this.taxPlanList = initData.data.taxPlanList;
             }
             ,selectTab (index) {
                 if(index == 1) {

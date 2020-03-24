@@ -1,7 +1,7 @@
 $(document).ready(function() {
     Vue.use(MyPlugin);
     let vue = new Vue({
-        el : "#container"
+        el : "#grid-layout"
         , data : {
             exchangeList : []           // 환율정보 리스트
             ,originDataList : []        // 원본 환율 정보 리스트
@@ -49,17 +49,10 @@ $(document).ready(function() {
              * @author : es-seungglee
              ***********************************************/
             getExchangeList () {
-                axios({
-                    method : "get"
-                    ,url : "/financialLink/exRate/" + this.selectedDate.replace(/-/gi, "")
-                }).then(res => {
-                    this.exchangeList = res.data.data.exRateList;       // 환율 정보 리스트(뷰 용도)
-                    this.originDataList = this.exchangeList;            // 원본 데이터 (필터처리 위한 용도)
-                    this.filterExchange();                              // 필터처리가 되어 있다면 필터까지.
-                })
-                .catch(function(e){
-                    console.log(e);
-                });
+                let exchange = this.doAxios("/financialLink/exRate" + this.selectedDate.replace(/-/gi, ""));
+                this.exchangeList = exchange.data.exRateList;
+                this.originDataList = this.exchangeList;
+                this.filterExchange();
             }       // end getExchangeList
             /**********************************************
              * @method : getCurrencyCode

@@ -6,7 +6,7 @@
 
 <jsp:include page="/WEB-INF/view/include/financialLinkInclude.jsp"/>
 
-<div id="container" class="container container--include-lnb container--fullview" v-cloak>
+<div id="container" class="container container--include-lnb container--fullview">
     <h2 class="page-title">환율 정보</h2>
     <div class="component-group align-right btn-box--absolute">
         <div class="component-box">
@@ -16,7 +16,7 @@
             </button>
         </div>                
     </div>
-    <div class="grid-layout">
+    <div class="grid-layout" id="grid-layout" v-cloak>
         <div class="grid-column grid-column10">
             <div class="section section--border section-exchange">
                 <div class="component-group">      

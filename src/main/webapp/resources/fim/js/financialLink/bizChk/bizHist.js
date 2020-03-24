@@ -1,6 +1,6 @@
 $(document).ready(function(){
     Vue.use(MyPlugin);
-    let app = new Vue({
+    new Vue({
         el : "#app"
         , data : {
             searchStdDt : getDate(new Date(), '-')
@@ -32,17 +32,16 @@ $(document).ready(function(){
             }
         }
         ,methods : {
-            getBizInfoList () {
+            async getBizInfoList () {
                 const param = {
                     searchStdDt : this.searchStdDt
                     ,searchEndDt : this.searchEndDt
                     ,bizNo : this.bizNo
                 }
-                this.doAxios("/financialLink/biz/bizInfo/bizInfoList","get",param, this.setData);
+                let bizInfo = await this.doAxios("/financialLink/biz/bizInfo/bizInfoList","get", param);
+                this.bizInfoList = bizInfo.data.bizInfoList;
             }
-            , setData (data) {
-                this.bizInfoList = data.bizInfoList;
-            }
+            
         }
     });
     

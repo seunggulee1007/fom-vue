@@ -52,7 +52,7 @@ const MyPlugin = {
           , checkBizNo (bizNo) {      // 사업자 번호 체크
               
               let checkID = new Array(1, 3, 7, 1, 3, 7, 1, 3, 5, 1); 
-              let tmpbizNo, i, chkSum=0, c2, remander; 
+              let i, chkSum=0, c2, remander; 
               bizNo = bizNo.replace(/-/gi,''); 
               if(bizNo.length != 10) {
                   return false;

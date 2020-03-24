@@ -1,14 +1,13 @@
 $(document).ready(function(){
     Vue.use(MyPlugin);
-    let app = new Vue({
-        el : "#app"
+    new Vue({
+        el : "#grid-layout"
         , data : {
             trtCntn : ''                    // 결과 메시지
             ,bizNo : ''                   // 사업자 번호
             ,smpcBmanEnglTrtCntn : ''
             ,smpcBmanTrtCntn : ''
             ,complBizNo : ''              // 완료 이후 사업자 번호(화면에 보여주는 용도)
-            ,openFlag : true
         }
         ,methods : {
             /**********************************************
@@ -27,16 +26,9 @@ $(document).ready(function(){
                     this.$refs.bizNo.focus();
                     return;
                 }
-                this.doAxios("/financialLink/biz/bizInfo/fim/"+bizNo, "get",null , this.setData);
-            }
-            /**********************************************
-             * @method : setData
-             * @note 서버 통신 이후 세팅용 콜백 함수
-             * @author : es-seungglee
-             ***********************************************/
-            , setData(data) {
-                this.trtCntn = data.trtCntn;
-                this.complBizNo = data.bizVO.bizNo;
+                let bizInfo = this.doAxios("/financialLink/biz/bizInfo/fim/"+bizNo, "get");
+                this.trtCntn = bizInfo.data.trnCntn;
+                this.complBizNo = bizInfo.data.bizNo;
             }
         }
     });
