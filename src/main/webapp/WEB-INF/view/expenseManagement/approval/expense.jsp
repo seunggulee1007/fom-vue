@@ -5,6 +5,7 @@
 <jsp:include page="/WEB-INF/view/include/expenseManagementInclude.jsp"/>
 
 <div id="container" class="container container--include-lnb container--fullview container-write">
+    <input type="hidden" id="tiCostSeq" value="${param.tiCostSeq }">
     <h2 class="page-title">지출결의서</h2>
     <!-- <p class="page-title__dsc">· 지출결의서를 작성할 수 있는 페이지입니다.</p> -->
     <div class="component-group align-right btn-box--absolute">
@@ -158,7 +159,7 @@
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" v-model="expense.displayCurAmt" placeholder="입력해주세요." @change="calcTotalAmt(expense);" v-int>
+                                            <input type="text" class="input-field__input" v-model="expense.curAmt" placeholder="입력해주세요." @change="calcTotalAmt();" v-int>
                                         </div>
                                     </td>
                                 </tr>
@@ -172,7 +173,7 @@
                                 <tr>
                                     <th class="table__th" colspan="9">합계</th>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt">{{totalAmt}}</span>
+                                        <span class="table__txt">{{tiarCostVO.totalAmt | currency}}</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -198,7 +199,7 @@
                                     <th class="table__th">의견입력</th>
                                     <td class="table__td" colspan="5">
                                         <div class="textarea">
-                                            <textarea name="" cols="30" rows="10" style="height:80px"></textarea>
+                                            <textarea name="" cols="30" rows="10" style="height:80px" v-model="tiarCostVO.contents"></textarea>
                                         </div>
                                     </td>                                            
                                 </tr>
@@ -259,7 +260,7 @@
                     </div>
                 </div>
                 <div class="component-group btn-box align-center">
-                    <div class="component-box">
+                    <div class="component-box" v-if="tiarCostVO.tiCostSeq">
                         <button type="button" class="btn btn--large btn--bgtype">
                             <span class="btn__txt">삭제</span>
                         </button>

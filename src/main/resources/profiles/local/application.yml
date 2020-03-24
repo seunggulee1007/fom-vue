@@ -39,10 +39,15 @@ spring:
 #                password: tmakdlfrpdlxm&&7
 #                driver-class-name: com.mysql.cj.jdbc.Driver
             fim : 
-                jdbc-url : jdbc:sqlserver://10.2.211.70:3920;DatabaseName=FIM
+                jdbc-url : jdbc:log4jdbc:sqlserver://10.2.211.70:3920;DatabaseName=FIM
                 username: app_svc
                 password: svc3920!
-                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+                driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#            fim : 
+#                jdbc-url : jdbc:sqlserver://10.2.211.70:3920;DatabaseName=FIM
+#                username: app_svc
+#                password: svc3920!
+#                driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
             mdi : 
                 jdbc-url: jdbc:sqlserver://10.2.209.118:1433;DatabaseName=MDI
 #                jdbc-url: jdbc:sqlserver://10.2.211.70:3920;DatabaseName=MDI

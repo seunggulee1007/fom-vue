@@ -26,21 +26,29 @@ $(document).ready(function(){
             , fileName : ''              // 파일 명
             , files: []                  // 파일 담을 객체(리스트)
             , fileSize : 0               // 보여줄 파일 전체 크기
-            , totalAmt : 0               // 합계용 금액
+            
             , tiarCostVO : {
                  title : ""
-                 ,regDeptNm : ""
-                 ,regDate : ''
-                 ,acctNo : ''
-                 ,bankNm : ''
-                 ,ownerNm : ''
-                 ,regEmpNm : ''
-                 ,companySeq : '1'
+                 , regDeptNm : ""
+                 , regDate : ''
+                 , acctNo : ''
+                 , bankNm : ''
+                 , ownerNm : ''
+                 , regEmpNm : ''
+                 , companySeq : '1'
+                 , totalAmt : 0               // 합계용 금액
             }             // 저장용 VO
             , deptList : []
         }
+        ,computed : {
+            
+        }
         ,created () {
             // this.getBankInfo('h0000000','H20044');
+            let tiCostSeq = document.querySelector("#tiCostSeq").value;
+            if(tiCostSeq) {
+                this.getTiarCostInfo(tiCostSeq);
+            }
         }
         ,mounted () {
             EventBus.$on('setExpenseData', this.setExpenseData);
@@ -59,12 +67,30 @@ $(document).ready(function(){
              * @note 서버 처리 이후 세팅용 함수
              * @author : es-seungglee
              ***********************************************/
-            setBankInfo(data) {
-                console.log(data);
-                if(data.bankInfoVO) {
-                    this.tiarCostVO.acctNo = data.bankInfoVO.AccNo;
-                    this.tiarCostVO.bankNm = data.bankInfoVO.PayBankName;
-                    this.tiarCostVO.acctOwnerNm = data.bankInfoVO.OwnerName;
+            getTiarCostInfo(ticostSeq) {
+                axios({
+                    url : "/expenseManagement/approval/expenseList/" + ticostSeq
+                    ,method : "get"
+                }).then(res =>{
+                    console.log(res);
+                    this.tiarCostVO = res.data.data.tiarCostVO;
+                    this.expenseList = res.data.data.tiCostAmtVOList;
+                    this.fileList = res.data.data.fileList;
+                }).catch(err => {
+                    console.log(err);
+                });
+            }
+            , async getBankInfo(deptCd , empNo) {
+                const param = {
+                        deptCd : deptCd
+                        ,empNo : empNo
+                }
+                let bankInfo = await this.doAxios("/expenseManagement/approval/getBankInfo","get", param, this.setBankInfo);
+                let bankInfoVO = bankInfo.data.bankInfoVO;
+                if(bankInfoVO) {
+                    this.tiarCostVO.acctNo = bankInfoVO.AccNo;
+                    this.tiarCostVO.bankNm = bankInfoVO.PayBankName;
+                    this.tiarCostVO.acctOwnerNm = bankInfoVO.OwnerName;
                     this.tiarCostVO.regDate = getDate(new Date(), '-');
                 }else {
                     this.tiarCostVO.acctNo          = "";
@@ -73,18 +99,13 @@ $(document).ready(function(){
                     this.tiarCostVO.regDate         = "";
                 }
             }
-            , getBankInfo(deptCd , empNo) {
-                const param = {
-                        deptCd : deptCd
-                        ,empNo : empNo
-                }
-                this.doAxios("/expenseManagement/approval/getBankInfo","get", param, this.setBankInfo);
-            }
             ,setTempData(data) {
                 this.tiarCostVO.regDeptNm = data.deptNm;    // 부서 이름
                 this.tiarCostVO.regEmpNm = data.userNm;     // 사용자 이름
                 this.tiarCostVO.regDeptCd = data.deptCd;   // 부서코드
                 this.tiarCostVO.comCd = data.comCd;         // 법인 코드
+                this.tiarCostVO.regUserId = data.userId;         // 법인 코드
+                this.tiarCostVO.regEmpNo = data.empNo;         // 법인 코드
                 this.tiarCostVO.title = "[" + data.comNm+"][지출결의서(현금)_"+data.userNm+"_"+getDate(new Date(), "-")+"]";
                 this.getBankInfo(data.deptCd, data.empNo);
                 
@@ -132,17 +153,21 @@ $(document).ready(function(){
              * @author : es-seungglee
              ***********************************************/
             ,setExpenseData (data) {
-                let deptVO = {};
+                console.log('setExpenseData');
                 console.log(data);
-                deptVO.useErpEmpSeq = data.useErpEmpSeq;            // erp사용자 코드(*)
+                let deptVO = {};
+                deptVO.useErpEmpSeq = data.empNo;            // erp사용자 코드(*)
                 deptVO.useUserId = data.userId;                     // 사용자 코드
                 deptVO.useErpDeptSeq = data.deptCd;                 // 사용자 부서 코드
                 deptVO.useDeptCd = data.deptCd;
                 deptVO.useEmpNo = data.empNo;                       // 사용자 사번
                 deptVO.budgetDeptCd = data.budgetDeptCd;            // 예산부서코드2(*)
                 deptVO.budgetErpDeptSeq = data.budgetErpDeptSeq;    // 예산부서코드(*)
+                deptVO.userNm = data.userNm;
+                deptVO.deptNm = data.deptNm;
+                this.expenseList[this.expenseIdx].deptVO = deptVO;
+                console.log(this.expenseList);
                 
-                this.expenseList[this.expenseIdx].deptVO = data;
             }
             /**********************************************
              * @method : openExpenseAll
@@ -187,7 +212,7 @@ $(document).ready(function(){
                 costInfoVO.activityNm = data.activityNm;                 // activity 명
                 costInfoVO.activityCd = data.activityCd;                 // activity 코드
                 costInfoVO.costItemNm = data.costItemNm;                 // 비용항목 명
-                costInfoVO.costItemCd = data.expenseItemCd;           // 비용항목 코드
+                costInfoVO.costItemCd = data.costItemCd;           // 비용항목 코드
                 this.onCompleted(this.expenseIdx, this.expenseList[this.expenseIdx].costInfoVO);      // 4가지 다 입력시 발생하는 팝업
             }
             /**********************************************
@@ -236,6 +261,9 @@ $(document).ready(function(){
                 }
                 
                 for(let key in this.tiarCostVO) {
+                    if(isNull(this.tiarCostVO[key])) {
+                        continue;
+                    }
                     formData.append(key, this.tiarCostVO[key]);
                 }
                 
@@ -247,6 +275,11 @@ $(document).ready(function(){
                     if(expense.useDate instanceof Date) {
                         console.log(expense.useDate);
                         expense.useDate = getDate(expense.useDate);
+                    }
+                    if(typeof(expense.curAmt) == 'string') {
+                        if(expense.curAmt.indexOf(',') != -1) {
+                            expense.curAmt = expense.curAmt.replace(/,/gi, "");
+                        }
                     }
                     // 배열 생성하며 유효성 체크
                     if(!expense.costInfoVO.smKindSeq) {
@@ -270,9 +303,15 @@ $(document).ready(function(){
                         let subExpense = expense[key];
                         if(typeof(subExpense) == 'object') {
                             for(let subKey in subExpense) {
+                                if(isNull(subExpense[subKey])) {
+                                    continue;
+                                }
                                 formData.append('tiarCostAmtList['+cnt+'].'+key+"."+subKey, subExpense[subKey]);
                             }
                         }else {
+                            if(isNull(expense[key])) {
+                                continue;
+                            }
                             formData.append('tiarCostAmtList['+cnt+'].'+key, expense[key]);
                         }
                     }
@@ -292,11 +331,9 @@ $(document).ready(function(){
                     this.tiarCostVO = res.data.data.tiarCostVO;
                     this.expenseList =  this.tiarCostVO.tiarCostAmtList;
                     delete this.tiarCostVO.tiarCostAmtList;
-                    console.log(this.tiarCostVO);
                     for(let expense of this.expenseList) {
                         delete expense.deptVO.child;
                     }
-                    console.log(JSON.stringify(this.expenseList));
                 }).catch(err => {
                     console.log(err);
                     alert(err.response.data.resultMsg);
@@ -417,16 +454,19 @@ $(document).ready(function(){
              * @author : es-seungglee
              ***********************************************/
             , calcTotalAmt (data) {
-                data.displayCurAmt = this.setComma(data.displayCurAmt); // 보여주는 금액은 ','를 포함
-                data.curAmt = data.displayCurAmt.replace(/,/gi,"");     // 계산해야 하는 금액 ',' 제거
-                this.totalAmt = 0;
+                this.tiarCostVO.totalAmt = 0;
                 for(let expenseVO of this.expenseList) {                // 합계를 위한 반복문
-                    this.totalAmt += Number(expenseVO.curAmt);
+                    console.log(typeof(expenseVO.curAmt));
+                    let curAmt = expenseVO.curAmt;
+                    if(curAmt.indexOf(",") != -1) {
+                        curAmt = curAmt.replace(/,/gi,"");
+                    }
+                    this.tiarCostVO.totalAmt += Number(curAmt);
+                    expenseVO.curAmt = this.setComma(expenseVO.curAmt);
                 }
-                if(typeof(this.totalAmt) != 'number') {                 // 혹시모를 예외처리(숫자 타입이 아니라면)
-                    this.totalAmt = 0;                                  // 0원으로 처리
+                if(typeof(this.tiarCostVO.totalAmt) != 'number') {                 // 혹시모를 예외처리(숫자 타입이 아니라면)
+                    this.tiarCostVO.totalAmt = 0;                                  // 0원으로 처리
                 }
-                this.totalAmt = this.setComma(this.totalAmt);           // 보여주는 합계 금액도 컴마 처리
             }
             /**********************************************
              * @method : setExpenseDetail

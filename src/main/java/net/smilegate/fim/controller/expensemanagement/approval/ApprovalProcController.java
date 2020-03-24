@@ -90,11 +90,18 @@ public class ApprovalProcController {
         return CommonResultVO.builder().data(map).build();
     }
     
+    @GetMapping("/expenseList/{tiCostSeq}")
+    public CommonResultVO selectExpense(@PathVariable("tiCostSeq")int tiCostSeq) {
+        
+        return CommonResultVO.builder().data(expenseService.selectExpense(tiCostSeq)).build();
+    }
+    
+    @ApiOperation(value="지출결의서 저장", notes="지출결의서 파일과 상세 내용 저장")
     @PostMapping("/expense")
     public CommonResultVO insertExpense(MultipartHttpServletRequest request, TiarCostVO tiarCostVO)  throws IllegalArgumentException, IllegalAccessException {
-        System.err.println(tiarCostVO.toString());
         Map<String, Object> map = new HashMap<>();
         int tiCostSeq = tiarCostVO.getTiCostSeq();
+        System.err.println("tiCostSeq ::::: " + tiCostSeq);
         if(tiCostSeq == 0) {
             map = expenseService.insertExpense(request, tiarCostVO);
         }else {

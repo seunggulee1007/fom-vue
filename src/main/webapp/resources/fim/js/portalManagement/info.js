@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+'use strict';
 Vue.use(MyPlugin);
 let vue = new Vue({
     el : "#container"
@@ -15,20 +17,55 @@ let vue = new Vue({
         ,paging : {}
         ,pagingVO : {}
         ,columnLayout : [
-            {dataField : "", headerText : "분류", width : 80}
-            ,{dataField : "title", headerText : "제목", width : 300}
-            ,{dataField : "userNm", headerText : "작성자", width : 130}
-            ,{dataField : "crtDate", headerText : "작성일", width : 120}
-            ,{dataField : "hit", headerText : "조회수", width : 70}
-            ,{dataField : "", headerText : "첨부", width : 60}
+            {dataField : "", headerText : "분류", width : "9.5%"}
+            ,{dataField : "title", headerText : "제목", width : "61.9%"}
+            ,{dataField : "userNm", headerText : "작성자", width : "10%"}
+            ,{dataField : "crtDate", headerText : "작성일", width : "7.2%"}
+            ,{dataField : "hit", headerText : "조회수", width : "5.4%"}
+            ,{
+                dataField : "iconSrc", 
+                headerText : "첨부", 
+                width : "6%",
+                renderer : {
+                    type : "ImageRenderer",
+                    imgHeight : 24,
+                    altField : "iconSrc",
+                    srcFunction : function(rowIndex, columnIndex, value, item) {
+                        // return "/resources/img/sprites/template_pc/icon-attachment.png";
+                        switch(value) {
+                        case "20" : 
+                            return "/resources/img/sprites/template_pc/icon-attachment.png";
+                        case "Blue":
+                            return "./assets/blue_circle.png";
+                        case "Gray":
+                            return "./assets/gray_circle.png";
+                        case "Green":
+                            return "./assets/green_circle.png";
+                        case "Orange":
+                            return "./assets/orange2_circle.png";
+                        case "Pink":
+                            return "./assets/pink_circle.png";
+                        case "Violet":
+                            return "./assets/violet_circle.png";
+                        default:
+                            return null; // null 반환하면 이미지 표시 안함.
+                        }
+                    }
+                }
+            }
         ]
         ,gridData : []
         ,gridId: ""
         , auigridProps : {
             // 편집 가능 여부 (기본값 : false)
-            editable : true,
+            editable : false,
             // 셀 선택 모드 (기본값 : singleCell)
-            selectionMode : "multipleCells"
+            selectionMode : "multipleCells",
+            
+            usePaging : true,
+            
+            pageRowCount : 10,
+                
         }
     }
     , mounted () {
@@ -56,7 +93,8 @@ let vue = new Vue({
         }
     }
     , methods : {
-        getInfoList (num) {
+        
+        async getInfoList (num) {
             if(!num) {
                 num = 0;
             }
@@ -67,32 +105,8 @@ let vue = new Vue({
                 ,search : encodeURIComponent(this.search)
                 ,page : num
             }
-            this.doAxios( "/portalManagement/infoList", "get", param, this.setData )
-            /*$.blockUI({ message: '<h3><img src="/resources/fim/img/busy.gif" /> 조회 중입니다.</h3>' });
-            axios({
-                url : "/portalManagement/infoList"
-                ,method : "get"
-                ,params : {
-                    searchStdDt : this.searchStdDt
-                    ,searchEndDt : this.searchEndDt
-                    ,searchKind : this.searchKind
-                    ,search : encodeURIComponent(this.search)
-                    ,page : num
-                }
-            }).then(res=>{
-                console.log(res);
-                this.paging = res.data.data.boardList;
-                let paging = this.paging;
-                this.infoList = this.paging.content;
-                this.pagingVO  = this.getPagingVO(paging.number, paging.totalElements, paging.totalPages, 10);
-                $.unblockUI();
-            }).catch(err=>{
-                alert(err);
-                $.unblockUI();
-            });*/
-        }
-        , setData (data) {
-            this.gridData = data.boardList.content;
+            let infoList = await this.doAxios( "/portalManagement/infoList", "get", param);
+            this.gridData = infoList.data.boardList;
         }
         , goPage (num) {
             this.getInfoList(num-1);

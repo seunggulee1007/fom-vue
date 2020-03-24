@@ -22,9 +22,16 @@
     	<appender-ref ref="STDOUT"/>
     </root>
 	<logger name="org.springframework" level="INFO"/>
+    <logger name="java.sql" level="ERROR"/>
+
 <!-- 	<logger name="org.springframework.boot.actuate.endpoint.web.servlet" level="DEBUG"/> -->
 	<logger name="net.smilegate" level="DEBUG"/>
-	<logger name="jdbc.sqltiming" level="INFO"/>
+	<logger name="jdbc.sqlonly" level="OFF"/>
+    <logger name="jdbc.sqltiming" level="DEBUG"/>
+    <logger name="jdbc.audit" level="OFF"/>
+    <logger name="jdbc.resultset" level="OFF"/>
+    <logger name="jdbc.resultsettable" level="DEBUG"/>
+    <logger name="jdbc.connection" level="OFF"/>
 	<logger name="net.smilegate.common.interceptor.RequestLogInterceptor" level="INFO">
 		<appender-ref ref="FILE"/>
 	</logger>

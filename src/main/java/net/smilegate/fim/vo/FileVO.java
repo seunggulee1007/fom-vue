@@ -59,4 +59,7 @@ public class FileVO {
     @Transient
     private int refId;
     
+    @Transient
+    private int boardId;
+    
 }

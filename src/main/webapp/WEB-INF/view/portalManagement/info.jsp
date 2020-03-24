@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <script src='https://unpkg.com/v-calendar@next'></script>
-<script type="text/babel" src="/resources/fim/js/portal_management/info.js"></script>
+<script type="text/babel" src="/resources/fim/js/portalManagement/info.js"></script>
 <div class="lnb lnb-area">
     <ul class="lst-lnb">                    
         <li class="lst-lnb__item lst-lnb__item--active">
@@ -47,7 +47,7 @@
             </button>
         </div>
         <div class="component-box">
-            <a href="info_write.html" class="btn btn--orange">
+            <a href="/portalManagement/infoWrite" class="btn btn--orange">
                 <span class="btn__txt">+ 신규작성</span>
             </a>
         </div>
@@ -137,7 +137,7 @@
                 <div id="grid_wrap">
                 
                 </div>
-                <div class="component-area"> 
+                <!-- <div class="component-area"> 
                     <div class="component-group">                   
                         <div class="table">
                             <table>
@@ -219,7 +219,7 @@
                             </a>
                         </div>
                     </div>                            
-                </div>                        
+                </div>                         -->
             </div>
             <div class="component-group align-right">
                 <div class="component-box">

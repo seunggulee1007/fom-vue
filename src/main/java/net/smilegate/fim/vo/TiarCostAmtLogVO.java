@@ -3,9 +3,9 @@ package net.smilegate.fim.vo;
 import lombok.Data;
 
 @Data
-public class TiarCostAmtHistVO {
+public class TiarCostAmtLogVO {
     
-    /** 로그키 */
+    /** 로그 시퀀스 */
     private int logSeq;
     /** 비용신청 내부키 */
     private int tiCostSeq;
@@ -18,9 +18,7 @@ public class TiarCostAmtHistVO {
     /** 부서 vo */
     private DeptVO deptVO;
     /** 활동센터 코드 */
-    private int CctrSeq;
-    /** 비용항목코드 */
-    private String costItemCd;
+    private int cCtrSeq;
     /** 통화코드 */
     private int erpCurrSeq;
     /** 통화명 */
@@ -58,7 +56,7 @@ public class TiarCostAmtHistVO {
     /** 적요 */
     private String remark;
     /** 데이터 최종수정자 */
-    private int lastUserSeq;
+    private int lastUserId;
     /** 데이터 최종수정일*/
     private String lastDateTime;
     /** 원화 총 금액 */

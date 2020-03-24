@@ -3,7 +3,7 @@
 <style>
     .input-field input[type="file"] {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 </style>
-<script type="text/babel" src="/resources/fim/js/portal_management/info_write.js"></script>
+<script type="text/babel" src="/resources/fim/js/portalManagement/infoWrite.js"></script>
 <div id="container" class="container container--include-lnb container--fullview container-write">
     <div class="lnb lnb-area">
         <ul class="lst-lnb">                    

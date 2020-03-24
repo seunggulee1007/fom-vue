@@ -4,7 +4,7 @@ $(document).ready(function(){
     let expenseAllApp = new Vue({
         el : ".popup-layer--expenses-all"
         ,data : {
-            expenseVO : {}
+            costInfoVO : {}
             ,expenseList : []
             ,expenseAllPopupFlag : false                                        // 팝업 보기 변수
         }
@@ -19,34 +19,27 @@ $(document).ready(function(){
              ***********************************************/
             openExpenseAllPopup(smKindName, userNm, comCd) {
                 this.expenseAllPopupFlag = true;                                // true면 팝업이 뜬다.
-                this.expenseVO.smKindName = smKindName;                         // 중분류 명
-                this.expenseVO.userNm = userNm;                                 // 사용자 이름 (임원 체크용)
-                this.expenseVO.comCd = comCd;                                   // 부서명(sfg체크용)
+                this.costInfoVO.smKindName = smKindName;                         // 중분류 명
+                this.costInfoVO.userNm = userNm;                                 // 사용자 이름 (임원 체크용)
+                this.costInfoVO.comCd = comCd;                                   // 부서명(sfg체크용)
                 this.selectExpenseList();
-            }
-            /**********************************************
-             * @method : setData
-             * @note 데이터 서버 처리 이후 세팅 할 함수
-             * @author : es-seungglee
-             ***********************************************/
-            ,setData(data) {
-                this.expenseList = data.expenseList;
             }
             /**********************************************
              * @method : selectExpenseList
              * @note 비용항목 리스트 조회
              * @author : es-seungglee
              ***********************************************/
-            ,selectExpenseList () {
+            , async selectExpenseList () {
                 const param = {
-                        smKindName : this.expenseVO.smKindName                      // 중분류명
-                        ,costName : this.expenseVO.costName                         // 소분류명
-                        ,activityNm : this.expenseVO.activityNm                     // 액티비티명
-                        ,costItemNm : this.expenseVO.costItemNm                     // 비용항목 명
-                        ,userNm : this.expenseVO.userNm                             // 사용자명(임원체크용)
-                        ,comCd : this.expenseVO.comCd                               // 회사코드(sgf체크 용)
+                        smKindName : this.costInfoVO.smKindName                      // 중분류명
+                        ,costName : this.costInfoVO.costName                         // 소분류명
+                        ,activityNm : this.costInfoVO.activityNm                     // 액티비티명
+                        ,costItemNm : this.costInfoVO.costItemNm                     // 비용항목 명
+                        ,userNm : this.costInfoVO.userNm                             // 사용자명(임원체크용)
+                        ,comCd : this.costInfoVO.comCd                               // 회사코드(sgf체크 용)
                 }
-                this.doAxios("/expenseManagement/approval/getExpense", "get", param, this.setData);
+                let expense = await this.doAxios("/expenseManagement/approval/getExpense", "get", param);
+                this.expenseList = expense.data.expenseList;
             }
             /**********************************************
              * @method : closePopup
@@ -55,7 +48,7 @@ $(document).ready(function(){
              ***********************************************/
             ,closePopup() {
                 this.expenseAllPopupFlag = false;                               // 팝업 플래그 (팝업 닫기)
-                this.expenseVO = {};                                            // 변수 초기화
+                this.costInfoVO = {};                                            // 변수 초기화
             }
             /**********************************************
              * @method : choiceItem

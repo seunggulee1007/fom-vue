@@ -1,5 +1,7 @@
 package net.smilegate.fim.service.file;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -16,4 +18,7 @@ public class FileServiceImpl implements FileService {
         return fileMapper.insertFile(fileVO);
     }
     
+    public List<FileVO> selectFileList(FileVO fileVO) {
+        return fileMapper.selectFileList(fileVO);
+    }
 }

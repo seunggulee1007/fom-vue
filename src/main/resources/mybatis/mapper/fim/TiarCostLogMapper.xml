@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="net.smilegate.fim.mappers.fim.TiarCostMapper">
+<mapper namespace="net.smilegate.fim.mappers.fim.TiarCostLogMapper">
 
-    <insert id="insertTiarCost" parameterType="tiarCostVO">
-        <selectKey keyProperty="tiCostSeq" resultType="int" order="BEFORE">
-            select next value for seq_tiar_cost
+    <insert id="insertTiarCostLog" parameterType="tiarCostLogVO">
+        <selectKey keyProperty="logSeq" resultType="int" order="BEFORE">
+            select next value for seq_tiar_cost_log
         </selectKey>
-        insert into tb_tiar_cost(
-            ti_cost_seq             -- 지출결의서 내부키
+        insert into tb_tiar_cost_log(
+            log_seq
+            ,ti_cost_seq             -- 지출결의서 내부키
             ,ti_cost_no             -- 지출결의서 문서번호
             ,company_seq            -- 법인코드
             ,contents               -- 지출내역(비고)
@@ -32,17 +33,17 @@
             ,reg_erp_dept_seq       -- 기언자 erp부서코드
             ,reg_emp_no             -- 사용자 사번
             ,reg_dept_cd            -- 등록자 부서 코드
-            ,total_amt              -- 총 금액
             ,last_user_id           -- 데이터 최종수정자 사원코드
             ,last_date_time         -- 데이터 최종 수정일
         )values (
-            #{tiCostSeq}                  -- 지출결의서 내부키          
+            #{logSeq}
+            ,#{tiCostSeq}                  -- 지출결의서 내부키          
             ,#{tiCostNo}                  -- 지출결의서 문서번호         
             ,#{companySeq}                -- 법인코드               
             ,#{contents}                  -- 지출내역(비고)           
             ,#{erpSlipSeq}                -- 전표 내부 코드           
             ,#{title}                     -- 제목                 
-            ,#{acctNo}                    -- 계좌번호               
+            ,replace(#{acctNo}, '-', '')  -- 계좌번호               
             ,#{bankCd}                    -- 은행코드               
             ,#{acctOwnerNm}               -- 예금주                
             ,#{grstatus}                  -- 그룹웨어 상태값 코드        
@@ -60,51 +61,17 @@
             ,#{regErpDeptSeq}             -- 기언자 erp부서코드        
             ,#{regEmpNo}                  -- 사용자 사번             
             ,#{regDeptCd}                 -- 등록자 부서 코드          
-            ,#{totalAmt}                  -- 총 사용금액
             ,#{lastUserId}                -- 데이터 최종수정자 사원코드     
             ,getdate()              -- 데이터 최종 수정일         
         )
         
     </insert>
     
-    <!-- 지출 결의서 수정 -->
-    <update id="updateTiarCost" parameterType="tiarCostVO">
-        update
-            tb_tiar_cost
-                set
-                    ti_cost_no         = #{tiCostNo}                  
-                    ,company_seq       = #{companySeq}                
-                    ,contents          = #{contents}                  
-                    ,erp_slip_seq      = #{erpSlipSeq}                
-                    ,title             = #{title}                     
-                    ,acct_no           = #{acctNo}  
-                    ,bank_cd           = #{bankCd}                    
-                    ,acct_owner_nm     = #{acctOwnerNm}               
-                    ,grstatus          = #{grstatus}                  
-                    ,gr_end_status     = #{grEndStatus}               
-                    ,confirm           = #{confirm}                   
-                    ,com_cd            = #{comCd}                     
-                    ,pid               = #{pid}                       
-                    ,acc_erp_dept_seq  = #{accErpDeptSeq}             
-                    ,input_kind        = #{inputKind}                 
-                    ,due_date          = #{dueDate}                   
-                    ,memo              = #{memo}                      
-                    ,reg_date          = replace(#{regDate}, '-', '') 
-                    ,reg_erp_emp_seq   = #{regErpEmpSeq}              
-                    ,reg_user_id       = #{regUserId}                 
-                    ,reg_erp_dept_seq  = #{regErpDeptSeq}             
-                    ,reg_emp_no        = #{regEmpNo}                  
-                    ,reg_dept_cd       = #{regDeptCd}                 
-                    ,total_amt         = #{totalAmt}
-                    ,last_user_id      = #{lastUserId}                
-                    ,last_date_time    = getdate()
-            where
-                ti_cost_seq = #{tiCostSeq}
-    </update>
     
-    <select id="selectTiarCostByTiCostSeq" resultType="tiarCostVO">
+    <select id="selectTiarCostByTiCostSeq" resultType="tiarCostLogVO">
         select
-            ti_cost_Seq         AS tiCostSeq
+            log_seq             AS logSeq
+            ,ti_cost_Seq         AS tiCostSeq
             ,ti_cost_no         AS tiCostNo             
             ,company_seq        AS companySeq           
             ,contents           AS contents             
@@ -122,16 +89,19 @@
             ,input_kind         AS inputKind            
             ,due_date           AS dueDate              
             ,memo               AS memo                 
-            ,concat(left(reg_date, 4) ,'-',substring(reg_date,5,2),'-',right(reg_date,2))           AS regDate
+            ,reg_date           AS regDate
             ,reg_erp_emp_seq    AS regErpEmpSeq         
             ,reg_user_id        AS regUserId            
             ,reg_erp_dept_seq   AS regErpDeptSeq        
             ,reg_emp_no         AS regEmpNo             
             ,reg_dept_cd        AS regDeptCd            
             ,last_user_id       AS lastUserId           
-        from tb_tiar_cost
+        from tb_tiar_cost_log
         where
-            ti_cost_seq = #{tiCostSeq}
+            1=1
+            <if test="logSeq != null ans logSeq != ''">
+                and log_seq = #{logSeq}
+            </if>
     </select>
     
 </mapper>

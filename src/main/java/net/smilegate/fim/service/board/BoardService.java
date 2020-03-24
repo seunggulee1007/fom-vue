@@ -1,6 +1,5 @@
 package net.smilegate.fim.service.board;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import net.smilegate.fim.vo.BoardVO;
@@ -16,6 +15,8 @@ public interface BoardService {
      */
     public CommonResultVO writeInfo(MultipartHttpServletRequest request , BoardVO boardVO);
     
-    public CommonResultVO infoList(Pageable pageable, BoardVO boardVO);
+    /* public CommonResultVO infoList(Pageable pageable, BoardVO boardVO); */
+    
+    public CommonResultVO infoList(BoardVO boardVO);
     
 }

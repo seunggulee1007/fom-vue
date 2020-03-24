@@ -16,26 +16,26 @@
                                 <div class="search-form">
                                     <em class="search-form__title">비용항목 - 중분류</em>
                                     <div class="search-form__inner">
-                                        <input type="search" v-model="expenseVO.smKindName" @keyup.enter="selectExpenseList();">
+                                        <input type="search" v-model="costInfoVO.smKindName" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                                 <div class="search-form">
                                     <em class="search-form__title">비용항목 - 소분류</em>
                                     <div class="search-form__inner">         
-                                        <input type="search" v-model="expenseVO.costName" @keyup.enter="selectExpenseList();">
+                                        <input type="search" v-model="costInfoVO.costName" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                             
                                 <div class="search-form">
                                     <em class="search-form__title">SGMA - Activity</em>
                                     <div class="search-form__inner">         
-                                        <input type="search" v-model="expenseVO.activityNm" @keyup.enter="selectExpenseList();">
+                                        <input type="search" v-model="costInfoVO.activityNm" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                                 <div class="search-form">
                                     <em class="search-form__title">SGMA - 비용항목</em>
                                     <div class="search-form__inner">         
-                                        <input type="search" v-model="expenseVO.costItemNm" @keyup.enter="selectExpenseList();">
+                                        <input type="search" v-model="costInfoVO.costItemNm" @keyup.enter="selectExpenseList();">
                                     </div>
                                 </div>
                             </fieldset>

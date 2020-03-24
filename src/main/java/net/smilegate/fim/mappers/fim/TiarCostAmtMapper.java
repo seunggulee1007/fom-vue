@@ -1,5 +1,7 @@
 package net.smilegate.fim.mappers.fim;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,5 +31,12 @@ public interface TiarCostAmtMapper {
      * @return
      */
     public TiarCostAmtVO selectTiarCostAmtBySeq(@Param("tiCostSeq")int tiCostSeq, @Param("tiCostSerl")int tiCostSerl);
+    
+    /**
+     * 지출결의서 상세 리스트 조회
+     * @param tiCostSeq
+     * @return
+     */
+    public List<TiarCostAmtVO> selectTiarCostAmtByTiarCostSeq(@Param("tiCostSeq") int tiCostSeq);
     
 }

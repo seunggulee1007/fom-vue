@@ -40,16 +40,9 @@ $(document).ready(function(){
              * @note 부서 목록 조회
              * @author : es-seungglee
              ***********************************************/
-            ,clickDept(data) {
-                this.doAxios("/expenseManagement/approval/getUserList", "get", {deptCd : data.deptCd}, this.sender);
-            }
-            /**********************************************
-             * @method : sender
-             * @note 조회된 유저를 다른 컴포넌트로 전송
-             * @author : es-seungglee
-             ***********************************************/
-            ,sender (data) {
-                EventBus.$emit('userList', data.userList);
+            , async clickDept(data) {
+                let user = await this.doAxios("/expenseManagement/approval/getUserList", "get", {deptCd : data.deptCd});
+                EventBus.$emit('userList', user.data.userList);
             }
         }
     }
@@ -79,8 +72,9 @@ $(document).ready(function(){
              * @note 부서 목록 조회
              * @author : es-seungglee
              ***********************************************/
-            getDeptList() {
-                this.doAxios("/expenseManagement/approval/getDeptList", "get", null, this.setData);
+            async getDeptList() {
+                let dept = await this.doAxios("/expenseManagement/approval/getDeptList", "get");
+                this.deptList = dept.data.deptList;
             }
             /**********************************************
              * @method : userReceive
@@ -90,14 +84,6 @@ $(document).ready(function(){
             , userReceive(data) {
                 console.log(data);
                 this.userList = data;
-            }
-            /**********************************************
-             * @method : setData
-             * @note 서버 통신 이후 세팅용 콜백 함수
-             * @author : es-seungglee
-             ***********************************************/
-            , setData(data) {
-                this.deptList = data.deptList;
             }
             /**********************************************
              * @method : log

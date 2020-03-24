@@ -69,7 +69,9 @@ let EventBus = new Vue();           // 이벤트 전달용 vue
  * @returns
  */
 function getDate(date, type){
-    
+    if(!(date instanceof Date)) {
+        return date;
+    }
     let year = date.getFullYear();
     let month = date.getMonth() +1;
     let day = date.getDate();
@@ -88,4 +90,8 @@ function getDate(date, type){
     today = year + type + month + type + day;
     
     return today;
+}
+
+function isNull(str) {
+    return (str === null || str === 'null' || str === undefined || str === 'undefined');
 }

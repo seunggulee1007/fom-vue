@@ -1,8 +1,5 @@
 package net.smilegate.fim.controller.portalmanagement;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +32,12 @@ public class PortalManagementProcController {
     }
     
     @GetMapping("/infoList")
-    public CommonResultVO infoList(@PageableDefault(sort = { "boardId" }, direction = Direction.DESC, size = 10) Pageable pageable, BoardVO boardVO) {
-        return boardService.infoList(pageable, boardVO);
+    public CommonResultVO infoList(BoardVO boardVO) {
+        return boardService.infoList(boardVO);
     }
-
+    /*
+     * @GetMapping("/infoList") public CommonResultVO infoList(@PageableDefault(sort
+     * = { "boardId" }, direction = Direction.DESC, size = 10) Pageable pageable,
+     * BoardVO boardVO) { return boardService.infoList(pageable, boardVO); }
+     */
 }

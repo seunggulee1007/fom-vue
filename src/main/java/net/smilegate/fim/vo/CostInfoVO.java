@@ -13,12 +13,20 @@ public class CostInfoVO {
     private int tiCostSerl;
     /** 비용항목 중분류 */
     private String smKindSeq;
+    /** 비용항목 중분류 명*/
+    private String smKindName;
     /** 비용항목 소분류 */
     private String costSeq;
+    /** 비용항목 소분류 명 */
+    private String costName;
     /** 비용항목 코드 */
     private String costItemCd;
+    /** 비용항목 코드 명 */
+    private String costItemNm;
     /** 활동 센터 */
     private String activityCd;
+    /** 액티비티 명 */
+    private String activityNm;
     /** 업체명(접대비) */
     private String custName;
     /** 업체 담당자(접대비) */

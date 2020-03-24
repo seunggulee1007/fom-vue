@@ -54,30 +54,15 @@ public class TiarCostVO {
     private int regErpDeptSeq;
     /** 사용자 사번 */
     private String regEmpNo;
-    
     /** 등록자부서 코드 */
     private String regDeptCd;
-    
-    /** # 기안자 이름 */
-    private String regEmpNm;
-    
-    /** 기안자 부서 코드 */
-    private int regDeptSeq;
-    
-    /** # 기안자 부서명 */
-    private String regDeptNm;
-    
+    /** 전체 금액 */
+    private int totalAmt;
     /** 데이터 최종수정자 */
     private int lastUserId;
     /** 데이터 최종 수정일 */
     private String lastDateTime;
     /** 지출결의서(비용정산)상세 리스트 */
     private List<TiarCostAmtVO> tiarCostAmtList;
-    
-    
-    
-    /** 은행명 */
-    private String bankNm;
-    
     
 }

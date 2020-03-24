@@ -89,6 +89,12 @@ public class BoardVO {
     @Transient
     private String search;
     
+    @Transient
+    private String fileId;
+    
+    @Transient 
+    private String iconSrc;
+    
     public void setBoardMasterId(int id) {
         BoardMasterVO boardMasterVO = new BoardMasterVO();
         boardMasterVO.setBoardMasterId(id);

@@ -80,7 +80,9 @@ public class CommonUtil {
      */
     public static boolean isBusinessId(String str) {
         String[] strs = str.split("");
-        if (strs.length != 10) return false;
+        if (strs.length != 10) {
+            return false;
+        }
         int[] ints = new int[10];
         for(int i=0; i< strs.length; i++) {
             ints[i] = Integer.valueOf(strs[i]);
@@ -94,9 +96,9 @@ public class CommonUtil {
         sum += (num / 10) + (num % 10);
         sum = 10 - (sum % 10);
         if(sum== 10){
-             return 0 == ints[9] ? true : false;
+            return 0 == ints[9] ? true : false;
         }else{
-             return sum == ints[9] ? true : false;
+            return sum == ints[9] ? true : false;
         }
     }
 
@@ -117,7 +119,7 @@ public class CommonUtil {
     }
     
     public static boolean compareObject(Object obj, Object compareObj) throws IllegalArgumentException, IllegalAccessException {
-        for(Field field : obj.getClass().getDeclaredFields()) {
+        e: for(Field field : obj.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             Object value = field.get(obj);
             String fieldName = field.getName();
@@ -125,18 +127,37 @@ public class CommonUtil {
                 compareField.setAccessible(true);
                 String compareFieldName = compareField.getName();
                 if(value instanceof List) {
-                    continue;
+                    continue e;
                 }
                 if(fieldName.equals(compareFieldName)) {
                     Object compareValue = compareField.get(compareObj);
                     if(value != null && !value.equals(compareValue)) {
+                        System.err.println("value ::: " + value + ", compareValue ::: " + compareValue);
+                        System.err.println("fieldName ::: " + fieldName + ", compareFieldName ::: " + compareFieldName);
                         return false;
                     }
-                    continue;
+                    continue e;
                 }
                 
             }
         }
         return true;
+    }
+    
+    public static Object copyObject(Object originObj, Object copyObj) throws IllegalArgumentException, IllegalAccessException {
+        for(Field field : originObj.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            Object value = field.get(originObj);
+            String fieldName = field.getName();
+            for(Field copyField : copyObj.getClass().getDeclaredFields()) {
+                copyField.setAccessible(true);
+                String copyFieldName = copyField.getName();
+                if(fieldName.equals(copyFieldName)) {
+                    copyField.set(copyObj, value);
+                    continue;
+                }
+            }
+        }
+        return copyObj;
     }
 }

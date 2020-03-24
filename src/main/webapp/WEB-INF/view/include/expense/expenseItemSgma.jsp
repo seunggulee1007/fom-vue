@@ -16,13 +16,13 @@
                                     <div class="search-form">
                                         <em class="search-form__title">SGMA - Activity</em>
                                         <div class="search-form__inner">         
-                                            <input type="search" v-model="expenseVO.activityNm" @keyup.enter="selectExpenseList();">
+                                            <input type="search" v-model="costInfoVO.activityNm" @keyup.enter="selectExpenseList();">
                                         </div>
                                     </div>
                                     <div class="search-form">
                                         <em class="search-form__title">SGMA - 비용항목</em>
                                         <div class="search-form__inner">         
-                                            <input type="search" v-model="expenseVO.costItemNm" @keyup.enter="selectExpenseList();">
+                                            <input type="search" v-model="costInfoVO.costItemNm" @keyup.enter="selectExpenseList();">
                                         </div>
                                     </div>
                             </fieldset>

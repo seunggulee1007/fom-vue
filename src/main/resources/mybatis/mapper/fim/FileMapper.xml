@@ -28,4 +28,18 @@
         )
     </insert>
         
+    <select id="selectFileList" parameterType="fileVO" resultType="fileVO">
+        select
+            file_id             as fileId
+            ,file_nm            as fileNm
+            ,original_file_nm   as originalFileNm
+            ,file_path          as filePath
+            ,content_type       as contentType
+            ,extention          as extention
+            ,file_size          as fileSize
+            ,board_id           as boardId
+        from tb_file
+        where
+            board_id = #{refId}
+    </select>
 </mapper>

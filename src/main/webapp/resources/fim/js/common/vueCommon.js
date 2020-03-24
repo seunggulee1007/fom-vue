@@ -26,27 +26,23 @@ const MyPlugin = {
            * @note  넘겨진 정보에 따라 비동기 통신하는 함수(공통)
            * @author : es-seungglee
            ***********************************************/
-          doAxios : function(url, method, data, rtnFunction, errFucntion) {
+          doAxios : function(url, method, data) {
               $.blockUI({ message: '<h3><img src="/resources/fim/img/icon_loading.gif" /> 처리중입니다. 잠시만 기다려 주세요.</h3>' }); 
-              axios({
+              return axios({
                   method : method
                   ,url : url
                   ,params : data
-              }).then(res => {
-                  if(typeof(rtnFunction) === 'function') {
-                      rtnFunction(res.data.data);
-                  }
-                  $.unblockUI();
-              })
-              .catch(e => {
-                  console.log(e);
-                  alert(e.response.data.resultMsg);
-                  if(typeof(errFunction) === 'function') {
-                      errFunction();
-                  }
-                  $.unblockUI();
-                  
-              });
+              }).then(this.successFunction, this.errorFunction)
+             
+          }
+          ,
+          successFunction(res) {
+              $.unblockUI();
+              return res.data;
+          }
+          ,errorFunction(err) {
+              $.unblockUI();
+              return err.data;
           }
           /**********************************************
            * @method : checkBizNo
@@ -136,7 +132,7 @@ const MyPlugin = {
            * @note  3자리마다 ,(컴마)를 찍어주는 함수
            * @author : es-seungglee
            ***********************************************/
-          , setComma(value) {
+          , setComma(value, flag) {
               value = value.toString();
               if(value.indexOf(".") != -1) {          // 소수점 들어왔을 시
                   if(flag) {                          // 반올림 여부
@@ -159,7 +155,11 @@ const MyPlugin = {
               }
           }
           , getDate(date, type){
-              if(!date instanceof Date) {
+              if(!(date instanceof Date)) {
+                 console.log(typeof(date));
+                 if(date.indexOf('-') == -1) {
+                     date = date.substr(0,4) + "-" + date.substr(4,2) + "-" + date.substr(6,2);
+                 } 
                  return date;
               }
               let year = date.getFullYear();
