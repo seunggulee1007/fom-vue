@@ -16,7 +16,7 @@
             </button>
         </div>                
         <div class="component-box">
-            <a href="expense_history.html" class="btn btn--orange">
+            <a href="/expenseManagement/approval/expenseHistory" class="btn btn--orange">
                 <span class="btn__txt">지출결의서 조회</span>
             </a>
         </div>                

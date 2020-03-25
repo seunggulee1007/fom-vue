@@ -48,11 +48,16 @@ $(document).ready(function() {
              * @note 넘겨진 날짜로 해당 날짜의 환율 조회
              * @author : es-seungglee
              ***********************************************/
-            getExchangeList () {
-                let exchange = this.doAxios("/financialLink/exRate" + this.selectedDate.replace(/-/gi, ""));
-                this.exchangeList = exchange.data.exRateList;
-                this.originDataList = this.exchangeList;
-                this.filterExchange();
+            async getExchangeList () {
+                try {
+                    let exchange = await this.doAxios("/financialLink/exRate/" + this.selectedDate.replace(/-/gi, ""));
+                    console.log(exchange);
+                    this.exchangeList = exchange.data.exRateList;
+                    this.originDataList = this.exchangeList;
+                    this.filterExchange();
+                }catch (err) {
+                    alert(err);
+                }
             }       // end getExchangeList
             /**********************************************
              * @method : getCurrencyCode

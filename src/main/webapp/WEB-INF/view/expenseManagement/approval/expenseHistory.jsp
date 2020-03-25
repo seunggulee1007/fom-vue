@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<script src='https://unpkg.com/v-calendar@next'></script>
+<script type="text/babel" src="/resources/fim/js/expenseManagement/expenseHistory.js"></script>
 <jsp:include page="/WEB-INF/view/include/expenseManagementInclude.jsp"/>
     
 <div id="container" class="container container--include-lnb container--fullview container-write">
@@ -14,243 +15,18 @@
             </button>
         </div>                
         <div class="component-box">
-            <a href="expense.html" class="btn btn--orange">
+            <a href="/expenseManagement/approval/expense" class="btn btn--orange">
                 <span class="btn__txt">지출결의서 작성</span>
             </a>
         </div>                
     </div>
-    <div class="grid-layout">
+    <div class="grid-layout" id="app" v-cloak>
         <div class="grid-column grid-column10">
-            <!-- <div class="section section--border">
-                <div class="component-area">
-                    <form>
-                        <fieldset>
-                            <legend>지출결의서 조회 영역</legend>
-                            <div class="table table-chain">
-                                <table>
-                                    <caption>
-                                        <span class="blind">조회 대상 정보 기입</span>
-                                    </caption>
-                                    <colgroup>
-                                        <col width="10%">
-                                        <col width="18%">
-                                        <col width="10%">
-                                        <col>
-                                        <col width="10%">
-                                        <col>
-                                        <col width="10%">
-                                        <col>
-                                    </colgroup>
-                                    <tbody>
-                                        <tr>
-                                            <th class="table__th">기안일자</th>
-                                            <td class="table__td table__td--datepicker-range">
-                                                <div class="component-group">
-                                                    <div class="component-box">
-                                                        <div class="input-field datepicker__v-calendar">
-                                                            <input type="text" v-model='searchStdDt' readonly id="date_input_exchange1" class="input-field__input">
-                                                            <v-date-picker :mode='mode' v-model='searchStdDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
-                                                                <span class="sp icon-datepicker">
-                                                                    <span class="blind">Calendar 열기</span>
-                                                                </span>
-                                                            </v-date-picker>
-                                                        </div>
-                                                    </div>
-                                                    <div class="component-box">
-                                                        <p class="component-box__txt">
-                                                        ~
-                                                        </p>
-                                                    </div>   
-                                                    <div class="component-box">
-                                                        <div class="input-field input-field--no-title datepicker__v-calendar">
-                                                            <input type="text" v-model='searchEndDt' readonly id="date_input_exchange2" class="input-field__input">
-                                                            <v-date-picker :mode='mode' v-model='searchEndDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
-                                                                <span class="sp icon-datepicker">
-                                                                    <span class="blind">Calendar 열기</span>
-                                                                </span>
-                                                            </v-date-picker>
-                                                        </div>
-                                                    </div>
-                                                </div>   
-                                            </td>
-                                            <th class="table__th">기안자</th>
-                                            <td class="table__td">
-                                                <div class="input-field">
-                                                    <input type="text" class="input-field__input">
-                                                </div>
-                                            </td>
-                                            <th class="table__th">기안부서</th>
-                                            <td class="table__td">
-                                                <div class="input-field">
-                                                    <input type="text" class="input-field__input">
-                                                </div>
-                                            </td>
-                                            <th class="table__th">예산부서</th>
-                                            <td class="table__td">
-                                                <div class="input-field">
-                                                    <input type="text" class="input-field__input">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="table__th">사용일자</th>
-                                            <td class="table__td table__td--datepicker-range">
-                                                <div class="component-group">
-                                                    <div class="component-box">
-                                                        <div class="input-field datepicker__v-calendar">
-                                                            <input type="text" v-model='searchStdDt' readonly id="date_input_exchange1" class="input-field__input">
-                                                            <v-date-picker :mode='mode' v-model='searchStdDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
-                                                                <span class="sp icon-datepicker">
-                                                                    <span class="blind">Calendar 열기</span>
-                                                                </span>
-                                                            </v-date-picker>
-                                                        </div>
-                                                    </div>
-                                                    <div class="component-box">
-                                                        <p class="component-box__txt">
-                                                        ~
-                                                        </p>
-                                                    </div>   
-                                                    <div class="component-box">
-                                                        <div class="input-field input-field--no-title datepicker__v-calendar">
-                                                            <input type="text" v-model='searchEndDt' readonly id="date_input_exchange2" class="input-field__input">
-                                                            <v-date-picker :mode='mode' v-model='searchEndDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
-                                                                <span class="sp icon-datepicker">
-                                                                    <span class="blind">Calendar 열기</span>
-                                                                </span>
-                                                            </v-date-picker>
-                                                        </div>
-                                                    </div>
-                                                </div>   
-                                            </td>
-                                            <th class="table__th">가맹점</th>
-                                            <td class="table__td">
-                                                <div class="input-field">
-                                                    <input type="text" class="input-field__input">
-                                                </div>
-                                            </td>
-                                            <th class="table__th">적요</th>
-                                            <td class="table__td" colspan="3">
-                                                <div class="input-field">
-                                                    <input type="text" class="input-field__input">
-                                                </div>
-                                            </td>                                                    
-                                        </tr>
-                                        <tr>
-                                          <th class="table__th">비용항목-중분류</th>
-                                          <td class="table__td">
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown__button">
-                                                    <span class="dropdown__button-text">선택</span>
-                                                    <span class="sp icon-arrow"><span class="blind">중분류 선택하기</span></span>
-                                                </a>
-                                                <ul class="dropdown__list">
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">복리후생</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">교통비</span>
-                                                        </a>
-                                                    </li>	
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">접대비</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">해외출장</span>
-                                                        </a>
-                                                    </li>	
-                                                </ul>
-                                            </div>
-                                          </td>
-                                          <th class="table__th">비용항목-소분류</th>
-                                          <td class="table__td">
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown__button">
-                                                    <span class="dropdown__button-text">선택</span>
-                                                    <span class="sp icon-arrow"><span class="blind">중분류 선택하기</span></span>
-                                                </a>
-                                                <ul class="dropdown__list">
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">야근식대</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">야근교통비</span>
-                                                        </a>
-                                                    </li>	
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">외근교통비</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">유류대-직원</span>
-                                                        </a>
-                                                    </li>	
-                                                </ul>
-                                            </div>
-                                          </td>
-                                          <th class="table__th">Activity</th>
-                                            <td class="table__td">
-                                                <div class="input-field">
-                                                    <input type="text" class="input-field__input">
-                                                </div>
-                                            </td>
-                                            <th class="table__th">전자결재상태</th>
-                                            <td class="table__td">
-                                                <div class="dropdown">
-                                                    <a href="#" class="dropdown__button">
-                                                        <span class="dropdown__button-text">선택</span>
-                                                        <span class="sp icon-arrow"><span class="blind">전자결재상태 조회</span></span>
-                                                    </a>
-                                                    <ul class="dropdown__list">
-                                                        <li class="dropdown__item">
-                                                            <a href="#" class="dropdown__menu">
-                                                                <span class="dropdown__menu-txt">대기</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="dropdown__item">
-                                                            <a href="#" class="dropdown__menu">
-                                                                <span class="dropdown__menu-txt">진행</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="dropdown__item">
-                                                            <a href="#" class="dropdown__menu">
-                                                                <span class="dropdown__menu-txt">완료(승인)</span>
-                                                            </a>
-                                                        </li>	
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="component-group btn-box align-right">
-                                <div class="component-box">
-                                    <button type="button" class="btn btn--bgtype">
-                                        <span class="btn__txt">조회</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </div> -->
             <div class="section section--border section-history section-expense-history">
                  <div class="component-area clearfix ">
                     <div class="component-group">
                         <div class="component-box">
-                            <select name="searchPeriodItem" id="searchPeriodItem" class="dropdown-select">
+                            <select name="searchPeriodItem" id="searchPeriodItem" class="dropdown-select" v-model="searchKind">
                                 <option value="search_period-draft" class="dropdown-select__menu">
                                     <span class="dropdown__menu-txt">기안일자</span>
                                 </option>
@@ -259,24 +35,6 @@
                                 </option>
                             </select>
                         </div>
-                       <!--  <div class="dropdown">                                        
-                            <a href="#" class="dropdown__button dropdown__button--selected">
-                                <span class="dropdown__button-text">기안일자</span>
-                                <span class="sp icon-arrow"><span class="blind">조회기간 선택</span></span>
-                            </a>
-                            <ul class="dropdown__list">
-                                <li class="dropdown__item">
-                                    <a href="#" class="dropdown__menu">
-                                        <span class="dropdown__menu-txt">기안일자</span>
-                                    </a>
-                                </li>
-                                <li class="dropdown__item">
-                                    <a href="#" class="dropdown__menu">
-                                        <span class="dropdown__menu-txt">사용일자</span>
-                                    </a>
-                                </li>	
-                            </ul>
-                        </div> -->
                         <div class="component-box">
                             <div class="input-field input-field--no-title datepicker__v-calendar">
                                 <input type="text" v-model='searchStdDt' readonly id="date_input_exchange1" class="input-field__input">
@@ -330,44 +88,6 @@
                                                     <span class="dropdown__menu-txt">예산부서</span>
                                                 </option>
                                             </select>
-                                            <!-- <div class="dropdown">                                        
-                                                <a href="#" class="dropdown__button dropdown__button--selected">
-                                                    <span class="dropdown__button-text">적요</span>
-                                                    <span class="sp icon-arrow"><span class="blind">검색조건 선택</span></span>
-                                                </a>
-                                                <ul class="dropdown__list">
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">적요</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">기안자</span>
-                                                        </a>
-                                                    </li>	
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">기안부서</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">사용자</span>
-                                                        </a>
-                                                    </li>	
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">귀속부서</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">예산부서</span>
-                                                        </a>
-                                                    </li>	
-                                                </ul>
-                                            </div> -->
                                         </div>
                                         <div class="search-form__inner">
                                             <input type="search">
@@ -399,44 +119,6 @@
                                                     <span class="dropdown__menu-txt">예산부서</span>
                                                 </option>
                                             </select>
-                                            <!-- <div class="dropdown">                                        
-                                                <a href="#" class="dropdown__button dropdown__button--selected">
-                                                    <span class="dropdown__button-text">기안자</span>
-                                                    <span class="sp icon-arrow"><span class="blind">검색조건 선택</span></span>
-                                                </a>
-                                                <ul class="dropdown__list">
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">적요</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">기안자</span>
-                                                        </a>
-                                                    </li>	
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">기안부서</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">사용자</span>
-                                                        </a>
-                                                    </li>	
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">귀속부서</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="dropdown__item">
-                                                        <a href="#" class="dropdown__menu">
-                                                            <span class="dropdown__menu-txt">예산부서</span>
-                                                        </a>
-                                                    </li>	
-                                                </ul>
-                                            </div> -->
                                         </div>
                                         <div class="search-form__inner">
                                             <input type="search">

@@ -34,6 +34,7 @@
     <script type="text/javascript" src="/webjars/babel-standalone/6.21.1/babel.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script> 
+    <script type="text/javascript" src="/resources/fim/js/browser.js"></script>
 
     <script type="text/javascript" src="/resources/fim/js/script.js"></script>    
 

@@ -3,7 +3,7 @@ $(document).ready(function(){
     let TreeItem = {        // tree 구조를 위한 컴포넌트 추가
         template : `<li>
             <div @click="toggle" :class="{ 'lst-tree__menu' : isFolder }">
-                <span v-if="isFolder"  class="icon-folder-open">[{{ isOpen ? '-' : '+' }}]</span>
+                <span v-if="isFolder"  class="icon-folder-open">{{ isOpen ? '-' : '+' }}</span>
                 <span @click="clickDept(item);">{{ item.deptNm }}</span>
             </div>
             <ul class="lst-tree__sub" v-show="isOpen" v-if="isFolder" style="padding-left: 1em;">
@@ -20,7 +20,7 @@ $(document).ready(function(){
             }
         },
         computed: {
-            isFolder: function () {
+            isFolder () {
                 return this.item.child && this.item.child.length;
             }
         },
@@ -30,7 +30,7 @@ $(document).ready(function(){
              * @note 트리 구조 접고 펴는 함수
              * @author : es-seungglee
              ***********************************************/
-            toggle: function () {
+            toggle () {
                 if (this.isFolder) {
                     this.isOpen = !this.isOpen
                 }
