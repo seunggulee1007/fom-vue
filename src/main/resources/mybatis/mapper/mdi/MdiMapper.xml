@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.smilegate.fim.mappers.mdi.MdiMapper">
-    
+
     <select id="selectDeptList" resultType="deptVO">
         select
             DEPT_CD         as deptCd
@@ -16,7 +16,7 @@
             ,COM_NM         as comNm
         FROM VW_MDI_DEPT_INFO
     </select>
-    
+
     <select id="selectUserList" resultType="userVO">
         SELECT
             USER_ID  AS userId
@@ -35,5 +35,5 @@
         WHERE
             dept_cd = #{deptCd}
     </select>
-    
+
 </mapper>

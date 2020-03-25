@@ -3,124 +3,133 @@
 
                 <div class="lst-tab-cnt lst-tab-cnt--active">
                     <div class="section section--border section-expense">
-                        <div class="component-group">
-                            <div class="table table-chain">
-                                <table>
-                                    <caption><span class="blind">법인카드 정산 신청</span></caption>
-                                    <colgroup>
-                                        <col width="9%">
-                                        <col>
-                                        <col width="9%">
-                                        <col>
-                                        <col width="9%">
-                                        <col>
-                                        <col width="9%">
-                                        <col width="22%">
-                                    </colgroup>
-                                    <tbody>
-                                        <tr>
-                                            <th class="table__th">문서번호</th>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt">결재 완료 시, 발번됩니다.</span>
-                                            </td>
-                                            <th class="table__th">기안일자</th>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt">20/03/10</span>
-                                            </td>
-                                            <th class="table__th">기안자</th>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt">홍길동A</span>
-                                            </td>
-                                            <th class="table__th">정산번호</th>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="table__th">기안부서</th>
-                                            <td colspan="7" class="table__td table__td--data"><span class="table__txt">SGH>IT기술본부>기술지원담당>정보시스템실>정보개발팀</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="table__th table__th--required">제목</th>
-                                            <td colspan="7" class="table__td">
-                                                <div class="input-field input-field-table">
-                                                    <input type="text" class="input-field__input" value="[SGH][테스트_홍길동A_2020-03-10]">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="component-group">
-                            <em class="component__title">1. 카드 정보</em>
-                            <div class="table table-chain">
-                                <table>
-                                    <caption><span class="blind">정산신청을 위한 카드 정보 입력</span></caption>
-                                    <colgroup>
-                                        <col width="9%">
-                                        <col>
-                                        <col width="9%">
-                                        <col>
-                                        <col width="9%">
-                                        <col>
-                                        <col width="9%">
-                                        <col width="22%">
-                                    </colgroup>
-                                    <tbody>
-                                        <tr>
-                                            <th class="table__th table__th--required">사용자</th>
-                                            <td class="table__td table__td--btn">
-                                                <span class="table__txt">홍길동A</span>
-                                                <button type="button" class="btn btn-change-user" onclick="openPopup();" style="top: 5px; right:16px;">
-                                                    <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
-                                                </button>
-                                                <span class="table__txt"></span>
-                                            </td>
-                                            <th class="table__th">사용자 부서</th>
-                                            <td class="table__td">
-                                                <span class="table__txt">정보개발팀</span>
-                                            </td>
-                                            <th class="table__th table__th--required">카드번호</th>
-                                            <td class="table__td">
-                                                <select name="companyCardNum" id="companyCardNum" class="dropdown-select">
-                                                    <option value="companyCard1" class="dropdown-select__menu">
-                                                        <span class="dropdown__menu-txt">1234-5678-9000-1234</span>
-                                                    </option>
-                                                    <option value="companyCard2" class="dropdown-select__menu">
-                                                        <span class="dropdown__menu-txt">1234-5678-9000-0000</span>
-                                                    </option>
-                                                </select>
-                                            </td>
-                                            <th class="table__th">카드구분</th>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt">[임원] 외환카드0000 (하이패스,홍길동A)</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="table__th table__th--required">정산년월</th>
-                                            <td class="table__td">
-                                                <div class="input-field datepicker__v-calendar">
-                                                    <input type="text" v-model='searchEndDt' readonly id="date_input_exchange2" class="input-field__input" style="max-width: 100%">
-                                                    <v-date-picker :mode='mode' v-model='searchEndDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
-                                                        <span class="sp icon-datepicker">
-                                                            <span class="blind">Calendar 열기</span>
-                                                        </span>
-                                                    </v-date-picker>
-                                                </div>
-                                            </td>
-                                            <td class="table__td" colspan="6">
-                                                <button type="button" class="btn btn--orange" onclick="">
-                                                    <span class="btn__txt">카드결제 내역 가져오기</span>
-                                                </button>
-                                                <span class="table__txt"></span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="component-group">
+<!--                     	<form id="accountCardFrm" method="post" enctype="multipart/form-data"> -->
+                    	<form id="accountCardFrm" method="post" enctype="multipart/form-data">
+                    		<input type="hidden" id="comCd" name="comCd" value="2">
+                    		<input type="hidden" id="erpCompanySeq" name="erpCompanySeq" value="2">
+                    		<input type="hidden" id="regDate" name="regDate" value="20200324">
+                    		<input type="hidden" id="regErpEmpSeq" name="regErpEmpSeq" value="140">
+                    		<input type="hidden" id="regUserId" name="regUserId" value="140">
+                    		<input type="hidden" id="regEmpNo" name="regEmpNo" value="140">
+                    		<input type="hidden" id="lastUserId" name="lastUserId" value="140">
+
+	                        <div class="component-group">
+	                            <div class="table table-chain">
+	                                <table>
+	                                    <caption><span class="blind">법인카드 정산 신청</span></caption>
+	                                    <colgroup>
+	                                        <col width="9%">
+	                                        <col>
+	                                        <col width="9%">
+	                                        <col>
+	                                        <col width="9%">
+	                                        <col>
+	                                        <col width="9%">
+	                                        <col width="22%">
+	                                    </colgroup>
+	                                    <tbody>
+	                                        <tr>
+	                                            <th class="table__th">문서번호</th>
+	                                            <td class="table__td table__td--data">
+	                                                <span class="table__txt">결재 완료 시, 발번됩니다.</span>
+	                                            </td>
+	                                            <th class="table__th">기안일자</th>
+	                                            <td class="table__td table__td--data">
+	                                                <span class="table__txt">20/03/10</span>
+	                                            </td>
+	                                            <th class="table__th">기안자</th>
+	                                            <td class="table__td table__td--data">
+	                                                <span class="table__txt">홍길동A</span>
+	                                            </td>
+	                                            <th class="table__th">정산번호</th>
+	                                            <td class="table__td table__td--data">
+	                                                <span class="table__txt"></span>
+	                                            </td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th class="table__th">기안부서</th>
+	                                            <td colspan="7" class="table__td table__td--data">
+
+	                                            	<span class="table__txt">SGH>IT기술본부>기술지원담당>정보시스템실>정보개발팀</span>
+	                                            </td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th class="table__th table__th--required">제목</th>
+	                                            <td colspan="7" class="table__td">
+	                                                <div class="input-field input-field-table">
+	                                                	<input type="hidden" id="regDeptCd" name="regDeptCd" value="33333">
+	                                                	<input type="hidden" id="regErpDeptSeq" name="regErpDeptSeq" value="33333">
+	                                                    <input id="title" name="title" type="text" class="input-field__input" value="[SGH][테스트_홍길동A_2020-03-24]">
+	                                                </div>
+	                                            </td>
+	                                        </tr>
+	                                    </tbody>
+	                                </table>
+	                            </div>
+	                        </div>
+	                        <div class="component-group">
+	                            <em class="component__title">1. 카드 정보</em>
+	                            <div class="table table-chain">
+	                                <table>
+	                                    <caption><span class="blind">정산신청을 위한 카드 정보 입력</span></caption>
+	                                    <colgroup>
+	                                        <col width="9%">
+	                                        <col>
+	                                        <col width="9%">
+	                                        <col>
+	                                        <col width="9%">
+	                                        <col>
+	                                        <col width="9%">
+	                                        <col width="22%">
+	                                    </colgroup>
+	                                    <tbody>
+	                                        <tr>
+	                                            <th class="table__th table__th--required">사용자</th>
+	                                            <td class="table__td table__td--btn">
+	                                                <span class="table__txt">홍길동A</span>
+	                                                <button type="button" class="btn btn-change-user" id="btnCardUser" style="top: 5px; right:16px;">
+	                                                    <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
+	                                                </button>
+	                                                <span class="table__txt"></span>
+	                                            </td>
+	                                            <th class="table__th">사용자 부서</th>
+	                                            <td class="table__td">
+	                                                <span class="table__txt">정보개발팀</span>
+	                                            </td>
+	                                            <th class="table__th table__th--required">카드번호</th>
+	                                            <td class="table__td">
+	                                                <select name="cardCd" id="cardCd" class="dropdown-select">
+	                                                </select>
+	                                            </td>
+	                                            <th class="table__th">카드구분</th>
+	                                            <td class="table__td table__td--data">
+	                                                <span id="cardDiv" class="table__txt">[임원] 외환카드0000 (하이패스,홍길동A)</span>
+	                                            </td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th class="table__th table__th--required">정산년월</th>
+	                                            <td class="table__td">
+	                                                <div class="input-field datepicker__v-calendar">
+	                                                    <input type="text" v-model='searchEndDt' readonly id="date_input_exchange2" class="input-field__input" style="max-width: 100%">
+	                                                    <v-date-picker :mode='mode' v-model='searchEndDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
+	                                                        <span class="sp icon-datepicker">
+	                                                            <span class="blind">Calendar 열기</span>
+	                                                        </span>
+	                                                    </v-date-picker>
+	                                                </div>
+	                                            </td>
+	                                            <td class="table__td" colspan="6">
+	                                                <button type="button" class="btn btn--orange" onclick="">
+	                                                    <span class="btn__txt">카드결제 내역 가져오기</span>
+	                                                </button>
+	                                                <span class="table__txt"></span>
+	                                            </td>
+	                                        </tr>
+	                                    </tbody>
+	                                </table>
+	                            </div>
+	                        </div>
+	                        <div class="component-group">
                             <div class="clearfix">
                                 <div class="component-box component-box--align-left">
                                     <em class="component__title">2. 정산 내역</em>
@@ -144,7 +153,7 @@
                                 </div>
                             </div>
                             <div class="table table-chain" style="margin-top: 0">
-                                <table>
+                                <table id="useCardList">
                                     <caption><span class="blind">카드 사용에 대한 자세한 정산 내역 작성</span></caption>
                                     <colgroup>
                                         <col width="46px">
@@ -193,10 +202,129 @@
                                     </thead>
                                     <tbody>
                                         <tr>
+                                        	<input type="hidden" name="cardDetailList[0].companySeq" value="2">
+                                        	<input type="hidden" name="cardDetailList[0].cancelYn" value="1">
+                                        	<input type="hidden" name="cardDetailList[0].apprSeq" value="1234">
+                                        	<input type="hidden" name="cardDetailList[0].apprNo" value="123433">
+                                        	<input type="hidden" name="cardDetailList[0].cardCd" value="9410050000749178">
+                                        	<input type="hidden" name="cardDetailList[0].apprDate" value="20200320">
+
                                             <td class="table__td">
                                                 <div class="btn_group">
                                                     <span class="btn-checkbox">
-                                                        <input type="checkbox" id="checkbox_expenseChk1">
+                                                        <input type="checkbox" id="checkbox_expenseChk0" name="cardDetailList[0].useCheck">
+                                                        <label for="checkbox_expenseChk0" class="btn-checkbox__label"><span class="blind">선택</span></label>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="table__td">
+                                                <div class="btn_group">
+                                                    <span class="btn-checkbox">
+                                                        <input type="checkbox" id="checkbox_cardExpense0" disabled>
+                                                        <label for="checkbox_cardExpense0" class="btn-checkbox__label"><span class="blind">개인비용처리 선택</span></label>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="table__td">
+                                                <span class="table__txt">20200320</span>
+                                            </td>
+                                            <td class="table__td">
+                                                <span class="table__txt">13:20</span>
+                                            </td>
+                                            <td class="table__td">
+                                                <div class="tooltip-box tooltip--hover tooltip--right">
+                                                    <span class="table__txt">(주)너와집 백현점</span>
+                                                    <input type="hidden" name="chainAddr" value="경기 성남시 분당구 안양판교로 1201번길 45, 지상1층 (백현동)">
+                                                    <input type="hidden" name="mccName" value="일반음식점">
+                                                    <input type="hidden" name="chainId" value="1298553548">
+                                                    <input type="hidden" name="apprNo" value="12345679">
+                                                    <input type="hidden" name="chainNm" value="(주)너와집 백현점">
+
+                                                    <span class="sp icon-info"></span>
+                                                    <div class="tooltip__inner">
+                                                        <p class="tooltip__txt">
+                                                            가맹점명: (주)너와집 백현점
+                                                        </p>
+                                                        <p class="tooltip__txt">
+                                                            주소: 경기 성남시 분당구 안양판교로 1201번길 45, 지상1층 (백현동)
+                                                        </p>
+                                                        <p class="tooltip__txt">
+                                                            사업자번호: 1298553548
+                                                        </p>
+                                                        <p class="tooltip__txt">
+                                                            업종: 일반음식점
+                                                        </p>
+                                                        <p class="tooltip__txt">
+                                                            승인번호: 12345679
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="table__td">
+                                                <span class="table__txt">스마일게이트홀딩스</span>
+                                            </td>
+                                            <td class="table__td table__td--btn">
+                                                <span class="table__txt">홍길동A<br><span class="table__txt-caption">정보시스템실</span></span>
+                                                <button type="button" class="btn btn-change-user" id="btnAccountUser">
+                                                    <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
+                                                </button>
+                                            </td>
+                                            <td class="table__td">
+                                                <div class="input-field input-field-table">
+                                                    <input type="text" class="input-field__input" name="inSmKindNm" value="">
+                                                </div>
+                                            </td>
+                                            <td class="table__td table__td--data">
+                                                <span class="table__txt"></span>
+                                            </td>
+                                            <td class="table__td table__td--data">
+                                                <div class="input-field input-field-table">
+                                                    <input type="text" class="input-field__input" name="inRemValSeq">
+                                                </div>
+                                            </td>
+                                            <td class="table__td table__td--data">
+                                                <span class="table__txt"></span>
+                                            </td>
+                                            <td class="table__td">
+                                                <div class="input-field input-field-table">
+                                                    <input type="text" class="input-field__input">
+                                                </div>
+                                                <span class="table__txt table__txt-caption txt--blue"></span>
+                                            </td>
+                                            <td class="table__td table__td--data">
+                                                <span class="table__txt">KRW</span>
+                                                <input type="hidden" name="currCd" class="input-field__input">
+                                            </td>
+                                            <td class="table__td table__td--data">
+                                                <span class="table__txt table__txt--align-right">10,000</span>
+                                                <input type="hidden" name="supplyAmt" class="input-field__input">
+                                            </td>
+                                            <td class="table__td table__td--data">
+                                                <span class="table__txt table__txt--align-right">0</span>
+                                                <input type="hidden" name="tipAmt" class="input-field__input">
+                                            </td>
+                                            <td class="table__td table__td--data">
+                                                <span class="table__txt table__txt--align-right">1,000</span>
+                                                <input type="hidden" name="apprTax" class="input-field__input">
+                                            </td>
+                                            <td class="table__td table__td--data">
+                                                <span class="table__txt table__txt--align-right">11,000</span>
+                                                <input type="hidden" name="sumAmt" class="input-field__input">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        	<input type="hidden" name="cardDetailList[1].companySeq" value="2">
+                                        	<input type="hidden" name="cardDetailList[1].cancelYn" value="1">
+                                        	<input type="hidden" name="cardDetailList[1].apprSeq" value="1234">
+                                        	<input type="hidden" name="cardDetailList[1].apprNo" value="123433">
+                                        	<input type="hidden" name="cardDetailList[1].cardCd" value="9410050000749176">
+                                        	<input type="hidden" name="cardDetailList[1].apprDate" value="20200320">
+
+                                            <td class="table__td">
+                                                <div class="btn_group">
+                                                    <span class="btn-checkbox">
+                                                        <input type="checkbox" id="checkbox_expenseChk1" name="cardDetailList[1].useCheck">
                                                         <label for="checkbox_expenseChk1" class="btn-checkbox__label"><span class="blind">선택</span></label>
                                                     </span>
                                                 </div>
@@ -210,7 +338,7 @@
                                                 </div>
                                             </td>
                                             <td class="table__td">
-                                                <span class="table__txt">20/03/02</span>
+                                                <span class="table__txt">20200320</span>
                                             </td>
                                             <td class="table__td">
                                                 <span class="table__txt">13:20</span>
@@ -218,13 +346,19 @@
                                             <td class="table__td">
                                                 <div class="tooltip-box tooltip--hover tooltip--right">
                                                     <span class="table__txt">(주)너와집 백현점</span>
+                                                    <input type="hidden" name="chainAddr" value="경기 성남시 분당구 안양판교로 1111번길 222, 1층 (판교)">
+                                                    <input type="hidden" name="mccName" value="일반음식점">
+                                                    <input type="hidden" name="chainId" value="1298553542">
+                                                    <input type="hidden" name="apprNo" value="12345678">
+                                                    <input type="hidden" name="chainNm" value="에머이">
+
                                                     <span class="sp icon-info"></span>
                                                     <div class="tooltip__inner">
                                                         <p class="tooltip__txt">
-                                                            가맹점명: (주)너와집 백현점
+                                                            가맹점명: 에머이
                                                         </p>
                                                         <p class="tooltip__txt">
-                                                            주소: 경기 성남시 분당구 안양판교로 1201번길 45, 지상1층 (백현동)
+                                                            주소: 경기 성남시 분당구 안양판교로 1111번길 222, 1층 (판교)
                                                         </p>
                                                         <p class="tooltip__txt">
                                                             사업자번호: 1298553542
@@ -244,13 +378,13 @@
                                             </td>
                                             <td class="table__td table__td--btn">
                                                 <span class="table__txt">홍길동A<br><span class="table__txt-caption">정보시스템실</span></span>
-                                                <button type="button" class="btn btn-change-user" onclick="openPopup()">
+                                                <button type="button" class="btn btn-change-user" id="btnAccountUser">
                                                     <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
                                                 </button>
                                             </td>
                                             <td class="table__td">
                                                 <div class="input-field input-field-table">
-                                                    <input type="text" class="input-field__input" ondblclick="$('.popup-layer--expenses-all').addClass('popup-wrap--active');">
+                                                    <input type="text" class="input-field__input" name="inSmKindNm" value="">
                                                 </div>
                                             </td>
                                             <td class="table__td table__td--data">
@@ -258,7 +392,7 @@
                                             </td>
                                             <td class="table__td table__td--data">
                                                 <div class="input-field input-field-table">
-                                                    <input type="text" class="input-field__input" ondblclick="$('.popup-layer--expenses-sgma').addClass('popup-wrap--active');">
+                                                    <input type="text" class="input-field__input" name="inRemValSeq">
                                                 </div>
                                             </td>
                                             <td class="table__td table__td--data">
@@ -272,91 +406,23 @@
                                             </td>
                                             <td class="table__td table__td--data">
                                                 <span class="table__txt">KRW</span>
+                                                <input type="hidden" name="currCd" class="input-field__input">
                                             </td>
                                             <td class="table__td table__td--data">
                                                 <span class="table__txt table__txt--align-right">10,000</span>
+                                                <input type="hidden" name="supplyAmt" class="input-field__input">
                                             </td>
                                             <td class="table__td table__td--data">
                                                 <span class="table__txt table__txt--align-right">0</span>
+                                                <input type="hidden" name="tipAmt" class="input-field__input">
                                             </td>
                                             <td class="table__td table__td--data">
                                                 <span class="table__txt table__txt--align-right">1,000</span>
+                                                <input type="hidden" name="apprTax" class="input-field__input">
                                             </td>
                                             <td class="table__td table__td--data">
                                                 <span class="table__txt table__txt--align-right">11,000</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="table__td">
-                                                <div class="btn_group">
-                                                    <span class="btn-checkbox">
-                                                        <input type="checkbox" id="checkbox_expenseChk1">
-                                                        <label for="checkbox_expenseChk1" class="btn-checkbox__label"><span class="blind">선택</span></label>
-                                                    </span>
-                                                </div>
-                                            </td>
-                                            <td class="table__td">
-                                                <div class="btn_group">
-                                                    <span class="btn-checkbox">
-                                                        <input type="checkbox" id="checkbox_cardExpense1" disabled>
-                                                        <label for="checkbox_cardExpense1" class="btn-checkbox__label"><span class="blind">개인비용처리 선택</span></label>
-                                                    </span>
-                                                </div>
-                                            </td>
-                                            <td class="table__td">
-                                                <span class="table__txt"></span>
-                                            </td>
-                                            <td class="table__td">
-                                                <span class="table__txt"></span>
-                                            </td>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt"></span>
-                                            </td>
-                                            <td class="table__td">
-                                                <span class="table__txt"></span>
-                                            </td>
-                                            <td class="table__td table__td--btn">
-                                                <span class="table__txt">홍길동A<br><span class="table__txt-caption">정보시스템실</span></span>
-                                                <button type="button" class="btn btn-change-user" onclick="$('.popup-layer--user').addClass('popup-wrap--active');">
-                                                    <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
-                                                </button>
-                                            </td>
-                                            <td class="table__td">
-                                                <div class="input-field input-field-table">
-                                                    <input type="text" class="input-field__input" ondblclick="$('.popup-layer--expenses-all').addClass('popup-wrap--active');">
-                                                </div>
-                                            </td>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt"></span>
-                                            </td>
-                                            <td class="table__td table__td--data">
-                                                <div class="input-field input-field-table">
-                                                    <input type="text" class="input-field__input" ondblclick="$('.popup-layer--expenses-sgma').addClass('popup-wrap--active');">
-                                                </div>
-                                            </td>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt"></span>
-                                            </td>
-                                            <td class="table__td">
-                                                <div class="input-field input-field-table">
-                                                    <input type="text" class="input-field__input">
-                                                </div>
-                                                <span class="table__txt table__txt-caption txt--blue"></span>
-                                            </td>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt"></span>
-                                            </td>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt table__txt--align-right"></span>
-                                            </td>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt table__txt--align-right"></span>
-                                            </td>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt table__txt--align-right"></span>
-                                            </td>
-                                            <td class="table__td table__td--data">
-                                                <span class="table__txt table__txt--align-right"></span>
+                                                <input type="hidden" name="sumAmt" class="input-field__input">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -432,16 +498,13 @@
                                             <th class="table__th">파일 첨부</th>
                                             <td class="table__td" colspan="8">
                                                 <div class="input-field input-field-table">
-                                                    <button type="button" class="btn btn-file">
-                                                        <label for="file2" class="btn__txt">파일선택</label>
+                                                    <button type="button" id="btnFile" class="btn btn-file">
+                                                        <label for="attFile" class="btn__txt">파일선택</label>
                                                     </button>
-                                                    <input type="file" id="file2" class="input-field__file blind">
-                                                    <span class="input__dsc-txt">0 Bytes / 100 MB</span>
-                                                    <div class="input-field__file-box">
-                                                        <div class="file-info">smilegate_test.xlsx</div>
-                                                        <div class="file-info">smilegate_test.xlsx</div>
-                                                        <div class="file-info">smilegate_test.xlsx</div>
-                                                        <div class="file-info">smilegate_test.xlsx</div>
+                                                    <input type="file" id="attFile" name="files" multiple="multiple" class="input-field__file blind">
+                                                    <span id="fileSize" class="input__dsc-txt">0 byte / 100 MB</span>
+                                                    <div id="fileListBox" class="input-field__file-box">
+<!--                                                         <div class="file-info">smilegate_test.xlsx</div> -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -464,6 +527,7 @@
                                 </table>
                             </div>
                         </div>
+						</form>
                     </div>
                     <div class="component-group btn-box align-center">
                         <div class="component-box">
@@ -472,7 +536,7 @@
                             </button>
                         </div>
                         <div class="component-box">
-                            <button type="button" class="btn btn--large">
+                            <button type="button" onclick="formSubmit()" class="btn btn--large">
                                 <span class="btn__txt">저장</span>
                             </button>
                         </div>

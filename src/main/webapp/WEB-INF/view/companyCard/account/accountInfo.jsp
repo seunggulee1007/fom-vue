@@ -1,47 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- <script src="/resources/fim/js/jstree.min.js"></script> -->
-<!-- <script> -->
-<!-- //     // Tree JS -->
-<!-- //     $(function () { -->
-<!-- //         // CheckBox 없는 경우 -->
-<!-- //         $('#jstree').jstree({ -->
-<!-- //         "conditionalselect" : function (node, event) { -->
-<!-- //         return false; -->
-<!-- //         }, -->
-<!-- //         "plugins" : [ "conditionalselect" ] -->
-<!-- //         }); -->
-<!-- //     }); -->
-<!-- //     $(function () { -->
-<!-- //         // CheckBox 있는 경우 -->
-<!-- //         $('#jstree2').jstree({ -->
-<!-- //             "checkbox" : { -->
-<!-- //                 "keep_selected_style" : false -->
-<!-- //             }, -->
-<!-- //             "types" : { -->
-<!-- //                 "tree" : { -->
-<!-- //                     "icon" : "jstree-themeicon-tree" -->
-<!-- //                 } -->
-<!-- //             }, -->
-<!-- //             "plugins" : [ "wholerow", "checkbox", "types" ] -->
-<!-- //         }); -->
+<script type="text/javascript" src="/resources/fim/js/libs/jquery.form.min.js"></script>
+<script type="text/javascript" src="/resources/fim/js/companyCard/accountRequest.js"></script>
 
-<!-- //         $('#jstree').on("changed.jstree", function (e, data) { -->
-<!-- //             console.log(data.selected); -->
-<!-- //         }); -->
-<!-- //     }); -->
 
-<!-- </script> -->
-<script>
-    function openPopup() {
-        EventBus.$emit('openDeptPopup');
-    }
-
-    function returnUserDept(data) {
-        console.log(data);
-    }
-</script>
 <jsp:include page="/WEB-INF/view/include/companyCardInclude.jsp"/>
 
 <!-- 조직도 다이얼로그. -->
