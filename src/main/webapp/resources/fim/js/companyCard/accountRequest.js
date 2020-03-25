@@ -4,38 +4,51 @@
  * @returns
  */
 
-//$(function(){
-//
-//	  $('#attFile').MultiFile({
-//		    // your options go here
-//		    max: 2,
-//		  });
-//});
+/** 정산내역 테이블에서 클릭한 row index */
+var rowIdx;
 
 $(document).ready(function(){
+
+
+
+//	$("#useCardList tbody tr td").find("input[name=inSmKindNm]").click(function() {
+//
+//		var column_num = parseInt( $(this).index() ) + 1;
+//		var row_num = parseInt( $(this).parent().parent().parent().index() );
+//
+//		console.log("Row_num =" + row_num + "  ,  Rolumn_num ="+ column_num);
+//
+//	});
+
 
 	/**
 	 * 조직도 팝업.
 	 */
-	$("#btnCardUser, #btnAccountUser").click((evt) => {
+	$("#btnCardUser").click((evt) => {
 		EventBus.$emit('openDeptPopup');
 	});
 
+	$("#useCardList tbody tr td").find("input[name=btnAccountUser]").dblclick((evt) => {
+		rowIdx = parseInt( $(this).parent().parent().parent().index() );
 
+		EventBus.$emit('openDeptPopup');
+	});
 
 	/**
 	 * 비용항목 팝업.
 	 */
-	$("#inSmKindNm").dblclick((evt) => {
-        console.log($(this).val())
+	$("#useCardList tbody tr td").find("input[name=inSmKindNm]").dblclick((evt) => {
+        rowIdx = parseInt( $(this).parent().parent().parent().index() );
+
         EventBus.$emit('openExpenseAllPopup', $(this).val(), '이덕호', 2);
 	});
 
 	/**
 	 * SGMA 팝업.
 	 */
-	$("#inRemValSeq").dblclick((evt) => {
-		console.log($(this).val())
+	$("#useCardList tbody tr td").find("input[name=inRemValSeq]").dblclick((evt) => {
+        rowIdx = parseInt( $(this).parent().parent().parent().index() );
+
 		EventBus.$emit('openExpenseSgmaPopup', $(this).val(), '이덕호', 2);
 	});
 
@@ -87,7 +100,7 @@ function updateSize(inFile) {
  */
 function onDeleteFile(idx){
 
-	let fileName = fileList[idx][0].name
+	let fileName = fileList[idx][0].name;
 
 	if(confirm(fileName+"\n파일을 삭제 하시겠습니까?")){
 		fileList.splice(idx, 1);

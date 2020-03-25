@@ -25,6 +25,7 @@ import net.smilegate.fim.service.file.FileService;
 import net.smilegate.fim.util.FileUtil;
 import net.smilegate.fim.vo.CommonResultVO;
 import net.smilegate.fim.vo.FileVO;
+import net.smilegate.fim.vo.account.CompanyCardCostInfoVO;
 import net.smilegate.fim.vo.account.CompanyCardDetailVO;
 import net.smilegate.fim.vo.account.CompanyCardMasterVO;
 import net.smilegate.fim.vo.account.CompanyCardVO;
@@ -68,6 +69,11 @@ public class AccountController {
 		for(CompanyCardDetailVO detail : vo.getCardDetailList()) {
 			log.debug("useCheck ===>>> " + detail.getUseCheck());
 			log.debug("companySeq ===>>> " + detail.getCompanySeq());
+
+			CompanyCardCostInfoVO costInfo = detail.getCostInfoVO();
+
+			log.debug("costInfo.getErpsmKindSeq ===>>> " + costInfo.getErpsmKindSeq());
+			log.debug("costInfo.getTiCostSerl ===>>> " + costInfo.getTiCostSerl());
 		}
 
 //		Iterator<String> fileNames = request.getFileNames();

@@ -110,12 +110,10 @@
 	                                            <th class="table__th table__th--required">정산년월</th>
 	                                            <td class="table__td">
 	                                                <div class="input-field datepicker__v-calendar">
-	                                                    <input type="text" v-model='searchEndDt' readonly id="date_input_exchange2" class="input-field__input" style="max-width: 100%">
-	                                                    <v-date-picker :mode='mode' v-model='searchEndDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
+	                                                    <input type="text" readonly id="date_input_exchange2" class="input-field__input" style="max-width: 100%">
 	                                                        <span class="sp icon-datepicker">
 	                                                            <span class="blind">Calendar 열기</span>
 	                                                        </span>
-	                                                    </v-date-picker>
 	                                                </div>
 	                                            </td>
 	                                            <td class="table__td" colspan="6">
@@ -209,6 +207,11 @@
                                         	<input type="hidden" name="cardDetailList[0].cardCd" value="9410050000749178">
                                         	<input type="hidden" name="cardDetailList[0].apprDate" value="20200320">
 
+                                        	<input type="hidden" name="cardDetailList[0].costInfoVO.companySeq" value="2">
+                                        	<input type="hidden" name="cardDetailList[0].costInfoVO.tiCostSeq" value="3">
+                                        	<input type="hidden" name="cardDetailList[0].costInfoVO.tiCostSerl" value="0">
+                                        	<input type="hidden" name="cardDetailList[0].costInfoVO.erpsmKindSeq" value="234">
+
                                             <td class="table__td">
                                                 <div class="btn_group">
                                                     <span class="btn-checkbox">
@@ -266,7 +269,7 @@
                                             </td>
                                             <td class="table__td table__td--btn">
                                                 <span class="table__txt">홍길동A<br><span class="table__txt-caption">정보시스템실</span></span>
-                                                <button type="button" class="btn btn-change-user" id="btnAccountUser">
+                                                <button type="button" class="btn btn-change-user" name="btnAccountUser">
                                                     <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
                                                 </button>
                                             </td>
@@ -320,6 +323,11 @@
                                         	<input type="hidden" name="cardDetailList[1].apprNo" value="123433">
                                         	<input type="hidden" name="cardDetailList[1].cardCd" value="9410050000749176">
                                         	<input type="hidden" name="cardDetailList[1].apprDate" value="20200320">
+
+                                        	<input type="hidden" name="cardDetailList[1].costInfoVO.companySeq" value="2">
+                                        	<input type="hidden" name="cardDetailList[1].costInfoVO.tiCostSeq" value="4">
+                                        	<input type="hidden" name="cardDetailList[1].costInfoVO.tiCostSerl" value="1">
+                                        	<input type="hidden" name="cardDetailList[1].costInfoVO.erpsmKindSeq" value="235">
 
                                             <td class="table__td">
                                                 <div class="btn_group">

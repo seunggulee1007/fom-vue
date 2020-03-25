@@ -1,6 +1,7 @@
 package net.smilegate.fim.vo.account;
 
 import lombok.Data;
+import net.smilegate.fim.vo.CostInfoVO;
 
 @Data
 public class CompanyCardDetailVO {
@@ -142,4 +143,7 @@ public class CompanyCardDetailVO {
 
 	/** 대표자명  */
 	private String chainMaster;
+
+    /** 비용항목 관리 */
+    private CompanyCardCostInfoVO costInfoVO;
 }
