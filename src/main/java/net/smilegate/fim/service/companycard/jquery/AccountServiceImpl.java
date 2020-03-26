@@ -18,7 +18,7 @@ import net.smilegate.fim.vo.account.CompanyCardVO;
 
 @Slf4j
 @RequiredArgsConstructor
-@Service
+//@Service
 public class AccountServiceImpl implements AccountService{
 
 	private final FileUtil fileUtil;
