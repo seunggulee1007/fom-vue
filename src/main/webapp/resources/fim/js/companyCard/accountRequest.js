@@ -31,7 +31,7 @@ $(document).ready(function(){
 	/**
 	 * 정산내역 리스트 조직도 팝업.
 	 */
-	$("#useCardList tbody tr td").find("button[name=btnAccountUser]").click(function(evt) {
+	$("#useCardListClone tbody tr td").find("button[name=btnAccountUser]").on("click",function(evt) {
 		rowIdx = parseInt( $(this).parent().parent().index() );
 
 		console.log("btnAccountUser " + rowIdx);
@@ -41,7 +41,7 @@ $(document).ready(function(){
 	/**
 	 * 비용항목 팝업.
 	 */
-	$("#useCardList tbody tr").find("td[name=tdSmKindNm]").find("input").dblclick(function(evt){
+	$("#useCardListClone tbody tr").find("td[name=tdSmKindNm]").find("input").dblclick(function(evt){
         rowIdx = parseInt( $(this).parent().parent().parent().index() );
         let userNm = $(this).parent().parent().parent().find("td[name=tdUseUser]").find("input[name=useUserNm]").val();
         let comCd = $(this).parent().parent().parent().find("td[name=tdComNm]").find("input[name=comCd]").val();
@@ -52,10 +52,11 @@ $(document).ready(function(){
         EventBus.$emit('openExpenseAllPopup', $(this).val(), userNm, comCd);
 	});
 
+
 	/**
 	 * SGMA 팝업.
 	 */
-	$("#useCardList tbody tr td").find("input[name=inRemValSeq]").dblclick(function(evt){
+	$("#useCardListClone tbody tr td").find("input[name=inRemValSeq]").dblclick(function(evt){
         rowIdx = parseInt( $(this).parent().parent().parent().index() );
 
         let userNm = $(this).parent().parent().parent().find("td[name=tdUseUser]").find("input[name=useUserNm]").val();
@@ -85,6 +86,9 @@ $(document).ready(function(){
 	 */
 	$("#btnGetUseList").click(function(){
 
+		$.ajax({
+
+		});
 	});
 
 	$("#yyyymm").monthpicker({
@@ -109,12 +113,27 @@ $(document).ready(function(){
 
 	});
 
+
 	$("#btnGetUseList").click(function(){
-		$('#accountCardFrm').attr('action', "./accountInfo").submit();
+		let td = $("#useCardListClone tbody tr:eq(0)").clone(true);
+		$("#useCardList tbody").append(td);
 	});
+
 	getCompanyCardList();
 
 });
+
+function openDeptPopup(idx){
+    rowIdx = parseInt( $(this).parent().parent().parent().index() );
+    let userNm = $(this).parent().parent().parent().find("td[name=tdUseUser]").find("input[name=useUserNm]").val();
+    let comCd = $(this).parent().parent().parent().find("td[name=tdComNm]").find("input[name=comCd]").val();
+    console.log("userNm "+userNm);
+    console.log("rowIdx "+rowIdx);
+    console.log("comCd "+comCd);
+
+    EventBus.$emit('openExpenseAllPopup', $(this).val(), userNm, comCd);
+}
+
 
 var fileList = new Array();
 function updateSize(inFile) {
@@ -122,10 +141,16 @@ function updateSize(inFile) {
 	let nBytes = 0;
 
 	let oFiles = inFile.files;
-	fileList.push(inFile.files);
+	let nFiles = oFiles.length;
+
+
+	for(let i = 0; i < nFiles; i++){
+
+		console.log("inFile : " + oFiles[i]);
+		fileList.push(oFiles[i]);
+	}
 	console.log("fileList : " + fileList);
 
-	let nFiles = oFiles.length;
 	console.log("oFiles.length : " + nFiles);
 
 	calcFileSize();
@@ -139,7 +164,7 @@ function updateSize(inFile) {
  */
 function onDeleteFile(idx){
 
-	let fileName = fileList[idx][0].name;
+	let fileName = fileList[idx].name;
 
 	if(confirm(fileName+"\n파일을 삭제 하시겠습니까?")){
 		fileList.splice(idx, 1);
@@ -159,8 +184,10 @@ var allowFileSize = 100000000 //-- 100MB
 function calcFileSize(){
 	let nBytes = 0;
 	$("#fileListBox").html("");
+
+	console.log("file len : " + fileList.length);
 	for(let i = 0; i < fileList.length; i++){
-		nBytes += fileList[i][0].size;
+		nBytes += fileList[i].size;
 
 		//-- 허용된 용량 초과시 파일 리스트 객체에서 마지막 추가한 파일을 삭제 하고, 해당 파일의 용량도 마이너스 한다.
 		if(nBytes > allowFileSize){
@@ -170,9 +197,10 @@ function calcFileSize(){
 			break;
 		}
 
-		console.log("file : " + fileList[i][0].name);
+		console.log("file : " + fileList[i]);
+		console.log("file : " + fileList[i].name);
 		console.log("nBytes : " + nBytes);
-		$("#fileListBox").append("<div class='file-info'>"+fileList[i][0].name+"<a href='javascript:onDeleteFile("+i+")'>&nbsp;&nbsp;[삭제]</a></div>");
+		$("#fileListBox").append("<div class='file-info'>"+fileList[i].name+"<a href='javascript:onDeleteFile("+i+")'>&nbsp;&nbsp;[삭제]</a></div>");
 	}
 
 	if(nBytes > 0){
@@ -253,8 +281,6 @@ function returnCostItemAct(data) {
 
     let rowTR = $("#useCardList tbody tr:eq("+rowIdx+")");
 
-    console.log("rowTR");
-
     rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.erpSmKindSeq']").val(data.smKindSeq);
     rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.erpSmKindNm']").val(data.smKindName);
 
@@ -275,9 +301,15 @@ function returnCostItemAct(data) {
 
     rowTR.find("td[name=tdCostItemNm]").find("input").removeAttr("disabled");
 
+
     openExpenseSgma(data);
 
-    console.log("returnCostItemAct");
+    console.log("smKindSeq : " + data.smKindSeq);
+    console.log("smKindName : " + data.smKindName);
+
+    console.log("costName : " + data.costName);
+    console.log("costSeq : " + data.costSeq);
+
 //    console.log(rowTR.find("td[name=tdSmKindNm]").find("input").val());
 }
 
@@ -286,8 +318,36 @@ function returnCostItemAct(data) {
  * @returns
  */
 function openExpenseSgma(costInfoVO) {
-	console.log(costInfoVO);
-	EventBus.$emit('openDetailPopup',costInfoVO);
+
+	if(costInfoVO.smKindSeq == "4503006"){//-- 교통비
+		if(costInfoVO.costSeq == 10 || costInfoVO.costSeq == 11 || costInfoVO.costSeq == 86){
+			//-- 야근 교통비, 외근 교통비, 유류대-직원
+			EventBus.$emit('openDetailPopup',costInfoVO);
+		}
+	}
+	else if(costInfoVO.smKindSeq == "4503010"){ //-- 접대비
+		if(costInfoVO.costSeq == 42 || costInfoVO.costSeq == 44 || costInfoVO.costSeq == 45){
+			//-- 해외 접대비, 경조사 접대비, 일반 접대비
+			EventBus.$emit('openDetailPopup',costInfoVO);
+		}
+	}
+	else if(costInfoVO.smKindSeq == "4503008"){ //-- 해외 출장.
+		//-- 식대-해외출장, 교통비-해외출장, 기타-해외출장, 커뮤니케이션-해외출장, 렌터카-해외출장, 항공료-해외출장, 로밍-해외출장, 호텔-해외출장, 접대비-해외출장
+		if(costInfoVO.costSeq == 24 || costInfoVO.costSeq == 26 || costInfoVO.costSeq == 31 ||
+				costInfoVO.costSeq == 81 || costInfoVO.costSeq == 87 || costInfoVO.costSeq == 88 || costInfoVO.costSeq == 89 || costInfoVO.costSeq == 90 || costInfoVO.costSeq == 25){
+			EventBus.$emit('openDetailPopup',costInfoVO);
+		}
+	}
+	else if(costInfoVO.smKindSeq == "4503009"){ //-- 국내 출장.
+		//-- 식대-국내출장, 교통비-국내출장, 커뮤니케이션-국내출장, 렌터카-국내출장, 항공료-국내출장, 호텔-국내출장
+		if(costInfoVO.costSeq == 34 || costInfoVO.costSeq == 36 || costInfoVO.costSeq == 82 || costInfoVO.costSeq == 91 || costInfoVO.costSeq == 93 || costInfoVO.costSeq == 92){
+			EventBus.$emit('openDetailPopup',costInfoVO);
+		}
+	}
+
+
+
+
 }
 
 /**
@@ -311,44 +371,37 @@ function returnSGMA(data) {
 
 }
 
+/**
+ * 비용항목 상세 Callback Function
+ * @param data
+ * @returns
+ */
+function returnCostItemDetail(data) {
+    cosole.log(data);
+}
+
+
 function formSubmit(){
 
 	alert("fileList.length " + fileList.length);
 	let formData = new FormData($("#accountCardFrm")[0]);
 	let cardDetailList = new Array();
 
+	formData.delete("files");
+
     for(let i=0; i< fileList.length;i++) {                // 파일 내용 저장
-    	console.log(fileList[i][0].name);
-    	formData.append("files["+i+"]", fileList[i][0]);
+    	console.log(fileList[i].name);
+    	formData.append("files["+i+"]", fileList[i]);
     }
 
-//    $.ajax({
-//    	url: "./saveAccount",
-//        enctype: "multipart/form-data",
-//        method:"POST",
-//        dataType : 'json',
-//        data:formData,
-//        processData: false,
-//        contentType: false,
-//        success: function(returnData) {
-//            console.log("returnData : "+returnData);
-//            func(returnData);
-//        },
-//        error: function(x,e){
-//              console.log("[AF]ajax status : "+x.status);
-//              console.log(e);
-//        },
-//    });
-
-    $("#accountCardFrm").ajaxForm({
+    $.ajax({
     	url: "./saveAccount",
         enctype: "multipart/form-data",
+        method:"POST",
         dataType : 'json',
+        data:formData,
         processData: false,
         contentType: false,
-        beforeSubmit: function(data, form, option) {
-
-        },
         success: function(returnData) {
             console.log("returnData : "+returnData);
             func(returnData);
@@ -359,7 +412,28 @@ function formSubmit(){
         },
     });
 
-
-	$("#accountCardFrm").submit();
+    //-- ajaxForm을 사용하면 멀티파일 업로드시 선택한 여러개의 파일중에 일부 파일을 삭제를 못한다.
+//    $("#accountCardFrm").ajaxForm({
+//    	url: "./saveAccount",
+//        enctype: "multipart/form-data",
+//        data: formData,
+//        dataType : 'json',
+//        processData: false,
+//        contentType: false,
+//        beforeSubmit: function(data, form, option) {
+//
+//        },
+//        success: function(returnData) {
+//            console.log("returnData : "+returnData);
+//            func(returnData);
+//        },
+//        error: function(x,e){
+//              console.log("[AF]ajax status : "+x.status);
+//              console.log(e);
+//        },
+//    });
+//
+//
+//	$("#accountCardFrm").submit();
 }
 

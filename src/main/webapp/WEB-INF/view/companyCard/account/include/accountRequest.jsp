@@ -197,261 +197,7 @@
 								</tr>
 							</thead>
 						<tbody>
-							<tr>
-								<input type="hidden" name="cardDetailList[0].companySeq" value="2">
-								<input type="hidden" name="cardDetailList[0].cancelYn" value="1">
-								<input type="hidden" name="cardDetailList[0].apprSeq" value="1234">
-								<input type="hidden" name="cardDetailList[0].apprNo" value="123433">
-								<input type="hidden" name="cardDetailList[0].cardCd" value="9410050000749178">
-								<input type="hidden" name="cardDetailList[0].apprDate" value="20200320">
 
-								<input type="hidden" name="cardDetailList[0].costInfoVO.companySeq" value="2">
-								<input type="hidden" name="cardDetailList[0].costInfoVO.tiCostSeq" value="3">
-								<input type="hidden" name="cardDetailList[0].costInfoVO.tiCostSerl" value="0">
-								<input type="hidden" name="cardDetailList[0].costInfoVO.erpsmKindSeq" value="234">
-
-								<!-- 비용항목 중분류 -->
-								<input type="hidden" name="cardDetailList[0].costInfoVO.erpSmKindSeq" value="">
-								<input type="hidden" name="cardDetailList[0].costInfoVO.erpSmKindNm" value="">
-
-								<!-- 비용항목 소분류 -->
-								<input type="hidden" name="cardDetailList[0].costInfoVO.erpCostSeq" value="">
-								<input type="hidden" name="cardDetailList[0].costInfoVO.erpCostNm" value="">
-
-								<!-- SGMS 중분류 -->
-								<input type="hidden" name="cardDetailList[0].costInfoVO.costItemCd" value="">
-								<input type="hidden" name="cardDetailList[0].costInfoVO.costItemNm" value="">
-
-								<!-- SGMS 소분류 -->
-								<input type="hidden" name="cardDetailList[0].costInfoVO.activityCd" value="">
-								<input type="hidden" name="cardDetailList[0].costInfoVO.activityNm" value="">
-
-								<td class="table__td">
-									<div class="btn_group">
-										<span class="btn-checkbox">
-											<input type="checkbox" id="checkbox_expenseChk0" name="cardDetailList[0].useCheck">
-											<label for="checkbox_expenseChk0" class="btn-checkbox__label"><span class="blind">선택</span></label>
-										</span>
-									</div>
-								</td>
-								<td class="table__td">
-									<div class="btn_group">
-										<span class="btn-checkbox">
-											<input type="checkbox" id="checkbox_cardExpense0" disabled>
-											<label for="checkbox_cardExpense0" class="btn-checkbox__label"><span class="blind">개인비용처리 선택</span></label>
-										</span>
-									</div>
-								</td>
-								<td class="table__td">
-									<span class="table__txt">20200320</span>
-								</td>
-								<td class="table__td">
-									<span class="table__txt">13:20</span>
-								</td>
-								<td class="table__td">
-									<div class="tooltip-box tooltip--hover tooltip--right">
-										<span class="table__txt">(주)너와집 백현점</span>
-										<input type="hidden" name="chainAddr" value="경기 성남시 분당구 안양판교로 1201번길 45, 지상1층 (백현동)">
-										<input type="hidden" name="mccName" value="일반음식점">
-										<input type="hidden" name="chainId" value="1298553548">
-										<input type="hidden" name="apprNo" value="12345679">
-										<input type="hidden" name="chainNm" value="(주)너와집 백현점">
-
-										<span class="sp icon-info"></span>
-										<div class="tooltip__inner">
-											<p class="tooltip__txt">
-												가맹점명: (주)너와집 백현점
-											</p>
-											<p class="tooltip__txt">
-												주소: 경기 성남시 분당구 안양판교로 1201번길 45, 지상1층 (백현동)
-											</p>
-											<p class="tooltip__txt">
-												사업자번호: 1298553548
-											</p>
-											<p class="tooltip__txt">
-												업종: 일반음식점
-											</p>
-											<p class="tooltip__txt">
-												승인번호: 12345679
-											</p>
-										</div>
-									</div>
-								</td>
-								<td name="tdComNm" class="table__td">
-									<input type="hidden" name="comCd" >
-									<input type="hidden" name="comNm" >
-									<span class="table__txt">스마일게이트홀딩스</span>
-								</td>
-								<td name="tdUseUser" class="table__td table__td--btn">
-									<input type="hidden" name="useUserId" >
-									<input type="hidden" name="useEmpNo" >
-									<input type="hidden" name="useUserNm" >
-									<input type="hidden" name="budgetDeptCd" >
-									<input type="hidden" name="budgetDeptNm" >
-									<span name="spUseName" class="table__txt">홍길동A</span><br><span name="spDeptNm" class="table__txt-caption">정보시스템실</span>
-									<button type="button" class="btn btn-change-user" name="btnAccountUser">
-										<span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
-									</button>
-								</td>
-								<td name="tdSmKindNm" class="table__td"> <!-- 비용항목 중분류 -->
-									<div class="input-field input-field-table">
-										<input type="text" class="input-field__input" value="">
-									</div>
-								</td>
-								<td name="tdErpCostNm" class="table__td table__td--data"> <!-- 비용항목 소분류 -->
-									<span class="table__txt" ></span>
-								</td>
-								<td name="tdCostItemNm" class="table__td table__td--data"> <!-- SGMS 중분류 -->
-									<div class="input-field input-field-table">
-										<input type="text" name="inRemValSeq" disabled class="input-field__input" >
-									</div>
-								</td>
-								<td name="tdActivityNm" class="table__td table__td--data"> <!-- SGMS 소분류 -->
-									<span class="table__txt" ></span>
-								</td>
-								<td class="table__td"><!-- 적요 -->
-									<div class="input-field input-field-table">
-										<input type="text" class="input-field__input">
-									</div>
-									<span class="table__txt table__txt-caption txt--blue"></span>
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt">KRW</span>
-									<input type="hidden" name="currCd" class="input-field__input">
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt table__txt--align-right">10,000</span>
-									<input type="hidden" name="supplyAmt" class="input-field__input">
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt table__txt--align-right">0</span>
-									<input type="hidden" name="tipAmt" class="input-field__input">
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt table__txt--align-right">1,000</span>
-									<input type="hidden" name="apprTax" class="input-field__input">
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt table__txt--align-right">11,000</span>
-									<input type="hidden" name="sumAmt" class="input-field__input">
-								</td>
-                            </tr>
-							<tr>
-								<input type="hidden" name="cardDetailList[1].companySeq" value="2">
-								<input type="hidden" name="cardDetailList[1].cancelYn" value="1">
-								<input type="hidden" name="cardDetailList[1].apprSeq" value="1234">
-								<input type="hidden" name="cardDetailList[1].apprNo" value="123433">
-								<input type="hidden" name="cardDetailList[1].cardCd" value="9410050000749176">
-								<input type="hidden" name="cardDetailList[1].apprDate" value="20200320">
-
-								<input type="hidden" name="cardDetailList[1].costInfoVO.companySeq" value="2">
-								<input type="hidden" name="cardDetailList[1].costInfoVO.tiCostSeq" value="4">
-								<input type="hidden" name="cardDetailList[1].costInfoVO.tiCostSerl" value="1">
-								<input type="hidden" name="cardDetailList[1].costInfoVO.erpsmKindSeq" value="235">
-								<td class="table__td">
-									<div class="btn_group">
-										<span class="btn-checkbox">
-											<input type="checkbox" id="checkbox_expenseChk1" name="cardDetailList[1].useCheck">
-											<label for="checkbox_expenseChk1" class="btn-checkbox__label"><span class="blind">선택</span></label>
-										</span>
-									</div>
-								</td>
-								<td class="table__td">
-									<div class="btn_group">
-										<span class="btn-checkbox">
-											<input type="checkbox" id="checkbox_cardExpense1" disabled>
-											<label for="checkbox_cardExpense1" class="btn-checkbox__label"><span class="blind">개인비용처리 선택</span></label>
-										</span>
-									</div>
-								</td>
-								<td class="table__td">
-									<span class="table__txt">20200320</span>
-								</td>
-								<td class="table__td">
-									<span class="table__txt">13:20</span>
-								</td>
-								<td class="table__td">
-									<div class="tooltip-box tooltip--hover tooltip--right">
-										<span class="table__txt">(주)너와집 백현점</span>
-										<input type="hidden" name="chainAddr" value="경기 성남시 분당구 안양판교로 1111번길 222, 1층 (판교)">
-										<input type="hidden" name="mccName" value="일반음식점">
-										<input type="hidden" name="chainId" value="1298553542">
-										<input type="hidden" name="apprNo" value="12345678">
-										<input type="hidden" name="chainNm" value="에머이">
-
-										<span class="sp icon-info"></span>
-										<div class="tooltip__inner">
-											<p class="tooltip__txt">
-												가맹점명: 에머이
-											</p>
-											<p class="tooltip__txt">
-												주소: 경기 성남시 분당구 안양판교로 1111번길 222, 1층 (판교)
-											</p>
-											<p class="tooltip__txt">
-												사업자번호: 1298553542
-											</p>
-											<p class="tooltip__txt">
-												업종: 일반음식점
-											</p>
-											<p class="tooltip__txt">
-												승인번호: 12345678
-											</p>
-
-										</div>
-									</div>
-								</td>
-								<td class="table__td">
-									<span class="table__txt">스마일게이트홀딩스</span>
-								</td>
-								<td class="table__td table__td--btn">
-									<span class="table__txt">홍길동A<br><span class="table__txt-caption">정보시스템실</span></span>
-									<button type="button" class="btn btn-change-user" name="btnAccountUser">
-										<span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
-									</button>
-								</td>
-								<td name="tdSmKindNm" class="table__td">
-									<div class="input-field input-field-table">
-										<input type="text" class="input-field__input" value="">
-									</div>
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt"></span>
-								</td>
-								<td class="table__td table__td--data">
-									<div class="input-field input-field-table">
-										<input type="text" class="input-field__input" name="inRemValSeq">
-									</div>
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt"></span>
-								</td>
-								<td class="table__td">
-									<div class="input-field input-field-table">
-										<input type="text" class="input-field__input">
-									</div>
-									<span class="table__txt table__txt-caption txt--blue"></span>
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt">KRW</span>
-									<input type="hidden" name="currCd" class="input-field__input">
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt table__txt--align-right">10,000</span>
-									<input type="hidden" name="supplyAmt" class="input-field__input">
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt table__txt--align-right">0</span>
-									<input type="hidden" name="tipAmt" class="input-field__input">
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt table__txt--align-right">1,000</span>
-									<input type="hidden" name="apprTax" class="input-field__input">
-								</td>
-								<td class="table__td table__td--data">
-									<span class="table__txt table__txt--align-right">11,000</span>
-									<input type="hidden" name="sumAmt" class="input-field__input">
-								</td>
-							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -529,7 +275,6 @@
 										<input type="file" id="attFile" name="files" multiple="multiple" class="input-field__file blind">
 										<span id="fileSize" class="input__dsc-txt">0 byte / 100 MB</span>
 										<div id="fileListBox" class="input-field__file-box">
-												<div class="file-info">smilegate_test.xlsx</div> -->
 										</div>
 									</div>
 								</td>
@@ -573,311 +318,193 @@
 	</div>
 </div>
 
-<table id="useCardListCopy">
-    <caption><span class="blind">카드 사용에 대한 자세한 정산 내역 작성</span></caption>
-    <colgroup>
-        <col width="46px">
-        <col width="46px">
-        <col width="88px">
-        <col width="56px">
-        <col>
-        <col>
-        <col>
-        <col>
-        <col>
-        <col>
-        <col>
-        <col>
-        <col width="80px">
-        <col>
-        <col>
-        <col>
-        <col>
-    </colgroup>
-    <thead>
-        <tr>
-            <th class="table__th" rowspan="2">선택</th>
-            <th class="table__th" rowspan="2">개인 비용 처리</th>
-            <th class="table__th" rowspan="2">일자</th>
-            <th class="table__th" rowspan="2">시간</th>
-            <th class="table__th" rowspan="2">가맹점</th>
-            <th class="table__th" rowspan="2">예산부서</th>
-            <th class="table__th" rowspan="2">사용자<br>(귀속처리)</th>
-            <th class="table__th align-center" colspan="2">비용항목</th>
-            <th class="table__th align-center" colspan="2">SGMA</th>
-            <th class="table__th table__th--required" rowspan="2">적요</th>
-            <th class="table__th" rowspan="2">현지통화</th>
-            <th class="table__th align-center" colspan="4">금액</th>
-        </tr>
-        <tr>
-            <th class="table__th table__th--required">중분류</th>
-            <th class="table__th table__th--required">소분류</th>
-            <th class="table__th table__th--required">중분류</th>
-            <th class="table__th">소분류</th>
-            <th class="table__th table__txt--align-right">공급가액</th>
-            <th class="table__th table__txt--align-right">봉사료</th>
-            <th class="table__th table__txt--align-right">부가세</th>
-            <th class="table__th table__txt--align-right">총계</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-        	<input type="hidden" name="cardDetailList[0].companySeq" value="2">
-        	<input type="hidden" name="cardDetailList[0].cancelYn" value="1">
-        	<input type="hidden" name="cardDetailList[0].apprSeq" value="1234">
-        	<input type="hidden" name="cardDetailList[0].apprNo" value="123433">
-        	<input type="hidden" name="cardDetailList[0].cardCd" value="9410050000749178">
-        	<input type="hidden" name="cardDetailList[0].apprDate" value="20200320">
+<table id="useCardListClone" style="display:none">
+	<caption><span class="blind">카드 사용에 대한 자세한 정산 내역 작성</span></caption>
+	<colgroup>
+		<col width="46px">
+		<col width="46px">
+		<col width="88px">
+		<col width="56px">
+		<col>
+		<col>
+		<col>
+		<col>
+		<col>
+		<col>
+		<col>
+		<col>
+		<col width="80px">
+		<col>
+		<col>
+		<col>
+		<col>
+	</colgroup>
+		<thead>
+			<tr>
+				<th class="table__th" rowspan="2">선택</th>
+				<th class="table__th" rowspan="2">개인 비용 처리</th>
+				<th class="table__th" rowspan="2">일자</th>
+				<th class="table__th" rowspan="2">시간</th>
+				<th class="table__th" rowspan="2">가맹점</th>
+				<th class="table__th" rowspan="2">예산부서</th>
+				<th class="table__th" rowspan="2">사용자<br>(귀속처리)</th>
+				<th class="table__th align-center" colspan="2">비용항목</th>
+				<th class="table__th align-center" colspan="2">SGMA</th>
+				<th class="table__th table__th--required" rowspan="2">적요</th>
+				<th class="table__th" rowspan="2">현지통화</th>
+				<th class="table__th align-center" colspan="4">금액</th>
+			</tr>
+			<tr>
+				<th class="table__th table__th--required">중분류</th>
+				<th class="table__th table__th--required">소분류</th>
+				<th class="table__th table__th--required">중분류</th>
+				<th class="table__th">소분류</th>
+				<th class="table__th table__txt--align-right">공급가액</th>
+				<th class="table__th table__txt--align-right">봉사료</th>
+				<th class="table__th table__txt--align-right">부가세</th>
+				<th class="table__th table__txt--align-right">총계</th>
+			</tr>
+		</thead>
+	<tbody>
+		<tr>
+			<input type="hidden" name="cardDetailList[0].companySeq" value="2">
+			<input type="hidden" name="cardDetailList[0].cancelYn" value="1">
+			<input type="hidden" name="cardDetailList[0].apprSeq" value="1234">
+			<input type="hidden" name="cardDetailList[0].apprNo" value="123433">
+			<input type="hidden" name="cardDetailList[0].cardCd" value="9410050000749178">
+			<input type="hidden" name="cardDetailList[0].apprDate" value="20200320">
 
-        	<input type="hidden" name="cardDetailList[0].costInfoVO.companySeq" value="2">
-        	<input type="hidden" name="cardDetailList[0].costInfoVO.tiCostSeq" value="3">
-        	<input type="hidden" name="cardDetailList[0].costInfoVO.tiCostSerl" value="0">
-        	<input type="hidden" name="cardDetailList[0].costInfoVO.erpsmKindSeq" value="234">
+			<input type="hidden" name="cardDetailList[0].costInfoVO.companySeq" value="2">
+			<input type="hidden" name="cardDetailList[0].costInfoVO.tiCostSeq" value="3">
+			<input type="hidden" name="cardDetailList[0].costInfoVO.tiCostSerl" value="0">
+			<input type="hidden" name="cardDetailList[0].costInfoVO.erpsmKindSeq" value="234">
 
-<!-- 비용항목 중분류 -->
-<input type="hidden" name="cardDetailList[0].costInfoVO.erpSmKindSeq" value="">
-<input type="hidden" name="cardDetailList[0].costInfoVO.erpSmKindNm" value="">
+			<!-- 비용항목 중분류 -->
+			<input type="hidden" name="cardDetailList[0].costInfoVO.erpSmKindSeq" value="">
+			<input type="hidden" name="cardDetailList[0].costInfoVO.erpSmKindNm" value="">
 
-<!-- 비용항목 소분류 -->
-            <input type="hidden" name="cardDetailList[0].costInfoVO.erpCostSeq" value="">
-            <input type="hidden" name="cardDetailList[0].costInfoVO.erpCostNm" value="">
+			<!-- 비용항목 소분류 -->
+			<input type="hidden" name="cardDetailList[0].costInfoVO.erpCostSeq" value="">
+			<input type="hidden" name="cardDetailList[0].costInfoVO.erpCostNm" value="">
 
-<!-- SGMS 중분류 -->
-            <input type="hidden" name="cardDetailList[0].costInfoVO.costItemCd" value="">
-            <input type="hidden" name="cardDetailList[0].costInfoVO.costItemNm" value="">
+			<!-- SGMS 중분류 -->
+			<input type="hidden" name="cardDetailList[0].costInfoVO.costItemCd" value="">
+			<input type="hidden" name="cardDetailList[0].costInfoVO.costItemNm" value="">
 
-            <!-- SGMS 소분류 -->
-            <input type="hidden" name="cardDetailList[0].costInfoVO.activityCd" value="">
-            <input type="hidden" name="cardDetailList[0].costInfoVO.activityNm" value="">
+			<!-- SGMS 소분류 -->
+			<input type="hidden" name="cardDetailList[0].costInfoVO.activityCd" value="">
+			<input type="hidden" name="cardDetailList[0].costInfoVO.activityNm" value="">
 
-            <td class="table__td">
-                <div class="btn_group">
-                    <span class="btn-checkbox">
-                        <input type="checkbox" id="checkbox_expenseChk0" name="cardDetailList[0].useCheck">
-                        <label for="checkbox_expenseChk0" class="btn-checkbox__label"><span class="blind">선택</span></label>
-                    </span>
-                </div>
-            </td>
-            <td class="table__td">
-                <div class="btn_group">
-                    <span class="btn-checkbox">
-                        <input type="checkbox" id="checkbox_cardExpense0" disabled>
-                        <label for="checkbox_cardExpense0" class="btn-checkbox__label"><span class="blind">개인비용처리 선택</span></label>
-                    </span>
-                </div>
-            </td>
-            <td class="table__td">
-                <span class="table__txt">20200320</span>
-            </td>
-            <td class="table__td">
-                <span class="table__txt">13:20</span>
-            </td>
-            <td class="table__td">
-                <div class="tooltip-box tooltip--hover tooltip--right">
-                    <span class="table__txt">(주)너와집 백현점</span>
-                    <input type="hidden" name="chainAddr" value="경기 성남시 분당구 안양판교로 1201번길 45, 지상1층 (백현동)">
-                    <input type="hidden" name="mccName" value="일반음식점">
-                    <input type="hidden" name="chainId" value="1298553548">
-                    <input type="hidden" name="apprNo" value="12345679">
-                    <input type="hidden" name="chainNm" value="(주)너와집 백현점">
+			<td class="table__td">
+				<div class="btn_group">
+					<span class="btn-checkbox">
+						<input type="checkbox" id="checkbox_expenseChk0" name="cardDetailList[0].useCheck">
+						<label for="checkbox_expenseChk0" class="btn-checkbox__label"><span class="blind">선택</span></label>
+					</span>
+				</div>
+			</td>
+			<td class="table__td">
+				<div class="btn_group">
+					<span class="btn-checkbox">
+						<input type="checkbox" id="checkbox_cardExpense0" disabled>
+						<label for="checkbox_cardExpense0" class="btn-checkbox__label"><span class="blind">개인비용처리 선택</span></label>
+					</span>
+				</div>
+			</td>
+			<td class="table__td">
+				<span class="table__txt">20200320</span>
+			</td>
+			<td class="table__td">
+				<span class="table__txt">13:20</span>
+			</td>
+			<td class="table__td">
+				<div class="tooltip-box tooltip--hover tooltip--right">
+					<span class="table__txt">(주)너와집 백현점</span>
+					<input type="hidden" name="chainAddr" value="경기 성남시 분당구 안양판교로 1201번길 45, 지상1층 (백현동)">
+					<input type="hidden" name="mccName" value="일반음식점">
+					<input type="hidden" name="chainId" value="1298553548">
+					<input type="hidden" name="apprNo" value="12345679">
+					<input type="hidden" name="chainNm" value="(주)너와집 백현점">
 
-                    <span class="sp icon-info"></span>
-                    <div class="tooltip__inner">
-                        <p class="tooltip__txt">
-                            가맹점명: (주)너와집 백현점
-                        </p>
-                        <p class="tooltip__txt">
-                            주소: 경기 성남시 분당구 안양판교로 1201번길 45, 지상1층 (백현동)
-                        </p>
-                        <p class="tooltip__txt">
-                            사업자번호: 1298553548
-                        </p>
-                        <p class="tooltip__txt">
-                            업종: 일반음식점
-                        </p>
-                        <p class="tooltip__txt">
-                            승인번호: 12345679
-                        </p>
-
-                    </div>
-                </div>
-            </td>
-            <td name="tdComNm" class="table__td">
-            	<input type="hidden" name="comCd" >
-            	<input type="hidden" name="comNm" >
-                <span class="table__txt">스마일게이트홀딩스</span>
-            </td>
-            <td name="tdUseUser" class="table__td table__td--btn">
-            	<input type="hidden" name="useUserId" >
-            	<input type="hidden" name="useEmpNo" >
-            	<input type="hidden" name="useUserNm" >
-            	<input type="hidden" name="budgetDeptCd" >
-            	<input type="hidden" name="budgetDeptNm" >
-
-                <span name="spUseName" class="table__txt">홍길동A</span><br><span name="spDeptNm" class="table__txt-caption">정보시스템실</span>
-                <button type="button" class="btn btn-change-user" name="btnAccountUser">
-                    <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
-                </button>
-            </td>
-            <td name="tdSmKindNm" class="table__td"> <!-- 비용항목 중분류 -->
-                <div class="input-field input-field-table">
-                    <input type="text" class="input-field__input" value="">
-                </div>
-            </td>
-            <td name="tdErpCostNm" class="table__td table__td--data"> <!-- 비용항목 소분류 -->
-                <span class="table__txt" ></span>
-            </td>
-            <td name="tdCostItemNm" class="table__td table__td--data"> <!-- SGMS 중분류 -->
-                <div class="input-field input-field-table">
-                    <input type="text" name="inRemValSeq" disabled class="input-field__input" >
-                </div>
-            </td>
-            <td name="tdActivityNm" class="table__td table__td--data"> <!-- SGMS 소분류 -->
-                <span class="table__txt" ></span>
-            </td>
-            <td class="table__td"><!-- 적요 -->
-                <div class="input-field input-field-table">
-                    <input type="text" class="input-field__input">
-                </div>
-                <span class="table__txt table__txt-caption txt--blue"></span>
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt">KRW</span>
-                <input type="hidden" name="currCd" class="input-field__input">
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt table__txt--align-right">10,000</span>
-                <input type="hidden" name="supplyAmt" class="input-field__input">
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt table__txt--align-right">0</span>
-                <input type="hidden" name="tipAmt" class="input-field__input">
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt table__txt--align-right">1,000</span>
-                <input type="hidden" name="apprTax" class="input-field__input">
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt table__txt--align-right">11,000</span>
-                <input type="hidden" name="sumAmt" class="input-field__input">
-            </td>
-        </tr>
-        <tr>
-        	<input type="hidden" name="cardDetailList[1].companySeq" value="2">
-        	<input type="hidden" name="cardDetailList[1].cancelYn" value="1">
-        	<input type="hidden" name="cardDetailList[1].apprSeq" value="1234">
-        	<input type="hidden" name="cardDetailList[1].apprNo" value="123433">
-        	<input type="hidden" name="cardDetailList[1].cardCd" value="9410050000749176">
-        	<input type="hidden" name="cardDetailList[1].apprDate" value="20200320">
-
-        	<input type="hidden" name="cardDetailList[1].costInfoVO.companySeq" value="2">
-        	<input type="hidden" name="cardDetailList[1].costInfoVO.tiCostSeq" value="4">
-        	<input type="hidden" name="cardDetailList[1].costInfoVO.tiCostSerl" value="1">
-        	<input type="hidden" name="cardDetailList[1].costInfoVO.erpsmKindSeq" value="235">
-
-            <td class="table__td">
-                <div class="btn_group">
-                    <span class="btn-checkbox">
-                        <input type="checkbox" id="checkbox_expenseChk1" name="cardDetailList[1].useCheck">
-                        <label for="checkbox_expenseChk1" class="btn-checkbox__label"><span class="blind">선택</span></label>
-                    </span>
-                </div>
-            </td>
-            <td class="table__td">
-                <div class="btn_group">
-                    <span class="btn-checkbox">
-                        <input type="checkbox" id="checkbox_cardExpense1" disabled>
-                        <label for="checkbox_cardExpense1" class="btn-checkbox__label"><span class="blind">개인비용처리 선택</span></label>
-                    </span>
-                </div>
-            </td>
-            <td class="table__td">
-                <span class="table__txt">20200320</span>
-            </td>
-            <td class="table__td">
-                <span class="table__txt">13:20</span>
-            </td>
-            <td class="table__td">
-                <div class="tooltip-box tooltip--hover tooltip--right">
-                    <span class="table__txt">(주)너와집 백현점</span>
-                    <input type="hidden" name="chainAddr" value="경기 성남시 분당구 안양판교로 1111번길 222, 1층 (판교)">
-                    <input type="hidden" name="mccName" value="일반음식점">
-                    <input type="hidden" name="chainId" value="1298553542">
-                    <input type="hidden" name="apprNo" value="12345678">
-                    <input type="hidden" name="chainNm" value="에머이">
-
-                    <span class="sp icon-info"></span>
-                    <div class="tooltip__inner">
-                        <p class="tooltip__txt">
-                            가맹점명: 에머이
-                        </p>
-                        <p class="tooltip__txt">
-                            주소: 경기 성남시 분당구 안양판교로 1111번길 222, 1층 (판교)
-                        </p>
-                        <p class="tooltip__txt">
-                            사업자번호: 1298553542
-                        </p>
-                        <p class="tooltip__txt">
-                            업종: 일반음식점
-                        </p>
-                        <p class="tooltip__txt">
-                            승인번호: 12345678
-                        </p>
-
-                    </div>
-                </div>
-            </td>
-            <td class="table__td">
-                <span class="table__txt">스마일게이트홀딩스</span>
-            </td>
-            <td class="table__td table__td--btn">
-                <span class="table__txt">홍길동A<br><span class="table__txt-caption">정보시스템실</span></span>
-                <button type="button" class="btn btn-change-user" name="btnAccountUser">
-                    <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
-                </button>
-            </td>
-            <td name="tdSmKindNm" class="table__td">
-                <div class="input-field input-field-table">
-                    <input type="text" class="input-field__input" value="">
-                </div>
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt"></span>
-            </td>
-            <td class="table__td table__td--data">
-                <div class="input-field input-field-table">
-                    <input type="text" class="input-field__input" name="inRemValSeq">
-                </div>
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt"></span>
-            </td>
-            <td class="table__td">
-                <div class="input-field input-field-table">
-                    <input type="text" class="input-field__input">
-                </div>
-                <span class="table__txt table__txt-caption txt--blue"></span>
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt">KRW</span>
-                <input type="hidden" name="currCd" class="input-field__input">
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt table__txt--align-right">10,000</span>
-                <input type="hidden" name="supplyAmt" class="input-field__input">
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt table__txt--align-right">0</span>
-                <input type="hidden" name="tipAmt" class="input-field__input">
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt table__txt--align-right">1,000</span>
-                <input type="hidden" name="apprTax" class="input-field__input">
-            </td>
-            <td class="table__td table__td--data">
-                <span class="table__txt table__txt--align-right">11,000</span>
-                <input type="hidden" name="sumAmt" class="input-field__input">
-            </td>
-        </tr>
-    </tbody>
+					<span class="sp icon-info"></span>
+					<div class="tooltip__inner">
+						<p class="tooltip__txt">
+							가맹점명: (주)너와집 백현점
+						</p>
+						<p class="tooltip__txt">
+							주소: 경기 성남시 분당구 안양판교로 1201번길 45, 지상1층 (백현동)
+						</p>
+						<p class="tooltip__txt">
+							사업자번호: 1298553548
+						</p>
+						<p class="tooltip__txt">
+							업종: 일반음식점
+						</p>
+						<p class="tooltip__txt">
+							승인번호: 12345679
+						</p>
+					</div>
+				</div>
+			</td>
+			<td name="tdComNm" class="table__td">
+				<input type="hidden" name="comCd" >
+				<input type="hidden" name="comNm" >
+				<span class="table__txt">스마일게이트홀딩스</span>
+			</td>
+			<td name="tdUseUser" class="table__td table__td--btn">
+				<input type="hidden" name="useUserId" >
+				<input type="hidden" name="useEmpNo" >
+				<input type="hidden" name="useUserNm" >
+				<input type="hidden" name="budgetDeptCd" >
+				<input type="hidden" name="budgetDeptNm" >
+				<span name="spUseName" class="table__txt">홍길동A</span><br><span name="spDeptNm" class="table__txt-caption">정보시스템실</span>
+				<button type="button" class="btn btn-change-user" name="btnAccountUser">
+					<span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
+				</button>
+			</td>
+			<td name="tdSmKindNm" class="table__td"> <!-- 비용항목 중분류 -->
+				<div class="input-field input-field-table">
+					<input type="text" class="input-field__input" value="">
+				</div>
+			</td>
+			<td name="tdErpCostNm" class="table__td table__td--data"> <!-- 비용항목 소분류 -->
+				<span class="table__txt" ></span>
+			</td>
+			<td name="tdCostItemNm" class="table__td table__td--data"> <!-- SGMS 중분류 -->
+				<div class="input-field input-field-table">
+					<input type="text" name="inRemValSeq" disabled class="input-field__input" >
+				</div>
+			</td>
+			<td name="tdActivityNm" class="table__td table__td--data"> <!-- SGMS 소분류 -->
+				<span class="table__txt" ></span>
+			</td>
+			<td class="table__td"><!-- 적요 -->
+				<div class="input-field input-field-table">
+					<input type="text" class="input-field__input">
+				</div>
+				<span class="table__txt table__txt-caption txt--blue"></span>
+			</td>
+			<td class="table__td table__td--data">
+				<span class="table__txt">KRW</span>
+				<input type="hidden" name="currCd" class="input-field__input">
+			</td>
+			<td class="table__td table__td--data">
+				<span class="table__txt table__txt--align-right">10,000</span>
+				<input type="hidden" name="supplyAmt" class="input-field__input">
+			</td>
+			<td class="table__td table__td--data">
+				<span class="table__txt table__txt--align-right">0</span>
+				<input type="hidden" name="tipAmt" class="input-field__input">
+			</td>
+			<td class="table__td table__td--data">
+				<span class="table__txt table__txt--align-right">1,000</span>
+				<input type="hidden" name="apprTax" class="input-field__input">
+			</td>
+			<td class="table__td table__td--data">
+				<span class="table__txt table__txt--align-right">11,000</span>
+				<input type="hidden" name="sumAmt" class="input-field__input">
+			</td>
+		</tr>
+	</tbody>
 </table>
+
