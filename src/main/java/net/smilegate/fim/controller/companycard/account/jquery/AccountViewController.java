@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 //@Controller
-@RequestMapping("/companyCard/account")
+//@RequestMapping("/companyCard/account")
 public class AccountViewController {
 
     private final String prefix = "/fim/companyCard/account";

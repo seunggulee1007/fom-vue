@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import net.smilegate.fim.vo.account.CompanyCardDetailVO;
 import net.smilegate.fim.vo.account.CompanyCardVO;
 
 @Mapper
