@@ -4,7 +4,7 @@
 <mapper namespace="net.smilegate.fim.mappers.fim.TiarCostAmtLogMapper">
 
     <resultMap id="tiarCostAmtLogResultMap" type="tiarCostAmtLogVO">
-        <result property="tiCostSeq" column="tiCostSeq"/>
+         <result property="tiCostSeq" column="tiCostSeq"/>
         <result property="tiCostSerl" column="tiCostSerl"/>
         <result property="companySeq" column="companySeq"/>
         <result property="useDate" column="useDate"/>
@@ -27,6 +27,7 @@
         <result property="remark" column="remark"/>
         <result property="amt" column="amt"/>
         <result property="useAccErpDeptSeq" column="useAccErpDeptSeq"/>
+        <result property="useAccErpDeptNm" column="useAccErpDeptNm"/>
         <result property="guest" column="guest"/>
         <result property="store" column="store"/>
         <result property="tripGubun" column="tripGubun"/>
@@ -49,7 +50,9 @@
     <resultMap id="deptResultMap" type="deptVO">
         <result property="useErpEmpSeq" column="useErpEmpSeq"/>
         <result property="useUserId" column="useUserId"/>
+        <result property="useUserNm" column="useUserNm"/>
         <result property="useErpDeptSeq" column="useErpDeptSeq"/>
+        <result property="useErpDeptNm" column="useErpDeptNm"/>
         <result property="useEmpNo" column="useEmpNo"/>
         <result property="budgetDeptCd" column="budgetDeptCd"/>
         <result property="budgetErpDeptSeq" column="budgetErpDeptSeq"/>
@@ -93,7 +96,9 @@
             ,USE_DATE               -- 사용일자
             ,USE_ERP_EMP_SEQ        -- ERP사용자코드(DEPTVO)
             ,USE_USER_ID             -- 사용자사번
+            ,use_user_nm
             ,USE_ERP_DEPT_SEQ           -- 사용자 부서 코드
+            ,use_erp_dept_nm
             ,USE_EMP_NO             -- 사용자 사번
             ,CCTR_SEQ               -- 활동센터 코드
             ,ERP_CURR_SEQ           -- ERP통화 코드
@@ -108,17 +113,21 @@
             ,MDI_CUST_SEQ           -- 거래처코드(MDI)
             ,CUST_TEXT              -- 거래처 TEXT
             ,BUDGET_DEPT_CD         -- 예산부서코드2
+            ,budget_dept_nm
             
             ,BUDGET_ERP_DEPT_SEQ     -- 예산부서코드
+            ,budget_erp_dept_nm
             ,ERP_EVID_SEQ           -- 증빙내부코드
             ,ERP_ACC_SEQ            -- 계정과목코드
             ,ERP_VAT_ACCSEQ         -- 부가세 계정코드
             ,ERP_OPP_ACC_SEQ        -- 상대계정코드
             ,ERP_UM_COST_TYPE       -- 비용구분
             ,USE_DEPT_CD            -- 인사 사용자부서코드
+            ,use_dept_nm
             ,REMARK                 -- 적요
             ,AMT                    -- 원화 총금액
             ,USE_ACC_ERP_DEPT_SEQ   -- 사용자 소속실 ERP부서 코드
+            ,use_acc_erp_dept_nm
             
             ,GUEST                  -- 접대 대상자
             ,STORE                  -- 가맹점
@@ -160,10 +169,13 @@
             ,#{tiCostSeq        }                    -- 비용신청 내부키                 
             ,#{tiCostSerl       }                   -- 비용신청 순번                 
             ,#{companySeq        }                  -- 법인코드                  
-            ,#{useDate          }                    -- 사용일자                  
+            ,#{useDate          }   -- 사용일자                  
             ,#{deptVO.useErpEmpSeq        }         -- erp사용자코드(deptVO)       
-            ,#{deptVO.useUserId         }            -- 사용자사번                  
+            ,#{deptVO.useUserId         }            -- 사용자 아이디                  
+            ,#{deptVO.useUserNm         }            -- 사용자명                  
+            
             ,#{deptVO.useErpDeptSeq       }            -- 사용자 부서 코드               
+            ,#{deptVO.useErpDeptNm       }            -- 사용자 부서 명               
             ,#{deptVO.useEmpNo  }                   -- 사용자 사번                 
             ,#{cCtrSeq          }                   -- 활동센터 코드                 
             ,#{erpCurrSeq          }                -- erp통화 코드              
@@ -178,17 +190,21 @@
             ,#{custSeq          }                   -- 거래처코드(mdi)             
             ,#{custText         }                   -- 거래처 text             
             ,#{deptVO.budgetDeptCd    }            -- 예산부서코드2                 
+            ,#{deptVO.budgetDeptNm    }            -- 예산부서명2                 
                                                                          
             ,#{deptVO.budgetErpDeptSeq}             -- 예산부서코드            
+            ,#{deptVO.budgetErpDeptNm}             -- 예산부서명            
             ,#{erpEvidSeq          }                -- 증빙내부코드                  
             ,#{erpAccSeq           }                -- 계정과목코드                  
             ,#{erpVatAccseq        }                -- 부가세 계정코드                
             ,#{erpOppAccSeq        }                -- 상대계정코드                   
             ,#{erpUmCostType       }                -- 비용구분                    
             ,#{deptVO.useDeptCd        }            -- 인사 사용자부서코드            
+            ,#{deptVO.useDeptNm        }            -- 인사 사용자부서코드            
             ,#{remark           }                   -- 적요                         
             ,#{amt              }                   -- 원화 총금액              
             ,#{useAccErpDeptSeq    }                -- 사용자 소속실 erp부서 코드       
+            ,#{useAccErpDeptNm    }                -- 사용자 소속실 erp부서 코드       
                                                                          
             ,#{guest            }                   -- 접대 대상자
             ,#{store            }                   -- 가맹점                    
@@ -214,7 +230,7 @@
             ,#{costInfoVO.purpose     }             -- 목적(접대비)                   
             ,#{costInfoVO.busiTripCode}             -- 출장정보코드(출장정보)           
             ,#{costInfoVO.busiTripType}             -- 출장구분코드(출장정보)                
-            ,#{costInfoVO.startArea   }             -- 출발지(교통비)                   
+            ,#{costInfoVO.startArea   }             -- 출발지(교통비)                    
                                                                          
             ,#{costInfoVO.destArea    }             -- 목적지(교통비)                
             ,#{costInfoVO.workStart   }             -- 업무시작시간(교통비)             
@@ -224,56 +240,60 @@
             ,#{costInfoVO.personName  }             -- 탑승자(교통비)                
             ,#{costInfoVO.transAmt    }             -- 금액(교통비)                 
             ,#{lastUserId      }                    -- 데이터 최종 수정자             
-            ,getdate()                              -- 데이터 최종 수정일                
+            ,getdate()                              -- 데이터 최종 수정일                 
         )                                                   
     </insert>
     
     <select id="selectTiarCostAmtLog" resultMap="tiarCostAmtLogResultMap">
         select
-            log_seq                 as logSeq
-            ,ti_cost_seq            as tiCostSeq
-            ,ti_cost_serl          as tiCostSerl
+            ti_cost_seq             as tiCostSeq
+            ,ti_cost_serl           as tiCostSerl
             ,COMPANY_SEQ            as companySeq             
-            ,USE_DATE              as useDate
-            ,USE_ERP_EMP_SEQ       as useErpEmpSeq    
-            ,USE_USER_ID           as useUserId       
-            ,USE_ERP_DEPT_SEQ      as useErpDeptSeq   
-            ,USE_EMP_NO            as useEmpNo        
-            ,CCTR_SEQ              as cCtrSeq                
-            ,ERP_CURR_SEQ          as erpCurrSeq             
-                                                           
-            ,CURR_NM               as currNm                
-            ,EX_RATE               as exRate                 
-            ,IS_VAT                as isVat                  
-            ,CUR_AMT               as curAmt                 
-            ,CUR_VAT               as curVat                 
-            ,DOM_AMT               as domAmt                 
-            ,DOM_VAT               as domVat                 
-            ,MDI_CUST_SEQ          as custSeq                
-            ,CUST_TEXT             as custText               
-            ,BUDGET_DEPT_CD        as budgetDeptCd    
+            ,USE_DATE               as useDate
+            ,USE_ERP_EMP_SEQ        as useErpEmpSeq    
+            ,USE_USER_ID            as useUserId       
+            ,USE_USER_NM            as useUserNm       
+            ,USE_ERP_DEPT_SEQ       as useErpDeptSeq   
+            ,USE_ERP_DEPT_NM       as useErpDeptNm   
+            ,USE_EMP_NO             as useEmpNo        
+            ,CCTR_SEQ               as cCtrSeq                
+            ,ERP_CURR_SEQ           as erpCurrSeq             
+                                                            
+            ,CURR_NM                as currNm                
+            ,EX_RATE                as exRate                 
+            ,IS_VAT                 as isVat                  
+            ,CUR_AMT                as curAmt                 
+            ,CUR_VAT                as curVat                 
+            ,DOM_AMT                as domAmt                 
+            ,DOM_VAT                as domVat                 
+            ,MDI_CUST_SEQ           as custSeq                
+            ,CUST_TEXT              as custText               
+            ,BUDGET_DEPT_CD         as budgetDeptCd    
+            ,BUDGET_DEPT_NM         as budgetDeptNm    
+                                    
+            ,BUDGET_ERP_DEPT_NM    as budgetErpDeptNm
+            ,ERP_EVID_SEQ           as erpEvidSeq             
+            ,ERP_ACC_SEQ            as erpAccSeq              
+            ,ERP_VAT_ACCSEQ         as erpVatAccseq           
+            ,ERP_OPP_ACC_SEQ        as erpOppAccSeq           
+            ,ERP_UM_COST_TYPE       as erpUmCostType          
+            ,USE_DEPT_CD            as useDeptCd       
+            ,USE_DEPT_NM            as useDeptNm       
+            ,REMARK                 as remark                 
+            ,AMT                    as amt                    
+            ,USE_ACC_ERP_DEPT_SEQ   as useAccErpDeptSeq       
+            ,USE_ACC_ERP_DEPT_NM   as useAccErpDeptNm       
             
-            ,BUDGET_ERP_DEPT_SEQ   as budgetErpDeptSeq
-            ,ERP_EVID_SEQ          as erpEvidSeq             
-            ,ERP_ACC_SEQ           as erpAccSeq              
-            ,ERP_VAT_ACCSEQ        as erpVatAccseq           
-            ,ERP_OPP_ACC_SEQ       as erpOppAccSeq           
-            ,ERP_UM_COST_TYPE      as erpUmCostType          
-            ,USE_DEPT_CD           as useDeptCd       
-            ,REMARK                as remark                 
-            ,AMT                   as amt                    
-            ,USE_ACC_ERP_DEPT_SEQ  as useAccErpDeptSeq       
-            
-            ,GUEST                 as guest                  
-            ,STORE                 as store                  
-            ,TRIP_GUBUN            as tripGubun              
-            ,IS_PUBLIC_COST        as isPublicCost           
-            ,ERP_CARD_SEQ          as erpCardSeq             
-            ,REMARK2               as remark2                
-            ,ERP_REM_SEQ           as erpRemSeq              
-            ,ERP_REM_VAL_SEQ       as erpRemValSeq           
-            ,ERP_REM_SEQ2          as erpRemSeq2             
-            ,ERP_REM_VAL_SEQ2      as erpRemValSeq2          
+            ,GUEST                  as guest                  
+            ,STORE                  as store                  
+            ,TRIP_GUBUN             as tripGubun              
+            ,IS_PUBLIC_COST         as isPublicCost           
+            ,ERP_CARD_SEQ           as erpCardSeq             
+            ,REMARK2                as remark2                
+            ,ERP_REM_SEQ            as erpRemSeq              
+            ,ERP_REM_VAL_SEQ        as erpRemValSeq           
+            ,ERP_REM_SEQ2           as erpRemSeq2             
+            ,ERP_REM_VAL_SEQ2       as erpRemValSeq2          
             
             ,SM_KIND_SEQ            as smKindSeq              
             ,SM_KIND_NM             as smKindName
@@ -289,15 +309,15 @@
             ,BUSI_TRIP_CODE         as busiTripCode
             ,BUSI_TRIP_TYPE         as busiTripType
             ,START_AREA             as startArea   
-            
-            ,DEST_AREA             as destArea    
-            ,WORK_START            as workStart   
-            ,WORK_END              as workEnd     
-            ,DISTANCE              as distance    
-            ,PERSON_CNT            as personCnt   
-            ,PERSON_NAME           as personName  
-            ,TRANS_AMT             as transAmt    
-            ,LAST_USER_ID          as lastUserId             
+                                    
+            ,DEST_AREA              as destArea    
+            ,WORK_START             as workStart   
+            ,WORK_END               as workEnd     
+            ,DISTANCE               as distance    
+            ,PERSON_CNT             as personCnt   
+            ,PERSON_NAME            as personName  
+            ,TRANS_AMT              as transAmt    
+            ,LAST_USER_ID           as lastUserId           
         from tb_tiar_cost_amt_log
         where
             1=1

@@ -36,7 +36,7 @@
                                     <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.regDate}}</span></td>
                                     <th class="table__th">기안자</th>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt">{{tiarCostVO.regEmpNm}}</span>
+                                        <span class="table__txt">{{tiarCostVO.regUserNm}}</span>
                                         <button type="button" class="btn btn-change-user" @click="openDeptPopup('asdf', '1')">
                                             <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
                                         </button>
@@ -114,7 +114,7 @@
                                         <span class="table__txt">{{expense.deptVO.budgetDeptNm}}</span>
                                     </td>
                                     <td class="table__td table__td--btn">
-                                        <span class="table__txt">{{expense.deptVO.userNm}}<br>{{expense.deptVO.deptNm}}</span>
+                                        <span class="table__txt">{{expense.deptVO.useUserNm}}<br>{{expense.deptVO.useDeptNm}}</span>
                                         <button type="button" class="btn btn-change-user" @click="openDeptPopup(idx)">
                                             <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
                                         </button>

@@ -15,7 +15,7 @@ $(document).ready(function(){
              * @note 사업자 휴폐업 조회
              * @author : es-seungglee
              ***********************************************/
-            getInfo (bizNo) {
+            async getInfo (bizNo) {
                 if(!bizNo) {
                     alert("사업자 번호를 입력해 주세요");
                     this.$refs.bizNo.focus();
@@ -26,9 +26,10 @@ $(document).ready(function(){
                     this.$refs.bizNo.focus();
                     return;
                 }
-                let bizInfo = this.doAxios("/financialLink/biz/bizInfo/fim/"+bizNo, "get");
-                this.trtCntn = bizInfo.data.trnCntn;
-                this.complBizNo = bizInfo.data.bizNo;
+                let bizInfo = await this.doAxios("/financialLink/biz/bizInfo/fim/"+bizNo, "get");
+                console.log(bizInfo);
+                this.trtCntn = bizInfo.data.trtCntn;
+                this.complBizNo = bizInfo.data.bizVO.bizNo;
             }
         }
     });

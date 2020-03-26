@@ -34,17 +34,27 @@ public class DeptVO {
     private int empNo;
     /** 예산부서코드2 */
     private int budgetDeptCd;
+    
+    private String budgetDeptNm;
     /** 예산부서 코드 */
     private int budgetErpDeptSeq;
-    /** 사용자 이름 */
-    private String userNm;
     
-    private int useDeptCd;
+    private String budgetErpDeptNm;
+    
+    /** 사용자 이름 */
+    private String useUserNm;
+    
+    private String useDeptCd;
+    
+    private String useDeptNm;
+    
     /** 사용자 사번 */
     private String useEmpNo;
     /** 사용자 코드 */
     private String useUserId;
     /** 사용자 부서코드 */
     private int useErpDeptSeq;
+    
+    private String useErpDeptNm;
     
 }

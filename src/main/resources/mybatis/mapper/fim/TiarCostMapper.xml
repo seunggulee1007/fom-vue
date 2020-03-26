@@ -2,7 +2,124 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.smilegate.fim.mappers.fim.TiarCostMapper">
-
+    
+    <resultMap id="tiarCostByPagingMap" type="tiarCostVO">
+        <result property="tiCostSeq" column="tiCostSeq"/>
+        <result property="tiCostNo" column="tiCostNo"/>
+        <result property="companySeq" column="companySeq"/>
+        <result property="contents" column="contents"/>
+        <result property="erpSlipSeq" column="erpSlipSeq"/>
+        <result property="title" column="title"/>
+        <result property="acctNo" column="acctNo"/>
+        <result property="bankCd" column="bankCd"/>
+        <result property="bankNm" column="bankNm"/>
+        <result property="acctOwnerNm" column="acctOwnerNm"/>
+        <result property="grstatus" column="grstatus"/>
+        <result property="grEndStatus" column="grEndStatus"/>
+        <result property="confirm" column="confirm"/>
+        <result property="comCd" column="comCd"/>
+        <result property="comNm" column="comNm"/>
+        <result property="pid" column="pid"/>
+        <result property="accErpDeptSeq" column="accErpDeptSeq"/>
+        <result property="accErpDeptNm" column="accErpDeptNm"/>
+        <result property="inputKind" column="inputKind"/>
+        <result property="dueDate" column="dueDate"/>
+        <result property="memo" column="memo"/>
+        <result property="regDate" column="regDate"/>
+        <result property="regErpEmpSeq" column="regErpEmpSeq"/>
+        <result property="regUserId" column="regUserId"/>
+        <result property="regUserNm" column="regUserNm"/>
+        <result property="regErpDeptSeq" column="regErpDeptSeq"/>
+        <result property="regErpDeptNm" column="regErpDeptNm"/>
+        <result property="regEmpNo" column="regEmpNo"/>
+        <result property="regDeptCd" column="regDeptCd"/>
+        <result property="regDeptNm" column="regDeptNm"/>
+        <result property="lastUserId" column="lastUserId"/>
+        <result property="lastUserNm" column="lastUserNm"/>
+        <result property="totalAmt" column="totalAmt"/>
+        <collection property="tiarCostAmtList" column="tiCostSeq" resultMap="tiarCostAmtResultMap"/>
+    </resultMap>
+    
+    <resultMap id="tiarCostAmtResultMap" type="tiarCostAmtVO">
+        
+        <result property="tiCostSeq" column="tiCostSeq"/>
+        <result property="tiCostSerl" column="tiCostSerl"/>
+        <result property="companySeq" column="companySeq"/>
+        <result property="useDate" column="useDate"/>
+        <result property="cCtrSeq" column="cCtrSeq"/>
+        <result property="erpCurrSeq" column="erpCurrSeq"/>
+        <result property="currNm" column="currNm"/>
+        <result property="exRate" column="exRate"/>
+        <result property="isVat" column="isVat"/>
+        <result property="curAmt" column="curAmt"/>
+        <result property="curVat" column="curVat"/>
+        <result property="domAmt" column="domAmt"/>
+        <result property="domVat" column="domVat"/>
+        <result property="custSeq" column="custSeq"/>
+        <result property="custText" column="custText"/>
+        <result property="erpEvidSeq" column="erpEvidSeq"/>
+        <result property="erpAccSeq" column="erpAccSeq"/>
+        <result property="erpVatAccseq" column="erpVatAccseq"/>
+        <result property="erpOppAccSeq" column="erpOppAccSeq"/>
+        <result property="erpUmCostType" column="erpUmCostType"/>
+        <result property="remark" column="remark"/>
+        <result property="amt" column="amt"/>
+        <result property="useAccErpDeptSeq" column="useAccErpDeptSeq"/>
+        <result property="useAccErpDeptNm" column="useAccErpDeptNm"/>
+        <result property="guest" column="guest"/>
+        <result property="store" column="store"/>
+        <result property="tripGubun" column="tripGubun"/>
+        <result property="isPublicCost" column="isPublicCost"/>
+        <result property="erpCardSeq" column="erpCardSeq"/>
+        <result property="remark2" column="remark2"/>
+        <result property="erpRemSeq" column="erpRemSeq"/>
+        <result property="erpRemValSeq" column="erpRemValSeq"/>
+        <result property="erpRemSeq2" column="erpRemSeq2"/>
+        <result property="erpRemValSeq2" column="erpRemValSeq2"/>
+        <result property="smKindSeq" column="smKindSeq"/>
+        <result property="costSeq" column="costSeq"/>
+        <result property="lastUserId" column="lastUserId"/>
+        <result property="lastDateTime" column="lastDateTime"/>
+        
+        <association property="deptVO"  resultMap="deptResultMap"/>
+        <association property="costInfoVO" resultMap="costInfoResultMap"/>
+    </resultMap>
+    
+    <resultMap id="deptResultMap" type="deptVO">
+        <result property="useErpEmpSeq" column="useErpEmpSeq"/>
+        <result property="useUserId" column="useUserId"/>
+        <result property="useUserNm" column="useUserNm"/>
+        <result property="useErpDeptSeq" column="useErpDeptSeq"/>
+        <result property="useErpDeptNm" column="useErpDeptNm"/>
+        <result property="useEmpNo" column="useEmpNo"/>
+        <result property="budgetDeptCd" column="budgetDeptCd"/>
+        <result property="budgetErpDeptSeq" column="budgetErpDeptSeq"/>
+        <result property="useDeptCd" column="useDeptCd"/>
+    </resultMap>
+    
+    <resultMap id="costInfoResultMap" type="costInfoVO">
+        <result property="smKindSeq" column="smKindSeq"/>
+        <result property="smKindName" column="smKindName"/>
+        <result property="costSeq" column="costSeq"/>
+        <result property="costName" column="costName"/>
+        <result property="costItemCd" column="costItemCd"/>
+        <result property="costItemNm" column="costItemNm"/>
+        <result property="activityCd" column="activityCd"/>
+        <result property="activityNm" column="activityNm"/>
+        <result property="custName" column="custName"/>
+        <result property="userName" column="userName"/>
+        <result property="purpose" column="purpose"/>
+        <result property="busiTripCode" column="busiTripCode"/>
+        <result property="busiTripType" column="busiTripType"/>
+        <result property="startArea" column="startArea"/>
+        <result property="destArea" column="destArea"/>
+        <result property="workStart" column="workStart"/>
+        <result property="workEnd" column="workEnd"/>
+        <result property="distance" column="distance"/>
+        <result property="personCnt" column="personCnt"/>
+        <result property="personName" column="personName"/>
+        <result property="transAmt" column="transAmt"/>
+    </resultMap>
     <insert id="insertTiarCost" parameterType="tiarCostVO">
         <selectKey keyProperty="tiCostSeq" resultType="int" order="BEFORE">
             select next value for seq_tiar_cost
@@ -16,24 +133,31 @@
             ,title                  -- 제목
             ,acct_no                -- 계좌번호
             ,bank_cd                -- 은행코드
+            ,bank_nm                -- 은행명
             ,acct_owner_nm          -- 예금주
             ,grstatus               -- 그룹웨어 상태값 코드
             ,gr_end_status          -- 그룹웨어 최종결제 여부
             ,confirm                -- erp확정 여부 코드
             ,com_cd                 -- 인사법인 코드
+            ,com_nm
             ,pid                    -- GW 전자결제 키값
             ,acc_erp_dept_seq       -- 등록자 소속실 erp 부서 코드
+            ,acc_erp_dept_nm
             ,input_kind             -- 입력 주체
             ,due_date               -- 출금예정일
             ,memo                   -- 메모
             ,reg_date               -- 기안 일자
             ,reg_erp_emp_seq        -- 기안자 erp사원코드
             ,reg_user_id            -- 기안자 사원 코드
+            ,reg_user_nm
             ,reg_erp_dept_seq       -- 기언자 erp부서코드
+            ,reg_erp_dept_nm
             ,reg_emp_no             -- 사용자 사번
             ,reg_dept_cd            -- 등록자 부서 코드
+            ,reg_dept_nm
             ,total_amt              -- 총 금액
             ,last_user_id           -- 데이터 최종수정자 사원코드
+            ,last_user_nm
             ,last_date_time         -- 데이터 최종 수정일
         )values (
             #{tiCostSeq}                  -- 지출결의서 내부키          
@@ -44,24 +168,31 @@
             ,#{title}                     -- 제목                 
             ,#{acctNo}                    -- 계좌번호               
             ,#{bankCd}                    -- 은행코드               
+            ,#{bankNm}
             ,#{acctOwnerNm}               -- 예금주                
             ,#{grstatus}                  -- 그룹웨어 상태값 코드        
             ,#{grEndStatus}               -- 그룹웨어 최종결제 여부       
             ,#{confirm}                   -- erp확정 여부 코드        
             ,#{comCd}                     -- 인사법인 코드            
+            ,#{comNm}
             ,#{pid}                       -- GW 전자결제 키값         
             ,#{accErpDeptSeq}             -- 등록자 소속실 erp 부서 코드  
+            ,#{accErpDeptNm}             -- 등록자 소속실 erp 부서 명  
             ,#{inputKind}                 -- 입력 주체              
             ,#{dueDate}                   -- 출금예정일              
             ,#{memo}                      -- 메모                 
             ,replace(#{regDate}, '-', '') -- 기안 일자              
             ,#{regErpEmpSeq}              -- 기안자 erp사원코드        
             ,#{regUserId}                 -- 기안자 사원 코드          
+            ,#{regUserNm}
             ,#{regErpDeptSeq}             -- 기언자 erp부서코드        
+            ,#{regErpDeptNm}
             ,#{regEmpNo}                  -- 사용자 사번             
             ,#{regDeptCd}                 -- 등록자 부서 코드          
+            ,#{regDeptNm}
             ,#{totalAmt}                  -- 총 사용금액
             ,#{lastUserId}                -- 데이터 최종수정자 사원코드     
+            ,#{lastUserNm}
             ,getdate()              -- 데이터 최종 수정일         
         )
         
@@ -79,24 +210,31 @@
                     ,title             = #{title}                     
                     ,acct_no           = #{acctNo}  
                     ,bank_cd           = #{bankCd}                    
+                    ,bank_nm           = #{bankNm}
                     ,acct_owner_nm     = #{acctOwnerNm}               
                     ,grstatus          = #{grstatus}                  
                     ,gr_end_status     = #{grEndStatus}               
                     ,confirm           = #{confirm}                   
                     ,com_cd            = #{comCd}                     
+                    ,com_nm            = #{comNm}
                     ,pid               = #{pid}                       
                     ,acc_erp_dept_seq  = #{accErpDeptSeq}             
+                    ,acc_erp_dept_nm   = #{accErpDeptNm}
                     ,input_kind        = #{inputKind}                 
                     ,due_date          = #{dueDate}                   
                     ,memo              = #{memo}                      
                     ,reg_date          = replace(#{regDate}, '-', '') 
                     ,reg_erp_emp_seq   = #{regErpEmpSeq}              
                     ,reg_user_id       = #{regUserId}                 
+                    ,reg_user_nm       = #{regUserNm}
                     ,reg_erp_dept_seq  = #{regErpDeptSeq}             
+                    ,reg_erp_dept_nm   = #{regErpDeptNm}
                     ,reg_emp_no        = #{regEmpNo}                  
-                    ,reg_dept_cd       = #{regDeptCd}                 
+                    ,reg_dept_cd       = #{regDeptCd}   
+                    ,reg_dept_nm       = #{regDeptNm}              
                     ,total_amt         = #{totalAmt}
                     ,last_user_id      = #{lastUserId}                
+                    ,last_user_nm      = #{lastUserNm}
                     ,last_date_time    = getdate()
             where
                 ti_cost_seq = #{tiCostSeq}
@@ -112,26 +250,178 @@
             ,title              AS title                
             ,acct_no            AS acctNo 
             ,bank_cd            AS bankCd               
+            ,bank_nm            as bankNm
             ,acct_owner_nm      AS acctOwnerNm          
             ,grstatus           AS grstatus             
             ,gr_end_status      AS grEndStatus          
             ,confirm            AS confirm              
             ,com_cd             AS comCd                
+            ,com_nm             as comNm
             ,pid                AS pid                  
             ,acc_erp_dept_seq   AS accErpDeptSeq        
+            ,acc_erp_dept_nm    as accErpDeptNm
             ,input_kind         AS inputKind            
             ,due_date           AS dueDate              
             ,memo               AS memo                 
             ,concat(left(reg_date, 4) ,'-',substring(reg_date,5,2),'-',right(reg_date,2))           AS regDate
             ,reg_erp_emp_seq    AS regErpEmpSeq         
             ,reg_user_id        AS regUserId            
+            ,reg_user_nm        aS regUserNm
             ,reg_erp_dept_seq   AS regErpDeptSeq        
+            ,reg_erp_dept_nm    as regErpDeptNm
             ,reg_emp_no         AS regEmpNo             
             ,reg_dept_cd        AS regDeptCd            
+            ,reg_dept_nm        as regDeptNm
             ,last_user_id       AS lastUserId           
+            ,last_user_nm       as lastUserNm
+            ,total_amt          as totalAmt
         from tb_tiar_cost
         where
             ti_cost_seq = #{tiCostSeq}
+    </select>
+    
+    
+    <select id="selectTiarCostByPaging" parameterType="pagingVO" resultMap="tiarCostByPagingMap">
+        select
+            tc.ti_cost_Seq         AS tiCostSeq
+            ,ti_cost_no         AS tiCostNo             
+            ,tc.company_seq        AS companySeq           
+            ,contents           AS contents             
+            ,erp_slip_seq       AS erpSlipSeq           
+            ,title              AS title                
+            ,acct_no            AS acctNo 
+            ,bank_cd            AS bankCd               
+            ,bank_nm            as bankNm
+            ,acct_owner_nm      AS acctOwnerNm          
+            ,grstatus           AS grstatus             
+            ,gr_end_status      AS grEndStatus          
+            ,confirm            AS confirm              
+            ,com_cd             AS comCd                
+            ,com_nm             as comNm
+            ,pid                AS pid                  
+            ,acc_erp_dept_seq   AS accErpDeptSeq        
+            ,acc_erp_dept_nm    as accErpDeptNm
+            ,input_kind         AS inputKind            
+            ,due_date           AS dueDate              
+            ,memo               AS memo                 
+            ,concat(left(reg_date, 4) ,'-',substring(reg_date,5,2),'-',right(reg_date,2))           AS regDate
+            ,reg_erp_emp_seq    AS regErpEmpSeq         
+            ,reg_user_id        AS regUserId            
+            ,reg_user_nm        aS regUserNm
+            ,reg_erp_dept_seq   AS regErpDeptSeq        
+            ,reg_erp_dept_nm    as regErpDeptNm
+            ,reg_emp_no         AS regEmpNo             
+            ,reg_dept_cd        AS regDeptCd            
+            ,reg_dept_nm        as regDeptNm
+            ,total_amt          as totalAmt
+            ,ti_cost_serl           as tiCostSerl
+            ,tca.COMPANY_SEQ            as companySeq             
+            ,USE_DATE               as useDate
+            ,USE_ERP_EMP_SEQ        as useErpEmpSeq    
+            ,USE_USER_ID            as useUserId       
+            ,USE_USER_NM            as useUserNm       
+            ,USE_ERP_DEPT_SEQ       as useErpDeptSeq   
+            ,USE_ERP_DEPT_NM       as useErpDeptNm   
+            ,USE_EMP_NO             as useEmpNo        
+            ,CCTR_SEQ               as cCtrSeq                
+            ,ERP_CURR_SEQ           as erpCurrSeq             
+                                                            
+            ,CURR_NM                as currNm                
+            ,EX_RATE                as exRate                 
+            ,IS_VAT                 as isVat                  
+            ,CUR_AMT                as curAmt                 
+            ,CUR_VAT                as curVat                 
+            ,DOM_AMT                as domAmt                 
+            ,DOM_VAT                as domVat                 
+            ,MDI_CUST_SEQ           as custSeq                
+            ,CUST_TEXT              as custText               
+            ,BUDGET_DEPT_CD         as budgetDeptCd    
+            ,BUDGET_DEPT_NM         as budgetDeptNm    
+                                    
+            ,BUDGET_ERP_DEPT_NM    as budgetErpDeptNm
+            ,ERP_EVID_SEQ           as erpEvidSeq             
+            ,ERP_ACC_SEQ            as erpAccSeq              
+            ,ERP_VAT_ACCSEQ         as erpVatAccseq           
+            ,ERP_OPP_ACC_SEQ        as erpOppAccSeq           
+            ,ERP_UM_COST_TYPE       as erpUmCostType          
+            ,USE_DEPT_CD            as useDeptCd       
+            ,USE_DEPT_NM            as useDeptNm       
+            ,REMARK                 as remark                 
+            ,AMT                    as amt                    
+            ,USE_ACC_ERP_DEPT_SEQ   as useAccErpDeptSeq       
+            ,USE_ACC_ERP_DEPT_NM   as useAccErpDeptNm       
+            
+            ,GUEST                  as guest                  
+            ,STORE                  as store                  
+            ,TRIP_GUBUN             as tripGubun              
+            ,IS_PUBLIC_COST         as isPublicCost           
+            ,ERP_CARD_SEQ           as erpCardSeq             
+            ,REMARK2                as remark2                
+            ,ERP_REM_SEQ            as erpRemSeq              
+            ,ERP_REM_VAL_SEQ        as erpRemValSeq           
+            ,ERP_REM_SEQ2           as erpRemSeq2             
+            ,ERP_REM_VAL_SEQ2       as erpRemValSeq2          
+            
+            ,SM_KIND_SEQ            as smKindSeq              
+            ,SM_KIND_NM             as smKindName
+            ,COST_SEQ               as costSeq                
+            ,COST_NM                as costName
+            ,COST_ITEM_CD           as costItemCd  
+            ,COST_ITEM_NM           as costItemNm
+            ,ACTIVITY_CD            as activityCd  
+            ,ACTIVITY_NM            as activityNm
+            ,CUST_NAME              as custName    
+            ,USER_NAME              as userName    
+            ,PURPOSE                as purpose     
+            ,BUSI_TRIP_CODE         as busiTripCode
+            ,BUSI_TRIP_TYPE         as busiTripType
+            ,START_AREA             as startArea   
+                                    
+            ,DEST_AREA              as destArea    
+            ,WORK_START             as workStart   
+            ,WORK_END               as workEnd     
+            ,DISTANCE               as distance    
+            ,PERSON_CNT             as personCnt   
+            ,PERSON_NAME            as personName  
+            ,TRANS_AMT              as transAmt
+        from(select
+                *
+            from tb_tiar_cost
+             where
+            reg_date between replace(#{searchStdDt}, '-','') and replace(#{searchEndDt}, '-','')
+            <if test="searchKeyword != null and searchKeyword != ''">
+                <choose>
+                    <when test="searchKind == 'regUserNm'">
+                        and reg_user_nm like concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <otherwise>
+                        and reg_dept_nm like concat('%', #{searchKeyword}, '%')
+                    </otherwise>
+                </choose>
+            </if>
+            order by ti_cost_Seq
+            offset(#{pageNo}-1) * #{listCnt} row
+            fetch next #{listCnt} row only) tc
+        left join tb_tiar_cost_amt tca
+        on tc.ti_Cost_Seq = tca.TI_COST_SEQ
+    </select>
+    
+    <select id="selectTiarCostByPagingCnt" parameterType="pagingVO" resultType="int">
+        select
+            count(*)
+        from tb_tiar_cost
+        where
+            reg_date between replace(#{searchStdDt}, '-','') and replace(#{searchEndDt}, '-','')
+            <if test="searchKeyword != null and searchKeyword != ''">
+                <choose>
+                    <when test="searchKind == 'regUserNm'">
+                        and reg_user_nm like concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <otherwise>
+                        and reg_dept_nm like concat('%', #{searchKeyword}, '%')
+                    </otherwise>
+                </choose>
+            </if>
     </select>
     
 </mapper>

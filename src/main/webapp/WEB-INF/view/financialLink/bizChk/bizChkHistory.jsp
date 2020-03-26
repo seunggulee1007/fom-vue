@@ -18,9 +18,9 @@
     </div>
     <div class="grid-layout" id="app" v-cloak>
         <div class="grid-column grid-column10">
-            <div class="section section--border section-biz-history">
+            <div class="section section--border section-history section-biz-history">
                 <div class="component-area clearfix">
-                    <div class="component-group">
+                    <div class="component-group datepicker--range-type">
                         <div class="component-box">
                             <div class="input-field datepicker__v-calendar">
                              <label for="date_input_info1" class="input-field__title ">조회기준일자</label>
@@ -32,11 +32,11 @@
                                 </v-date-picker>
                             </div>
                         </div>
-                        <div class="component-box">
-                            <p class="componnet-box__txt">
+                        <div class="component-box component-box--non-label">
+                            <p class="component-box__txt">
                             ~
                             </p>
-                        </div>   
+                        </div>  
                         <div class="component-box component-box--non-label">
                             <div class="input-field input-field--no-title datepicker__v-calendar">
                                 <input type="text" v-model='searchEndDt' readonly id="date_input_exchange" class="input-field__input">
@@ -50,31 +50,34 @@
                     </div>
                     <div class="component-group">
                         <div class="component-box">
-                            <fieldset>
-                                <legend>사업자등록번호 검색영역</legend>
-                                <div class="search-form">
-                                    <em class="search-form__title">사업자등록번호</em>
-                                    <div class="search-form__inner">
-                                        <input type="search">
-                                        <div class="search-form__bx-btn">
-                                            <input type="reset" class="search-form__btn-delete" v-model="bizNo">
-                                            <span class="blind">reset</span>
+                            <form>
+                            
+                                <fieldset>
+                                    <legend>사업자등록번호 검색영역</legend>
+                                    <div class="search-form">
+                                        <em class="search-form__title">사업자등록번호</em>
+                                        <div class="search-form__inner">
+                                            <input type="search">
+                                            <div class="search-form__bx-btn">
+                                                <input type="reset" class="search-form__btn-delete" v-model="bizNo">
+                                                <span class="blind">reset</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="search-form">
-                                    <em class="search-form__title">요청자</em>
-                                    <div class="search-form__inner">         
-                                        <input type="search" v-model="userNm">
+                                    <div class="search-form">
+                                        <em class="search-form__title">요청자</em>
+                                        <div class="search-form__inner">         
+                                            <input type="search" v-model="userNm">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="search-form">
-                                    <em class="search-form__title">요청부서</em>
-                                    <div class="search-form__inner">         
-                                        <input type="search" v-model="deptNm">
+                                    <div class="search-form">
+                                        <em class="search-form__title">요청부서</em>
+                                        <div class="search-form__inner">         
+                                            <input type="search" v-model="deptNm">
+                                        </div>
                                     </div>
-                                </div>
-                            </fieldset>
+                                </fieldset>
+                            </form>
                         </div>
                         <div class="component-box">
                             <button type="button" class="btn btn--bgtype" @click="getBizInfoList();">

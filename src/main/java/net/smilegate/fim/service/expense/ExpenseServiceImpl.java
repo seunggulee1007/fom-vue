@@ -17,6 +17,7 @@ import net.smilegate.fim.service.file.FileService;
 import net.smilegate.fim.util.CommonUtil;
 import net.smilegate.fim.util.FileUtil;
 import net.smilegate.fim.vo.FileVO;
+import net.smilegate.fim.vo.PagingVO;
 import net.smilegate.fim.vo.TiarCostAmtLogVO;
 import net.smilegate.fim.vo.TiarCostAmtVO;
 import net.smilegate.fim.vo.TiarCostLogVO;
@@ -34,6 +35,14 @@ public class ExpenseServiceImpl implements ExpenseService {
     private final FileService fileService;
     private final FileUtil fileUtil;
     
+    /**
+     * 지출결의서 저장
+     * @param request
+     * @param tiarCostVO
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
     public Map<String, Object> insertExpense(MultipartHttpServletRequest request ,TiarCostVO tiarCostVO) throws IllegalArgumentException, IllegalAccessException {
         Map<String, Object> map = new HashMap<String, Object>();
         
@@ -62,6 +71,14 @@ public class ExpenseServiceImpl implements ExpenseService {
         return map;
     }
     
+    /**
+     * 지출결의서 수정
+     * @param request
+     * @param tiarCostVO
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
     public Map<String, Object> updateExpense(MultipartHttpServletRequest request ,TiarCostVO tiarCostVO) throws IllegalArgumentException, IllegalAccessException {
         Map<String, Object> map = new HashMap<String, Object>();
         int tiCostSeq = tiarCostVO.getTiCostSeq();
@@ -91,6 +108,11 @@ public class ExpenseServiceImpl implements ExpenseService {
         return map;
     }
     
+    /**
+     * 지출결의서 조회
+     * @param tiCostSeq
+     * @return
+     */
     public Map<String, Object> selectExpense(int tiCostSeq){
         Map<String, Object> map = new HashMap<>();
         map.put("tiarCostVO", tiarCostMapper.selectTiarCostByTiCostSeq(tiCostSeq));
@@ -100,5 +122,25 @@ public class ExpenseServiceImpl implements ExpenseService {
         map.put("fileList", fileService.selectFileList(fileVO));
         return map;
     }
-    
+ 
+    /**
+     * 지출결의서 내역 조회
+     * @param pagingVO
+     * @return
+     */
+    public Map<String, Object> selectExpenseHitoryList(PagingVO pagingVO) {
+        Map<String, Object> map = new HashMap<>();
+        System.err.println(pagingVO.getPageNo());
+        int totalCnt = tiarCostMapper.selectTiarCostByPagingCnt(pagingVO);
+        List<TiarCostVO> expenseHistory = null;
+        if(totalCnt > 0) {
+            pagingVO.calcPage(totalCnt);
+            expenseHistory = tiarCostMapper.selectTiarCostByPaging(pagingVO);
+        }
+        System.err.println(pagingVO.getPageNo());
+        map.put("expenseHistoryList", expenseHistory);
+        map.put("pagingVO", pagingVO);
+        
+        return map;
+    }
 }

@@ -21,6 +21,7 @@ import net.smilegate.fim.service.sgerp.SgerpService;
 import net.smilegate.fim.service.sgerpma.SgerpmaService;
 import net.smilegate.fim.vo.CommonResultVO;
 import net.smilegate.fim.vo.ExpenseVO;
+import net.smilegate.fim.vo.PagingVO;
 import net.smilegate.fim.vo.TiarCostVO;
 import net.smilegate.fim.vo.UserVO;
 
@@ -118,6 +119,12 @@ public class ApprovalProcController {
     @GetMapping("/getBankInfo")
     public CommonResultVO getBankInfo(UserVO userVO) {
         return CommonResultVO.builder().data(sgerpService.getBankInfo(userVO)).build();
+    }
+    
+    @ApiOperation(value="지출결의서 내역 조회")
+    @GetMapping("/expenseHistoryList")
+    public CommonResultVO selectExpenseHistoryList(PagingVO pagingVO) {
+        return CommonResultVO.builder().data(expenseService.selectExpenseHitoryList(pagingVO)).build();
     }
     
 }

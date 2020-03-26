@@ -95,3 +95,11 @@ function getDate(date, type){
 function isNull(str) {
     return (str === null || str === 'null' || str === undefined || str === 'undefined');
 }
+
+function getPageList(start, end) {
+    let arr = new Array();
+    for(let i=start; i<end; i++) {
+        arr[i] = i;
+    }
+    return arr;
+}

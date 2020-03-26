@@ -2,7 +2,7 @@
 $(document).ready(function(){
     Vue.use(MyPlugin);                      // 전역 vue 플러그인
     Vue.use(onlyInt);
-    let app = new Vue({
+    new Vue({
         el : "#app"
         , data : {
             openFlag : true
@@ -101,19 +101,24 @@ $(document).ready(function(){
             }
             ,setTempData(data) {
                 this.tiarCostVO.regDeptNm = data.deptNm;    // 부서 이름
-                this.tiarCostVO.regEmpNm = data.userNm;     // 사용자 이름
                 this.tiarCostVO.regDeptCd = data.deptCd;   // 부서코드
                 this.tiarCostVO.comCd = data.comCd;         // 법인 코드
-                this.tiarCostVO.regUserId = data.userId;         // 법인 코드
-                this.tiarCostVO.regEmpNo = data.empNo;         // 법인 코드
+                this.tiarCostVO.comNm = data.comNm;         // 법인 
+                this.tiarCostVO.regUserId = data.userId;         // 사용자 아이디
+                this.tiarCostVO.regUserNm = data.userNm;        // 사용자명
+                this.tiarCostVO.regEmpNo = data.empNo;         // 사용자 사
                 this.tiarCostVO.title = "[" + data.comNm+"][지출결의서(현금)_"+data.userNm+"_"+getDate(new Date(), "-")+"]";
                 this.getBankInfo(data.deptCd, data.empNo);
                 
                 this.expenseList[0].deptVO.comCd = data.comCd; // 법인 코드
-                this.expenseList[0].deptVO.deptCd = data.deptCd;
-                this.expenseList[0].deptVO.deptNm = data.deptNm;
                 this.expenseList[0].deptVO.comNm = data.comNm;
-                this.expenseList[0].deptVO.userNm = data.userNm;
+                /** 데이터 베이스 저장용 */
+                this.expenseList[0].deptVO.useEmpNo = data.empNo;   // 사용자 사번
+                this.expenseList[0].deptVO.useDeptCd = data.deptCd; // 부서 코드
+                this.expenseList[0].deptVO.useDeptNm = data.deptNm; // 부서명
+                this.expenseList[0].deptVO.useUserId = data.userId; // 사용자 아이디
+                this.expenseList[0].deptVO.useUserNm = data.userNm; // 사용자명
+                
                 
                 
             }
@@ -156,15 +161,15 @@ $(document).ready(function(){
                 console.log('setExpenseData');
                 console.log(data);
                 let deptVO = {};
-                deptVO.useErpEmpSeq = data.empNo;            // erp사용자 코드(*)
+                deptVO.useErpEmpSeq = data.erpEmpSeq;                   // erp사용자 코드(*)
                 deptVO.useUserId = data.userId;                     // 사용자 코드
-                deptVO.useErpDeptSeq = data.deptCd;                 // 사용자 부서 코드
+                deptVO.useErpDeptSeq = data.erpDeptCd;                 // 사용자 부서 코드
                 deptVO.useDeptCd = data.deptCd;
                 deptVO.useEmpNo = data.empNo;                       // 사용자 사번
                 deptVO.budgetDeptCd = data.budgetDeptCd;            // 예산부서코드2(*)
                 deptVO.budgetErpDeptSeq = data.budgetErpDeptSeq;    // 예산부서코드(*)
-                deptVO.userNm = data.userNm;
-                deptVO.deptNm = data.deptNm;
+                deptVO.useDeptNm = data.deptNm;
+                deptVO.useUserNm = data.userNm;
                 this.expenseList[this.expenseIdx].deptVO = deptVO;
                 console.log(this.expenseList);
                 
@@ -176,7 +181,7 @@ $(document).ready(function(){
              ***********************************************/
             ,openExpenseAll(idx, smKindName) {
                 this.expenseIdx = idx;
-                let userNm = this.expenseList[idx].deptVO.userNm;       // 사용자 명
+                let userNm = this.expenseList[idx].deptVO.useUserNm;       // 사용자 명
                 let comCd = this.expenseList[idx].deptVO.comCd;         // 회사 코드
                 EventBus.$emit('openExpenseAllPopup',smKindName, userNm, comCd);
             }
@@ -198,7 +203,7 @@ $(document).ready(function(){
              ***********************************************/
             ,openExpenseSgma(idx, activityNm) {                         // 
                 this.expenseIdx = idx;
-                let userNm = this.expenseList[idx].deptVO.userNm;       // 사용자 명
+                let userNm = this.expenseList[idx].deptVO.useUserNm;       // 사용자 명
                 let comCd = this.expenseList[idx].deptVO.comCd;         // 회사 코드
                 EventBus.$emit('openExpenseSgmaPopup', activityNm, userNm, comCd);
             }
@@ -453,7 +458,7 @@ $(document).ready(function(){
              * @note 합계 비용 나타내는 함수
              * @author : es-seungglee
              ***********************************************/
-            , calcTotalAmt (data) {
+            , calcTotalAmt () {
                 this.tiarCostVO.totalAmt = 0;
                 for(let expenseVO of this.expenseList) {                // 합계를 위한 반복문
                     console.log(typeof(expenseVO.curAmt));

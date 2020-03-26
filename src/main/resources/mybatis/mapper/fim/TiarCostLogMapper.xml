@@ -17,23 +17,31 @@
             ,title                  -- 제목
             ,acct_no                -- 계좌번호
             ,bank_cd                -- 은행코드
+            ,bank_nm                -- 은행명
             ,acct_owner_nm          -- 예금주
             ,grstatus               -- 그룹웨어 상태값 코드
             ,gr_end_status          -- 그룹웨어 최종결제 여부
             ,confirm                -- erp확정 여부 코드
             ,com_cd                 -- 인사법인 코드
+            ,com_nm
             ,pid                    -- GW 전자결제 키값
             ,acc_erp_dept_seq       -- 등록자 소속실 erp 부서 코드
+            ,acc_erp_dept_nm
             ,input_kind             -- 입력 주체
             ,due_date               -- 출금예정일
             ,memo                   -- 메모
             ,reg_date               -- 기안 일자
             ,reg_erp_emp_seq        -- 기안자 erp사원코드
             ,reg_user_id            -- 기안자 사원 코드
+            ,reg_user_nm
             ,reg_erp_dept_seq       -- 기언자 erp부서코드
+            ,reg_erp_dept_nm
             ,reg_emp_no             -- 사용자 사번
             ,reg_dept_cd            -- 등록자 부서 코드
+            ,reg_dept_nm
+            ,total_amt              -- 총 금액
             ,last_user_id           -- 데이터 최종수정자 사원코드
+            ,last_user_nm
             ,last_date_time         -- 데이터 최종 수정일
         )values (
             #{logSeq}
@@ -43,26 +51,34 @@
             ,#{contents}                  -- 지출내역(비고)           
             ,#{erpSlipSeq}                -- 전표 내부 코드           
             ,#{title}                     -- 제목                 
-            ,replace(#{acctNo}, '-', '')  -- 계좌번호               
+            ,#{acctNo}                    -- 계좌번호               
             ,#{bankCd}                    -- 은행코드               
+            ,#{bankNm}
             ,#{acctOwnerNm}               -- 예금주                
             ,#{grstatus}                  -- 그룹웨어 상태값 코드        
             ,#{grEndStatus}               -- 그룹웨어 최종결제 여부       
             ,#{confirm}                   -- erp확정 여부 코드        
             ,#{comCd}                     -- 인사법인 코드            
+            ,#{comNm}
             ,#{pid}                       -- GW 전자결제 키값         
             ,#{accErpDeptSeq}             -- 등록자 소속실 erp 부서 코드  
+            ,#{accErpDeptNm}             -- 등록자 소속실 erp 부서 코드  
             ,#{inputKind}                 -- 입력 주체              
             ,#{dueDate}                   -- 출금예정일              
             ,#{memo}                      -- 메모                 
             ,replace(#{regDate}, '-', '') -- 기안 일자              
             ,#{regErpEmpSeq}              -- 기안자 erp사원코드        
             ,#{regUserId}                 -- 기안자 사원 코드          
+            ,#{regUserNm}
             ,#{regErpDeptSeq}             -- 기언자 erp부서코드        
+            ,#{regErpDeptNm}
             ,#{regEmpNo}                  -- 사용자 사번             
             ,#{regDeptCd}                 -- 등록자 부서 코드          
+            ,#{regDeptNm}
+            ,#{totalAmt}                  -- 총 사용금액
             ,#{lastUserId}                -- 데이터 최종수정자 사원코드     
-            ,getdate()              -- 데이터 최종 수정일         
+            ,#{lastUserNm}
+            ,getdate()              -- 데이터 최종 수정일           
         )
         
     </insert>
@@ -79,23 +95,30 @@
             ,title              AS title                
             ,acct_no            AS acctNo 
             ,bank_cd            AS bankCd               
+            ,bank_nm            as bankNm
             ,acct_owner_nm      AS acctOwnerNm          
             ,grstatus           AS grstatus             
             ,gr_end_status      AS grEndStatus          
             ,confirm            AS confirm              
             ,com_cd             AS comCd                
+            ,com_nm             as comNm
             ,pid                AS pid                  
             ,acc_erp_dept_seq   AS accErpDeptSeq        
+            ,acc_erp_dept_nm    as accErpDeptNm
             ,input_kind         AS inputKind            
             ,due_date           AS dueDate              
             ,memo               AS memo                 
-            ,reg_date           AS regDate
+            ,concat(left(reg_date, 4) ,'-',substring(reg_date,5,2),'-',right(reg_date,2))           AS regDate
             ,reg_erp_emp_seq    AS regErpEmpSeq         
             ,reg_user_id        AS regUserId            
+            ,reg_user_nm        aS regUserNm
             ,reg_erp_dept_seq   AS regErpDeptSeq        
+            ,reg_erp_dept_nm    as regErpDeptNm
             ,reg_emp_no         AS regEmpNo             
             ,reg_dept_cd        AS regDeptCd            
+            ,reg_dept_nm        as regDeptNm
             ,last_user_id       AS lastUserId           
+            ,last_user_nm       as lastUserNm
         from tb_tiar_cost_log
         where
             1=1

@@ -41,6 +41,13 @@ public class TiarCostAmtLogVO {
     private String custText;
     /** 예산 부서 */
     private int budgetDeptSeq;
+    
+    private String budgetDeptNm;
+    
+    private int budgetErpDeptSeq;
+    
+    private String budgetErpDeptNm;
+    
     /** 증빙내부코드 */
     private int erpEvidSeq;
     /** 계정과목 */
@@ -53,6 +60,8 @@ public class TiarCostAmtLogVO {
     private int erpUmCostType;
     /** 인사 사용자부서코드 */
     private String useDeptCd;
+    
+    private String useDeptNm;
     /** 적요 */
     private String remark;
     /** 데이터 최종수정자 */
@@ -63,6 +72,8 @@ public class TiarCostAmtLogVO {
      private int amt;
      /** 사용자 소속실 부서 코드 */
      private int useAccErpDeptSeq;
+     
+     private String useAccErpDeptNm;
      /** 접대대상자 */
      private String guest;
      /** 가맹점 */

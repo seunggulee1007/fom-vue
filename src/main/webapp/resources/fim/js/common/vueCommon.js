@@ -36,13 +36,13 @@ const MyPlugin = {
              
           }
           ,
-          successFunction(res) {
+          successFunction({data}) {
               $.unblockUI();
-              return res.data;
+              return data;
           }
           ,errorFunction(err) {
               $.unblockUI();
-              return err.data;
+              return err;
           }
           /**********************************************
            * @method : checkBizNo
@@ -180,7 +180,17 @@ const MyPlugin = {
               today = year + type + month + type + day;
               
               return today;
-          }
+          },
+            getPageList(start, end) {
+                console.log(start)
+                console.log(end)
+                let arr = new Array();
+                for(let i=0; i<end; i++) {
+                    arr[i] = i+1;
+                }   
+                console.log(arr);
+                return arr;
+            }
       }
     });
   }
@@ -227,6 +237,7 @@ Vue.filter('currency', function(value, flag) {
 
 // 넘겨진 번호를 사업자 번호 포맷에 맞춰서 마스킹 해주는 필터링
 Vue.filter('bizNoFilter', function(value, type) {
+    if(!value) return;
     if(value.includes('-')){
         return value;
     }
@@ -245,3 +256,11 @@ Vue.filter('bizNoFilter', function(value, type) {
     }
     return formatNum;
 });
+
+Vue.filter('dateFilter', (value, type) => {
+    if(!value) return '';
+    if(!type) {
+        type = '-';
+    }
+    return value.substr(0,4) + type + value.substr(4,2) + type + value.substr(6,2);
+})
