@@ -31,9 +31,9 @@ import net.smilegate.fim.vo.account.CompanyCardMasterVO;
 import net.smilegate.fim.vo.account.CompanyCardVO;
 
 @Slf4j
-@RestController
-@RequestMapping("/companyCard/account")
-public class AccountController {
+//@RestController
+//@RequestMapping("/companyCardJquery/account")
+public class AccountJqueryController {
 
 	@Autowired
 	private AccountService service;

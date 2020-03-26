@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author es-seungglee
  *
  */
-@Controller
+//@Controller
 @RequestMapping("/companyCard/account")
 public class AccountViewController {
 

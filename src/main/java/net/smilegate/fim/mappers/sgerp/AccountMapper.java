@@ -13,4 +13,5 @@ public interface AccountMapper {
 
 	public List<CompanyCardVO> getCompanyCardList(Map param) throws Exception;
 
+	public List<CompanyCardDetailVO> getCompanyCardUseList(@Param("yyyymm")String yyyy) throws Exception;
 }
