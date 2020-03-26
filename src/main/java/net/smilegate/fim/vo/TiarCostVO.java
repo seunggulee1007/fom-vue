@@ -78,4 +78,8 @@ public class TiarCostVO {
     /** 지출결의서(비용정산)상세 리스트 */
     private List<TiarCostAmtVO> tiarCostAmtList;
     
+    private List<Integer> fileIds;
+    
+    private List<FileVO> fileList;
+    
 }

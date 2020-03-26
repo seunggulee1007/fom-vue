@@ -35,6 +35,10 @@ public class ApprovalProcController {
     private final SgerpService sgerpService;
     private final ExpenseService expenseService;
     
+    /**
+     * 부서 리스트 조회
+     * @return
+     */
     @ApiOperation(value="부서리스트 조회", notes ="스마일 게이트 부서리스트 가져오는 메서드")
     @GetMapping("/getDeptList")
     public CommonResultVO getDeptList() {
@@ -44,6 +48,11 @@ public class ApprovalProcController {
                         .build();
     }
     
+    /**
+     * 사용자 정보 조회
+     * @param deptCd
+     * @return
+     */
     @ApiOperation(value="사용자 정보 조회", notes="넘겨진 부서 코드로 해당 부서에 소속된 부서원 조회하는 메서드")
     @ApiImplicitParams({
         @ApiImplicitParam(name="deptCd", value="부서코드", required = true, dataType="string", defaultValue = "H0000070")
@@ -56,6 +65,11 @@ public class ApprovalProcController {
                         .build();
     }
     
+    /**
+     * 비용 항목 조회
+     * @param expenseVO
+     * @return
+     */
     @ApiOperation(value="비용항목 조회", notes="넘겨진 검색조건으로 비용항목 조회하는 메서드")
     @GetMapping("/getExpense")
     public CommonResultVO getExpense(ExpenseVO expenseVO) {
@@ -65,6 +79,11 @@ public class ApprovalProcController {
                         .build();
     }
     
+    /**
+     * 비용항목 조회
+     * @param expenseVO
+     * @return
+     */
     @ApiOperation(value="비용항목 조회", notes="넘겨진 검색조건(activityNm)으로 비용항목 조회하는 메서드")
     @GetMapping("/getExpenseByActivityNm")
     public CommonResultVO getExpenseByActivityNm(ExpenseVO expenseVO) {
@@ -74,15 +93,11 @@ public class ApprovalProcController {
                         .build();
     }
 
-    /*
-     * @ApiOperation(value="비용항목 조회", notes="넘겨진 검색조건으로 비용항목 조회하는 메서드")
-     * 
-     * @GetMapping("/getExpense") public CommonResultVO
-     * getExpense(@RequestParam(required = false) Map<String, Object> searchRequest)
-     * { Map<String, Object> map = new HashMap<>(); map =
-     * expenseService.selectExpenseList(searchRequest); return
-     * CommonResultVO.builder().data(map).build(); }
-     */    
+    /**
+     * 임원 여부 조회
+     * @param userNm
+     * @return
+     */
     @ApiOperation(value="임원 여부 조회", notes="해당 이름이 임원인지 여부 조회")
     @GetMapping("/getImwonCheck/{userName}")
     public CommonResultVO getImwonCheck(@PathVariable("userNm")String userNm) {
@@ -91,18 +106,34 @@ public class ApprovalProcController {
         return CommonResultVO.builder().data(map).build();
     }
     
+    /**
+     * 지출결의 조회
+     * @param tiCostSeq
+     * @return
+     */
+    @ApiOperation(value="지출결의 조회", notes="지출결의 내부번호에 대한 지출결의 내역 조회")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name="tiCostSeq", value="지출결의 내부 번호", required = true, dataType="int")
+    })
     @GetMapping("/expenseList/{tiCostSeq}")
     public CommonResultVO selectExpense(@PathVariable("tiCostSeq")int tiCostSeq) {
         
         return CommonResultVO.builder().data(expenseService.selectExpense(tiCostSeq)).build();
     }
     
+    /**
+     * 지출결의 저장 및 수정
+     * @param request
+     * @param tiarCostVO
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
     @ApiOperation(value="지출결의서 저장", notes="지출결의서 파일과 상세 내용 저장")
     @PostMapping("/expense")
     public CommonResultVO insertExpense(MultipartHttpServletRequest request, TiarCostVO tiarCostVO)  throws IllegalArgumentException, IllegalAccessException {
         Map<String, Object> map = new HashMap<>();
         int tiCostSeq = tiarCostVO.getTiCostSeq();
-        System.err.println("tiCostSeq ::::: " + tiCostSeq);
         if(tiCostSeq == 0) {
             map = expenseService.insertExpense(request, tiarCostVO);
         }else {
@@ -111,6 +142,11 @@ public class ApprovalProcController {
         return CommonResultVO.builder().resultMsg(CommonMsg.SUCCESS_WRITE.getMsg()).data(map).build();
     }
     
+    /**
+     * 은행 정보 조회
+     * @param userVO
+     * @return
+     */
     @ApiOperation(value="은행 정보 조회", notes="부서, 사번으로 해당 사원의 은행 정보 조회")
     @ApiImplicitParams({
         @ApiImplicitParam(name="deptCd", value="부서코드", required = true, dataType="string", defaultValue = "h0000000")
@@ -121,6 +157,11 @@ public class ApprovalProcController {
         return CommonResultVO.builder().data(sgerpService.getBankInfo(userVO)).build();
     }
     
+    /**
+     * 지출결의 내역 조회
+     * @param pagingVO
+     * @return
+     */
     @ApiOperation(value="지출결의서 내역 조회")
     @GetMapping("/expenseHistoryList")
     public CommonResultVO selectExpenseHistoryList(PagingVO pagingVO) {

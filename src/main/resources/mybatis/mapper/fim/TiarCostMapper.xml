@@ -120,6 +120,8 @@
         <result property="personName" column="personName"/>
         <result property="transAmt" column="transAmt"/>
     </resultMap>
+    
+    
     <insert id="insertTiarCost" parameterType="tiarCostVO">
         <selectKey keyProperty="tiCostSeq" resultType="int" order="BEFORE">
             select next value for seq_tiar_cost

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="net.smilegate.fim.mappers.fim.FileMapper">
+<mapper namespace="net.smilegate.fim.mappers.fim.TiarCostFileMapper">
 
     <insert id="insertFile" parameterType="fileVO">
         <selectKey keyProperty="fileId" resultType="int" order="BEFORE">
-            select next value for seq_file
+            select next value for seq_tiar_cost_file
         </selectKey>
-        insert into tb_file(
-            file_id
+        insert into tb_tiar_cost_file(
+            file_serl
             ,file_nm
             ,original_file_nm
             ,file_path
             ,content_type
             ,extention
             ,file_size
-            ,board_id
+            ,ti_cost_seq
         )values(
             #{fileId}
             ,#{fileNm}
@@ -30,16 +30,16 @@
         
     <select id="selectFileList" parameterType="fileVO" resultType="fileVO">
         select
-            file_id             as fileId
+            file_serl           as fileId
             ,file_nm            as fileNm
             ,original_file_nm   as originalFileNm
             ,file_path          as filePath
             ,content_type       as contentType
             ,extention          as extention
             ,file_size          as fileSize
-            ,board_id           as boardId
-        from tb_file
+            ,ti_cost_seq        as refId
+        from tb_tiar_cost_file
         where
-            board_id = #{refId}
+            ti_cost_seq = #{refId}
     </select>
 </mapper>

@@ -45,7 +45,7 @@ public class TaxScheduleVO implements Serializable {
     /** 세무 일정 월 일 */
     private String taxDate;
     
-    @Column(name="NOTE", length=500)
+    @Transient
     /** 세무일정 비고 */
     private String note;
 
@@ -89,6 +89,10 @@ public class TaxScheduleVO implements Serializable {
         
         @Column(name="TAX_PLAN", length=300)
         private String taxPlan;
+        
+        @Column(name="NOTE", length=500)
+        /** 세무일정 비고 */
+        private String note;
         
     }
 }

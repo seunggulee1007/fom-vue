@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import net.smilegate.common.util.StringUtil;
 import net.smilegate.fim.mappers.fim.BoardMapper;
 import net.smilegate.fim.mappers.fim.JpaBoardMapper;
-import net.smilegate.fim.service.file.FileService;
+import net.smilegate.fim.service.file.board.FileService;
 import net.smilegate.fim.specification.BoardSpecification;
 import net.smilegate.fim.util.FileUtil;
 import net.smilegate.fim.vo.BoardVO;
@@ -45,7 +45,7 @@ public class BoardServiceImpl implements BoardService {
         if (boardMapper.insertBoard(boardVO) > 0) { // 게시물 등록이 성공한다면
             List<FileVO> fileVoList = fileUtil.makeFileVO(request); // 파일을 만들고 업로드 이후 저장할 정보 가져와서
             for (FileVO fileVO : fileVoList) {
-                fileVO.setBoardVO(boardVO); // 해당 게시판 아이디를 연결
+                fileVO.setBoardId(boardVO.getBoardId());    // 해당 게시판 아이디를 연결
                 fileService.insertFile(fileVO); // 저장
             }
         }

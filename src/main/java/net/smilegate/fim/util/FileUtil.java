@@ -77,4 +77,11 @@ public class FileUtil {
         return fileVOList;
     }
     
+    public FileVO makeFileVO(List<FileVO> newFileVO, List<FileVO> dbFileVO) {
+        FileVO fileVO = new FileVO();
+        
+        
+        
+        return fileVO;
+    }
 }

@@ -75,7 +75,18 @@ $(document).ready(function(){
                     console.log(res);
                     this.tiarCostVO = res.data.data.tiarCostVO;
                     this.expenseList = res.data.data.tiCostAmtVOList;
-                    this.fileList = res.data.data.fileList;
+                    if(res.data.data.fileList) {
+                        let fileList = res.data.data.fileList;
+                        for(let i=0; i<fileList.length; i++) {
+                            let file = {};
+                            file.name = fileList[i].originalFileNm;
+                            file.size = fileList[i].size;
+                            file.type = fileList[i].contentType;
+                            file.fileId = fileList[i].fileId;
+                            this.files.push(file);
+                        }
+                        console.log(this.files);
+                    }
                 }).catch(err => {
                     console.log(err);
                 });
@@ -235,6 +246,8 @@ $(document).ready(function(){
                 }
                 this.fileSize = this.files[0].size;
                 this.fileName = this.files[0].name;
+                console.log(this.files);
+                console.log(uploadedFiles);
             }   // end handleFilesUpload
             /**********************************************
              * @method : removeFile
@@ -263,6 +276,9 @@ $(document).ready(function(){
                 let formData = new FormData();
                 for(let i=0; i< this.files.length;i++) {                // 파일 내용 저장
                     formData.append('files['+i+']', this.files[i]);
+                    if(files[i].fileId) {
+                        formData.append(fileIds[i], files[i].fileId);
+                    }
                 }
                 
                 for(let key in this.tiarCostVO) {
@@ -345,6 +361,11 @@ $(document).ready(function(){
                 })
                 
             }
+            /**********************************************
+             * @method : doApproval
+             * @note 상신
+             * @author : es-seungglee
+             ***********************************************/
             ,doApproval () {
                 if(!confirm("상신하시겠습니까? ")) {
                     return;
@@ -376,6 +397,9 @@ $(document).ready(function(){
             , onCompleted (idx, costInfoVO) {
                 if(!costInfoVO.costSeq || !costInfoVO.costItemCd || !costInfoVO.activityCd || !costInfoVO.smKindSeq) {          // 4가지 필드 중 하나라도 없다면 
                     return;
+                }
+                if(costInfoVO.costSeq == 1 && costInfoVO.smKindSeq == '4503005') {
+                    // TODO 근태정보 받아서 적요란 하단에 뿌리기. 
                 }
                 let flag = this.checkDetailPopupOpenYn(costInfoVO);
                 if(!flag) {                           // 팝업 띄어야 할 항목 체크

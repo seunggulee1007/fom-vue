@@ -1,5 +1,6 @@
 package net.smilegate.fim.service.expense;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ import net.smilegate.fim.mappers.fim.TiarCostAmtLogMapper;
 import net.smilegate.fim.mappers.fim.TiarCostAmtMapper;
 import net.smilegate.fim.mappers.fim.TiarCostLogMapper;
 import net.smilegate.fim.mappers.fim.TiarCostMapper;
-import net.smilegate.fim.service.file.FileService;
+import net.smilegate.fim.service.file.tiarcost.TiarCostFileService;
 import net.smilegate.fim.util.CommonUtil;
 import net.smilegate.fim.util.FileUtil;
 import net.smilegate.fim.vo.FileVO;
@@ -32,7 +33,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     private final TiarCostLogMapper tiarCostLogMapper;
     private final TiarCostAmtMapper tiarCostAmtMapper;
     private final TiarCostAmtLogMapper tiarCostAmtLogMapper;
-    private final FileService fileService;
+    private final TiarCostFileService tiarCostFileService;
     private final FileUtil fileUtil;
     
     /**
@@ -62,8 +63,10 @@ public class ExpenseServiceImpl implements ExpenseService {
             List<FileVO> fileVOList = fileUtil.makeFileVO(request);
             for(FileVO fileVO : fileVOList) {
                 fileVO.setRefId(tiCostSeq);
-                fileService.insertFile(fileVO);
+                tiarCostFileService.insertFile(fileVO);
             }
+            tiarCostVO.setFileList(fileVOList);
+            map.put("fileList", fileVOList);
         }
         
         map.put("tiarCostVO", tiarCostVO);
@@ -104,6 +107,28 @@ public class ExpenseServiceImpl implements ExpenseService {
                 }
             }
         }
+        FileVO setFileVO = new FileVO();
+        setFileVO.setRefId(tiCostSeq);
+        List<FileVO> fileVOList = tiarCostFileService.selectFileList(setFileVO); 
+        List<Integer> fileIds = tiarCostVO.getFileIds();
+        int size = fileVOList.size() > fileIds.size() ? fileVOList.size() : fileIds.size();
+        List<FileVO> copyList = new ArrayList<>();
+        copyList.addAll(fileVOList);
+        for(int i=0; i<fileVOList.size(); i++) {
+            for(int j=0; j<fileIds.size(); j++) {
+                if(fileVOList.get(i).getRefId() == fileIds.get(j)) {
+                    int index = copyList.indexOf(fileVOList.get(i));
+                    copyList.remove(index);
+                }
+            }
+        }
+        fileVOList = fileUtil.makeFileVO(request);
+        for(FileVO fileVO : fileVOList) {
+            fileVO.setRefId(tiCostSeq);
+            tiarCostFileService.insertFile(fileVO);
+        }
+        tiarCostVO.setFileList(fileVOList);
+        map.put("fileList", fileVOList);
         map.put("tiarCostVO", tiarCostVO);
         return map;
     }
@@ -119,7 +144,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         map.put("tiCostAmtVOList", tiarCostAmtMapper.selectTiarCostAmtByTiarCostSeq(tiCostSeq));
         FileVO fileVO = new FileVO();
         fileVO.setRefId(tiCostSeq);
-        map.put("fileList", fileService.selectFileList(fileVO));
+        map.put("fileList", tiarCostFileService.selectFileList(fileVO));
         return map;
     }
  

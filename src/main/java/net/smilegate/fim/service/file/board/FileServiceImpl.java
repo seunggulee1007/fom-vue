@@ -1,4 +1,4 @@
-package net.smilegate.fim.service.file;
+package net.smilegate.fim.service.file.board;
 
 import java.util.List;
 
@@ -21,4 +21,5 @@ public class FileServiceImpl implements FileService {
     public List<FileVO> selectFileList(FileVO fileVO) {
         return fileMapper.selectFileList(fileVO);
     }
+    
 }
