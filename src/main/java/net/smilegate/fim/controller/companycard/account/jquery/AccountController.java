@@ -1,4 +1,4 @@
-package net.smilegate.fim.controller.companycard.account;
+package net.smilegate.fim.controller.companycard.account.jquery;
 
 import java.util.Iterator;
 import java.util.List;
@@ -75,6 +75,13 @@ public class AccountController {
 			log.debug("costInfo.getErpsmKindSeq ===>>> " + costInfo.getErpsmKindSeq());
 			log.debug("costInfo.getTiCostSerl ===>>> " + costInfo.getTiCostSerl());
 		}
+
+//		Iterator<String> fileNames = request.getFileNames();
+//		while(fileNames.hasNext()){
+//
+//			MultipartFile mFile = request.getFile(fileNames.next());
+//			log.debug("getOriginalFilename ====> " + mFile.getOriginalFilename());
+//		}
 
 		try {
 			service.insertAccount(request, vo);

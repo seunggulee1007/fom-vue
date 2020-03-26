@@ -1,4 +1,4 @@
-package net.smilegate.fim.controller.companycard.account;
+package net.smilegate.fim.controller.companycard.account.jquery;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ public class AccountViewController {
      *
      * @return
      */
-    @GetMapping("/accountInfo")
+    @RequestMapping("/accountInfo")
     public String accountInfo() {
         return prefix + "/accountInfo";
     }

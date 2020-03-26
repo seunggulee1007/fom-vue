@@ -28,28 +28,45 @@ $(document).ready(function(){
 		EventBus.$emit('openDeptPopup');
 	});
 
-	$("#useCardList tbody tr td").find("input[name=btnAccountUser]").dblclick((evt) => {
-		rowIdx = parseInt( $(this).parent().parent().parent().index() );
+	/**
+	 * 정산내역 리스트 조직도 팝업.
+	 */
+	$("#useCardList tbody tr td").find("button[name=btnAccountUser]").click(function(evt) {
+		rowIdx = parseInt( $(this).parent().parent().index() );
 
+		console.log("btnAccountUser " + rowIdx);
 		EventBus.$emit('openDeptPopup');
 	});
 
 	/**
 	 * 비용항목 팝업.
 	 */
-	$("#useCardList tbody tr td").find("input[name=inSmKindNm]").dblclick((evt) => {
+	$("#useCardList tbody tr").find("td[name=tdSmKindNm]").find("input").dblclick(function(evt){
         rowIdx = parseInt( $(this).parent().parent().parent().index() );
+        let userNm = $(this).parent().parent().parent().find("td[name=tdUseUser]").find("input[name=useUserNm]").val();
+        let comCd = $(this).parent().parent().parent().find("td[name=tdComNm]").find("input[name=comCd]").val();
+        console.log("userNm "+userNm);
+        console.log("rowIdx "+rowIdx);
+        console.log("comCd "+comCd);
 
-        EventBus.$emit('openExpenseAllPopup', $(this).val(), '이덕호', 2);
+        EventBus.$emit('openExpenseAllPopup', $(this).val(), userNm, comCd);
 	});
 
 	/**
 	 * SGMA 팝업.
 	 */
-	$("#useCardList tbody tr td").find("input[name=inRemValSeq]").dblclick((evt) => {
+	$("#useCardList tbody tr td").find("input[name=inRemValSeq]").dblclick(function(evt){
         rowIdx = parseInt( $(this).parent().parent().parent().index() );
 
-		EventBus.$emit('openExpenseSgmaPopup', $(this).val(), '이덕호', 2);
+        let userNm = $(this).parent().parent().parent().find("td[name=tdUseUser]").find("input[name=useUserNm]").val();
+        let comCd = $(this).parent().parent().parent().find("td[name=tdComNm]").find("input[name=comCd]").val();
+        let activityNm = $(this).parent().parent().parent().find("td[name=tdActivityNm]").find("span").text();
+        console.log("userNm "+userNm);
+        console.log("rowIdx "+rowIdx);
+        console.log("comCd "+comCd);
+        console.log("activityNm "+activityNm);
+
+		EventBus.$emit('openExpenseSgmaPopup', activityNm, userNm, comCd);
 	});
 
 	/**
@@ -64,6 +81,25 @@ $(document).ready(function(){
 	});
 
 	/**
+	 * 카드 결제내역 조회.
+	 */
+	$("#btnGetUseList").click(function(){
+
+	});
+
+	$("#yyyymm").monthpicker({
+		monthNames: ['1월(JAN)', '2월(FEB)', '3월(MAR)', '4월(APR)', '5월(MAY)', '6월(JUN)',
+			'7월(JUL)', '8월(AUG)', '9월(SEP)', '10월(OCT)', '11월(NOV)', '12월(DEC)'],
+			monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+//				showOn: "button",
+//                buttonImage: "../../Images/Goods/calendar.jpg",
+//                buttonImageOnly: true,
+			changeYear: false,
+			yearRange: 'c-2:c+2',
+			dateFormat: 'yy-mm'
+	});
+
+	/**
 	 * 파일추가.
 	 * this를 사용할땐 가급적 Lamda식을 자제 하는게 좋다.
 	 */
@@ -73,6 +109,9 @@ $(document).ready(function(){
 
 	});
 
+	$("#btnGetUseList").click(function(){
+		$('#accountCardFrm').attr('action', "./accountInfo").submit();
+	});
 	getCompanyCardList();
 
 });
@@ -187,6 +226,20 @@ async function getCompanyCardList(){
  */
 function returnUserDept(data) {
     console.log(data);
+    console.log("rowIdx " + rowIdx);
+
+    let rowTR = $("#useCardList tbody tr:eq("+rowIdx+")");
+    rowTR.find("td[name=tdUseUser]").find("input[name=useUserId]").val(data.userId);
+    rowTR.find("td[name=tdUseUser]").find("input[name=useEmpNo]").val(data.empNo);
+    rowTR.find("td[name=tdUseUser]").find("input[name=useUserNm]").val(data.userNm);
+    rowTR.find("td[name=tdUseUser]").find("input[name=budgetDeptCd]").val(data.deptCd);
+    rowTR.find("td[name=tdUseUser]").find("input[name=budgetDeptNm]").val(data.deptNm);
+    rowTR.find("td[name=tdUseUser]").find("span[name=spUseName]").text(data.userNm);
+    rowTR.find("td[name=tdUseUser]").find("span[name=spDeptNm]").text(data.deptNm);
+
+    rowTR.find("td[name=tdComNm]").find("input[name=comCd]").val(data.comCd);
+    rowTR.find("td[name=tdComNm]").find("input[name=comNm]").val(data.comNm);
+    rowTR.find("td[name=tdComNm]").find("span").text(data.comNm);
 }
 
 /**
@@ -195,7 +248,46 @@ function returnUserDept(data) {
  * @returns
  */
 function returnCostItemAct(data) {
-	console.log(data);
+    console.log(data);
+    console.log("rowIdx " + rowIdx);
+
+    let rowTR = $("#useCardList tbody tr:eq("+rowIdx+")");
+
+    console.log("rowTR");
+
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.erpSmKindSeq']").val(data.smKindSeq);
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.erpSmKindNm']").val(data.smKindName);
+
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.erpCostSeq']").val(data.costSeq);
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.erpCostNm']").val(data.costName);
+
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.costItemCd']").val(data.costItemCd);
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.costItemNm']").val(data.costItemNm);
+
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.activityCd']").val(data.activityCd);
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.activityNm']").val(data.activityNm);
+
+    rowTR.find("td[name=tdSmKindNm]").find("input").val(data.smKindName);
+    rowTR.find("td[name=tdErpCostNm]").find("span").text(data.costName);
+
+    rowTR.find("td[name=tdCostItemNm]").find("input").val(data.costItemNm);
+    rowTR.find("td[name=tdActivityNm]").find("span").text(data.activityNm);
+
+    rowTR.find("td[name=tdCostItemNm]").find("input").removeAttr("disabled");
+
+    openExpenseSgma(data);
+
+    console.log("returnCostItemAct");
+//    console.log(rowTR.find("td[name=tdSmKindNm]").find("input").val());
+}
+
+/**
+ * 비용항목 상세 다이얼로그
+ * @returns
+ */
+function openExpenseSgma(costInfoVO) {
+	console.log(costInfoVO);
+	EventBus.$emit('openDetailPopup',costInfoVO);
 }
 
 /**
@@ -205,6 +297,18 @@ function returnCostItemAct(data) {
  */
 function returnSGMA(data) {
 	console.log(data);
+
+	let rowTR = $("#useCardList tbody tr:eq("+rowIdx+")");
+
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.costItemCd']").val(data.costItemCd);
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.costItemNm']").val(data.costItemNm);
+
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.activityCd']").val(data.activityCd);
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.activityNm']").val(data.activityNm);
+
+    rowTR.find("td[name=tdCostItemNm]").find("input").val(data.costItemNm);
+    rowTR.find("td[name=tdActivityNm]").find("span").text(data.activityNm);
+
 }
 
 function formSubmit(){
