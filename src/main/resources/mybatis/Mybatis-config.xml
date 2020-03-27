@@ -4,9 +4,10 @@
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
-	
+
 	<typeAliases>
 		<package name="net.smilegate.common.vo"/>
         <package name="net.smilegate.fim.vo"/>
+        <package name="net.smilegate.fim.vo.companycard"/>
 	</typeAliases>
 </configuration>
