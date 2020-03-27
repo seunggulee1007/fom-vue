@@ -1,10 +1,14 @@
-package net.smilegate.fim.vo;
+package net.smilegate.fim.vo.tiarcost;
 
 import lombok.Data;
+import net.smilegate.fim.vo.common.CostInfoVO;
+import net.smilegate.fim.vo.common.DeptVO;
 
 @Data
-public class TiarCostAmtVO {
-
+public class TiarCostAmtLogVO {
+    
+    /** 로그 시퀀스 */
+    private int logSeq;
     /** 비용신청 내부키 */
     private int tiCostSeq;
     /** 비용신청 순번 */

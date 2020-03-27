@@ -2,8 +2,8 @@ package net.smilegate.fim.service.board;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import net.smilegate.fim.vo.BoardVO;
-import net.smilegate.fim.vo.CommonResultVO;
+import net.smilegate.fim.vo.board.BoardVO;
+import net.smilegate.fim.vo.common.CommonResultVO;
 
 public interface BoardService {
     

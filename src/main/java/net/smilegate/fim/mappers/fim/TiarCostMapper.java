@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import net.smilegate.fim.vo.PagingVO;
-import net.smilegate.fim.vo.TiarCostVO;
+import net.smilegate.fim.vo.common.PagingVO;
+import net.smilegate.fim.vo.tiarcost.TiarCostVO;
 
 @Mapper
 public interface TiarCostMapper {

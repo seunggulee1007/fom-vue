@@ -2,7 +2,7 @@ package net.smilegate.fim.mappers.fim;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import net.smilegate.fim.vo.TiarCostLogVO;
+import net.smilegate.fim.vo.tiarcost.TiarCostLogVO;
 
 @Mapper
 public interface TiarCostLogMapper {

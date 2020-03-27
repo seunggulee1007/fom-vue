@@ -3,6 +3,7 @@
 
 <mapper namespace="net.smilegate.fim.mappers.fim.TiarCostFileMapper">
 
+    <!-- 파일 저장 -->
     <insert id="insertFile" parameterType="fileVO">
         <selectKey keyProperty="fileId" resultType="int" order="BEFORE">
             select next value for seq_tiar_cost_file
@@ -27,7 +28,8 @@
             ,#{refId}
         )
     </insert>
-        
+    
+    <!-- 지출결의 일련번호에 해당되는 파일 리스트 조회 -->
     <select id="selectFileList" parameterType="fileVO" resultType="fileVO">
         select
             file_serl           as fileId
@@ -42,4 +44,16 @@
         where
             ti_cost_seq = #{refId}
     </select>
+    
+    <!-- 지출결의 일련번호에 해당되는 파일 전체 삭제 -->
+    <delete id="deleteFileByRefId">
+        delete from tb_tiar_cost_file
+        where ti_cost_seq = #{refId}
+    </delete>
+    
+    <!-- 파일 일련번호에 해당하는 파일 삭제 -->
+    <delete id="deleteFileByFileId">
+        delete from tb_tiar_cost_file where file_serl = #{fileId}
+    </delete>
+    
 </mapper>

@@ -32,9 +32,9 @@ public class SgerpmaServiceImpl implements SgerpmaService {
     public Map<String, Object> selectResultCostMap(ExpenseVO expenseVO) {
         Map<String, Object> map = new HashMap<>();
         List<ExpenseVO> expenseList = null;
-        String imwonYn = sgerpmaMapper.getImwonCheck(expenseVO.getUserNm());
-        if("N".equals(imwonYn)) {
-            if("C0000000".equals(expenseVO.getComCd())) {
+        String imwonYn = sgerpmaMapper.getImwonCheck(expenseVO.getUserNm());            // 임원 여부를 확인한다.
+        if("N".equals(imwonYn)) {                                                       // 임원이 아니라면
+            if("C0000000".equals(expenseVO.getComCd())) {                               // 희망법인인지 아닌지 확인한다.
                 expenseList = sgerpmaMapper.selectResultCostMap1(expenseVO);
             }else {
                 expenseList = sgerpmaMapper.selectResultCostMap(expenseVO);
@@ -56,9 +56,9 @@ public class SgerpmaServiceImpl implements SgerpmaService {
         // TODO Auto-generated method stub
         Map<String, Object> map = new HashMap<>();
         List<ExpenseVO> expenseList = null;
-        String imwonYn = sgerpmaMapper.getImwonCheck(expenseVO.getUserNm());
-        if("N".equals(imwonYn)) {
-            if("C0000000".equals(expenseVO.getComCd())) {
+        String imwonYn = sgerpmaMapper.getImwonCheck(expenseVO.getUserNm());            // 임원 여부를 확인
+        if("N".equals(imwonYn)) {                                                       // 임원이 아니라면
+            if("C0000000".equals(expenseVO.getComCd())) {                               // 희망법인인지 확인한다.
                 expenseList = sgerpmaMapper.selectResultCostMap1ByActivityNm(expenseVO);
             }else {
                 expenseList = sgerpmaMapper.selectResultCostMapByActivityNm(expenseVO);

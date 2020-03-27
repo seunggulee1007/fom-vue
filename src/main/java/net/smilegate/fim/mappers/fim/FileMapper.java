@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import net.smilegate.fim.vo.FileVO;
+import net.smilegate.fim.vo.board.FileVO;
 
 @Mapper
 public interface FileMapper {

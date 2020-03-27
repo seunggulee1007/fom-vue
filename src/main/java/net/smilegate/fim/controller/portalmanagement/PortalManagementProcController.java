@@ -9,8 +9,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.service.board.BoardService;
-import net.smilegate.fim.vo.BoardVO;
-import net.smilegate.fim.vo.CommonResultVO;
+import net.smilegate.fim.vo.board.BoardVO;
+import net.smilegate.fim.vo.common.CommonResultVO;
 
 /**
  * 포털 관리 기능 용 컨트롤러

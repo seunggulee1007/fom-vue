@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.smilegate.fim.mappers.mdi.MdiMapper">
-
+    
+    <!-- 부서 조회 -->
     <select id="selectDeptList" resultType="deptVO">
         select
             DEPT_CD         as deptCd
@@ -17,6 +18,7 @@
         FROM VW_MDI_DEPT_INFO
     </select>
 
+    <!-- 사용자 조회 -->
     <select id="selectUserList" resultType="userVO">
         SELECT
             USER_ID  AS userId
@@ -34,6 +36,18 @@
         FROM VW_MDI_USER_INFO
         WHERE
             dept_cd = #{deptCd}
+    </select>
+    
+    <!-- 법인 조회 -->
+    <select id="selectComList" resultType="comVO">
+        SELECT
+            COM_TYPE_CD     as comTypeCd
+            ,COM_TYPE_NM    as comTypeNm
+            ,COM_TYPE_SORT  as comTypeSort
+            ,COM_CD         as comCd
+            ,COM_NM         as comNm
+            ,COM_SORT       as comSort
+        FROM VW_MDI_COM_INFOZ
     </select>
 
 </mapper>

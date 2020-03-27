@@ -1,12 +1,14 @@
-package net.smilegate.fim.vo;
+package net.smilegate.fim.vo.tiarcost;
 
 import java.util.List;
 
 import lombok.Data;
 
 @Data
-public class TiarCostVO {
+public class TiarCostLogVO {
 
+    /** 로그 시퀀스 */
+    private int logSeq;
     /** 지출결의서 내부키 */
     private int tiCostSeq;
     /** 지출결의서 문서번호 */
@@ -77,9 +79,5 @@ public class TiarCostVO {
     private String lastDateTime;
     /** 지출결의서(비용정산)상세 리스트 */
     private List<TiarCostAmtVO> tiarCostAmtList;
-    
-    private List<Integer> fileIds;
-    
-    private List<FileVO> fileList;
     
 }

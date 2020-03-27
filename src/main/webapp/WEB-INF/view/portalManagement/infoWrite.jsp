@@ -4,41 +4,41 @@
     .input-field input[type="file"] {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 </style>
 <script type="text/babel" src="/resources/fim/js/portalManagement/infoWrite.js"></script>
-<div id="container" class="container container--include-lnb container--fullview container-write">
-    <div class="lnb lnb-area">
-        <ul class="lst-lnb">                    
-            <li class="lst-lnb__item lst-lnb__item--active">
-                <a href="info.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">공지사항</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="approval_pending.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">전자결재 - 미결함</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="approval_pre.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">전자결재 - 예정함</span>
-                </a>
-            </li>
-            <li class="lst-lnb__item">
-                <a href="approval_progress.html" class="lst-lnb__menu">
-                    <span class="lst-lnb__menu-txt">전자결재 - 진행함</span>
-                </a>
-            </li>
-        </ul>
+<div class="lnb lnb-area">
+    <ul class="lst-lnb">                    
+        <li class="lst-lnb__item lst-lnb__item--active">
+            <a href="info.html" class="lst-lnb__menu">
+                <span class="lst-lnb__menu-txt">공지사항</span>
+            </a>
+        </li>
+        <li class="lst-lnb__item">
+            <a href="approval_pending.html" class="lst-lnb__menu">
+                <span class="lst-lnb__menu-txt">전자결재 - 미결함</span>
+            </a>
+        </li>
+        <li class="lst-lnb__item">
+            <a href="approval_pre.html" class="lst-lnb__menu">
+                <span class="lst-lnb__menu-txt">전자결재 - 예정함</span>
+            </a>
+        </li>
+        <li class="lst-lnb__item">
+            <a href="approval_progress.html" class="lst-lnb__menu">
+                <span class="lst-lnb__menu-txt">전자결재 - 진행함</span>
+            </a>
+        </li>
+    </ul>
 
-        <footer class="footer footer--lnb-type">
-            <div class="footer__inner">
-                <small class="footer__copyright">&copy; Smilegate. All Rights Reserved.</small>
-            </div>
-        </footer>
-        
-        <button type="button" class="btn btn-lnb">
-            <span class="icon-arrow"><span class="blind">메뉴 열기</span></span>
-        </button>
-    </div>
+    <footer class="footer footer--lnb-type">
+        <div class="footer__inner">
+            <small class="footer__copyright">&copy; Smilegate. All Rights Reserved.</small>
+        </div>
+    </footer>
+    
+    <button type="button" class="btn btn-lnb">
+        <span class="icon-arrow"><span class="blind">메뉴 열기</span></span>
+    </button>
+</div>
+<div id="container" class="container container--include-lnb container--fullview container-write">
     <h2 class="page-title">공지사항</h2>            
     <div class="component-group align-right btn-box btn-box--absolute">                
         <div class="component-box">

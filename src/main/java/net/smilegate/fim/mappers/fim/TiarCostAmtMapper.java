@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import net.smilegate.fim.vo.TiarCostAmtVO;
+import net.smilegate.fim.vo.tiarcost.TiarCostAmtVO;
 
 @Mapper
 public interface TiarCostAmtMapper {
@@ -38,5 +38,12 @@ public interface TiarCostAmtMapper {
      * @return
      */
     public List<TiarCostAmtVO> selectTiarCostAmtByTiarCostSeq(@Param("tiCostSeq") int tiCostSeq);
+    
+    /**
+     * 지출결의 내부 번호로 삭제
+     * @param tiCostSerl
+     * @return
+     */
+    public int deleteTiarCostAmt(@Param("tiCostSeq")int tiCostSeq, @Param("tiCostSerl") int tiCostSerl);
     
 }

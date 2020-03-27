@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import net.smilegate.fim.vo.BoardVO;
+import net.smilegate.fim.vo.board.BoardVO;
 
 @Mapper
 public interface BoardMapper {

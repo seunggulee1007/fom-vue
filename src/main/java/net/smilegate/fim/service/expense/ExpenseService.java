@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import net.smilegate.fim.vo.PagingVO;
-import net.smilegate.fim.vo.TiarCostVO;
+import net.smilegate.fim.vo.common.PagingVO;
+import net.smilegate.fim.vo.tiarcost.TiarCostVO;
 
 public interface ExpenseService {
 

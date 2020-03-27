@@ -3,7 +3,14 @@
 <script src='https://unpkg.com/v-calendar@next'></script>
 <script type="text/babel" src="/resources/fim/js/expenseManagement/expense.js"></script>
 <jsp:include page="/WEB-INF/view/include/expenseManagementInclude.jsp"/>
-
+<style>
+    .non_box { 
+        border : 0px !important;
+    }
+    .input_disable {
+        background-color: #f9f9f9;
+    }
+</style>
 <div id="container" class="container container--include-lnb container--fullview container-write">
     <input type="hidden" id="tiCostSeq" value="${param.tiCostSeq }">
     <h2 class="page-title">지출결의서</h2>
@@ -31,7 +38,7 @@
                             <tbody>
                                 <tr>
                                     <th class="table__th">문서번호</th>
-                                    <td class="table__td table__td--data"><span class="table__txt">결재 완료 시, 발번됩니다.</span></td>
+                                    <td class="table__td"><span class="table__txt">결재 완료 시, 발번됩니다.</span></td>
                                     <th class="table__th">기안일자</th>
                                     <td class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.regDate}}</span></td>
                                     <th class="table__th">기안자</th>
@@ -47,7 +54,7 @@
                                     <td colspan="5" class="table__td table__td--data"><span class="table__txt">{{tiarCostVO.regDeptNm}}</span></td>
                                 </tr>
                                 <tr>
-                                    <th class="table__th table__th--required">제목</th>
+                                    <th class="table__th ">제목</th>
                                     <td colspan="5" class="table__td">
                                         <div class="input-field input-field-table">
                                             <input type="text" class="input-field__input" v-model="tiarCostVO.title">
@@ -83,21 +90,21 @@
                             </colgroup>
                             <thead>
                                 <tr>
-                                    <th rowspan="2" scope="col" class="table__th">선택</th>
-                                    <th rowspan="2" scope="col" class="table__th">예산부서</th>
-                                    <th rowspan="2" scope="col" class="table__th table__th--required">사용자 (귀속부서)</th>
-                                    <th colspan="2" class="table__th table__th--required align-center">비용항목</th>
-                                    <th colspan="2" scope="col" class="table__th table__th--required align-center">SGMA</th>
-                                    <th rowspan="2" scope="col" class="table__th table__th--required">가맹점</th>
-                                    <th rowspan="2" scope="col" class="table__th table__th--required">사용일자</th>
-                                    <th rowspan="2" scope="col" class="table__th table__th--required">적요</th>
-                                    <th rowspan="2" scope="col" class="table__th table__th--required">금액 (VAT포함)</th>
+                                    <th rowspan="2" scope="col" class="table__th align-center">선택</th>
+                                    <th rowspan="2" scope="col" class="table__th align-center">예산부서</th>
+                                    <th rowspan="2" scope="col" class="table__th align-center">사용자 (귀속부서)</th>
+                                    <th colspan="2" class="table__th align-center">비용항목</th>
+                                    <th colspan="2" scope="col" class="table__th align-center">SGMA</th>
+                                    <th rowspan="2" scope="col" class="table__th align-center">가맹점</th>
+                                    <th rowspan="2" scope="col" class="table__th align-center">사용일자</th>
+                                    <th rowspan="2" scope="col" class="table__th align-center">적요</th>
+                                    <th rowspan="2" scope="col" class="table__th align-center">금액 (VAT포함)</th>
                                 </tr>
                                 <tr>
-                                    <th class="table__th table__th--required">중분류</th>
-                                    <th class="table__th table__th--required">소분류</th>
-                                    <th class="table__th table__th--required">Activity</th>
-                                    <th class="table__th table__th--required">비용항목</th>
+                                    <th class="table__th align-center">중분류</th>
+                                    <th class="table__th align-center">소분류</th>
+                                    <th class="table__th align-center">Activity</th>
+                                    <th class="table__th align-center">비용항목</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -121,20 +128,24 @@
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" v-model="expense.costInfoVO.smKindName" @dblclick="openExpenseAll(idx)" @keyup.enter="openExpenseAll(idx, expense.costInfoVO.smKindName)" placeholder="선택해주세요.">
+                                            <input type="text" class="input-field__input non_box" v-model="expense.costInfoVO.smKindName" @dblclick="openExpenseAll(idx)" @keyup.enter="openExpenseAll(idx, expense.costInfoVO.smKindName)" placeholder="선택해주세요.">
                                         </div>
                                     </td>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt">{{ expense.costInfoVO.costName }}</span>
+                                        <div class="input-field input-field-table">
+                                            <input type="text" class="input-field__input input_disable non_box" disabled v-model="expense.costInfoVO.costName">
+                                        </div>
                                     </td>
                                     <td class="table__td table__td--data">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" @dblclick="openExpenseSgma(idx, expense.costInfoVO.activityNm)" @keyup.enter="openExpenseSgma(idx, expense.costInfoVO.activityNm)" v-model="expense.costInfoVO.activityNm" v-if="expense.costInfoVO.smKindName" placeholder="선택해주세요.">
+                                            <input type="text" class="input-field__input non_box" @dblclick="openExpenseSgma(idx, expense.costInfoVO.activityNm)" @keyup.enter="openExpenseSgma(idx, expense.costInfoVO.activityNm)" v-model="expense.costInfoVO.activityNm" v-if="expense.costInfoVO.smKindSeq" placeholder="선택해주세요.">
                                             <span class="table__txt" v-else="!expense.costInfoVO.smKindName"></span>
                                         </div>
                                     </td>
                                     <td class="table__td table__td--data">
-                                        <span class="table__txt">{{ expense.costInfoVO.costItemNm }}</span>
+                                        <div class="input-field input-field-table">
+                                            <input type="text" class="input-field__input input_disable non_box" disabled v-model="expense.costInfoVO.costItemNm">
+                                        </div>
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">

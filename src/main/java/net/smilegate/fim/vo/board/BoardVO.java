@@ -1,4 +1,4 @@
-package net.smilegate.fim.vo;
+package net.smilegate.fim.vo.board;
 
 import java.sql.Date;
 import java.util.List;

@@ -23,7 +23,6 @@ $(document).ready(function(){
             ]
             , expenseIdx : 0
             , expenseAllPopupFlag : false
-            , fileName : ''              // 파일 명
             , files: []                  // 파일 담을 객체(리스트)
             , fileSize : 0               // 보여줄 파일 전체 크기
             
@@ -75,17 +74,18 @@ $(document).ready(function(){
                     console.log(res);
                     this.tiarCostVO = res.data.data.tiarCostVO;
                     this.expenseList = res.data.data.tiCostAmtVOList;
+                    this.files = [];
                     if(res.data.data.fileList) {
                         let fileList = res.data.data.fileList;
                         for(let i=0; i<fileList.length; i++) {
                             let file = {};
+                            console.log(fileList);
                             file.name = fileList[i].originalFileNm;
-                            file.size = fileList[i].size;
+                            file.size = fileList[i].fileSize;
                             file.type = fileList[i].contentType;
                             file.fileId = fileList[i].fileId;
                             this.files.push(file);
                         }
-                        console.log(this.files);
                     }
                 }).catch(err => {
                     console.log(err);
@@ -244,10 +244,12 @@ $(document).ready(function(){
                 for( var i = 0; i < uploadedFiles.length; i++ ){
                     this.files.push( uploadedFiles[i] );
                 }
-                this.fileSize = this.files[0].size;
-                this.fileName = this.files[0].name;
-                console.log(this.files);
-                console.log(uploadedFiles);
+                for(let file of this.files) {
+                    console.log(file);
+                    console.log(file.size);
+                    
+                    this.fileSize += file.size;
+                }
             }   // end handleFilesUpload
             /**********************************************
              * @method : removeFile
@@ -257,6 +259,9 @@ $(document).ready(function(){
             ,removeFile( key ){                                         // 파일 삭제(해당 순서)
                 if(!confirm("삭제하시겠습니까?")) {
                     return;
+                }
+                if(this.files[key].fileId){
+                    this.doAxios("/expenseManagement/approval/deleteTiarCostFileByFileId/" + this.files[key].fileId, "delete");
                 }
                 this.files.splice( key, 1 );
             }       // end removeFile
@@ -276,9 +281,6 @@ $(document).ready(function(){
                 let formData = new FormData();
                 for(let i=0; i< this.files.length;i++) {                // 파일 내용 저장
                     formData.append('files['+i+']', this.files[i]);
-                    if(files[i].fileId) {
-                        formData.append(fileIds[i], files[i].fileId);
-                    }
                 }
                 
                 for(let key in this.tiarCostVO) {
@@ -349,11 +351,15 @@ $(document).ready(function(){
                     if(!flag) {
                         alert(res.data.resultMsg);
                     }
-                    this.tiarCostVO = res.data.data.tiarCostVO;
+                    /* this.tiarCostVO = res.data.data.tiarCostVO;
                     this.expenseList =  this.tiarCostVO.tiarCostAmtList;
                     delete this.tiarCostVO.tiarCostAmtList;
                     for(let expense of this.expenseList) {
                         delete expense.deptVO.child;
+                    } */
+                    let tiCostSeq = document.querySelector("#tiCostSeq").value;
+                    if(tiCostSeq) {
+                        this.getTiarCostInfo(tiCostSeq);
                     }
                 }).catch(err => {
                     console.log(err);
@@ -388,6 +394,7 @@ $(document).ready(function(){
                     }
                 }
                 this.expenseList = expenseCopyList;                                     // 체크 되지 않은 항목만 담은 배열을 다시 해당 배열에 담는다.
+                this.calcTotalAmt();
             }
             /**********************************************
              * @method : onCompleted
@@ -487,7 +494,7 @@ $(document).ready(function(){
                 for(let expenseVO of this.expenseList) {                // 합계를 위한 반복문
                     console.log(typeof(expenseVO.curAmt));
                     let curAmt = expenseVO.curAmt;
-                    if(curAmt.indexOf(",") != -1) {
+                    if(typeof(curAmt) == 'string' && curAmt.indexOf(",") != -1) {
                         curAmt = curAmt.replace(/,/gi,"");
                     }
                     this.tiarCostVO.totalAmt += Number(curAmt);

@@ -17,8 +17,8 @@ import net.smilegate.fim.enums.Currency;
 import net.smilegate.fim.enums.EnumMapperValue;
 import net.smilegate.fim.mappers.fim.TaxScheduleMapper;
 import net.smilegate.fim.service.sgerp.SgerpService;
-import net.smilegate.fim.vo.CommonResultVO;
 import net.smilegate.fim.vo.TaxScheduleVO;
+import net.smilegate.fim.vo.common.CommonResultVO;
 
 /**
  * 재무포털 관리 처리용 컨트롤러

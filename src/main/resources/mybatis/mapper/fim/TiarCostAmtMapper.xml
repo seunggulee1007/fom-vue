@@ -128,7 +128,7 @@
             ,ERP_OPP_ACC_SEQ        -- 상대계정코드
             ,ERP_UM_COST_TYPE       -- 비용구분
             ,USE_DEPT_CD            -- 인사 사용자부서코드
-            ,use_dept_nm
+            ,USE_DEPT_NM
             ,REMARK                 -- 적요
             ,AMT                    -- 원화 총금액
             ,USE_ACC_ERP_DEPT_SEQ   -- 사용자 소속실 ERP부서 코드
@@ -326,7 +326,7 @@
                     ,LAST_DATE_TIME        = getdate()          
             where
                 TI_COST_SEQ = #{tiCostSeq}
-                and TI_COST_SEQ = #{tiCostSeq}
+                and ti_cost_serl = #{tiCostSerl}
     </update>
     
     <select id="selectTiarCostAmtBySeq" resultMap="tiarCostAmtResultMap">
@@ -488,4 +488,10 @@
             ti_cost_seq = #{tiCostSeq}
     </select>
     
+    <delete id="deleteTiarCostAmt">
+        delete from tb_tiar_cost_amt
+        where
+            ti_cost_seq = #{tiCostSeq}
+            and ti_cost_serl = #{tiCostSerl}
+    </delete>
 </mapper>

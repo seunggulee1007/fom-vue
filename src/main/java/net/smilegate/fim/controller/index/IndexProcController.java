@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.enums.CommonCode;
 import net.smilegate.fim.service.sgerp.SgerpService;
 import net.smilegate.fim.service.taxplan.TaxPlanService;
-import net.smilegate.fim.vo.CommonResultVO;
+import net.smilegate.fim.vo.common.CommonResultVO;
 
 @RequiredArgsConstructor
 @RestController

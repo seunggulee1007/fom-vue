@@ -14,7 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.service.biz.BizService;
 import net.smilegate.fim.vo.BizVO;
-import net.smilegate.fim.vo.CommonResultVO;
+import net.smilegate.fim.vo.common.CommonResultVO;
 
 @RequiredArgsConstructor
 @RestController

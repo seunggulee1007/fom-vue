@@ -1,4 +1,4 @@
-package net.smilegate.fim.vo;
+package net.smilegate.fim.vo.common;
 
 import lombok.Data;
 

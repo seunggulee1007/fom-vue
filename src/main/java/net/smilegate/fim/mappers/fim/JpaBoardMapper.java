@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import net.smilegate.fim.vo.BoardVO;
+import net.smilegate.fim.vo.board.BoardVO;
 
 @Mapper
 public interface JpaBoardMapper extends JpaRepository<BoardVO, Integer>, JpaSpecificationExecutor<BoardVO> {

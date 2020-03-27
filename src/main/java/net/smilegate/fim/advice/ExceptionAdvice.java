@@ -10,7 +10,7 @@ import net.smilegate.fim.advice.exception.ExpenseException;
 import net.smilegate.fim.advice.exception.NotAcceptedServerException;
 import net.smilegate.fim.advice.exception.NotbizNoException;
 import net.smilegate.fim.enums.CommonCode;
-import net.smilegate.fim.vo.CommonResultVO;
+import net.smilegate.fim.vo.common.CommonResultVO;
 
 /**
  * 커스텀 예외 처리

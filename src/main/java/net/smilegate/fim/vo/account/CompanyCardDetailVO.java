@@ -1,7 +1,7 @@
 package net.smilegate.fim.vo.account;
 
 import lombok.Data;
-import net.smilegate.fim.vo.CostInfoVO;
+import net.smilegate.fim.vo.common.CostInfoVO;
 
 @Data
 public class CompanyCardDetailVO {

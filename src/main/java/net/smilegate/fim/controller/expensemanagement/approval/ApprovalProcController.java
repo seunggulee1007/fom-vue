@@ -3,6 +3,7 @@ package net.smilegate.fim.controller.expensemanagement.approval;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,14 +17,15 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.enums.CommonMsg;
 import net.smilegate.fim.service.expense.ExpenseService;
+import net.smilegate.fim.service.file.tiarcost.TiarCostFileService;
 import net.smilegate.fim.service.mdi.MdiService;
 import net.smilegate.fim.service.sgerp.SgerpService;
 import net.smilegate.fim.service.sgerpma.SgerpmaService;
-import net.smilegate.fim.vo.CommonResultVO;
 import net.smilegate.fim.vo.ExpenseVO;
-import net.smilegate.fim.vo.PagingVO;
-import net.smilegate.fim.vo.TiarCostVO;
 import net.smilegate.fim.vo.UserVO;
+import net.smilegate.fim.vo.common.CommonResultVO;
+import net.smilegate.fim.vo.common.PagingVO;
+import net.smilegate.fim.vo.tiarcost.TiarCostVO;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,6 +36,7 @@ public class ApprovalProcController {
     private final SgerpmaService sgerpmaService;
     private final SgerpService sgerpService;
     private final ExpenseService expenseService;
+    private final TiarCostFileService tiarCostFileService;
     
     /**
      * 부서 리스트 조회
@@ -42,9 +45,11 @@ public class ApprovalProcController {
     @ApiOperation(value="부서리스트 조회", notes ="스마일 게이트 부서리스트 가져오는 메서드")
     @GetMapping("/getDeptList")
     public CommonResultVO getDeptList() {
+        Map<String,Object> map = new HashMap<>();
+        map.put("deptList", mdiService.selectDeptList());
         return CommonResultVO
                     .builder()
-                        .data(mdiService.selectDeptList())
+                        .data(map)
                         .build();
     }
     
@@ -59,9 +64,11 @@ public class ApprovalProcController {
     })
     @GetMapping("/getUserList")
     public CommonResultVO getUserList(String deptCd) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userList", mdiService.selectUserList(deptCd));
         return CommonResultVO
                     .builder()
-                        .data(mdiService.selectUserList(deptCd))
+                        .data(map)
                         .build();
     }
     
@@ -168,4 +175,9 @@ public class ApprovalProcController {
         return CommonResultVO.builder().data(expenseService.selectExpenseHitoryList(pagingVO)).build();
     }
     
+    @DeleteMapping("/deleteTiarCostFileByFileId/{fileId}")
+    public CommonResultVO deleteTiarCostFileByFileId(@PathVariable("fileId") int fileId) {
+        tiarCostFileService.deleteTiarCostFileByFileId(fileId);
+        return CommonResultVO.builder().resultMsg("삭제되었습니다").build();
+    }
 }

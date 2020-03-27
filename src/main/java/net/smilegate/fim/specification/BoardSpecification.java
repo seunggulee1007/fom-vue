@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import net.smilegate.fim.vo.BoardVO;
+import net.smilegate.fim.vo.board.BoardVO;
 
 public class BoardSpecification {
     

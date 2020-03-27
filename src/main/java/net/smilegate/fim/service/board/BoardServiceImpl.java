@@ -17,9 +17,9 @@ import net.smilegate.fim.mappers.fim.JpaBoardMapper;
 import net.smilegate.fim.service.file.board.FileService;
 import net.smilegate.fim.specification.BoardSpecification;
 import net.smilegate.fim.util.FileUtil;
-import net.smilegate.fim.vo.BoardVO;
-import net.smilegate.fim.vo.CommonResultVO;
-import net.smilegate.fim.vo.FileVO;
+import net.smilegate.fim.vo.board.BoardVO;
+import net.smilegate.fim.vo.board.FileVO;
+import net.smilegate.fim.vo.common.CommonResultVO;
 
 @Service
 @RequiredArgsConstructor
@@ -94,7 +94,7 @@ public class BoardServiceImpl implements BoardService {
         String search = boardVO.getSearch();
         if (StringUtil.isNotEmpty(search)) {
             search = "%" + search + "%";
-            if (search.indexOf("[") != -1) {
+            if (search.indexOf("[") != -1) {            // 데이터베이스에서 like 절을 사용할때 [가 오면 와일드카드의 집합 또는 단일문자로 읽기 때문에 []로 다시 감싸주는 작업을 해야 한다. 
                 search = search.replaceAll("\\[", "\\[[]");
             }
         }
