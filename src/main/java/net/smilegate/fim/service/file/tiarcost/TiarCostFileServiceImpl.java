@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import net.smilegate.fim.mappers.fim.TiarCostFileMapper;
+import net.smilegate.fim.mappers.fim.tiarcost.TiarCostFileMapper;
 import net.smilegate.fim.vo.board.FileVO;
 
 @Service

@@ -1,4 +1,4 @@
-package net.smilegate.fim.mappers.fim;
+package net.smilegate.fim.mappers.fim.tiarcost;
 
 import java.util.List;
 
