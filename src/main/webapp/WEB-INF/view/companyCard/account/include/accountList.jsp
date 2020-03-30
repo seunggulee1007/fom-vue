@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- 정산신청 -->
+<!-- 정산목록 -->
 <div class="lst-tab-cnt">
 	<div class="section section--border section-history">
 		<div class="component-area clearfix">
