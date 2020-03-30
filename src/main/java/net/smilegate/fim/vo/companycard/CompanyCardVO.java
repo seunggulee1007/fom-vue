@@ -1,4 +1,4 @@
-package net.smilegate.fim.vo.account;
+package net.smilegate.fim.vo.companycard;
 
 import lombok.Data;
 

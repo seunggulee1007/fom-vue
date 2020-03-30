@@ -6,11 +6,11 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import net.smilegate.fim.vo.account.CompanyCardDetailVO;
-import net.smilegate.fim.vo.account.CompanyCardVO;
+import net.smilegate.fim.vo.companycard.CompanyCardDetailVO;
+import net.smilegate.fim.vo.companycard.CompanyCardVO;
 
 @Mapper
-public interface AccountMapper {
+public interface CompanyCardSgErpMapper {
 
 	public List<CompanyCardVO> getCompanyCardList(Map param) throws Exception;
 
