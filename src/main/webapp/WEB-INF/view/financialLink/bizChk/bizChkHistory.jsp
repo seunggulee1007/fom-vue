@@ -127,6 +127,9 @@
                                             <span class="table__txt">{{list.resultMsg}}</span>
                                         </td>
                                     </tr>
+                                    <tr v-if="bizInfoList.length == 0">
+                                        <td class="table__td align-center" colspan="5"><span class="table__txt">조회된 내용이 없습니다.</span></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

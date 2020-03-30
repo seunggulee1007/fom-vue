@@ -35,6 +35,11 @@ $(document).ready(function(){
             }
         }
         ,methods : {
+            /**********************************************
+             * @method : getBizInfoList
+             * @note 사업자 휴폐업 조회 이력 조
+             * @author : es-seungglee
+             ***********************************************/
             async getBizInfoList (pageNo) {
                 if(!pageNo) {
                     pageNo = 1;

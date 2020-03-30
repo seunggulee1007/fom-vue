@@ -1,6 +1,6 @@
 $(document).ready(function() {
     Vue.use(MyPlugin);
-    let vue = new Vue({
+    new Vue({
         el : "#grid-layout"
         , data : {
             exchangeList : []           // 환율정보 리스트

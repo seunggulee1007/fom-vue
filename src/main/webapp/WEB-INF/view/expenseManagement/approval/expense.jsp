@@ -128,7 +128,7 @@
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input non_box" v-model="expense.costInfoVO.smKindName" @dblclick="openExpenseAll(idx)" @keyup.enter="openExpenseAll(idx, expense.costInfoVO.smKindName)" placeholder="선택해주세요.">
+                                            <input type="text" class="input-field__input non_box" v-model="expense.costInfoVO.smKindName" @dblclick="openExpenseAll(idx)" @keyup.enter="openExpenseAll(idx, expense.costInfoVO.smKindName)" placeholder="선택해주세요." maxlength="30">
                                         </div>
                                     </td>
                                     <td class="table__td table__td--data">
@@ -149,7 +149,7 @@
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" placeholder="입력해주세요." v-model="expense.store">
+                                            <input type="text" class="input-field__input" placeholder="입력해주세요." v-model="expense.store" maxlength="100">
                                         </div>
                                     </td>
                                     <td class="table__td">
@@ -164,13 +164,13 @@
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" v-model="expense.remark" placeholder="입력해주세요.">
+                                            <input type="text" class="input-field__input" v-model="expense.remark" placeholder="입력해주세요." maxlength="250">
                                         </div>
                                         <span class="table__txt table__txt-caption txt--blue"></span>
                                     </td>
                                     <td class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" v-model="expense.curAmt" placeholder="입력해주세요." @change="calcTotalAmt();" v-int>
+                                            <input type="text" class="input-field__input" v-model="expense.curAmt" placeholder="입력해주세요." @change="calcTotalAmt();" v-int maxlength="14">
                                         </div>
                                     </td>
                                 </tr>
@@ -210,7 +210,7 @@
                                     <th class="table__th">의견입력</th>
                                     <td class="table__td" colspan="5">
                                         <div class="textarea">
-                                            <textarea name="" cols="30" rows="10" style="height:80px" v-model="tiarCostVO.contents"></textarea>
+                                            <textarea name="" cols="30" rows="10" style="height:80px" v-model="tiarCostVO.contents" maxlength="500"></textarea>
                                         </div>
                                     </td>                                            
                                 </tr>

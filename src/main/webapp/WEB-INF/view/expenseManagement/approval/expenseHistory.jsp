@@ -18,7 +18,7 @@
             <a href="/expenseManagement/approval/expense" class="btn btn--orange">
                 <span class="btn__txt">지출결의서 작성</span>
             </a>
-        </div>                
+        </div>
     </div>
     <div class="grid-layout" id="app" v-cloak>
         <div class="grid-column grid-column10">
@@ -148,15 +148,15 @@
                                                 <table>
                                                     <caption><span class="blind">상세 내역</span></caption>
                                                     <colgroup>
+                                                        <col width="8%">
+                                                        <col>
+                                                        <col>
+                                                        <col width="16%">
                                                         <col>
                                                         <col>
                                                         <col>
                                                         <col>
-                                                        <col>
-                                                        <col>
-                                                        <col>
-                                                        <col>
-                                                        <col>
+                                                        <col width="10%">
                                                     </colgroup>
                                                     <thead>
                                                         <tr>
@@ -166,14 +166,13 @@
                                                             <th class="table__th align-center" rowspan="2" scope="col">적요</th>
                                                             <th class="table__th align-center" colspan="2" scope="colgroup">비용항목</th>
                                                             <th class="table__th align-center" colspan="2" scope="colgroup">SGMA</th>
-                                                            <th class="table__th align-center" scope="colgroup">금액</th>
+                                                            <th class="table__th align-center"rowspan="2" scope="col">금액<br>(VAT포함)</th>
                                                         </tr>
                                                         <tr>
                                                             <th class="table__th align-center" scope="col">중분류</th>
                                                             <th class="table__th align-center" scope="col">소분류</th>
                                                             <th class="table__th align-center" scope="col">비용항목</th>
                                                             <th class="table__th align-center" scope="col">Activity</th>
-                                                            <th class="table__th align-center" scope="col">금액 (VAT포함)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -203,7 +202,7 @@
                                                                 <span class="table__txt">{{history.costInfoVO.costImteNm}}</span>
                                                             </td>
                                                             <td class="table__td">
-                                                                <span class="table__txt">{{history.curAmt | currency}}원</span>
+                                                                <span class="table__txt table__txt--align-right">{{history.curAmt | currency}}원</span>
                                                             </td>
                                                         </tr>
                                                     </tbody>

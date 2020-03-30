@@ -46,7 +46,7 @@ $(document).ready(function(){
             }
         }
     }
-    let userApp = new Vue({
+    new Vue({
         el : '.popup-layer--user'
             ,data : {
                 deptList : []               // 부서 리스트
@@ -82,7 +82,6 @@ $(document).ready(function(){
              * @author : es-seungglee
              ***********************************************/
             , userReceive(data) {
-                console.log(data);
                 this.userList = data;
             }
             /**********************************************
@@ -138,7 +137,6 @@ $(document).ready(function(){
                     alert("사용자를 선택해 주세요");
                     return;
                 }
-                console.log(this.tempFlag);
                 if(this.tempFlag) {     // 임시...삭제해야 함(sso가 없어서 임시로 만들라고 해서 만듦)
                     EventBus.$emit('sendTempData', this.selectedUserList[0]);
                 }else if(typeof(returnUserDept) ==="function") {

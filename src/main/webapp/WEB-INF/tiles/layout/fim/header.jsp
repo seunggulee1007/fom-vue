@@ -162,7 +162,7 @@
                 <a href="#">재무전용</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
-                        <a href="/financialLink/accountingStandards">그룹회계기준 및 가이드</a>
+                        <a href="/financialLink/accounting/standards">그룹회계기준 및 가이드</a>
                     </li>
                     <li class="gnb_depth2">
                         <a href="/financialLink/taxSchedule">월별 세무 일정</a>

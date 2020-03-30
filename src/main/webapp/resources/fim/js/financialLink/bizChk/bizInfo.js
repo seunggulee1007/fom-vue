@@ -27,7 +27,6 @@ $(document).ready(function(){
                     return;
                 }
                 let bizInfo = await this.doAxios("/financialLink/biz/bizInfo/fim/"+bizNo, "get");
-                console.log(bizInfo);
                 this.trtCntn = bizInfo.data.trtCntn;
                 this.complBizNo = bizInfo.data.bizVO.bizNo;
             }

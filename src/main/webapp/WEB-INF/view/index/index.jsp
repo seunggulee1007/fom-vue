@@ -25,14 +25,14 @@
                             </li>
                             <li class="component-box">
                                 <a href="/expenseManagement/approval/expense">
-                                    <img src="/resources/fim/img/mon_4_L2.png" alt="" style="width: 74px;margin-top: -9px">
-                                    <span style="margin-top:-11px">지출결의서 작성</span>
+                                    <img src="/resources/fim/img/mon_4_L2.png" alt="">
+                                    <span>지출결의서 작성</span>
                                 </a>
                             </li>
                             <li class="component-box">
                                 <a href="/companyCard/account/accountInfo">
-                                    <img src="/resources/fim/img/mon_2_L2.png" alt="" style="width: 76px;margin-top: -9px">
-                                    <span style="margin-top:-14px">법인카드 정산/신청</span>
+                                    <img src="/resources/fim/img/mon_2_L2.png" alt="">
+                                    <span>법인카드 정산/신청</span>
                                 </a>
                             </li>
                         </ul>
@@ -65,8 +65,8 @@
                             </li>
                             <li class="component-box">
                                 <a href="/companyCard/account/cd_apply_form">
-                                    <img src="/resources/fim/img/mon_2_L2.png" alt="" style="width: 76px;margin-top: -9px">
-                                    <span style="margin-top:-14px">공용카드 신청</span>
+                                    <img src="/resources/fim/img/mon_2_L2.png" alt="">
+                                    <span>공용카드 신청</span>
                                 </a>
                             </li>
                         </ul>

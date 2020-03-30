@@ -5,6 +5,11 @@
 <c:set var="URI" value="${requestScope['javax.servlet.forward.request_uri'] }" />
 <div class="lnb lnb-area">
     <ul class="lst-lnb">
+        <li class="lst-lnb__item lst-lnb__item--active">
+            <a href="/financialLink/accounting/standards" class="lst-lnb__menu">
+                <span class="lst-lnb__menu-txt">그룹회계기준 및 가이드</span>
+            </a>
+        </li>
         <li class="lst-lnb__item <c:if test="${URI eq '/financialLink/tax_schedule' }"> lst-lnb__item--active</c:if>">
             <a href="/financialLink/taxSchedule" class="lst-lnb__menu">
                 <span class="lst-lnb__menu-txt">월별 세무 일정</span>

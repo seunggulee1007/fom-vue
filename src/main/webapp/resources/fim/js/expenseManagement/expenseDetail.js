@@ -1,7 +1,7 @@
 $(document).ready(function() {
     Vue.use(MyPlugin);
     Vue.use(onlyInt);
-    let expenseDetailApp = new Vue({                                                // 상세 등록 페이지
+    new Vue({                                                // 상세 등록 페이지
         el : ".popup-layer--expenses-detail",
         data : {
             expenseDetailFlag : false,

@@ -70,7 +70,6 @@ $(document).ready(function(){
                     url : "/expenseManagement/approval/expenseList/" + ticostSeq
                     ,method : "get"
                 }).then(res =>{
-                    console.log(res);
                     this.tiarCostVO = res.data.data.tiarCostVO;
                     this.expenseList = res.data.data.tiCostAmtVOList;
                     this.files = [];
@@ -78,7 +77,6 @@ $(document).ready(function(){
                         let fileList = res.data.data.fileList;
                         for(let i=0; i<fileList.length; i++) {
                             let file = {};
-                            console.log(fileList);
                             file.name = fileList[i].originalFileNm;
                             file.size = fileList[i].fileSize;
                             file.type = fileList[i].contentType;
@@ -168,8 +166,6 @@ $(document).ready(function(){
              * @author : es-seungglee
              ***********************************************/
             ,setExpenseData (data) {
-                console.log('setExpenseData');
-                console.log(data);
                 let deptVO = {};
                 deptVO.useErpEmpSeq = data.erpEmpSeq;                   // erp사용자 코드(*)
                 deptVO.useUserId = data.userId;                     // 사용자 코드
@@ -181,8 +177,6 @@ $(document).ready(function(){
                 deptVO.useDeptNm = data.deptNm;
                 deptVO.useUserNm = data.userNm;
                 this.expenseList[this.expenseIdx].deptVO = deptVO;
-                console.log(this.expenseList);
-                
             }
             /**********************************************
              * @method : openExpenseAll
@@ -244,9 +238,6 @@ $(document).ready(function(){
                     this.files.push( uploadedFiles[i] );
                 }
                 for(let file of this.files) {
-                    console.log(file);
-                    console.log(file.size);
-                    
                     this.fileSize += file.size;
                 }
             }   // end handleFilesUpload
@@ -295,7 +286,6 @@ $(document).ready(function(){
                         expense.useDate = expense.useDate.replace(/-/gi, "");
                     }
                     if(expense.useDate instanceof Date) {
-                        console.log(expense.useDate);
                         expense.useDate = getDate(expense.useDate);
                     }
                     if(typeof(expense.curAmt) == 'string') {
@@ -346,7 +336,6 @@ $(document).ready(function(){
                             'Content-Type' : 'multipart/form-data'
                         }
                 ).then(res => {
-                    console.log(res);
                     if(!flag) {
                         alert(res.data.resultMsg);
                     }
@@ -414,8 +403,6 @@ $(document).ready(function(){
                 this.expenseIdx = idx;
                 let copyCostInfo = Object.assign({},costInfoVO);
                 this.expenseList[idx].costInfoVO = {};
-                console.log(copyCostInfo);
-                // expenseDetailApp.openDetailPopup(copyCostInfo);                            // 세부 항목 팝업 띄운다.
                 EventBus.$emit('openDetailPopup',copyCostInfo)
                 
             }
@@ -491,7 +478,6 @@ $(document).ready(function(){
             , calcTotalAmt () {
                 this.tiarCostVO.totalAmt = 0;
                 for(let expenseVO of this.expenseList) {                // 합계를 위한 반복문
-                    console.log(typeof(expenseVO.curAmt));
                     let curAmt = expenseVO.curAmt;
                     if(typeof(curAmt) == 'string' && curAmt.indexOf(",") != -1) {
                         curAmt = curAmt.replace(/,/gi,"");

@@ -73,7 +73,11 @@ $(document).ready(function(){
             }
         }
         , methods : {
-            
+            /**********************************************
+             * @method : getInfoList
+             * @note 공지사항 리스트 조회
+             * @author : es-seungglee
+             ***********************************************/
             async getInfoList (num) {
                 if(!num) {
                     num = 0;
@@ -87,20 +91,6 @@ $(document).ready(function(){
                 }
                 let infoList = await this.doAxios( "/portalManagement/infoList", "get", param);
                 this.gridData = infoList.data.boardList;
-            }
-            , goPage (num) {
-                this.getInfoList(num-1);
-            }
-            , goPageGroup(flag) {
-                let num = 0;
-                if(flag === 'next') {
-                    num = (this.pagingVO.nowGroupCount + 1) * 10;
-                }else if(flag === 'prev') {
-                    num = (this.pagingVO.nowGroupCount -1) * 10;
-                }else if(flag === 'last') {
-                    num = this.pagingVO.totalPages -1;
-                }
-                this.getInfoList(num);
             }
         }
     });
