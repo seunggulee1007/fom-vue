@@ -1,4 +1,4 @@
-package net.smilegate.fim.vo.account;
+package net.smilegate.fim.vo.companycard;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ public class CompanyCardCostInfoVO {
 
     /** 법인코드 */
     private int companySeq;
-
+//
     /** 비용신청 내부키 */
     private int tiCostSeq;
 
@@ -15,10 +15,10 @@ public class CompanyCardCostInfoVO {
     private int tiCostSerl;
 
     /** 비용항목 중분류 */
-    private String erpsmKindSeq;
+    private String erpSmKindSeq;
 
     /** 비용항목 중분류 명*/
-    private String erpsmKindNm;
+    private String erpSmKindNm;
 
     /** 비용항목 소분류 */
     private String erpCostSeq;

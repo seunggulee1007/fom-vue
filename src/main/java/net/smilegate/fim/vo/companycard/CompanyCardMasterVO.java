@@ -1,4 +1,4 @@
-package net.smilegate.fim.vo.account;
+package net.smilegate.fim.vo.companycard;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class CompanyCardMasterVO {
 	private String cardCd;
 
 	/** 정산년월 */
-	private String yyyymm;
+	private String calcDate;
 
 	/** ERP법인코드  */
 	private int erpCompanySeq;
@@ -48,6 +48,10 @@ public class CompanyCardMasterVO {
 
 	/** 데이터 최종수정일 */
 	private String lastDateTime;
+
+	/** 작업구분 */
+	private String logTag;
+
 
 	/** 법인카드 상세 리스트 항목 */
 	private List<CompanyCardDetailVO> cardDetailList;

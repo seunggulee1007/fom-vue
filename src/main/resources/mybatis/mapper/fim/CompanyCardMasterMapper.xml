@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="net.smilegate.fim.mappers.fim.companycard.CompanyCardFimMapper">
+
+	<select id="getCompanyCardMasterSeq" resultType="int">
+		select next value for SEQ_CARD_USE_SEQ
+	</select>
+
+	<select id="getCompanyCardMaster" resultType="companyCardMasterVO">
+		select * from TB_COMPANY_CARD_MASTER where CARD_USE_SEQ = #{cardUseSeq}
+	</select>
+
+	<insert id="saveCompanyCardMaster" parameterType="companyCardMasterVO">
+		MERGE TB_COMPANY_CARD_MASTER as a
+		USING ( select #{cardUseSeq} as cardUseSeq ) AS b
+		ON a.CARD_USE_SEQ = b.cardUseSeq
+		WHEN MATCHED THEN
+			update set
+					a.COM_CD		   = #{comCd}        ,
+					a.CARD_CD          = #{cardCd}       ,
+					a.CALC_DATE        = #{calcDate}     ,
+					a.ERP_COMPANY_SEQ  = #{erpCompanySeq},
+					a.TITLE            = #{title}        ,
+					a.REG_DATE         = #{regDate}      ,
+					a.REG_ERP_EMP_SEQ  = #{regErpEmpSeq} ,
+					a.REG_USER_ID	   = #{regUserId}    ,
+					a.REG_ERP_DEPT_SEQ = #{regErpDeptSeq},
+					a.REG_EMP_NO	   = #{regEmpNo}     ,
+					a.REG_DEPT_CD	   = #{regDeptCd}    ,
+					a.LAST_USER_ID     = #{lastUserId}   ,
+					a.LAST_DATE_TIME   = getdate()
+		WHEN NOT MATCHED THEN
+			insert (
+					CARD_USE_SEQ	   ,
+					COM_CD		   ,
+					CARD_CD          ,
+					CALC_DATE        ,
+					ERP_COMPANY_SEQ  ,
+					TITLE            ,
+					REG_DATE         ,
+					REG_ERP_EMP_SEQ  ,
+					REG_USER_ID	   ,
+					REG_ERP_DEPT_SEQ ,
+					REG_EMP_NO	   ,
+					REG_DEPT_CD	   ,
+					LAST_USER_ID     ,
+					LAST_DATE_TIME)
+				values(
+					b.cardUseSeq    ,
+					#{comCd}        ,
+					#{cardCd}       ,
+					#{calcDate}     ,
+					#{erpCompanySeq},
+					#{title}        ,
+					#{regDate}      ,
+					#{regErpEmpSeq} ,
+					#{regUserId}    ,
+					#{regErpDeptSeq},
+					#{regEmpNo}     ,
+					#{regDeptCd}    ,
+					#{lastUserId}   ,
+					getdate());
+	</insert>
+
+	<insert id="insertCompanyCardMasterLog" parameterType="companyCardMasterVO">
+		insert
+			into TB_COMPANY_CARD_MASTER_LOG (
+				TCCML_LOG_SEQ   ,
+				CARD_USE_SEQ    ,
+				COM_CD	        ,
+				CARD_CD         ,
+				CALC_DATE       ,
+				ERP_COMPANY_SEQ ,
+				TITLE           ,
+				REG_DATE        ,
+				REG_ERP_EMP_SEQ ,
+				REG_USER_ID     ,
+				REG_ERP_DEPT_SEQ,
+				REG_EMP_NO      ,
+				REG_DEPT_CD     ,
+				LAST_USER_ID    ,
+				LAST_DATE_TIME)
+			select
+				next value for SEQ_TCCML_LOG_SEQ,
+				#{cardUseSeq}   ,
+				#{comCd}        ,
+				#{cardCd}       ,
+				#{calcDate}     ,
+				#{erpCompanySeq},
+				#{title}        ,
+				#{regDate}      ,
+				#{regErpEmpSeq} ,
+				#{regUserId}    ,
+				#{regErpDeptSeq},
+				#{regEmpNo}     ,
+				#{regDeptCd}    ,
+				#{lastUserId}   ,
+				getdate()
+	</insert>
+
+	<insert id="insertCompanyCardMasterFile" parameterType="companyCardMasterFileVO">
+		insert
+			into TB_COMPANY_CARD_MASTER_FILE(
+				CARD_USE_SEQ,
+				FILE_SERL,
+				O_FILE_NAME,
+				M_FILE_NAME,
+				FILE_SIZE,
+				FILE_PATH,
+				IS_DELETE,
+				LAST_USER_ID,
+				LAST_DATE_TIME)
+			select
+				#{cardUseSeq},
+				isnull(max(FILE_SERL)+1, 1),
+				#{oFileName},
+				#{mFileName},
+				#{fileSize},
+				#{filePath},
+				#{isDelete},
+				#{lastUserId},
+				getdate()
+			from TB_COMPANY_CARD_MASTER_FILE
+			where CARD_USE_SEQ  = #{cardUseSeq}
+	</insert>
+
+	<insert id="insertCompanyCardMasterFileLog" parameterType="companyCardMasterFileVO">
+		insert
+			into TB_COMPANY_CARD_MASTER_FILE_LOG(
+					TCCMF_LOG_SEQ,
+					CARD_USE_SEQ,
+					FILE_SERL,
+					O_FILE_NAME,
+					M_FILE_NAME,
+					FILE_SIZE,
+					FILE_PATH,
+					IS_DELETE,
+					LOG_TAG,
+					LAST_USER_ID,
+					LAST_DATE_TIME)
+				select
+					next value for SEQ_TCCMF_LOG_SEQ,
+					#{cardUseSeq},
+					#{fileSerl},
+					#{oFileName},
+					#{mFileName},
+					#{fileSize},
+					#{filePath},
+					#{isDelete},
+					#{logTag},
+					#{lastUserId},
+					getdate()
+	</insert>
+</mapper>
