@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.mappers.fim.FileMapper;
-import net.smilegate.fim.vo.board.FileVO;
+import net.smilegate.fim.vo.FileVO;
 
 @Service
 @RequiredArgsConstructor

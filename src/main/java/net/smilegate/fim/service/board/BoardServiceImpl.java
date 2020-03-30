@@ -17,8 +17,8 @@ import net.smilegate.fim.mappers.fim.JpaBoardMapper;
 import net.smilegate.fim.service.file.board.FileService;
 import net.smilegate.fim.specification.BoardSpecification;
 import net.smilegate.fim.util.FileUtil;
+import net.smilegate.fim.vo.FileVO;
 import net.smilegate.fim.vo.board.BoardVO;
-import net.smilegate.fim.vo.board.FileVO;
 import net.smilegate.fim.vo.common.CommonResultVO;
 
 @Service
@@ -38,7 +38,7 @@ public class BoardServiceImpl implements BoardService {
      * @return
      */
     @Transactional(value = "fimTransactionManager")
-    public CommonResultVO writeInfo(MultipartHttpServletRequest request, BoardVO boardVO) {
+    public CommonResultVO writeBoard(MultipartHttpServletRequest request, BoardVO boardVO) {
         boardVO.setBoardMasterId(boardVO.getMasterId());
         boardVO.setUserId("admin"); // rbac에서 가져온 값.
         boardVO.setUserNm("관리자");
@@ -87,8 +87,11 @@ public class BoardServiceImpl implements BoardService {
 
         return CommonResultVO.builder().data(map).build();
     }
-
-    public CommonResultVO infoList(BoardVO boardVO) {
+    
+    /**
+     * 게시판 리스트 조회
+     */
+    public CommonResultVO boardList(BoardVO boardVO) {
         Map<String, Object> map = new HashMap<>();
         
         String search = boardVO.getSearch();
@@ -101,4 +104,6 @@ public class BoardServiceImpl implements BoardService {
         map.put("boardList", boardMapper.selectBoardList(boardVO));
         return CommonResultVO.builder().data(map).build();
     }
+    
+    
 }

@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+'use strict';
 $(document).ready(function(){
     Vue.use(MyPlugin);
     new Vue({
@@ -15,6 +17,7 @@ $(document).ready(function(){
             ,bizInfoList : []
             ,userNm : ''
             ,deptNm : ''
+            ,pagingVO : {}
         }
         ,mounted () {
             this.getBizInfoList();
@@ -32,14 +35,19 @@ $(document).ready(function(){
             }
         }
         ,methods : {
-            async getBizInfoList () {
+            async getBizInfoList (pageNo) {
+                if(!pageNo) {
+                    pageNo = 1;
+                }
                 const param = {
                     searchStdDt : this.searchStdDt
                     ,searchEndDt : this.searchEndDt
                     ,bizNo : this.bizNo
+                    ,pageNo : pageNo
                 }
                 let bizInfo = await this.doAxios("/financialLink/biz/bizInfo/bizInfoList","get", param);
                 this.bizInfoList = bizInfo.data.bizInfoList;
+                this.pagingVO = bizInfo.data.pagingVO;
             }
             
         }

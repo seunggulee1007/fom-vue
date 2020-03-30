@@ -13,10 +13,10 @@ public interface BoardService {
      * @param boardVO
      * @return
      */
-    public CommonResultVO writeInfo(MultipartHttpServletRequest request , BoardVO boardVO);
+    public CommonResultVO writeBoard(MultipartHttpServletRequest request , BoardVO boardVO);
     
     /* public CommonResultVO infoList(Pageable pageable, BoardVO boardVO); */
     
-    public CommonResultVO infoList(BoardVO boardVO);
+    public CommonResultVO boardList(BoardVO boardVO);
     
 }

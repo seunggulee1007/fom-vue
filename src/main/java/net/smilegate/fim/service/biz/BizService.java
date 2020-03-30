@@ -3,6 +3,7 @@ package net.smilegate.fim.service.biz;
 import java.util.Map;
 
 import net.smilegate.fim.vo.BizVO;
+import net.smilegate.fim.vo.common.PagingVO;
 
 public interface BizService {
     
@@ -14,6 +15,6 @@ public interface BizService {
      */
     public Map<String, Object> getBizInfo(String serverName, String busnpNo);
     
-    public Map<String, Object> selectBuzInfoList(BizVO bizVO);
+    public Map<String, Object> selectBuzInfoList(PagingVO pagingVO, BizVO bizVO);
     
 }

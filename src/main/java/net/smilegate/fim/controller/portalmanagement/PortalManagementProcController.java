@@ -1,6 +1,7 @@
 package net.smilegate.fim.controller.portalmanagement;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,13 +29,19 @@ public class PortalManagementProcController {
     
     @PostMapping("/info")
     public CommonResultVO writeInfo(MultipartHttpServletRequest request , BoardVO boardVO ) {
-        return  boardService.writeInfo(request, boardVO);
+        return  boardService.writeBoard(request, boardVO);
     }
     
     @GetMapping("/infoList")
     public CommonResultVO infoList(BoardVO boardVO) {
-        return boardService.infoList(boardVO);
+        return boardService.boardList(boardVO);
     }
+    
+    @GetMapping("/info/{boardId}")
+    public CommonResultVO info(@PathVariable("boardId") int boardId) {
+        return CommonResultVO.builder().build();
+    }
+    
     /*
      * @GetMapping("/infoList") public CommonResultVO infoList(@PageableDefault(sort
      * = { "boardId" }, direction = Direction.DESC, size = 10) Pageable pageable,

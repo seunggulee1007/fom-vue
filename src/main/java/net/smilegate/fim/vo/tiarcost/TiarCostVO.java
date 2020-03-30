@@ -3,7 +3,7 @@ package net.smilegate.fim.vo.tiarcost;
 import java.util.List;
 
 import lombok.Data;
-import net.smilegate.fim.vo.board.FileVO;
+import net.smilegate.fim.vo.FileVO;
 
 @Data
 public class TiarCostVO {

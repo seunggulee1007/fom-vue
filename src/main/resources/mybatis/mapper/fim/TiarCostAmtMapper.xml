@@ -488,10 +488,20 @@
             ti_cost_seq = #{tiCostSeq}
     </select>
     
+    <!-- 해당 지출결의 상세 일련번호에 맞는 건 삭제 -->
     <delete id="deleteTiarCostAmt">
         delete from tb_tiar_cost_amt
         where
             ti_cost_seq = #{tiCostSeq}
             and ti_cost_serl = #{tiCostSerl}
     </delete>
+    
+    <!-- 지출결의 건에 대한 상세 내역 전체 삭제 -->
+    <delete id="deleteTiarCostAmtByTiCostSeq">
+        delete from tb_tiar_cost_amt
+        where
+            ti_cost_seq = #{tiCostSeq}
+    </delete>
+    
+    
 </mapper>

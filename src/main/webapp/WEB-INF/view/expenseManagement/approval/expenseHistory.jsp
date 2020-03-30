@@ -143,14 +143,11 @@
                                         </td>                                                
                                     </tr>
                                     <tr class="table__row-sub--detail" :class="{'table__row--expanded' : list.flag}">
-                                        <td class="table__td table__td--table" colspan="15">
+                                        <td class="table__td table__td--table" colspan="8">
                                             <div class="table">
                                                 <table>
                                                     <caption><span class="blind">상세 내역</span></caption>
                                                     <colgroup>
-                                                        <col>
-                                                        <col>
-                                                        <col>
                                                         <col>
                                                         <col>
                                                         <col>

@@ -155,7 +155,7 @@
                                     <td class="table__td">
                                         <div class="input-field datepicker__v-calendar">
                                             <span class="table__txt">{{getDate(expense.useDate,'-')}}</span>
-                                            <v-date-picker :mode='mode' v-model='expense.useDate' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}' :is-dark='true'>
+                                            <v-date-picker :mode='mode' v-model='expense.useDate' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}' :is-dark='false'>
                                                 <span class="sp icon-datepicker">
                                                     <span class="blind">Calendar 열기</span>
                                                 </span>
@@ -272,7 +272,7 @@
                 </div>
                 <div class="component-group btn-box align-center">
                     <div class="component-box" v-if="tiarCostVO.tiCostSeq">
-                        <button type="button" class="btn btn--large btn--bgtype">
+                        <button type="button" class="btn btn--large btn--bgtype" @click="deleteExpense();">
                             <span class="btn__txt">삭제</span>
                         </button>
                     </div>

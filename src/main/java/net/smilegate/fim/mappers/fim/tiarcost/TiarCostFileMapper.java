@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import net.smilegate.fim.vo.board.FileVO;
+import net.smilegate.fim.vo.FileVO;
 
 @Mapper
 public interface TiarCostFileMapper {

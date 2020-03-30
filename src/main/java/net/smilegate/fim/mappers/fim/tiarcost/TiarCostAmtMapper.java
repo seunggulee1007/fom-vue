@@ -46,4 +46,11 @@ public interface TiarCostAmtMapper {
      */
     public int deleteTiarCostAmt(@Param("tiCostSeq")int tiCostSeq, @Param("tiCostSerl") int tiCostSerl);
     
+    /**
+     * 지출 결의 내부번호에 대한 상세 리스트 전체 삭제
+     * @param tiCostSeq
+     * @return
+     */
+    public int deleteTiarCostAmtByTiCostSeq(@Param("tiCostSeq") int tiCostSeq);
+    
 }

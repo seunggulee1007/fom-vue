@@ -282,7 +282,7 @@
             ti_cost_seq = #{tiCostSeq}
     </select>
     
-    
+    <!-- 페이징 처리된 리스트 조회 -->
     <select id="selectTiarCostByPaging" parameterType="pagingVO" resultMap="tiarCostByPagingMap">
         select
             tc.ti_cost_Seq         AS tiCostSeq
@@ -408,6 +408,7 @@
         on tc.ti_Cost_Seq = tca.TI_COST_SEQ
     </select>
     
+    <!-- 페이징 처리를 위한 전체 건수 조회 -->
     <select id="selectTiarCostByPagingCnt" parameterType="pagingVO" resultType="int">
         select
             count(*)
@@ -425,5 +426,12 @@
                 </choose>
             </if>
     </select>
+    
+    <!-- 지출 결의 내부번호에 맞는 건 삭제 -->
+    <delete id="deleteTiarCostByTiarCostSeq">
+        delete from tb_tiar_cost
+        where
+            ti_cost_seq = #{tiCostSeq}
+    </delete>
     
 </mapper>

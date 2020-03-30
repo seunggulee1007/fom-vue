@@ -12,10 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import net.smilegate.fim.controller.companycard.account.AccountController;
 import net.smilegate.fim.mappers.sgerp.AccountMapper;
 import net.smilegate.fim.util.FileUtil;
+import net.smilegate.fim.vo.FileVO;
 import net.smilegate.fim.vo.account.CompanyCardDetailVO;
 import net.smilegate.fim.vo.account.CompanyCardMasterVO;
 import net.smilegate.fim.vo.account.CompanyCardVO;
-import net.smilegate.fim.vo.board.FileVO;
 
 @Slf4j
 @RequiredArgsConstructor

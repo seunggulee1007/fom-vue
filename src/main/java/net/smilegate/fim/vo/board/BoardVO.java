@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
+import net.smilegate.fim.vo.FileVO;
 
 @Data
 @Entity(name = "TB_BOARD")

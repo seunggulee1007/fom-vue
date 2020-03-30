@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import net.smilegate.fim.service.biz.BizService;
 import net.smilegate.fim.vo.BizVO;
 import net.smilegate.fim.vo.common.CommonResultVO;
+import net.smilegate.fim.vo.common.PagingVO;
 
 @RequiredArgsConstructor
 @RestController
@@ -46,9 +47,9 @@ public class BizChkProcController {
 
     @ApiOperation(value = "사업자 휴폐업 조회 이력", notes = "사업자 휴폐업 조회한 이력을 조회")
     @GetMapping("/biz/bizInfo/bizInfoList")
-    public CommonResultVO bizInfoList(BizVO bizVO) {
+    public CommonResultVO bizInfoList(PagingVO pagingVO, BizVO bizVO) {
         Map<String, Object> map = new HashMap<>();
-        map = bizService.selectBuzInfoList(bizVO);
+        map = bizService.selectBuzInfoList(pagingVO, bizVO);
         CommonResultVO commonResultVO = CommonResultVO.builder().data(map).build();
         return commonResultVO;
     }

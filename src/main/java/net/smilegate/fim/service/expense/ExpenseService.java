@@ -43,4 +43,11 @@ public interface ExpenseService {
      */
     public Map<String, Object> selectExpenseHitoryList(PagingVO pagingVO);
     
+    /**
+     * 지출결의 내역 삭제
+     * @param tiarCostSeq
+     * @return
+     */
+    public boolean deleteExpense(int tiarCostSeq);
+    
 }

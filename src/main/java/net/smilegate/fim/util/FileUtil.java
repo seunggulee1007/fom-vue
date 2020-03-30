@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import net.smilegate.fim.vo.board.FileVO;
+import net.smilegate.fim.vo.FileVO;
 
 @Component
 public class FileUtil {

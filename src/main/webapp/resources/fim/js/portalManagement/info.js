@@ -2,15 +2,15 @@
 'use strict';
 $(document).ready(function(){
     Vue.use(MyPlugin);
-    let vue = new Vue({
+    new Vue({
         el : "#container"
         , data : {
             searchStdDt : getDate(new Date(), '-')
             ,searchEndDt : getDate(new Date(), '-')                   // 사업자 번호
             ,mode: 'single'             // 날짜 모드(single 단일 multi : 범위)
-            ,masks : {                  // 날짜 마스킹 처리
-                title: 'MMMM YYYY',     // 날짜 타이틀
-                input: 'YYYY-MM-DD',    // input에 보여질 포맷
+            , masks : {                     // 날짜 마스킹 처리
+                title: 'YYYY.MM',         // 날짜 타이틀
+                input: 'YYYY-MM-DD',        // input에 보여질 포맷
             }
             ,searchKind : 'title'
             ,search : ''
@@ -31,27 +31,6 @@ $(document).ready(function(){
                         type : "ImageRenderer",
                         imgHeight : 24,
                         altField : "iconSrc",
-                        srcFunction : function(rowIndex, columnIndex, value, item) {
-                            // return "/resources/img/sprites/template_pc/icon-attachment.png";
-                            switch(value) {
-                            case "20" : 
-                                return "/resources/img/sprites/template_pc/icon-attachment.png";
-                            case "Blue":
-                                return "./assets/blue_circle.png";
-                            case "Gray":
-                                return "./assets/gray_circle.png";
-                            case "Green":
-                                return "./assets/green_circle.png";
-                            case "Orange":
-                                return "./assets/orange2_circle.png";
-                            case "Pink":
-                                return "./assets/pink_circle.png";
-                            case "Violet":
-                                return "./assets/violet_circle.png";
-                            default:
-                                return null; // null 반환하면 이미지 표시 안함.
-                            }
-                        }
                     }
                 }
             ]

@@ -1,7 +1,6 @@
-package net.smilegate.fim.vo.board;
+package net.smilegate.fim.vo;
 
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,12 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.smilegate.fim.vo.board.BoardVO;
 
 @Data
 @Entity(name="TB_FILE")
@@ -63,13 +62,5 @@ public class FileVO {
     
     @Transient
     private int boardId;
-    
-    @Transient
-    @JsonIgnore
-    private List<FileVO> insertList;
-    
-    @Transient
-    @JsonIgnore
-    private List<FileVO> deleteList;
     
 }

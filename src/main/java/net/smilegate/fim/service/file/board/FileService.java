@@ -2,7 +2,7 @@ package net.smilegate.fim.service.file.board;
 
 import java.util.List;
 
-import net.smilegate.fim.vo.board.FileVO;
+import net.smilegate.fim.vo.FileVO;
 
 public interface FileService {
     

@@ -53,9 +53,9 @@
                             <table>
                                 <caption><span class="blind">비용항목 분류에 따른 SGMA Activity와 SGMA 비용항목 내역</span></caption>
                                 <colgroup>
-                                    <col width="228px">
-                                    <col width="228px">
-                                    <col width="228px">
+                                    <col>
+                                    <col>
+                                    <col>
                                     <col>
                                 </colgroup>
                                 <thead>

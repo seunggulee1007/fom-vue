@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script type="text/babel" src="/resources/fim/js/portalManagement/infoView.js"></script>
 <div id="container" class="container container--include-lnb container--fullview container-view">
     <h2 class="page-title">공지사항</h2>
     <!-- <p class="page-title__dsc">· 재무회계 공지사항 게시판입니다.</p> -->
@@ -16,7 +17,7 @@
         </div>             
     </div>
 
-    <div class="grid-layout">
+    <div class="grid-layout" id="app">
         <div class="grid-column grid-column10">
             <div class="section section--border">
                 <div class="component-area">

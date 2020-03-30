@@ -5,10 +5,9 @@ $(document).ready(function(){
     new Vue({
         el : "#app"
         , data : {
-            openFlag : true
-            , mode: 'single'                // 날짜 모드(single 단일 multi : 범위)
+            mode: 'single'                // 날짜 모드(single 단일 multi : 범위)
             , masks : {                     // 날짜 마스킹 처리
-                title: 'MMMM YYYY',         // 날짜 타이틀
+                title: 'YYYY.MM',         // 날짜 타이틀
                 input: 'YYYY-MM-DD',        // input에 보여질 포맷
             }
             , expenseList : [
@@ -512,6 +511,14 @@ $(document).ready(function(){
             , setExpenseDetail(data) {
                 this.expenseList[this.expenseIdx].costInfoVO = data;
             }
+            ,async deleteExpense() {
+                if(!confirm("해당 지출결의서를 삭제하시겠습니까?")) {
+                    return;
+                }
+                let result = await this.doAxios("/expenseManagement/approval/deleteExpense/" + this.tiarCostVO.tiCostSeq, "delete");
+                alert(result.resultMsg);
+            }
+
         }
     });
 });

@@ -45,22 +45,42 @@
         )
     </insert>
     
+    <!-- 휴폐업 조회 이력 카운트 조회 -->
+    <select id="selectBizInfoCnt" resultType="int">
+        select
+            count(*)
+        from tb_biz_chk_hist
+        where
+             convert(varchar, crt_date, 112) between replace(#{pagingVO.searchStdDt},'-','') and replace(#{pagingVO.searchEndDt},'-','')
+             <if test="bizVO.userNm != null and bizVO.userNm != ''">
+                and user_nm like concat('%',#{bizVO.userNm},'%')
+             </if>
+             <if test="bizVO.bizNo != null and bizVO.bizNo != ''">
+                and biz_no like concat('%', #{bizVO.bizNo}, '%')
+             </if>
+             <if test="bizVO.deptNm != null and bizVO.deptNm != ''">
+                and dept_nm like concat('%', #{bizVO.deptNm}, '%')
+             </if>
+    </select>
     <!-- 휴폐업 조회 이력 조회 -->
-    <select id="selectBizInfoList" parameterType="bizVO" resultType="bizVO">
+    <select id="selectBizInfoList" resultType="bizVO">
         select
             <include refid="bizColumn"/>
         from tb_biz_chk_hist
         where
-             convert(varchar, crt_date, 112) between replace(#{searchStdDt},'-','') and replace(#{searchEndDt},'-','')
-             <if test="userNm != null and userNm != ''">
-                and user_nm like concat('%',#{userNm},'%')
+             convert(varchar, crt_date, 112) between replace(#{pagingVO.searchStdDt},'-','') and replace(#{pagingVO.searchEndDt},'-','')
+             <if test="bizVO.userNm != null and bizVO.userNm != ''">
+                and user_nm like concat('%',#{bizVO.userNm},'%')
              </if>
-             <if test="bizNo != null and bizNo != ''">
-                and biz_no like concat('%', #{bizNo}, '%')
+             <if test="bizVO.bizNo != null and bizVO.bizNo != ''">
+                and biz_no like concat('%', #{bizVO.bizNo}, '%')
              </if>
-             <if test="deptNm != null and deptNm != ''">
-                and dept_nm like concat('%', #{deptNm}, '%')
+             <if test="bizVO.deptNm != null and bizVO.deptNm != ''">
+                and dept_nm like concat('%', #{bizVO.deptNm}, '%')
              </if>
-    </select>
+             order by BIZ_CHK_HIST_ID desc
+             offset(#{pagingVO.pageNo} -1 ) * #{pagingVO.listCnt} row
+             fetch next #{pagingVO.listCnt} row only
+    </select> 
     
 </mapper>

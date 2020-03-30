@@ -54,6 +54,7 @@ $table_th: #fafaff;
         }
         &.table__row-group--top{
             border-bottom: 1px solid $border_dark;
+            .table__th{text-align: left;}
         }
     }
     tr:first-of-type{
@@ -68,7 +69,7 @@ $table_th: #fafaff;
         }
     }
     .table__th{
-        //text-align: center;
+        text-align: center;
         background-color: $table_th;
         border: 1px solid $border_dark;    
         border-width: 1px 0 0 1px; 
@@ -89,6 +90,12 @@ $table_th: #fafaff;
     .table__row--item.table__row--selected{
         background-color: transparent;
     }
+    tr.table__row-sub--item{
+        display: none;
+        &.table__row--expanded{
+            display: table-row;
+        }
+    }
     tr.table__row-sub--detail{
         display: none;
         &.table__row--expanded{
@@ -96,9 +103,10 @@ $table_th: #fafaff;
         }
     }
     .table__row-sub--item .table__th{
-        padding-left: 24px;
+        //padding-left: 24px;
         &.table__th--btn-front{
-            padding-left: 29px;         
+            padding-left: 29px;    
+            text-align: left;     
             .sp{
                 left: 16px;
             }
@@ -138,10 +146,14 @@ $table_th: #fafaff;
 /* .table table .table table */
 .table table tbody .table__td.table__td--table{
     padding: 16px 24px;
-    .table{
-        border: 0;        
+    .table{        
+        //border: 0;        
         max-height: 251px;
         overflow-y: auto;
+        margin-top: 0;
+        .table__th, .table_txt{
+            font-size: 12px;
+        }
     }
 }
 
@@ -149,6 +161,7 @@ $table_th: #fafaff;
     border: 0;
     height: 174px;
     overflow-y: auto;
+    margin-top: 0;
     tr:first-child .table__td{
         border-right: 0;
         &:last-child{

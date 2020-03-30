@@ -175,9 +175,26 @@ public class ApprovalProcController {
         return CommonResultVO.builder().data(expenseService.selectExpenseHitoryList(pagingVO)).build();
     }
     
+    /**
+     * 파일 삭제
+     * @param fileId
+     * @return
+     */
     @DeleteMapping("/deleteTiarCostFileByFileId/{fileId}")
     public CommonResultVO deleteTiarCostFileByFileId(@PathVariable("fileId") int fileId) {
         tiarCostFileService.deleteTiarCostFileByFileId(fileId);
         return CommonResultVO.builder().resultMsg("삭제되었습니다").build();
     }
+    
+    /**
+     * 지출결의서 삭제
+     * @param tiCostSeq
+     * @return
+     */
+    @DeleteMapping("/deleteExpense/{tiCostSeq}")
+    public CommonResultVO deleteExpense(@PathVariable("tiCostSeq") int tiCostSeq) {
+        expenseService.deleteExpense(tiCostSeq);
+        return CommonResultVO.builder().resultMsg(CommonMsg.SUCCESS_DELETE.getMsg()).build();
+    }
+    
 }

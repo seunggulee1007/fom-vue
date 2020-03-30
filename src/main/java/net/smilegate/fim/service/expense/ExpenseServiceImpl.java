@@ -18,7 +18,7 @@ import net.smilegate.fim.mappers.fim.tiarcost.TiarCostMapper;
 import net.smilegate.fim.service.file.tiarcost.TiarCostFileService;
 import net.smilegate.fim.util.CommonUtil;
 import net.smilegate.fim.util.FileUtil;
-import net.smilegate.fim.vo.board.FileVO;
+import net.smilegate.fim.vo.FileVO;
 import net.smilegate.fim.vo.common.PagingVO;
 import net.smilegate.fim.vo.tiarcost.TiarCostAmtLogVO;
 import net.smilegate.fim.vo.tiarcost.TiarCostAmtVO;
@@ -184,6 +184,17 @@ public class ExpenseServiceImpl implements ExpenseService {
         map.put("pagingVO", pagingVO);
         
         return map;
+    }
+    
+    /**
+     * 지출결의 내역 삭제
+     * @param tiCostSeq
+     * @return
+     */
+    public boolean deleteExpense(int tiCostSeq) {
+        tiarCostFileService.deleteTiarCostFileByRefId(tiCostSeq);
+        tiarCostAmtMapper.deleteTiarCostAmtByTiCostSeq(tiCostSeq);
+        return tiarCostMapper.deleteTiarCostByTiarCostSeq(tiCostSeq) > 0;
     }
     
 }

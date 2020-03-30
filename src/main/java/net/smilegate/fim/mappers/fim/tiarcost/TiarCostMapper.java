@@ -45,4 +45,12 @@ public interface TiarCostMapper {
      * @return
      */
     public int selectTiarCostByPagingCnt(PagingVO pagingVO);
+    
+    /**
+     * 지출결의서 단건 삭제
+     * @param tiCostSeq
+     * @return
+     */
+    public int deleteTiarCostByTiarCostSeq(@Param("tiCostSeq") int tiCostSeq);
+    
 }

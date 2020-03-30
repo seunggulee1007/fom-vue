@@ -17,8 +17,6 @@ $(document).ready(function(){
                 pagingVO : {
                     
                 }
-
-                
             }
         }
         ,created () {
@@ -50,9 +48,7 @@ $(document).ready(function(){
                 }
                 let expenseHistory = await this.doAxios('/expenseManagement/approval/expenseHistoryList', 'get', param);
                 this.expenseHistoryList = expenseHistory.data.expenseHistoryList;
-                console.log(this.expenseHistoryList);
                 this.pagingVO = expenseHistory.data.pagingVO;
-                console.log(this.pagingVO);
             },
             clickDetailList (data) {
                 if(data.flag == undefined){

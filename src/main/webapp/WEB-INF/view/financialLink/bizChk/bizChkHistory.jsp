@@ -24,7 +24,7 @@
                         <div class="component-box">
                             <div class="input-field datepicker__v-calendar">
                              <label for="date_input_info1" class="input-field__title ">조회기준일자</label>
-                                <input type="text" v-model='searchStdDt' readonly id="date_input_exchange" class="input-field__input">
+                                <input type="text" v-model='searchStdDt' readonly class="input-field__input">
                                 <v-date-picker :mode='mode' v-model='searchStdDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
                                     <span class="sp icon-datepicker">
                                         <span class="blind">Calendar 열기</span>
@@ -39,7 +39,7 @@
                         </div>  
                         <div class="component-box component-box--non-label">
                             <div class="input-field input-field--no-title datepicker__v-calendar">
-                                <input type="text" v-model='searchEndDt' readonly id="date_input_exchange" class="input-field__input">
+                                <input type="text" v-model='searchEndDt' readonly class="input-field__input">
                                 <v-date-picker :mode='mode' v-model='searchEndDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
                                     <span class="sp icon-datepicker">
                                         <span class="blind">Calendar 열기</span>
@@ -131,44 +131,36 @@
                             </table>
                         </div>
                     </div>
-                    <div class="component-group">
+                    <div class="component-group" v-if="pagingVO.totalPage > 0">
                         <div class="pagination">
-                            <a href="#" class="pagination__btn pagination__btn--disabled">
+                            <a href="#" class="pagination__btn" @click="getBizInfoList(1)" :class="{'pagination__btn--disabled' : pagingVO.pageNo == 1}">
                                 <span class="sp icon-first">
                                     <span class="blind">맨 처음 페이지</span>
                                 </span>
                             </a>
-                            <a href="#" class="pagination__btn pagination__btn--disabled">
+                            <a href="#" class="pagination__btn " @click="getBizInfoList(pagingVO.startPage-1)" :class="{'pagination__btn--disabled' : pagingVO.pageNo < pagingVO.pageCnt}">
                                 <span class="sp icon-prev">
                                     <span class="blind">이전 페이지</span>
                                 </span>
                             </a>
                             <div class="pagination__inner">
-                                <a href="#" class="pagination__btn-txt pagination__btn-txt--active">
-                                    <span class="pagination__page-number">1</span>
-                                    <span class="blind">페이지로 이동</span>
-                                </a>
-                                <a href="#" class="pagination__btn-txt">
-                                    <span class="pagination__page-number">2</span>
-                                    <span class="blind">페이지로 이동</span>
-                                </a>
-                                <a href="#" class="pagination__btn-txt">
-                                    <span class="pagination__page-number">3</span>
+                                <a href="#" class="pagination__btn-txt" v-for="num in getPageList(pagingVO.startPage, pagingVO.endPage)" @click="getBizInfoList(num)" :class="{'pagination__btn-txt--active' : num == pagingVO.pageNo}">
+                                    <span class="pagination__page-number">{{num}}</span>
                                     <span class="blind">페이지로 이동</span>
                                 </a>
                             </div>
-                            <a href="#" class="pagination__btn">
+                            <a href="#" class="pagination__btn"@click="getBizInfoList(pagingVO.startPage+1)">
                                 <span class="sp icon-next">
                                     <span class="blind">다음 페이지</span>
                                 </span>
                             </a>
-                            <a href="#" class="pagination__btn">
+                            <a href="#" class="pagination__btn" @click="getBizInfoList(pagingVO.totalPage)">
                                 <span class="sp icon-last">
                                     <span class="blind">맨 뒤 페이지</span>
                                 </span>
                             </a>
                         </div>
-                    </div>   
+                    </div>
                 </div>
             </div>
         </div>

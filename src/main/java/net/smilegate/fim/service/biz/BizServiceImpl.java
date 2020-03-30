@@ -19,6 +19,7 @@ import net.smilegate.fim.enums.AcceptServer;
 import net.smilegate.fim.mappers.fim.BizMapper;
 import net.smilegate.fim.util.CommonUtil;
 import net.smilegate.fim.vo.BizVO;
+import net.smilegate.fim.vo.common.PagingVO;
 
 @RequiredArgsConstructor
 @Service
@@ -100,10 +101,18 @@ public class BizServiceImpl implements BizService {
         return map;
     }
     
-    public Map<String, Object> selectBuzInfoList(BizVO bizVO) {
+    /**
+     * 휴폐업 이력 조회
+     */
+    public Map<String, Object> selectBuzInfoList(PagingVO pagingVO, BizVO bizVO) {
         Map<String, Object> map = new HashMap<>();
-        List<BizVO> bizInfoList = bizMapper.selectBizInfoList(bizVO);
+        int totalCnt = bizMapper.selectBizInfoCnt(pagingVO, bizVO);
+        if(totalCnt > 0) {
+            pagingVO.calcPage(totalCnt);
+        }
+        List<BizVO> bizInfoList = bizMapper.selectBizInfoList(pagingVO, bizVO);
         map.put("bizInfoList", bizInfoList);
+        map.put("pagingVO", pagingVO);
         return map;
     }
     
