@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.smilegate.fim.controller.CommonController;
+
 /**
  * @apiNote 비용정산 관리 화면 컨트롤러
  * @since 2020.02.10
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/expenseManagement")
-public class ExpenseManagementViewController {
+public class ExpenseManagementViewController extends CommonController {
     
     private final String prefix = "/fim/expenseManagement";
     
@@ -22,6 +24,7 @@ public class ExpenseManagementViewController {
      */
     @GetMapping("/advancePayment")
     public String advancePayment() {
+        saveUrl();
         return prefix + "/advancePayment";
     }
     
@@ -31,6 +34,7 @@ public class ExpenseManagementViewController {
      */
     @GetMapping("/cafeteria")
     public String cafeteria() {
+        saveUrl();
         return prefix + "/cafeteria";
     }
     
@@ -40,6 +44,7 @@ public class ExpenseManagementViewController {
      */
     @GetMapping("/cafeteriaMobile")
     public String cafeteriaMobile() {
+        saveUrl();
         return prefix + "/cafeteriaMobile";
     }
     
@@ -49,6 +54,7 @@ public class ExpenseManagementViewController {
      */
     @GetMapping("/taxi")
     public String taxi() {
+        saveUrl();
         return prefix + "/taxi";
     }
     
@@ -58,6 +64,7 @@ public class ExpenseManagementViewController {
      */
     @GetMapping("/workshop")
     public String workshop() {
+        saveUrl();
         return prefix + "/workshop";
     }
     

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <jsp:include page="/WEB-INF/view/include/expenseManagementInclude.jsp"/>
+    
 <div id="container" class="container container--include-lnb container--fullview container--iframe">
     <h2 class="page-title">전자결재 - 진행함</h2>
     <!-- <p class="page-title__dsc">· 진행 중인 결재 문서를 확인 할 수 있는 페이지입니다.</p> -->

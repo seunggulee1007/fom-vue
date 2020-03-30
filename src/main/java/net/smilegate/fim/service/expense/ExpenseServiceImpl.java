@@ -122,6 +122,7 @@ public class ExpenseServiceImpl implements ExpenseService {
             int tiCostSerl = tiarCostAmtVO.getTiCostSerl();                         // 지출결의 상세 내부 번호
             boolean flag = true;
             if(tiarCostAmtVO.getTiCostSerl() == 0) {                                // 초기값인 0이라면 저장 대상자 이므로 
+                tiarCostAmtVO.setTiCostSeq(tiCostSeq);
                 tiarCostAmtMapper.insertTiarCostAmt(tiarCostAmtVO);                 // 저장
             }else {                                                                 // 그렇지 않다면 기존에 저장된 값이므로
                 TiarCostAmtVO compareTiarCostAmtVO = tiarCostAmtMapper.selectTiarCostAmtBySeq(tiCostSeq, tiCostSerl);       // 비교를 위한 해당 지출결의 상세 내부번호의 값을 데이터 베이스에서 읽어 온다.

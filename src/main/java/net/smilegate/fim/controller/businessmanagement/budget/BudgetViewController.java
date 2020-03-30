@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.smilegate.fim.controller.CommonController;
+
 /**
  * 
  * @author es-seungglee
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/businessManagement/budget")
-public class BudgetViewController {
+public class BudgetViewController extends CommonController {
     
     private final String prefix = "/fim/businessManagement/budget";
     /**
@@ -20,6 +22,7 @@ public class BudgetViewController {
     */
     @GetMapping("/detailResult")
     public String detailResult() {
+        saveUrl();
         return prefix+"/detailResult";
     }
     
@@ -29,6 +32,7 @@ public class BudgetViewController {
      */
     @GetMapping("/planResult")
     public String planResult() {
+        saveUrl();
         return prefix + "/planResult";
     }
     

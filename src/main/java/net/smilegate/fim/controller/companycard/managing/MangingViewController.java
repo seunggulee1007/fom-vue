@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.smilegate.fim.controller.CommonController;
+
 /**
  * 
  * @author es-seungglee
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/companyCard/managing")
-public class MangingViewController {
+public class MangingViewController extends CommonController {
     
     /**
      * 
@@ -19,6 +21,7 @@ public class MangingViewController {
      */
     @GetMapping("/com_limit")
     public String comLimit() {
+        saveUrl();
         return "/fim/company_card/managing/com_limit";
     }
     
@@ -28,6 +31,7 @@ public class MangingViewController {
      */
     @GetMapping("/limit_management")
     public String limitManagement() {
+        saveUrl();
         return "/fim/company_card/managing/limit_management";
     }
     
@@ -37,6 +41,7 @@ public class MangingViewController {
      */
     @GetMapping("/list_mail")
     public String listMail() {
+        saveUrl();
         return "/fim/company_card/managing/list_mail";
     }
     
@@ -46,6 +51,7 @@ public class MangingViewController {
      */
     @GetMapping("/send_mail")
     public String sendMail() {
+        saveUrl();
         return "/fim/company_card/managing/send_mail";
     }
     
@@ -55,6 +61,7 @@ public class MangingViewController {
      */
     @GetMapping("/user_limit")
     public String userLimit() {
+        saveUrl();
         return "/fim/company_card/managing/user_limit";
     }
 }

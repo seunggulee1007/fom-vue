@@ -4,9 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.smilegate.fim.controller.CommonController;
+
 @Controller
 @RequestMapping("/businessManagement/eis")
-public class EisViewController {
+public class EisViewController extends CommonController {
     
     private final String prefix = "/fim/businessManagement/eis";
     
@@ -16,6 +18,7 @@ public class EisViewController {
      */
     @GetMapping("/selectMonthReport")
     public String selectMonthReport() {
+        saveUrl();
         return prefix + "/selectMonthReport";
     }
     
@@ -25,6 +28,7 @@ public class EisViewController {
      */
     @GetMapping("/monthlyReport")
     public String monthlyReport() {
+        saveUrl();
         return prefix + "/monthlyReport";
     }
     
@@ -34,6 +38,7 @@ public class EisViewController {
      */
     @GetMapping("/accumulation")
     public String accumulation() {
+        saveUrl();
         return prefix + "/accumulation";
     }
     
@@ -43,6 +48,7 @@ public class EisViewController {
      */
     @GetMapping("/currentPjt")
     public String currentPjt() {
+        saveUrl();
         return prefix + "/currentPjt";
     }
     
@@ -52,6 +58,7 @@ public class EisViewController {
      */
     @GetMapping("/currentProfit")
     public String currentProfit() {
+        saveUrl();
         return prefix + "/currentProfit";
     }
     

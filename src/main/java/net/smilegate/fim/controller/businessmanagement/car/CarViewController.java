@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.smilegate.fim.controller.CommonController;
+
 /**
  * 
  * @author es-seungglee
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/businessManagement/car")
-public class CarViewController {
+public class CarViewController extends CommonController {
 
     private final String prefix = "/fim/businessManagement/car";
     /**
@@ -20,6 +22,7 @@ public class CarViewController {
      */
     @GetMapping("/carConfirm")
     public String carConfirm() {
+        saveUrl();
         return prefix +"/carConfirm";
     }
     
@@ -29,6 +32,7 @@ public class CarViewController {
      */
     @GetMapping("/carCostNoDrive")
     public String carCostNoDrive() {
+        saveUrl();
         return prefix+"/carCostNoDrive";
     }
     
@@ -38,6 +42,7 @@ public class CarViewController {
      */
     @GetMapping("/carCostSystem")
     public String carCostSystem() {
+        saveUrl();
         return prefix + "/carCostSystem";
     }
     
@@ -47,6 +52,7 @@ public class CarViewController {
      */
     @GetMapping("/carCosting")
     public String carCosting() {
+        saveUrl();
         return prefix + "/carCosting";
     }
     
@@ -56,6 +62,7 @@ public class CarViewController {
      */
     @GetMapping("/carDrive")
     public String carDrive() {
+        saveUrl();
         return prefix + "/carDrive";
     }
     
@@ -65,6 +72,7 @@ public class CarViewController {
      */
     @GetMapping("/carList")
     public String carList() {
+        saveUrl();
         return prefix + "/carList";
     }
 }

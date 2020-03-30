@@ -196,10 +196,10 @@
                                                                 <span class="table__txt">{{history.costInfoVO.costName}}</span>
                                                             </td>
                                                             <td class="table__td">
-                                                                <span class="table__txt">{{history.costInfoVO.activityNm}}</span>
+                                                                <span class="table__txt">{{history.costInfoVO.costItemNm}}</span>
                                                             </td>
                                                             <td class="table__td">
-                                                                <span class="table__txt">{{history.costInfoVO.costImteNm}}</span>
+                                                                <span class="table__txt">{{history.costInfoVO.activityNm}}</span>
                                                             </td>
                                                             <td class="table__td">
                                                                 <span class="table__txt table__txt--align-right">{{history.curAmt | currency}}원</span>

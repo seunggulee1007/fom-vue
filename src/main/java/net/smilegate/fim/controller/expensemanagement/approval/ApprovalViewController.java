@@ -4,9 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.smilegate.fim.controller.CommonController;
+
 @Controller
 @RequestMapping("/expenseManagement/approval")
-public class ApprovalViewController {
+public class ApprovalViewController extends CommonController {
     
     private String preFix ="/fim/expenseManagement/approval";
     
@@ -16,6 +18,7 @@ public class ApprovalViewController {
      */
     @GetMapping("/approvalForm")
     public String approvalForm() {
+        saveUrl();
         return preFix+"/approvalForm";
     }
     
@@ -25,6 +28,7 @@ public class ApprovalViewController {
      */
     @GetMapping("/approvalReport")
     public String approvalReport() {
+        saveUrl();
         return preFix + "/approvalReport";
     }
     
@@ -34,6 +38,7 @@ public class ApprovalViewController {
      */
     @GetMapping("/budgetChange")
     public String budgetCahnge() {
+        saveUrl();
         return preFix + "/budgetChange";
     }
     
@@ -43,6 +48,7 @@ public class ApprovalViewController {
      */
     @GetMapping("/expenseHistory")
     public String expenseHistory() {
+        saveUrl();
         return preFix + "/expenseHistory";
     }
     
@@ -52,6 +58,7 @@ public class ApprovalViewController {
      */
     @GetMapping("/expense")
     public String expense() {
+        saveUrl();
         return preFix + "/expense";
     }
     

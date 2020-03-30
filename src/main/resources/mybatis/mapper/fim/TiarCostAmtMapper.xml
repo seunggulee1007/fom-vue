@@ -58,6 +58,7 @@
         <result property="budgetDeptCd" column="budgetDeptCd"/>
         <result property="budgetErpDeptSeq" column="budgetErpDeptSeq"/>
         <result property="useDeptCd" column="useDeptCd"/>
+        <result property="useDeptNm" column="useDeptNm"/>
     </resultMap>
     
     <resultMap id="costInfoResultMap" type="costInfoVO">

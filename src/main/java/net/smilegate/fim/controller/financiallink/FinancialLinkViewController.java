@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.smilegate.fim.controller.CommonController;
+
 /**
  * @apiNote 재무포털 관리 화면 컨트롤러
  * @since 2020.02.10
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/financialLink")
-public class FinancialLinkViewController {
+public class FinancialLinkViewController extends CommonController {
     
     private final String prefix = "/fim/financialLink";
     
@@ -22,6 +24,7 @@ public class FinancialLinkViewController {
      */
     @GetMapping("/taxSchedule")
     public String taxSchedule() {
+        saveUrl();
         return prefix + "/taxSchedule";
     }
     
@@ -31,6 +34,7 @@ public class FinancialLinkViewController {
      */
     @GetMapping("/exchange")
     public String exchange() {
+        saveUrl();
         return prefix + "/exchange";
     }
     

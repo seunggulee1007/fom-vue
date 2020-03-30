@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.smilegate.fim.controller.CommonController;
+
 /**
  *
  * @author es-seungglee
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/companyCard/account")
-public class AccountViewController {
+public class AccountViewController extends CommonController {
 
     private final String prefix = "/fim/companyCard/account";
     /**
@@ -20,6 +22,7 @@ public class AccountViewController {
      */
     @GetMapping("/accountInfo")
     public String accountInfo() {
+        saveUrl();
         return prefix + "/accountInfo";
     }
 
@@ -29,6 +32,7 @@ public class AccountViewController {
      */
     @GetMapping("/cdApplyForm")
     public String cdApplyForm() {
+        saveUrl();
         return prefix + "/cdApplyForm";
     }
 
@@ -38,6 +42,7 @@ public class AccountViewController {
      */
     @GetMapping("/changeLimit")
     public String changeLimit() {
+        saveUrl();
         return prefix + "/changeLimit";
     }
 
@@ -47,6 +52,7 @@ public class AccountViewController {
      */
     @GetMapping("/comCdForm")
     public String comCdForm() {
+        saveUrl();
         return prefix + "/comCdForm";
     }
 

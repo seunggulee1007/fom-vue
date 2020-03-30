@@ -52,7 +52,7 @@
                         </ul>
                         <ul class="component-group link-box">
                             <li class="component-box">
-                                <a href="http://mdi.smilegate.net/mdi/cust/custInsertPortal.rb?menuId=1622" target="_blank">
+                                <a href="javascript:void(window.open('http://mdi.smilegate.net/mdi/cust/custOldData_p.do?index=0&customerCd=19&customerCd=19','_blank','width=800, height=800'))">
                                     <img src="/resources/fim/img/icon_quick_link_7.png" alt="">
                                     <span>거래처 조회</span>
                                 </a>
@@ -78,13 +78,13 @@
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="#">
+                                <a href="/expenseManagement/approval/budgetChange">
                                     <img src="/resources/fim/img/icon_quick_link_11.png" alt="">
                                     <span>예산 변경</span>
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="http://ekp.smilegate.net/" target="_blank">
+                                <a href="http://ekp.smilegate.net/eNovator/Portal/MainX_Contents.aspx?menu=approval&MenuID=" target="_blank">
                                     <img src="/resources/fim/img/icon_quick_link_12.png" alt="">
                                     <span>전자결재 (EKP)</span>
                                 </a>

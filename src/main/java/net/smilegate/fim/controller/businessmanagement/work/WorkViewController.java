@@ -4,9 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.smilegate.fim.controller.CommonController;
+
 @Controller
 @RequestMapping("/businessManagement/work")
-public class WorkViewController {
+public class WorkViewController extends CommonController {
     
     private final String prefix = "/fim/businessManagement/work";
     /**
@@ -15,6 +17,7 @@ public class WorkViewController {
      */
     @GetMapping("/deptMng")
     public String deptMng() {
+        saveUrl();
         return prefix + "/deptMng";
     }
     
@@ -24,6 +27,7 @@ public class WorkViewController {
      */
     @GetMapping("/allMng")
     public String allMng() {
+        saveUrl();
         return prefix + "/allMng";
     }
     
@@ -33,6 +37,7 @@ public class WorkViewController {
      */
     @GetMapping("/workHistory")
     public String workHistory() {
+        saveUrl();
         return prefix + "/workHistory";
     }
     
@@ -42,6 +47,7 @@ public class WorkViewController {
      */
     @GetMapping("/belongCom")
     public String belongCom() {
+        saveUrl();
         return prefix + "/belongCom";
     }
     
@@ -51,6 +57,7 @@ public class WorkViewController {
      */
     @GetMapping("/pjtMm")
     public String pjtMm() {
+        saveUrl();
         return prefix + "/pjtMm";
     }
     
@@ -60,6 +67,7 @@ public class WorkViewController {
      */
     @GetMapping("/userSchedule")
     public String userSchedule() {
+        saveUrl();
         return prefix + "/userSchedule";
     }
     
@@ -69,6 +77,7 @@ public class WorkViewController {
      */
     @GetMapping("/userRatio")
     public String userRatio() {
+        saveUrl();
         return prefix + "/userRatio";
     }
     
@@ -78,6 +87,7 @@ public class WorkViewController {
      */
     @GetMapping("/deptRatio")
     public String deptRatio() {
+        saveUrl();
         return prefix + "/deptRatio";
     }
     

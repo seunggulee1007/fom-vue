@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.smilegate.fim.controller.CommonController;
+
 /**
  * 
  * @author es-seungglee
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/mngInfo")
-public class MngInfoViewController {
+public class MngInfoViewController extends CommonController {
     
     private final String prefix = "/fim/mngInfo";
     /**
@@ -20,6 +22,7 @@ public class MngInfoViewController {
      */
     @GetMapping("/mngCompany")
     public String mngCompany() {
+        saveUrl();
         return prefix + "/mngCompany";
     }
     
@@ -29,6 +32,7 @@ public class MngInfoViewController {
      */
     @GetMapping("/mngExecutives")
     public String mngExecutives() {
+        saveUrl();
         return prefix + "/mngExecutives";
     }
     
@@ -38,6 +42,7 @@ public class MngInfoViewController {
      */
     @GetMapping("/mngGroup")
     public String mngGroup() {
+        saveUrl();
         return prefix + "/mngGroup";
     }
 }

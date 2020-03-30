@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.smilegate.fim.controller.CommonController;
+
 /**
  * 
  * @author es-seungglee
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/expense_management/bill")
-public class BillViewController {
+public class BillViewController extends CommonController {
     
     private final String prefix = "/fim/expenseManagement/bill";
     /**
@@ -20,6 +22,7 @@ public class BillViewController {
      */
     @GetMapping("/bill")
     public String bill() {
+        saveUrl();
         return prefix + "/bill";
     }
     
@@ -29,6 +32,7 @@ public class BillViewController {
      */
     @GetMapping("/taxBill")
     public String taxBill() {
+        saveUrl();
         return prefix + "/taxBill";
     }
     
