@@ -58,9 +58,6 @@
                 <div class="component-area clearfix">
                     <div class="component-group">
                         <div class="component-box">
-                            <em class="lst__txt">총 등록건수<br>342건 <span class="lst__txt--gray">(1/24 page)</span></em>
-                        </div>
-                        <div class="component-box">
                             <em class="component__title">신규 게시물 알림</em>
                             <button type="button" class="btn btn-alert"><span class="btn__txt">ON</span></button>
                             <button type="button" class="btn btn-alert btn-alert--active"><span class="btn__txt">OFF</span></button>

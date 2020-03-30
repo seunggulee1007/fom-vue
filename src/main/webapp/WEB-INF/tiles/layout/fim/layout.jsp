@@ -24,6 +24,9 @@
         [v-cloak] {
           display: none;
         }
+        a {
+            cursor : pointer;
+        }
     </style>
     <!-- AUIGrid.js-->
     <script type="text/javascript" src="http://static.smiledev.net/static/AUIGrid/AUIGridLicense.js"></script>

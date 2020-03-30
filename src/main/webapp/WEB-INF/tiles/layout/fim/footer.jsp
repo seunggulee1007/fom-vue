@@ -6,39 +6,39 @@
             <div class="popup__inner-wrap">
                 <div class="popup__header">
                     <strong class="popup__header-txt">즐겨찾는 메뉴</strong>
-                    <a href="#" class="btn btn--link">
+                    <a class="btn btn--link">
                         <span class="sp icon-modify"></span>
                     </a>
                 </div>
                 <div class="popup__contents">
                     <ul class="popup__lst">
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">법인카드 정산</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">나의 투입률 관리</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">당월손익</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">전자세금계산서</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">택시비 정산</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">환율 정보</span>
                             </a>
                         </li>
@@ -53,32 +53,32 @@
                 <div class="popup__contents">
                     <ul class="popup__lst">
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">법인카드 정산</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">차량운행일지</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">공지사항</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">스마일락(동호회) 정산</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">부서/프로젝트 관리</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">환율 정보</span>
                             </a>
                         </li>

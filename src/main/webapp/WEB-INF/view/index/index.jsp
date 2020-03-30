@@ -64,7 +64,7 @@
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="/companyCard/account/cd_apply_form">
+                                <a href="/companyCard/account/cdApplyForm">
                                     <img src="/resources/fim/img/mon_2_L2.png" alt="">
                                     <span>공용카드 신청</span>
                                 </a>
@@ -97,37 +97,37 @@
                     <div class="group-item-info">
                         <ul class="component-group link-box clearfix">
                             <li class="component-box">
-                                <a href="http://ekp.smilegate.net/eNovator/Portal/CompanyLifeGuide/Default.aspx">
+                                <a href="http://ekp.smilegate.net/eNovator/GW/TotalBoard/BoardMain/TotalBoardCLGView.aspx?MenuCode=809&MessageNo=4&DocState=1NaN809&sPage=1&sOrder=MESSAGE_NO&sYnMain=Y&OpenMenuCode=4" target="_blank">
                                     <img src="/resources/fim/img/mon_1_L2.png" alt="">
                                     <span>부서운영비 규정</span>
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="http://ekp.smilegate.net/eNovator/Portal/CompanyLifeGuide/Default.aspx">
+                                <a href="http://ekp.smilegate.net/eNovator/GW/TotalBoard/BoardMain/TotalBoardCLGView.aspx?MenuCode=809&MessageNo=5&DocState=1NaN809&sPage=1&sOrder=MESSAGE_NO&sYnMain=Y&OpenMenuCode=5" target="_blank">
                                     <img src="/resources/fim/img/mon_2_L2.png" alt="">
                                     <span>공용카드 신청</span>
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="http://ekp.smilegate.net/eNovator/Portal/CompanyLifeGuide/Default.aspx">
+                                <a href="http://ekp.smilegate.net/eNovator/GW/TotalBoard/BoardMain/TotalBoardCLGView.aspx?MenuCode=809&MessageNo=6&DocState=1NaN809&sPage=1&sOrder=MESSAGE_NO&sYnMain=Y&OpenMenuCode=6" target="_blank">
                                     <img src="/resources/fim/img/mon_3_L2.png" alt="">
                                     <span>출장 일비 규정</span>
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="http://ekp.smilegate.net/eNovator/Portal/CompanyLifeGuide/Default.aspx">
+                                <a href="http://ekp.smilegate.net/eNovator/GW/TotalBoard/BoardMain/TotalBoardCLGView.aspx?MenuCode=809&MessageNo=1&DocState=1NaN809&sPage=1&sOrder=MESSAGE_NO&sYnMain=Y&OpenMenuCode=1" target="_blank">
                                     <img src="/resources/fim/img/mon_4_L2.png" alt="">
                                     <span>지출결의서</span>
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="http://ekp.smilegate.net/eNovator/Portal/CompanyLifeGuide/Default.aspx">
+                                <a href="http://ekp.smilegate.net/eNovator/GW/TotalBoard/BoardMain/TotalBoardCLGView.aspx?MenuCode=809&MessageNo=3&DocState=1NaN809&sPage=1&sOrder=MESSAGE_NO&sYnMain=Y&OpenMenuCode=3" target="_blank">
                                     <img src="/resources/fim/img/mon_5_L2.png" alt="">
                                     <span>계약/발주/비용<br>기안작성</span>
                                 </a>
                             </li>
                             <li class="component-box">
-                                <a href="http://ekp.smilegate.net/eNovator/Portal/CompanyLifeGuide/Default.aspx">
+                                <a href="http://ekp.smilegate.net/eNovator/GW/TotalBoard/BoardMain/TotalBoardCLGView.aspx?MenuCode=809&MessageNo=2&DocState=1NaN809&sPage=1&sOrder=MESSAGE_NO&sYnMain=Y&OpenMenuCode=2" target="_blank">
                                     <img src="/resources/fim/img/mon_2_L2.png" alt="">
                                     <span>법인카드</span>
                                 </a>
@@ -140,17 +140,17 @@
                 <div class="tab-area tab-area--top">
                     <ul class="lst-tab">
                         <li class="lst-tab__item" :class="{'lst-tab__item--active' : noti}" @click="selectTab(1)">
-                            <a href="#" class="lst-tab__menu">
+                            <a class="lst-tab__menu">
                                 <span class="lst-tab__menu-txt">공지사항</span>
                             </a>
                         </li>
                         <li class="lst-tab__item" :class="{'lst-tab__item--active' : exchange}" @click="selectTab(2)">
-                            <a href="#" class="lst-tab__menu">
+                            <a class="lst-tab__menu">
                                 <span class="lst-tab__menu-txt">환율 정보</span>
                             </a>
                         </li>
                         <li class="lst-tab__item" :class="{'lst-tab__item--active' : taxSchedule}" @click="selectTab(3)">
-                            <a href="#" class="lst-tab__menu">
+                            <a class="lst-tab__menu">
                                 <span class="lst-tab__menu-txt">월별 세무 일정</span>
                             </a>
                         </li>
@@ -169,7 +169,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="#" class="table__title">
+                                                <a class="table__title">
                                                     <span class="table__txt">[필독] SG재무회계실 전체 공지 안내</span>
                                                 </a>
                                             </td>
@@ -179,7 +179,7 @@
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="#" class="table__title">
+                                                <a class="table__title">
                                                     <span class="table__txt">제무회계 내부 공지입니다.</span>
                                                 </a>
                                             </td>
@@ -189,7 +189,7 @@
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="#" class="table__title">
+                                                <a class="table__title">
                                                     <span class="table__txt">제무회계 공지 테스트</span>
                                                 </a>
                                             </td>
@@ -199,7 +199,7 @@
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="#" class="table__title">
+                                                <a class="table__title">
                                                     <span class="table__txt">제무회계 공지 테스트</span>
                                                 </a>
                                             </td>
@@ -209,7 +209,7 @@
                                         </tr>
                                         <tr>
                                             <td class="table__td">
-                                                <a href="#" class="table__title">
+                                                <a class="table__title">
                                                     <span class="table__txt">제무회계 공지 테스트</span>
                                                 </a>
                                             </td>
@@ -419,7 +419,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="btn btn--link">
+                    <a class="btn btn--link">
                         <span class="sp icon-modify"></span>
                     </a>
                 </div>
@@ -478,39 +478,39 @@
             <div class="popup__inner-wrap">
                 <div class="popup__header">
                     <strong class="popup__header-txt">즐겨찾는 메뉴</strong>
-                    <a href="#" class="btn btn--link">
+                    <a class="btn btn--link">
                         <span class="sp icon-modify"></span>
                     </a>
                 </div>
                 <div class="popup__contents">
                     <ul class="popup__lst">
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">법인카드 정산</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">나의 투입률 관리</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">당월손익</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">전자세금계산서</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">택시비 정산</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">환율 정보</span>
                             </a>
                         </li>
@@ -525,32 +525,32 @@
                 <div class="popup__contents">
                     <ul class="popup__lst">
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">법인카드 정산</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">차량운행일지</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">공지사항</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">스마일락(동호회) 정산</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">부서/프로젝트 관리</span>
                             </a>
                         </li>
                         <li class="popup__lst-item">
-                            <a href="#" class="popup__lst-menu">
+                            <a class="popup__lst-menu">
                                 <span class="popup__menu-txt">환율 정보</span>
                             </a>
                         </li>

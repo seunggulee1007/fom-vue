@@ -28,14 +28,14 @@
                 </div>
             </li>
             <li class="header__util-item">
-                <a href="#" class="header__util-menu header__util-allmenu">
+                <a class="header__util-menu header__util-allmenu">
                     <span class="sp icon-allmenu">
                         <span class="blind">전체메뉴</span>
                     </span>
                 </a>
             </li>
             <li class="header__util-item">
-                <a href="#" class="header__util-menu header__util-bookmark">
+                <a class="header__util-menu header__util-bookmark">
                     <span class="sp icon-bookmark">
                         <span class="blind">즐겨찾기 및 최근이용내역</span>
                     </span>
@@ -46,7 +46,7 @@
     <nav id="gnb" class="gnb gnb-area">
         <ul class="lst-gnb clearfix">
             <li class="gnb_depth1">
-                <a href="#">재무시스템 바로가기</a>
+                <a>재무시스템 바로가기</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
                         <a href="http://ekp.smilegate.net/eNovator/Portal/MainX_Contents.aspx?menu=approval" target="_blank">전자결재(EKP)</a>
@@ -69,7 +69,7 @@
                 </ul>
             </li>
             <li class="gnb_depth1">
-                <a href="#">법인카드</a>
+                <a>법인카드</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
                         <a href="/companyCard/account/cdApplyForm">카드 신청/정산 처리</a>
@@ -80,7 +80,7 @@
                 </ul>
             </li>
             <li class="gnb_depth1">
-                <a href="#">비용 정산</a>
+                <a>비용 정산</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
                         <a href="/expenseManagement/approval/approvalForm">전자결재</a>
@@ -106,7 +106,7 @@
                 </ul>
             </li>
             <li class="gnb_depth1">
-                <a href="#">업무관리</a>
+                <a>업무관리</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
                         <a href="/businessManagement/eis/selectMonthReport">프로젝트 손익조회</a>
@@ -126,7 +126,7 @@
                 </ul>
             </li>
             <li class="gnb_depth1">
-                <a href="#">포털 관리</a>
+                <a>포털 관리</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
                         <a href="/portalManagement/info">공지사항</a>
@@ -144,7 +144,7 @@
                 </ul>
             </li>
             <li class="gnb_depth1">
-                <a href="#">경영정보</a>
+                <a>경영정보</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
                         <a href="/mngInfo/mngGroup">Group</a>
@@ -159,7 +159,7 @@
                 </ul>
             </li>
             <li class="gnb_depth1">
-                <a href="#">재무전용</a>
+                <a>재무전용</a>
                 <ul class="lst-gnb-sub">
                     <li class="gnb_depth2">
                         <a href="/financialLink/accounting/standards">그룹회계기준 및 가이드</a>
