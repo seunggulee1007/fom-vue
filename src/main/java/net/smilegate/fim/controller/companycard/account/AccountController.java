@@ -1,51 +1,22 @@
 package net.smilegate.fim.controller.companycard.account;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.smilegate.common.controller.EditorController;
-
-import net.smilegate.fim.mappers.fim.tiarcost.TiarCostAmtMapper;
-import net.smilegate.fim.mappers.fim.tiarcost.TiarCostMapper;
-//import net.smilegate.fim.service.companycard.AccountService;
-import net.smilegate.fim.service.file.board.FileService;
-import net.smilegate.fim.util.FileUtil;
-
-import net.smilegate.fim.vo.FileVO;
-import net.smilegate.fim.vo.account.CompanyCardCostInfoVO;
-import net.smilegate.fim.vo.account.CompanyCardDetailVO;
-import net.smilegate.fim.vo.account.CompanyCardMasterVO;
-import net.smilegate.fim.vo.account.CompanyCardVO;
-//import net.smilegate.fim.vo.account.CompanyCardCostInfoVO;
-import net.smilegate.fim.vo.companycard.CompanyCardDetailVO;
-//import net.smilegate.fim.vo.account.CompanyCardMasterVO;
-//import net.smilegate.fim.vo.account.CompanyCardVO;
-import net.smilegate.fim.vo.board.FileVO;
-import net.smilegate.fim.vo.common.CommonResultVO;
-
-//import net.smilegate.fim.mappers.fim.TiarCostAmtMapper;
-//import net.smilegate.fim.mappers.fim.TiarCostMapper;
 import net.smilegate.fim.service.companycard.CompanyCardService;
-//import net.smilegate.fim.service.file.FileService;
-import net.smilegate.fim.util.FileUtil;
-//import net.smilegate.fim.vo.CommonResultVO;
-//import net.smilegate.fim.vo.FileVO;
+import net.smilegate.fim.vo.common.CommonResultVO;
 import net.smilegate.fim.vo.companycard.CompanyCardCostInfoVO;
-//import net.smilegate.fim.vo.companycard.CompanyCardDetailVO;
+import net.smilegate.fim.vo.companycard.CompanyCardDetailVO;
 import net.smilegate.fim.vo.companycard.CompanyCardMasterVO;
 import net.smilegate.fim.vo.companycard.CompanyCardVO;
 
