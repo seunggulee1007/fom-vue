@@ -27,7 +27,7 @@
             ,#{refId}
         )
     </insert>
-        
+
     <select id="selectFileList" parameterType="fileVO" resultType="fileVO">
         select
             file_id             as fileId
