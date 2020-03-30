@@ -57,9 +57,9 @@
                                     <div class="search-form">
                                         <em class="search-form__title">사업자등록번호</em>
                                         <div class="search-form__inner">
-                                            <input type="search">
+                                            <input type="search" v-model="bizNo" v-int maxlength="10" @keyup.enter="getBizInfoList();">
                                             <div class="search-form__bx-btn">
-                                                <input type="reset" class="search-form__btn-delete" v-model="bizNo">
+                                                <input type="reset" class="search-form__btn-delete" >
                                                 <span class="blind">reset</span>
                                             </div>
                                         </div>
@@ -67,13 +67,13 @@
                                     <div class="search-form">
                                         <em class="search-form__title">요청자</em>
                                         <div class="search-form__inner">         
-                                            <input type="search" v-model="userNm">
+                                            <input type="search" v-model="userNm" @keyup.enter="getBizInfoList();" maxlength="30">
                                         </div>
                                     </div>
                                     <div class="search-form">
                                         <em class="search-form__title">요청부서</em>
                                         <div class="search-form__inner">         
-                                            <input type="search" v-model="deptNm">
+                                            <input type="search" v-model="deptNm" @keyup.enter="getBizInfoList();" maxlength="50">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -136,28 +136,28 @@
                     </div>
                     <div class="component-group" v-if="pagingVO.totalPage > 0">
                         <div class="pagination">
-                            <a href="#" class="pagination__btn" @click="getBizInfoList(1)" :class="{'pagination__btn--disabled' : pagingVO.pageNo == 1}">
+                            <a class="pagination__btn" @click="getBizInfoList(1)" :class="{'pagination__btn--disabled' : pagingVO.pageNo == 1}">
                                 <span class="sp icon-first">
                                     <span class="blind">맨 처음 페이지</span>
                                 </span>
                             </a>
-                            <a href="#" class="pagination__btn " @click="getBizInfoList(pagingVO.startPage-1)" :class="{'pagination__btn--disabled' : pagingVO.pageNo < pagingVO.pageCnt}">
+                            <a class="pagination__btn " @click="getBizInfoList(pagingVO.startPage-1)" :class="{'pagination__btn--disabled' : pagingVO.pageNo < pagingVO.pageCnt}">
                                 <span class="sp icon-prev">
                                     <span class="blind">이전 페이지</span>
                                 </span>
                             </a>
                             <div class="pagination__inner">
-                                <a href="#" class="pagination__btn-txt" v-for="num in getPageList(pagingVO.startPage, pagingVO.endPage)" @click="getBizInfoList(num)" :class="{'pagination__btn-txt--active' : num == pagingVO.pageNo}">
+                                <a class="pagination__btn-txt" v-for="num in getPageList(pagingVO.startPage, pagingVO.endPage)" @click="getBizInfoList(num)" :class="{'pagination__btn-txt--active' : num == pagingVO.pageNo}">
                                     <span class="pagination__page-number">{{num}}</span>
                                     <span class="blind">페이지로 이동</span>
                                 </a>
                             </div>
-                            <a href="#" class="pagination__btn"@click="getBizInfoList(pagingVO.startPage+1)">
+                            <a class="pagination__btn"@click="getBizInfoList(pagingVO.startPage+1)" :class="{'pagination__btn--disabled' : pagingVO.endPage < pagingVO.totalPage}">
                                 <span class="sp icon-next">
                                     <span class="blind">다음 페이지</span>
                                 </span>
                             </a>
-                            <a href="#" class="pagination__btn" @click="getBizInfoList(pagingVO.totalPage)">
+                            <a class="pagination__btn" @click="getBizInfoList(pagingVO.totalPage)" :class="{'pagination__btn--disabled' : pagingVO.pageNo == pagingVO.totalPage}">
                                 <span class="sp icon-last">
                                     <span class="blind">맨 뒤 페이지</span>
                                 </span>

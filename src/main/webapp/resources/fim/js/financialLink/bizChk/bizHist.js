@@ -2,6 +2,7 @@
 'use strict';
 $(document).ready(function(){
     Vue.use(MyPlugin);
+    Vue.use(onlyInt);
     new Vue({
         el : "#app"
         , data : {
@@ -44,11 +45,14 @@ $(document).ready(function(){
                 if(!pageNo) {
                     pageNo = 1;
                 }
+                console.log(this.bizNo);
                 const param = {
                     searchStdDt : this.searchStdDt
                     ,searchEndDt : this.searchEndDt
                     ,bizNo : this.bizNo
                     ,pageNo : pageNo
+                    ,userNm : this.userNm
+                    ,deptNm : this.deptNm
                 }
                 let bizInfo = await this.doAxios("/financialLink/biz/bizInfo/bizInfoList","get", param);
                 this.bizInfoList = bizInfo.data.bizInfoList;

@@ -19,14 +19,13 @@
     </resultMap>
 
     <resultMap id="fileResultMap" type="fileVO">
-        <id property="fileId" column="fileId"/>
+        <result property="fileId" column="fileId"/>
         <result property="fileNm" column="fileNm"/>
         <result property="originalFileNm" column="originalFileNm"/>
         <result property="filePath" column="filePath"/>
         <result property="contentType" column="contentType"/>
         <result property="extention" column="extention"/>
         <result property="fileSize" column="fileSize"/>
-        <result property="boardId" column="boardId"/>
     </resultMap>
 
     <insert id="insertBoard" parameterType="boardVO">
@@ -53,17 +52,6 @@
             ,#{sendMailYn}
         )
     </insert>
-
-    <!-- 게시판 조회수 증가 -->
-    <update id="updateBoardHit">
-        update
-            tb_board
-                set
-                    hit = (select max(hit)+1 from tb_board where board_id = #{boardId})
-            where
-                board_id = #{boardId}
-    </update>
-
 
     <select id="selectBoardList" resultMap="boardResultMap">
         SELECT
@@ -104,7 +92,17 @@
                 </when>
             </choose>
     </select>
-
+    
+    <!-- 게시판 조회수 증가 -->
+    <update id="updateBoardHit">
+        update
+            tb_board
+                set
+                    hit = (select max(hit)+1 from tb_board where board_id = #{boardId})
+            where
+                board_id = #{boardId}
+    </update>
+    
     <select id="selectBoardByBoardId" resultMap="boardResultMap">
         SELECT
             b.board_id AS boardId

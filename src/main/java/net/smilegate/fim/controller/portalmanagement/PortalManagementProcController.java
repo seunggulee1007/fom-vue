@@ -39,7 +39,7 @@ public class PortalManagementProcController {
     
     @GetMapping("/info/{boardId}")
     public CommonResultVO info(@PathVariable("boardId") int boardId) {
-        return CommonResultVO.builder().build();
+        return CommonResultVO.builder().data(boardService.selectBoard(boardId)).build();
     }
     
     /*

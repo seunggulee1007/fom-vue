@@ -6,26 +6,27 @@
     <!-- <p class="page-title__dsc">· 재무회계 공지사항 게시판입니다.</p> -->
     <div class="component-group align-right btn-box--absolute">
         <div class="component-box">
-            <a href="info_write.html" class="btn btn--bgtype">
+            <a href="/portalManagement/infoWrite" class="btn btn--bgtype">
                 <span class="btn__txt">수정</span>
             </a>
         </div>
         <div class="component-box">
-            <a href="info.html" class="btn">
+            <a href="/portalManagement/info" class="btn">
                 <span class="btn__txt">목록</span>
             </a>
         </div>             
     </div>
 
     <div class="grid-layout" id="app">
+        <input type="hidden" value="${param.boardId }" id="boardId">
         <div class="grid-column grid-column10">
             <div class="section section--border">
                 <div class="component-area">
-                    <em class="section-title board__title">[필독] SG재무회계실 전체 공지 안내</em>
+                    <em class="section-title board__title">{{info.title}}</em>
                     <div class="component-group board__info">
                         <div class="component-box">
                             <em class="component__title">작성자</em>
-                            <p class="component-box__txt">홍길동A</p>
+                            <p class="component-box__txt">{{info.userNm}}</p>
                         </div>
                         <div class="component-box">
                             <em class="component__title">분류</em>
@@ -37,11 +38,11 @@
                         </div>
                         <div class="component-box">
                             <em class="component__title">등록시간</em>
-                            <p class="component-box__txt">2020/01/20 13:20</p>
+                            <p class="component-box__txt">{{info.crtDate}}</p>
                         </div>
                         <div class="component-box">
                             <em class="component__title">조회수</em>
-                            <p class="component-box__txt">100</p>
+                            <p class="component-box__txt">{{info.hit}}</p>
                         </div>
                         <div class="component-box">
                             <em class="component__title">열람대상</em>
@@ -53,40 +54,18 @@
                             <em class="component__title">첨부파일</em>
                             <div class="file-box component-box__txt">
                                 <div class="file-box-lst">
-                                    <a href="#" class="btn--link file-info">
-                                        <p class="btn__txt">smilegate_test.xlsx</p>
-                                    </a>
-                                    <a href="#" class="btn--link file-info">
-                                        <p class="btn__txt">smilegate_test.xlsx</p>
-                                    </a>
-                                    <a href="#" class="btn--link file-info">
-                                        <p class="btn__txt">smilegate_test.xlsx</p>
-                                    </a>
-                                    <a href="#" class="btn--link file-info">
-                                        <p class="btn__txt">smilegate_test.zip</p>
-                                    </a>
-                                    <a href="#" class="btn--link file-info">
-                                        <p class="btn__txt">smilegate_test.pdf</p>
-                                    </a>
-                                    <a href="#" class="btn--link file-info">
-                                        <p class="btn__txt">smilegate_test.pdf</p>
-                                    </a>
-                                    <a href="#" class="btn--link file-info">
-                                        <p class="btn__txt">smilegate_test.pdf</p>
+                                    <a class="btn--link file-info" v-for="list in fileList">
+                                        <p class="btn__txt" @click="downFile(list.fileNm)">{{list.originalFileNm}}</p>
                                     </a>
                                 </div>
-                                <button type="button" class="btn btn--small btn-more-file">
+                                <button type="button" class="btn btn--small btn-more-file" v-if="!moreFlag" @click="viewMoreFileList();">
                                     <span class="sp icon-arrow"><span class="blind"> 첨부파일 더보기</span></span>
                                 </button>
                             </div>
                         </div>
                     </div>    
                     <div class="component-group board__contents border--top">
-                        <p class="component-box__txt">
-                            안녕하세요<br>
-                            SG 재무회계실에서 전체 공지 드립니다.<br>
-                            test<br>
-                            test                                    
+                        <p class="component-box__txt" v-text="info.cont">
                         </p>
                     </div>
                                   

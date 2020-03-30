@@ -19,7 +19,19 @@ $(document).ready(function(){
             ,pagingVO : {}
             ,columnLayout : [
                 {dataField : "", headerText : "분류", width : "9.5%"}
-                ,{dataField : "title", headerText : "제목", width : "61.9%"}
+                ,{
+                    dataField : "title", 
+                    headerText : "제목", 
+                    width : "61.9%",
+                    renderer : {
+                        type : "LinkRenderer",
+                        baseUrl : "javascript",
+                        jsCallback : function(rowIndex, columnIndex, value, item) {
+                            console.log(item);
+                            location.href="/portalManagement/infoView?boardId="+item.boardId;
+                        },
+                    }
+                }
                 ,{dataField : "userNm", headerText : "작성자", width : "10%"}
                 ,{dataField : "crtDate", headerText : "작성일", width : "7.2%"}
                 ,{dataField : "hit", headerText : "조회수", width : "5.4%"}

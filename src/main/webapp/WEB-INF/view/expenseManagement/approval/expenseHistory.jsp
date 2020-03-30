@@ -219,28 +219,28 @@
                     </div>
                     <div class="component-group" v-if="pagingVO.totalPage > 0">
                         <div class="pagination">
-                            <a href="#" class="pagination__btn" @click="searchHistory(1)" :class="{'pagination__btn--disabled' : pagingVO.pageNo == 1}">
+                            <a class="pagination__btn" @click="getBizInfoList(1)" :class="{'pagination__btn--disabled' : pagingVO.pageNo == 1}">
                                 <span class="sp icon-first">
                                     <span class="blind">맨 처음 페이지</span>
                                 </span>
                             </a>
-                            <a href="#" class="pagination__btn " @click="searchHistory(pagingVO.startPage-1)" :class="{'pagination__btn--disabled' : pagingVO.pageNo < pagingVO.pageCnt}">
+                            <a class="pagination__btn " @click="getBizInfoList(pagingVO.startPage-1)" :class="{'pagination__btn--disabled' : pagingVO.pageNo < pagingVO.pageCnt}">
                                 <span class="sp icon-prev">
                                     <span class="blind">이전 페이지</span>
                                 </span>
                             </a>
                             <div class="pagination__inner">
-                                <a href="#" class="pagination__btn-txt" v-for="num in getPageList(pagingVO.startPage, pagingVO.endPage)" @click="searchHistory(num)" :class="{'pagination__btn-txt--active' : num == pagingVO.pageNo}">
+                                <a class="pagination__btn-txt" v-for="num in getPageList(pagingVO.startPage, pagingVO.endPage)" @click="getBizInfoList(num)" :class="{'pagination__btn-txt--active' : num == pagingVO.pageNo}">
                                     <span class="pagination__page-number">{{num}}</span>
                                     <span class="blind">페이지로 이동</span>
                                 </a>
                             </div>
-                            <a href="#" class="pagination__btn"@click="searchHistory(pagingVO.startPage+1)">
+                            <a class="pagination__btn"@click="getBizInfoList(pagingVO.startPage+1)" :class="{'pagination__btn--disabled' : pagingVO.endPage < pagingVO.totalPage}">
                                 <span class="sp icon-next">
                                     <span class="blind">다음 페이지</span>
                                 </span>
                             </a>
-                            <a href="#" class="pagination__btn" @click="searchHistory(pagingVO.totalPage)">
+                            <a class="pagination__btn" @click="getBizInfoList(pagingVO.totalPage)" :class="{'pagination__btn--disabled' : pagingVO.pageNo == pagingVO.totalPage}">
                                 <span class="sp icon-last">
                                     <span class="blind">맨 뒤 페이지</span>
                                 </span>

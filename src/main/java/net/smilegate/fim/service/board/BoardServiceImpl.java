@@ -105,5 +105,20 @@ public class BoardServiceImpl implements BoardService {
         return CommonResultVO.builder().data(map).build();
     }
     
+    /**
+     * 게시판 글 조회
+     * @param boardId
+     * @return
+     */
+    public Map<String, Object> selectBoard(int boardId) {
+        Map<String, Object> map = new HashMap<>();
+        
+        if(boardMapper.updateBoardHit(boardId) > 0) {
+            map.put("boardVO",boardMapper.selectBoardByBoardId(boardId));
+        }
+        
+        return map;
+        
+    }
     
 }
