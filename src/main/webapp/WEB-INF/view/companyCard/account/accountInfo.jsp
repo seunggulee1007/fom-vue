@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 
-<script type="text/babel" src="/resources/fim/js/companyCard/accountRequest.js"></script>
+<script type="text/babel" src="/resources/fim/js/companyCard/accountRequestJquery.js"></script>
 <jsp:include page="/WEB-INF/view/include/companyCardInclude.jsp"/>
 
 <!-- 조직도 다이얼로그. -->
