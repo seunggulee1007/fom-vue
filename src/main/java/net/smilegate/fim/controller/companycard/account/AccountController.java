@@ -52,27 +52,40 @@ public class AccountController {
 	@PostMapping("/saveAccount")
 	public CommonResultVO saveAccount(MultipartHttpServletRequest request, CompanyCardMasterVO vo) {
 
-		log.debug("getRegDate =====> " + vo.getRegDate());
-		log.debug("getErpCompanySeq =====> " + vo.getErpCompanySeq());
-		log.debug("getCardDetailList size =====> " + vo.getCardDetailList().size());
-
-		for(CompanyCardDetailVO detail : vo.getCardDetailList()) {
-			log.debug("useCheck ===>>> " + detail.getUseCheck());
-			log.debug("companySeq ===>>> " + detail.getCompanySeq());
-
-			CompanyCardCostInfoVO costInfo = detail.getCostInfoVO();
-
-			log.debug("costInfo.getErpsmKindSeq ===>>> " + costInfo.getErpSmKindNm());
-			log.debug("costInfo.getTiCostSerl ===>>> " + costInfo.getTiCostSerl());
-		}
+		CommonResultVO resultVo;
 
 		try {
+
+			log.debug("getRegDate =====> " + vo.getRegDate());
+			log.debug("getErpCompanySeq =====> " + vo.getErpCompanySeq());
+			log.debug("getCardDetailList size =====> " + vo.getCardDetailList().size());
+
+			for(CompanyCardDetailVO detail : vo.getCardDetailList()) {
+				log.debug("useCheck ===>>> " + detail.getUseCheck());
+				log.debug("companySeq ===>>> " + detail.getCompanySeq());
+
+				CompanyCardCostInfoVO costInfo = detail.getCostInfoVO();
+
+				log.debug("costInfo.getErpsmKindSeq ===>>> " + costInfo.getErpSmKindNm());
+				log.debug("costInfo.getTiCostSerl ===>>> " + costInfo.getTiCostSerl());
+			}
+
 			service.saveCompanyCardMaster(request, vo);
-		} catch (Exception e) {
+
+			resultVo = CommonResultVO.builder().result(0000).resultMsg("정상처리 되었습니다.").build();
+		}
+		catch (NullPointerException e) {
 			// TODO Auto-generated catch block
+			resultVo = CommonResultVO.builder().result(9998).resultMsg("에러가 발생 되었습니다." + e.getMessage()).build();
 			e.printStackTrace();
 		}
-		return CommonResultVO.builder().result(0000).resultMsg("정상처리 되었습니다.").build();
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			resultVo = CommonResultVO.builder().result(9999).resultMsg("에러가 발생 되었습니다. ").build();
+
+			e.printStackTrace();
+		}
+		return resultVo;
 	}
 
 	@PostMapping("/getCompanyCardUseList")
@@ -88,4 +101,5 @@ public class AccountController {
 
 		return list;
 	}
+
 }

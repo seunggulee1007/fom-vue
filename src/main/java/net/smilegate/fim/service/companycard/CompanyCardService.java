@@ -14,7 +14,7 @@ public interface CompanyCardService {
 
 	public int getCompanyCardMasterSeq() throws Exception;
 
-	public void saveCompanyCardMaster(MultipartHttpServletRequest request, CompanyCardMasterVO vo);
+	public void saveCompanyCardMaster(MultipartHttpServletRequest request, CompanyCardMasterVO vo) throws Exception, NullPointerException;
 
 	public Map<String, Object> getCompanyCardList(String companySeq, String empSeq) throws Exception;
 

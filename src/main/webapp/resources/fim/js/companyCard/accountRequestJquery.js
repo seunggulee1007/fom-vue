@@ -73,7 +73,7 @@ $(document).ready(function(){
 	/**
 	 * 법인카드 변경 이벤트.
 	 */
-	$("#companyCardList").change((evt) => {
+	$("#cardCd").change(function(evt) {
 
 		let selVal = $(this).val();
 		let divNm = selVal.split("|")[1];
@@ -91,7 +91,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$("#yyyymm").monthpicker({
+	$("#calcDate").monthpicker({
 		monthNames: ['1월(JAN)', '2월(FEB)', '3월(MAR)', '4월(APR)', '5월(MAY)', '6월(JUN)',
 			'7월(JUL)', '8월(AUG)', '9월(SEP)', '10월(OCT)', '11월(NOV)', '12월(DEC)'],
 			monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
@@ -117,86 +117,90 @@ $(document).ready(function(){
 	$("#btnGetUseList").click(function(){
 		let data = new Object();
 
-		//-- 키값
-		data.cardUseSeq = "0"; //-- 내부코드(신규 데이터일때는 반드시 0을 넣어야 된다.)
-		data.companySeq = "2"; //-- ERP법인코드
-		data.cancelYn = "n"; //-- 승인취소여부
-		data.apprSeq = "1"; //-- 승인순번
-		data.apprNo = "1"; //-- 승인번호
-		data.apprDate = "20200303"; //-- 승인일
-		data.cardCd = "111122223333"; //-- 카드번호
+		for(let i = 0; i < 4; i++){
 
-		data.apprTime = "2018"; //-- 승인시간
+			//-- 키값
+			data.cardUseSeq = "0"; //-- 내부코드(신규 데이터일때는 반드시 0을 넣어야 된다.)
+			data.companySeq = "2"; //-- ERP법인코드
+			data.cancelYn = "N"; //-- 승인취소여부
+			data.apprSeq = i; //-- 승인순번
+			data.apprNo = "1010" + i; //-- 승인번호
+			data.apprDate = "20200303"; //-- 승인일
+			data.cardCd = "111122223333"; //-- 카드번호
 
-		//-- 예산부서 정보
-		data.budgetDeptCd = ""; //-- 예산부서코드2
-		data.budgetDeptNm = ""; //-- 예산부서명2
-		data.budgetErpDeptSeq = ""; //-- ERP예산부서코드
-		data.budgetErpDeptNm = ""; //-- ERP예산부서명
+			data.apprTime = "2018"; //-- 승인시간
 
-		//-- 사용자정보(귀속처리정보)
-		data.comCd = ""; //-- 인사법인코드
-		data.comNm = ""; //-- 인사법인명
-		data.useUserId = ""; //-- 사용자코드
-		data.useUserNm = ""; //-- 사용자명
-		data.useErpDeptSeq = ""; //-- ERP사용자부서코드
-		data.useEmpNo = ""; //-- 사용자사번
+			//-- 예산부서 정보
+			data.budgetDeptCd = ""; //-- 예산부서코드2
+			data.budgetDeptNm = ""; //-- 예산부서명2
+			data.budgetErpDeptSeq = "0"; //-- ERP예산부서코드
+			data.budgetErpDeptNm = ""; //-- ERP예산부서명
 
-		//-- 비용항목 중분류
-		data.erpSmKindNm = ""; //-- 비용항목 중분류명
-		data.erpSmKindSeq = ""; //-- 비용항목 중분류코드
+			//-- 사용자정보(귀속처리정보)
+			data.comCd = ""; //-- 인사법인코드
+			data.comNm = ""; //-- 인사법인명
+			data.useUserId = ""; //-- 사용자코드
+			data.useUserNm = ""; //-- 사용자명
+			data.useErpDeptSeq = "0"; //-- ERP사용자부서코드
+			data.useEmpNo = ""; //-- 사용자사번
 
-		//-- 비용항목 소분류
-		data.erpCostSeq = ""; //-- 비용항목 소분류코드
-		data.erpCostNm = ""; //-- 비용항목 소분류명
+			//-- 비용항목 중분류
+			data.erpSmKindNm = ""; //-- 비용항목 중분류명
+			data.erpSmKindSeq = "0"; //-- 비용항목 중분류코드
 
-		//-- SGMA 중분류
-		data.costItemCd = ""; //-- SGMA_중분류코드(액티비티)
-		data.costItemNm = ""; //-- SGMA_중분류명(액티비티)
+			//-- 비용항목 소분류
+			data.erpCostNm = ""; //-- 비용항목 소분류명
+			data.erpCostSeq = "0"; //-- 비용항목 소분류코드
 
-		//-- SGMA 소분류
-		data.activityCd = ""; //-- SGMA_소분류코드(액티비티)
-		data.activityNm = ""; //-- SGMA_소분류명(액티비티)
+			//-- SGMA 중분류
+			data.costItemCd = ""; //-- SGMA_중분류코드(액티비티)
+			data.costItemNm = ""; //-- SGMA_중분류명(액티비티)
 
-		//-- 접대비
-		data.custName = ""; //-- 업체명
-		data.userName = ""; //-- 업체 담당자
-		data.purpose = ""; //-- 목적
+			//-- SGMA 소분류
+			data.activityCd = ""; //-- SGMA_소분류코드(액티비티)
+			data.activityNm = ""; //-- SGMA_소분류명(액티비티)
 
-		//-- 출장정보
-		data.busiTripCode = ""; //-- 츨장정보코드
-		data.busiTripType = ""; //-- 츨장구분코드
+			//-- 접대비
+			data.custName = ""; //-- 업체명
+			data.userName = ""; //-- 업체 담당자
+			data.purpose = ""; //-- 목적
 
-		//-- 교통비
-		data.startArea = ""; //-- 출발지
-		data.destArea = ""; //-- 목적지
-		data.workStart = ""; //-- 업무 시작시간
-		data.workEnd = ""; //-- 업무 종료시간
-		data.distance = ""; //-- 거리(Km)
-		data.personCnt = ""; //-- 인원수
-		data.transAmt = ""; //-- 금액
-		data.personName = ""; //-- 탑승자
+			//-- 출장정보
+			data.busiTripCode = ""; //-- 츨장정보코드
+			data.busiTripType = ""; //-- 츨장구분코드
 
-		//-- 결제정보
-		data.chainNm = "하늘아래어딘가"; //-- 가맹점명
-		data.chainId = "1111111111"; //-- 가맹점 사업자번호
-		data.chainAddr = "서울 남산아래 어디쯤"; //-- 가맹점 주소
-		data.mccName = "유흥"; //-- 업종
-		data.chainMaster = "대표자명"; //-- 대표자명
-		data.supplyAmt = "1000000"; //-- 공급가
-		data.apprTax = "100000"; //-- 부가세
-		data.tipAmt = "10000"; //-- 봉사료
-		data.apprAmt = "1110000"; //-- 승인금액
-		data.currCd = "KRW"; //-- 통화
-		data.curAmt = "0"; //-- 외화금액
-		data.chainType = "N"; //-- 간이세액구분
-		data.authHh = ""; //--
-		data.isDefine = "";
-		data.closeYn = "N"; //-- 마감여부
-		data.lastDateTime = ""; //-- 최종수정일
-		data.lastUserId = ""; //-- 최종수정자
+			//-- 교통비
+			data.startArea = ""; //-- 출발지
+			data.destArea = ""; //-- 목적지
+			data.workStart = ""; //-- 업무 시작시간
+			data.workEnd = ""; //-- 업무 종료시간
+			data.distance = "0"; //-- 거리(Km)
+			data.personCnt = "0"; //-- 인원수
+			data.transAmt = "0"; //-- 금액
+			data.personName = ""; //-- 탑승자
 
-		setDetailData(data);
+			//-- 결제정보
+			data.chainNm = "하늘아래어딘가"; //-- 가맹점명
+			data.chainId = "1111111111"; //-- 가맹점 사업자번호
+			data.chainAddr = "서울 남산아래 어디쯤"; //-- 가맹점 주소
+			data.mccName = "유흥"; //-- 업종
+			data.chainMaster = "대표자명"; //-- 대표자명
+			data.supplyAmt = "1000000"; //-- 공급가
+			data.apprTax = "100000"; //-- 부가세
+			data.tipAmt = "10000"; //-- 봉사료
+			data.apprAmt = "1110000"; //-- 승인금액
+			data.currCd = "KRW"; //-- 통화
+			data.curAmt = "0"; //-- 외화금액
+			data.chainType = "N"; //-- 간이세액구분
+			data.authHh = ""; //--
+			data.isDefine = "";
+			data.closeYn = "N"; //-- 마감여부
+			data.lastDateTime = ""; //-- 최종수정일
+			data.lastUserId = ""; //-- 최종수정자
+
+			setDetailData(data);
+		}
+
 	});
 
 	getCompanyCardList();
@@ -425,10 +429,6 @@ function getfileSize(x) {
 
 async function getCompanyCardList(){
 
-//	var data = new Object();
-//	data.put("companySeq", "2");
-//	data.put("empSeq", "616");
-
 	await
 	$.ajax({
 	    url:"./getCompanyCardList",
@@ -655,20 +655,51 @@ function formSubmit(){
 	alert("fileList.length " + fileList.length);
 	let formData = new FormData($("#accountCardFrm")[0]);
 	let cardDetailList = new Array();
+	let isExit = false;
+
+	if($("#calcDate").val() == ""){
+		alert();
+	}
+
+	$("#useCardList tbody tr").each(function(idx, evt){
+
+		let empNo = $(this).find("input[name='cardDetailList["+idx+"].useEmpNo']").val();
+		let erpSmKindSeq = $(this).find("input[name='cardDetailList["+idx+"].costInfoVO.erpSmKindSeq']").val(); //-- 비용항목 중분류
+		let smKindNm = $(this).find("td[name='tdSmKindNm']").find("input").val(); //-- 비용항목 중분류명
+
+		let costItemCd = $(this).find("input[name='cardDetailList["+idx+"].costInfoVO.costItemCd']").val(); //-- SGMA 중분류
+		let costItemNm = $(this).find("td[name='tdCostItemNm']").find("input").val(); //-- 비용항목 중분류명
+
+		if(empNo == ""){
+			alert("사용자(귀속처리)를 선택 하세요.");
+			isExit = true;
+			return false;
+		}
+
+		if(erpSmKindSeq == "" || smKindNm == ""){
+			alert("비용항목을 선택 하세요.");
+			isExit = true;
+			return false;
+		}
+
+		if(costItemCd == "" || costItemNm == ""){
+			alert("SGMA를 선택 하세요.");
+			isExit = true;
+			return false;
+		}
+
+	});
+
+	if(isExit){
+		return false;
+	}
 
 	formData.delete("cardCd");
 	formData.delete("files");
 
 	let cardCd = $("#cardCd").val().split("|")[0].replace(/-/gi, "");
-
-	for (var key of formData.keys()) {
-		   console.log(key);
-		}
-//	for (var value of formData.values()) {
-//	   console.log(value);
-//	}
-
 	formData.append("cardCd", cardCd);
+
     for(let i=0; i< fileList.length;i++) {                // 파일 내용 저장
     	console.log(fileList[i].name);
     	formData.append("files["+i+"]", fileList[i]);
@@ -683,8 +714,9 @@ function formSubmit(){
         processData: false,
         contentType: false,
         success: function(returnData) {
-            console.log("returnData : "+returnData);
-            func(returnData);
+        	console.log("returnData : ");
+            console.log(returnData);
+//            func(returnData);
         },
         error: function(x,e){
               console.log("[AF]ajax status : "+x.status);

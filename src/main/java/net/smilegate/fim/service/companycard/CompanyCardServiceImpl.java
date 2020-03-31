@@ -47,73 +47,66 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 	}
 
 	@Override
-	public void saveCompanyCardMaster(MultipartHttpServletRequest request, CompanyCardMasterVO vo) {
+	public void saveCompanyCardMaster(MultipartHttpServletRequest request, CompanyCardMasterVO vo) throws Exception, NullPointerException {
 		// TODO Auto-generated method stub
 
-		try {
-			int cardUseSeq = fMapper.getCompanyCardMasterSeq();
-			int f_cardUseSeq; //-- 파일 저장시 사용할 키값.
+		int cardUseSeq = fMapper.getCompanyCardMasterSeq();
+		int f_cardUseSeq; //-- 파일 저장시 사용할 키값.
 
-			//-- 법인카드 결제 마스터 저장.
-			CompanyCardMasterVO mVo;
-			if(vo.getCardUseSeq() == 0) {
-				f_cardUseSeq = cardUseSeq;
-				vo.setLogTag("I");
-				vo.setCardUseSeq(cardUseSeq);
-				fMapper.saveCompanyCardMaster(vo);
-				fMapper.insertCompanyCardMasterLog(vo);
-			}
-			else {
-				f_cardUseSeq = vo.getCardUseSeq();
-				mVo = fMapper.getCompanyCardMaster(vo.getCardUseSeq());
-				mVo.setLogTag("U");//-- 변경일때는 U
-				fMapper.saveCompanyCardMaster(vo);
-				fMapper.insertCompanyCardMasterLog(mVo);
-			}
-
-			//-- 법인카드 결제내역 저장.
-			List<CompanyCardDetailVO> dVoList = vo.getCardDetailList();
-			for(CompanyCardDetailVO dVo: dVoList) {
-
-				if(dVo.getCardUseSeq() == 0) {
-
-					dVo.setCardUseSeq(cardUseSeq);
-					dVo.setLogTag("I");
-					fMapper.saveCompanyCardDetail(dVo);
-					fMapper.insertCompanyCardDetailLog(dVo);
-				}
-				else {
-					CompanyCardDetailVO _dVo = fMapper.getCompanyCardDetail(dVo);
-					_dVo.setLogTag("U");
-					fMapper.insertCompanyCardDetailLog(_dVo);
-					fMapper.saveCompanyCardDetail(dVo);
-
-				}
-			}
-
-			//-- 파일저장
-			List<FileVO> fileVOList = fileUtil.makeFileVO(request);
-	        for(FileVO fileVO : fileVOList) {
-	        	CompanyCardMasterFileVO fVo = new CompanyCardMasterFileVO();
-	        	fVo.setCardUseSeq(f_cardUseSeq);
-	        	fVo.setOFileName(fileVO.getOriginalFileNm());
-	        	fVo.setMFileName(fileVO.getFileNm());
-	        	fVo.setFileSize(fileVO.getFileSize());
-	        	fVo.setFilePath(fileVO.getFilePath());
-	        	fVo.setIsDelete("N");
-	        	fVo.setLogTag("I");
-
-	        	fMapper.insertCompanyCardMasterFile(fVo);
-	        	fMapper.insertCompanyCardMasterFileLog(fVo);
-	        	log.debug("getFileNm ====> " + fileVO.getFileNm());
-	        	log.debug("getOriginalFilename ====> " + fileVO.getOriginalFileNm());
-	        }
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//-- 법인카드 결제 마스터 저장.
+		CompanyCardMasterVO mVo;
+		if(vo.getCardUseSeq() == 0) {
+			f_cardUseSeq = cardUseSeq;
+			vo.setLogTag("I");
+			vo.setCardUseSeq(cardUseSeq);
+			fMapper.saveCompanyCardMaster(vo);
+			fMapper.insertCompanyCardMasterLog(vo);
+		}
+		else {
+			f_cardUseSeq = vo.getCardUseSeq();
+			mVo = fMapper.getCompanyCardMaster(vo.getCardUseSeq());
+			mVo.setLogTag("U");//-- 변경일때는 U
+			fMapper.saveCompanyCardMaster(vo);
+			fMapper.insertCompanyCardMasterLog(mVo);
 		}
 
+		//-- 법인카드 승인내역 저장.
+		List<CompanyCardDetailVO> dVoList = vo.getCardDetailList();
+		for(CompanyCardDetailVO dVo: dVoList) {
+
+			if(dVo.getCardUseSeq() == 0) {
+
+				dVo.setCardUseSeq(cardUseSeq);
+				dVo.setLogTag("I");
+				fMapper.saveCompanyCardDetail(dVo);
+				fMapper.insertCompanyCardDetailLog(dVo);
+			}
+			else {
+				CompanyCardDetailVO _dVo = fMapper.getCompanyCardDetail(dVo);
+				_dVo.setLogTag("U");
+				fMapper.insertCompanyCardDetailLog(_dVo);
+				fMapper.saveCompanyCardDetail(dVo);
+
+			}
+		}
+
+		//-- 파일저장
+		List<FileVO> fileVOList = fileUtil.makeFileVO(request);
+		for(FileVO fileVO : fileVOList) {
+			CompanyCardMasterFileVO fVo = new CompanyCardMasterFileVO();
+			fVo.setCardUseSeq(f_cardUseSeq);
+			fVo.setOFileName(fileVO.getOriginalFileNm());
+			fVo.setMFileName(fileVO.getFileNm());
+			fVo.setFileSize(fileVO.getFileSize());
+			fVo.setFilePath(fileVO.getFilePath());
+			fVo.setIsDelete("N");
+			fVo.setLogTag("I");
+
+			fMapper.insertCompanyCardMasterFile(fVo);
+			fMapper.insertCompanyCardMasterFileLog(fVo);
+			log.debug("getFileNm ====> " + fileVO.getFileNm());
+			log.debug("getOriginalFilename ====> " + fileVO.getOriginalFileNm());
+		}
 
 //		log.debug(fMapper.getCompanyCardMasterSeq()+"");
 

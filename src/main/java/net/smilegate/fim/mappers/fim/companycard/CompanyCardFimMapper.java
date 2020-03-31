@@ -28,7 +28,7 @@ public interface CompanyCardFimMapper {
 
 	public CompanyCardDetailVO getCompanyCardDetail(CompanyCardDetailVO vo) throws Exception;
 
-	public CompanyCardMasterFileVO insertCompanyCardMasterFile(CompanyCardMasterFileVO vo) throws Exception;
+	public void insertCompanyCardMasterFile(CompanyCardMasterFileVO vo) throws Exception;
 
-	public CompanyCardMasterFileVO insertCompanyCardMasterFileLog(CompanyCardMasterFileVO vo) throws Exception;
+	public void insertCompanyCardMasterFileLog(CompanyCardMasterFileVO vo) throws Exception;
 }
