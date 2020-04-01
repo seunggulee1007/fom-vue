@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src='https://unpkg.com/v-calendar@next'></script>
+<script src='https://unpkg.com/v-calendar'></script>
 <script type="text/babel" src="/resources/fim/js/expenseManagement/expenseHistory.js"></script>
 <jsp:include page="/WEB-INF/view/include/expenseManagementInclude.jsp"/>
     

@@ -138,14 +138,14 @@ public class ApprovalProcController {
      */
     @ApiOperation(value="지출결의서 저장", notes="지출결의서 파일과 상세 내용 저장")
     @PostMapping("/expense")
-    public CommonResultVO insertExpense(MultipartHttpServletRequest request, TiarCostVO tiarCostVO)  throws IllegalArgumentException, IllegalAccessException {
+    public CommonResultVO insertExpense(TiarCostVO tiarCostVO)  throws IllegalArgumentException, IllegalAccessException {
         Map<String, Object> map = new HashMap<>();
-        int tiCostSeq = tiarCostVO.getTiCostSeq();
-        if(tiCostSeq == 0) {
-            map = expenseService.insertExpense(request, tiarCostVO);
-        }else {
-            map = expenseService.updateExpense(request, tiarCostVO);
-        }
+        System.err.println(tiarCostVO.toString());
+        /*
+         * int tiCostSeq = tiarCostVO.getTiCostSeq(); if(tiCostSeq == 0) { map =
+         * expenseService.insertExpense(request, tiarCostVO); }else { map =
+         * expenseService.updateExpense(request, tiarCostVO); }
+         */
         return CommonResultVO.builder().resultMsg(CommonMsg.SUCCESS_WRITE.getMsg()).data(map).build();
     }
     

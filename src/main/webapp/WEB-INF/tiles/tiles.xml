@@ -4,6 +4,24 @@
 	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
+    <definition name="/fim/popup/*" extends="layout.fim.popup">
+        <put-attribute name="title" value="FIM::Financial Information Management" />
+        <put-attribute name="body" value="/WEB-INF/view/popup/{1}.jsp" />
+    </definition>
+    
+    <definition name="/fim/popup/*/*" extends="layout.fim.popup">
+        <put-attribute name="title" value="FIM::Financial Information Management" />
+        <put-attribute name="body" value="/WEB-INF/view/popup/{1}/{2}.jsp" />
+    </definition>
+    
+    <definition name="/fim/popup/*/*/*" extends="layout.fim.popup">
+        <put-attribute name="title" value="FIM::Financial Information Management" />
+        <put-attribute name="body" value="/WEB-INF/view/popup/{1}/{2}/{3}.jsp" />
+    </definition>
+    
+    <definition name="layout.fim.popup" template="/WEB-INF/tiles/layout/fim/popup-layout.jsp"/>
+        
+    
     <definition name="/fim/*/*" extends="layout.fim">
         <put-attribute name="title" value="FIM::Financial Information Management" />
         <put-attribute name="body" value="/WEB-INF/view/{1}/{2}.jsp" />
@@ -16,7 +34,7 @@
         <put-attribute name="title" value="FIM::Financial Information Management" />
         <put-attribute name="body" value="/WEB-INF/view/{1}/{2}/{3}/{4}.jsp" />
     </definition>
-
+    
     <!-- definition template -->
     <definition name="layout.fim" template="/WEB-INF/tiles/layout/fim/layout.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/layout/fim/header.jsp" />
