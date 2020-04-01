@@ -5,8 +5,12 @@ import lombok.Data;
 @Data
 public class CompanyCardDetailVO {
 
+
 	/** 사용여부 체크 */
 	private String useCheck;
+
+	/** 개인비용처리여부 */
+	private String isPersonProc;
 
 	/** 내부코드 */
 	int cardUseSeq;

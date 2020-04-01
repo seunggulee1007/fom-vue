@@ -214,11 +214,16 @@ function setDetailData(companyCardDetailvo){
 
 	let rowListCnt = $("#useCardList tbody tr").length;
 	let htmlStr = "";
-	let checkboxStr = "";
-	checkboxStr += "<input type='checkbox' id='checkbox_expenseChk"+rowListCnt+"' name='cardDetailList["+rowListCnt+"].useCheck'>";
-	checkboxStr += "<label for='checkbox_expenseChk"+rowListCnt+"' class='btn-checkbox__label'><span class='blind'>선택</span></label>";
-	cTr.find("td[name=tdCheck]").find("span").html(checkboxStr);
+	let useCheckStr = "";
+	let isPersonProc = "";
+	useCheckStr += "<input type='checkbox' id='checkbox_expenseChk"+rowListCnt+"' name='cardDetailList["+rowListCnt+"].useCheck'>";
+	useCheckStr += "<label for='checkbox_expenseChk"+rowListCnt+"' class='btn-checkbox__label'><span class='blind'>선택</span></label>";
+	cTr.find("td[name=tdCheck]").find("span").html(useCheckStr);
 
+
+	isPersonProc += "<input type='checkbox' id='checkbox_cardExpense"+rowListCnt+"' name='cardDetailList["+rowListCnt+"].isPersonProc' disabled>";
+	isPersonProc += "<label for='checkbox_cardExpense0' class='btn-checkbox__label'><span class='blind'>개인비용처리 선택</span></label>";
+	cTr.find("td[name=tdPersonProcCheck]").find("span").html(isPersonProc);
 
 	cTr.find("span[name=spApprDate]").text(companyCardDetailvo.apprDate);
 	cTr.find("span[name=spApprTime]").text(companyCardDetailvo.apprTime);
@@ -646,9 +651,6 @@ function resetCostItemDetail(){
 
 }
 
-function validationCheck(){
-
-}
 
 function formSubmit(){
 
@@ -656,10 +658,6 @@ function formSubmit(){
 	let formData = new FormData($("#accountCardFrm")[0]);
 	let cardDetailList = new Array();
 	let isExit = false;
-
-	if($("#calcDate").val() == ""){
-		alert();
-	}
 
 	$("#useCardList tbody tr").each(function(idx, evt){
 
