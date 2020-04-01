@@ -32,6 +32,9 @@
 /* Sub-page table common */
 .container--include-lnb .table {
   border-color: #dadce0;
+  /* .table__row--item.table__row--selected{
+      background-color: transparent;
+  } */
 }
 .container--include-lnb .table thead {
   border-color: #dadce0;
@@ -70,9 +73,6 @@
 }
 .container--include-lnb .table .table__row--top .table__td--data span, .container--include-lnb .table .table__row--highlight .table__td--data span {
   background-color: #fff;
-}
-.container--include-lnb .table .table__row--item.table__row--selected {
-  background-color: transparent;
 }
 .container--include-lnb .table tr.table__row-sub--item {
   display: none;
@@ -469,10 +469,10 @@ a:hover {
   color: #b3b3b3;
 }
 .datepicker__v-calendar input[type=input] {
-  padding: 6px 15px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  padding: 6px 15px;
 }
 .datepicker__v-calendar .icon-datepicker {
   position: absolute;
@@ -530,12 +530,12 @@ select {
   line-height: 24px;
 }
 .lst-tree__item:before {
-  content: "";
   position: absolute;
   top: 0;
   right: false;
   bottom: 2px;
   left: 5px;
+  content: "";
   width: 1px;
   border-left: 1px dashed #b3b3b3;
 }
@@ -548,12 +548,12 @@ select {
   padding-left: 24px;
 }
 .lst-tree__item > div:before {
-  content: "";
   position: absolute;
   top: 50%;
   right: false;
   bottom: false;
   left: 6px;
+  content: "";
   width: 8px;
   border-top: 1px dashed #b3b3b3;
 }
@@ -599,11 +599,6 @@ select {
   background-position: 0 0;
 }
 .icon-alert + .icon-alert-num {
-  width: 18px;
-  height: 18px;
-  background-color: #ff5000;
-  color: #fff;
-  text-align: center;
   position: absolute;
   top: -4px;
   right: -4px;
@@ -616,6 +611,11 @@ select {
   font-weight: 700;
   height: 18px;
   line-height: 18px;
+  width: 18px;
+  height: 18px;
+  background-color: #ff5000;
+  color: #fff;
+  text-align: center;
 }
 
 .icon-arrow {
@@ -655,11 +655,11 @@ select {
 }
 
 .icon-user {
-  width: 32px;
-  height: 32px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
+  width: 32px;
+  height: 32px;
   overflow: hidden;
 }
 .icon-user img {
@@ -723,12 +723,12 @@ select {
   border-bottom: 1px solid #e6e8eb;
 }
 .header::before {
-  content: "";
   position: absolute;
   top: 0;
   right: 0;
   bottom: auto;
   left: 0;
+  content: "";
   height: 60px;
   background-color: #fff;
 }
@@ -748,13 +748,13 @@ select {
   right: false;
   bottom: 0;
   left: false;
-  height: 56px;
-  background: no-repeat left top;
-  z-index: -1;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  height: 56px;
+  background: no-repeat left top;
+  z-index: -1;
 }
 .header .header--bg-pattern.header--bg-pattern-left {
   left: 0;
@@ -773,7 +773,7 @@ select {
         width: 448px;
         margin: 0 auto;
         background-color: $bg_default;
-        @include border-radius(4px);
+        @include borderRadius(4px);
         @include verticalMiddle(40px);
 
         > a{
@@ -799,7 +799,7 @@ select {
                 border: 1px solid $txt_gray;                    
                 color: $txt_gray;
                 @include font-size(11px, 11px, bold);
-                @include border-radius(50%);
+                @include borderRadius(50%);
 
                 .header__info-txt{
                     padding-left: 0;
@@ -863,6 +863,7 @@ select {
   vertical-align: middle;
 }
 
+/* gnb */
 .header.gnb--open::before {
   height: 388px;
   z-index: -1;
@@ -876,22 +877,22 @@ select {
 .header.gnb--open .gnb::before {
   content: "";
   position: absolute;
-  top: 56px;
+  top: 60px;
   left: 0;
   width: 100%;
-  height: 324px;
+  height: 328px;
   background: #fff;
   z-index: -1;
 }
 
 .gnb .lst-gnb {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   position: relative;
   width: 1440px;
   margin: 0 auto;
   padding: 0 24px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .gnb .lst-gnb .lst-gnb-sub {
   position: absolute;
@@ -933,23 +934,16 @@ select {
   width: 100%;
 }
 .gnb .lst-gnb .gnb_depth1 > a {
+  font-size: 16px;
+  font-weight: 700;
   position: relative;
   display: block;
   width: 100%;
   height: 100%;
   color: #1c1c1c;
-  font-size: 16px;
-  font-weight: 700;
   line-height: 54px;
 }
 .gnb .lst-gnb .gnb_depth1 > a::after {
-  content: "";
-  position: absolute;
-  bottom: 8px;
-  left: 0;
-  height: 2px;
-  background-color: #ff5000;
-  width: 100%;
   -webkit-transform: scaleX(0);
   -moz-transform: scaleX(0);
   -o-transform: scaleX(0);
@@ -958,6 +952,15 @@ select {
   -moz-transition: transform 0.3s;
   -o-transition: transform 0.3s;
   transition: transform 0.3s;
+  position: absolute;
+  top: false;
+  right: false;
+  bottom: 8px;
+  left: 0;
+  content: "";
+  height: 2px;
+  background-color: #ff5000;
+  width: 100%;
 }
 .gnb .lst-gnb .gnb_depth1:hover > a::after, .gnb .lst-gnb .gnb_depth1--active > a::after, .gnb .lst-gnb .gnb_depth1 > a:focus::after {
   -webkit-transform: scaleX(1);
@@ -966,10 +969,10 @@ select {
   transform: scaleX(1);
 }
 .gnb .lst-gnb .gnb_depth2 {
-  text-align: left;
-  font-size: 14px;
   height: 36px;
   line-height: 36px;
+  text-align: left;
+  font-size: 14px;
 }
 .gnb .lst-gnb .gnb_depth2:hover > a, .gnb .lst-gnb .gnb_depth2--active > a {
   color: #ff5000;
@@ -977,8 +980,6 @@ select {
 
 /* ========== lnb ========== */
 .lnb-area {
-  border: 0;
-  z-index: 10;
   position: absolute;
   top: 117px;
   bottom: 0;
@@ -987,6 +988,8 @@ select {
   -moz-transition: left 0.4s;
   -o-transition: left 0.4s;
   transition: left 0.4s;
+  border: 0;
+  z-index: 10;
 }
 .lnb-area .btn-lnb {
   position: absolute;
@@ -1042,11 +1045,11 @@ select {
 
 /* ========== container ========== */
 .container {
-  min-height: calc(100% - 117px);
   -webkit-transition: padding-left 0.4s;
   -moz-transition: padding-left 0.4s;
   -o-transition: padding-left 0.4s;
   transition: padding-left 0.4s;
+  min-height: calc(100% - 117px);
 }
 
 /* ===== main ===== */
@@ -1073,14 +1076,14 @@ select {
   margin-left: 0;
 }
 .container__main .link-box .component-box a {
-  display: block;
-  margin: 0px auto;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  display: block;
+  margin: 0px auto;
 }
 .container__main .link-box .component-box a img {
   width: 70px;
@@ -1089,6 +1092,23 @@ select {
 .container__main .link-box .component-box a span {
   font-size: 13px;
 }
+.container__main .component-group__table {
+  margin-top: 0;
+}
+.container__main .component-area-tax .table .table__td:last-child .table__txt {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.container__main .component-area-exchange .component-area__dsc-txt {
+  position: absolute;
+  top: 28px;
+  right: 10%;
+  bottom: false;
+  left: false;
+  color: #8c8c8c;
+}
+
 .container__main .section-link .component-area-quicklink .section-title .btn--open {
   border: none;
   min-height: auto;
@@ -1098,11 +1118,11 @@ select {
   background-color: transparent;
 }
 .container__main .section-link .component-area-quicklink .link-box {
-  display: inline-block;
-  border: 1px solid #dadce0;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  display: inline-block;
+  border: 1px solid #dadce0;
   margin-top: 0;
   margin-bottom: 16px;
   padding: 8px;
@@ -1126,12 +1146,12 @@ select {
   margin-left: 32px;
 }
 .container__main .section-link .component-area-quicklink .link-box .component-box + .component-box::before {
-  content: "";
   position: absolute;
   top: 20px;
   right: false;
   bottom: 20px;
   left: -16px;
+  content: "";
   width: 1px;
   background-color: #dadce0;
 }
@@ -1149,6 +1169,7 @@ select {
 .container__main .section-link .component-area-quicklink .link-box .component-box:hover a, .container__main .section-link .component-area-quicklink .link-box .component-box a:focus {
   color: #e64d00;
 }
+
 .container__main .section-link .component-area-guidelink {
   margin-top: 8px;
 }
@@ -1175,6 +1196,7 @@ select {
   margin: auto 0;
   font-weight: 400;
 }
+
 .container__main .section-bbs {
   position: relative;
 }
@@ -1213,22 +1235,7 @@ select {
 .container__main .section-bbs .btn--link .btn__txt::before {
   background-image: none;
 }
-.container__main .component-group__table {
-  margin-top: 0;
-}
-.container__main .component-area-tax .table .table__td:last-child .table__txt {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.container__main .component-area-exchange .component-area__dsc-txt {
-  position: absolute;
-  top: 28px;
-  right: 10%;
-  bottom: false;
-  left: false;
-  color: #8c8c8c;
-}
+
 .container__main .table {
   padding: 0;
   margin: 0 24px 20px;
@@ -1240,17 +1247,18 @@ select {
 .container__main .table tr:first-child .table__td {
   border-width: 0;
 }
+
 .container__main .grid-column3 .section {
   position: relative;
   z-index: 0;
 }
 .container__main .grid-column3 .section:before {
-  content: "";
   position: absolute;
   top: 88px;
   right: 0;
   bottom: false;
   left: 0;
+  content: "";
   height: 76px;
   background-color: #edf2fa;
   z-index: -1;
@@ -1484,6 +1492,9 @@ select {
   margin-right: 8px;
 }
 .container-write .component-box--required .input-field__title::before, .container-write .component-box--required .dropdown__title::before {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
   content: "";
   position: relative;
   display: inline-block;
@@ -1491,9 +1502,6 @@ select {
   height: 4px;
   top: -10px;
   margin-right: 6px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
   background-color: #ff5000;
 }
 .container-write .dropdown--multi-type {
@@ -1504,6 +1512,7 @@ select {
 .container-view .component-area .board__title {
   margin-bottom: 16px;
 }
+
 .container-view .component-area .component-group:first-of-type {
   margin-top: 16px;
 }
@@ -1525,11 +1534,11 @@ select {
   max-width: 662px;
 }
 .container-view .component-area .component-group:first-of-type .file-box .file-box-lst {
-  display: inline-block;
-  max-width: 624px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: inline-block;
+  max-width: 624px;
 }
 .container-view .component-area .component-group:first-of-type .file-box .file-info {
   display: inline-block;
@@ -1539,12 +1548,12 @@ select {
   position: relative;
 }
 .container-view .component-area .component-group:first-of-type .file-box .file-info + .file-info:before {
-  content: "";
   position: absolute;
   top: 4px;
   right: false;
   bottom: 2px;
   left: 0;
+  content: "";
   width: 2px;
   background-color: #f0f2f5;
 }
@@ -1563,6 +1572,7 @@ select {
 .container-view .component-area .component-group:first-of-type .file-box .btn-more-file .sp {
   margin-right: 0;
 }
+
 .container-view .component-area .board__contents {
   margin-top: 16px;
   padding-top: 16px;
@@ -1614,6 +1624,9 @@ select {
 }
 .table--scroll-vertical .table-box-monthly-card thead .table__th:first-of-type {
   width: 188px;
+}
+.table--scroll-vertical .table-box-monthly-card .table__row--item.table__row--selected {
+  background-color: transparent;
 }
 .table--scroll-vertical .table-box-monthly-card .table__row-sub--item .table__th {
   padding-left: 24px;
@@ -1730,11 +1743,11 @@ select {
 
 /* tax_schedule.html */
 #calendar.calendar {
-  max-width: 100%;
-  margin: 0 auto;
   font-size: 14px;
   line-height: 18px;
   font-weight: 400;
+  max-width: 100%;
+  margin: 0 auto;
 }
 #calendar.calendar .fc-button {
   font-size: 14px;
@@ -1827,14 +1840,14 @@ select {
   overflow: hidden;
 }
 #calendar.calendar .fc-view-container table .fc-body .fc-event-container .fc-event {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
   background-color: transparent;
   border-color: transparent;
   color: #595959;
   padding: 2px;
   margin-top: 4px;
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 400;
 }
 #calendar.calendar .fc-view-container table .fc-body .fc-event-container .fc-event:hover {
   background-color: #f1f8fd;
@@ -1864,24 +1877,24 @@ select {
   padding: 4px;
 }
 #calendar.calendar .fc-popover .fc-body .fc-event .fc-content {
-  text-overflow: ellipsis;
   font-size: 14px;
   line-height: 1.29em;
   font-weight: 400;
+  text-overflow: ellipsis;
 }
 #calendar.calendar .fc-dayGridDay-view .fc-body .fc-row {
   max-height: 544px;
 }
 #calendar.calendar .fc-dayGridDay-view .fc-body table .fc-event-container .fc-event {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
   background-color: #fff;
   padding: 8px 16px;
   margin: 0;
   border: 0;
   border-radius: 0;
   border-bottom: 1px solid #e6e8eb;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
 }
 #calendar.calendar .fc-list-view .fc-scroller {
   max-height: 580px;
@@ -1942,7 +1955,7 @@ select {
   margin-top: 0;
 }
 .popup__contents-inner .popup__lst-menu {
-  padding: 5px 0px;
+  padding: 5px 6px;
 }
 .popup__contents-inner .popup__lst-sub-menu {
   display: block;
@@ -2063,10 +2076,10 @@ select {
   padding: 1px 8px;
 }
 .popup-layer--expenses-detail .popup__contents-txt {
-  padding: 8px 0;
   font-size: 12px;
   line-height: 18px;
   font-weight: 400;
+  padding: 8px 0;
 }
 .popup-layer--expenses-detail .popup__contents-txt + .popup__contents-txt {
   padding-top: 0;

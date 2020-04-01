@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <!-- container -->
 <script>
+    $(document).ready(function(){
+        $("#frm").submit(function(event){
+            console.log($(this).serializeArray());
+            // event.preventDefault();
+        });
+    });
     let idx = 0;
     function openUserPopup() {
         window.open("/common/userPopup", "_blank", "width=1200,height=662,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no");
@@ -74,11 +80,11 @@
                             </tbody>
                         </table>
                     </div>
-                    <form action="/expenseManagement/approval/expense" method="post">
-                        <input type="text" name="tiarCostVO.tiarCostAmtVO.currNm">
-                        <input type="text" name="tiarCostVOtiarCostAmtVO.currNm">
-                        <input type="text" name="tiarCostVOtiarCostAmtVO.currNm">
-                        <input type="text" name="tiarCostVOtiarCostAmtVO.currNm">
+                    <form action="/expenseManagement/approval/expense" method="post" id="frm">
+                        <input type="text" name="tiarCostAmtList[0].currNm">
+                        <input type="text" name="tiarCostAmtList[1].currNm">
+                        <input type="text" name="tiarCostAmtList[2].currNm">
+                        <input type="text" name="tiarCostAmtList[3].currNm">
                         <button type="submit" class="btn btn--large btn--bgtype">버튼튼</button>
                         <div class="table table-chain">
                             <table>

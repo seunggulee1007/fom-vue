@@ -84,12 +84,12 @@ $table_th: #fafaff;
         font-weight: 700;    
         background-color: $blue_light;        
         .table__td--data span{
-            background-color: $white
+            background-color: $white;
         }
     }
-    .table__row--item.table__row--selected{
+    /* .table__row--item.table__row--selected{
         background-color: transparent;
-    }
+    } */
     tr.table__row-sub--item{
         display: none;
         &.table__row--expanded{
