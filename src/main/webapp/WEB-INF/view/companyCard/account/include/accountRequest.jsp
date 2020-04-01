@@ -11,7 +11,8 @@
 			<input type="hidden" id="regUserId" name="regUserId" value="140">
 			<input type="hidden" id="regEmpNo" name="regEmpNo" value="140">
 			<input type="hidden" id="lastUserId" name="lastUserId" value="140">
-
+			<input type="hidden" id="regDeptCd" name="regDeptCd" value="33333">
+			<input type="hidden" id="regErpDeptSeq" name="regErpDeptSeq" value="33333">
 			<div class="component-group">
 				<div class="table table-chain">
 					<table>
@@ -55,8 +56,7 @@
 								<th class="table__th table__th--required">제목</th>
 								<td colspan="7" class="table__td">
 									<div class="input-field input-field-table">
-										<input type="hidden" id="regDeptCd" name="regDeptCd" value="33333">
-										<input type="hidden" id="regErpDeptSeq" name="regErpDeptSeq" value="33333">
+
 										<input id="title" name="title" type="text" class="input-field__input" value="[SGH][테스트_홍길동A_2020-03-24]">
 									</div>
 								</td>
@@ -316,53 +316,54 @@
 			</button>
 		</div>
 	</div>
+
 	<table id="useCardListClone" style="display:none">
-		<caption><span class="blind">카드 사용에 대한 자세한 정산 내역 작성</span></caption>
-		<colgroup>
-			<col width="46px">
-			<col width="46px">
-			<col width="88px">
-			<col width="56px">
-			<col>
-			<col>
-			<col>
-			<col>
-			<col>
-			<col>
-			<col>
-			<col>
-			<col width="80px">
-			<col>
-			<col>
-			<col>
-			<col>
-		</colgroup>
-			<thead>
-				<tr>
-					<th class="table__th" rowspan="2">선택</th>
-					<th class="table__th" rowspan="2">개인 비용 처리</th>
-					<th class="table__th" rowspan="2">일자</th>
-					<th class="table__th" rowspan="2">시간</th>
-					<th class="table__th" rowspan="2">가맹점</th>
-					<th class="table__th" rowspan="2">예산부서</th>
-					<th class="table__th" rowspan="2">사용자<br>(귀속처리)</th>
-					<th class="table__th align-center" colspan="2">비용항목</th>
-					<th class="table__th align-center" colspan="2">SGMA</th>
-					<th class="table__th table__th--required" rowspan="2">적요</th>
-					<th class="table__th" rowspan="2">현지통화</th>
-					<th class="table__th align-center" colspan="4">금액</th>
-				</tr>
-				<tr>
-					<th class="table__th table__th--required">중분류</th>
-					<th class="table__th table__th--required">소분류</th>
-					<th class="table__th table__th--required">중분류</th>
-					<th class="table__th">소분류</th>
-					<th class="table__th table__txt--align-right">공급가액</th>
-					<th class="table__th table__txt--align-right">봉사료</th>
-					<th class="table__th table__txt--align-right">부가세</th>
-					<th class="table__th table__txt--align-right">총계</th>
-				</tr>
-			</thead>
+<!-- 		<caption><span class="blind">카드 사용에 대한 자세한 정산 내역 작성</span></caption> -->
+<!-- 		<colgroup> -->
+<!-- 			<col width="46px"> -->
+<!-- 			<col width="46px"> -->
+<!-- 			<col width="88px"> -->
+<!-- 			<col width="56px"> -->
+<!-- 			<col> -->
+<!-- 			<col> -->
+<!-- 			<col> -->
+<!-- 			<col> -->
+<!-- 			<col> -->
+<!-- 			<col> -->
+<!-- 			<col> -->
+<!-- 			<col> -->
+<!-- 			<col width="80px"> -->
+<!-- 			<col> -->
+<!-- 			<col> -->
+<!-- 			<col> -->
+<!-- 			<col> -->
+<!-- 		</colgroup> -->
+<!-- 			<thead> -->
+<!-- 				<tr> -->
+<!-- 					<th class="table__th" rowspan="2">선택</th> -->
+<!-- 					<th class="table__th" rowspan="2">개인 비용 처리</th> -->
+<!-- 					<th class="table__th" rowspan="2">일자</th> -->
+<!-- 					<th class="table__th" rowspan="2">시간</th> -->
+<!-- 					<th class="table__th" rowspan="2">가맹점</th> -->
+<!-- 					<th class="table__th" rowspan="2">예산부서</th> -->
+<!-- 					<th class="table__th" rowspan="2">사용자<br>(귀속처리)</th> -->
+<!-- 					<th class="table__th align-center" colspan="2">비용항목</th> -->
+<!-- 					<th class="table__th align-center" colspan="2">SGMA</th> -->
+<!-- 					<th class="table__th table__th--required" rowspan="2">적요</th> -->
+<!-- 					<th class="table__th" rowspan="2">현지통화</th> -->
+<!-- 					<th class="table__th align-center" colspan="4">금액</th> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<th class="table__th table__th--required">중분류</th> -->
+<!-- 					<th class="table__th table__th--required">소분류</th> -->
+<!-- 					<th class="table__th table__th--required">중분류</th> -->
+<!-- 					<th class="table__th">소분류</th> -->
+<!-- 					<th class="table__th table__txt--align-right">공급가액</th> -->
+<!-- 					<th class="table__th table__txt--align-right">봉사료</th> -->
+<!-- 					<th class="table__th table__txt--align-right">부가세</th> -->
+<!-- 					<th class="table__th table__txt--align-right">총계</th> -->
+<!-- 				</tr> -->
+<!-- 			</thead> -->
 		<tbody>
 			<tr>
 				<td name="tdCheck" class="table__td"> <!-- 선택 -->
@@ -371,11 +372,9 @@
 						</span>
 					</div>
 				</td>
-				<td class="table__td"> <!-- 개인 비용 처리 -->
+				<td name="tdPersonProcCheck" class="table__td"> <!-- 개인 비용 처리 -->
 					<div class="btn_group">
 						<span class="btn-checkbox">
-							<input type="checkbox" id="checkbox_cardExpense0" disabled>
-							<label for="checkbox_cardExpense0" class="btn-checkbox__label"><span class="blind">개인비용처리 선택</span></label>
 						</span>
 					</div>
 				</td>
