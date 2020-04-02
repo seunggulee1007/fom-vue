@@ -151,4 +151,10 @@
 					#{lastUserId},
 					getdate()
 	</insert>
+
+	<select id="getCompanyCardMasterList" resultType="companyCardMasterVO">
+		<![CDATA[
+			select * from TB_COMPANY_CARD_MASTER where CALC_DATE >= #{fromYm} and CALC_DATE <= #{toYm}
+		]]>
+	</select>
 </mapper>

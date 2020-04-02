@@ -49,6 +49,12 @@ public class AccountController {
 	}
 
 
+	/**
+	 * 정산내역 저장.
+	 * @param request
+	 * @param vo
+	 * @return
+	 */
 	@PostMapping("/saveAccount")
 	public CommonResultVO saveAccount(MultipartHttpServletRequest request, CompanyCardMasterVO vo) {
 
@@ -88,6 +94,11 @@ public class AccountController {
 		return resultVo;
 	}
 
+	/**
+	 * 카드 결제내역 가져오기.
+	 * @param yyyymm
+	 * @return
+	 */
 	@PostMapping("/getCompanyCardUseList")
 	public List<CompanyCardDetailVO> getCompanyCardUseList(@RequestParam("yyyymm") String yyyymm){
 
@@ -102,4 +113,22 @@ public class AccountController {
 		return list;
 	}
 
+	/**
+	 * 저장된 결제내역 마스터 조회.
+	 * @param yyyymm
+	 * @return
+	 */
+	@PostMapping("/getCompanyCardMasterList")
+	public CommonResultVO getCompanyCardMasterList(@RequestParam("fromYm") String fromYm, @RequestParam("toYm") String toYm){
+
+		try {
+			return CommonResultVO.builder().data(service.getCompanyCardMasterList(fromYm, toYm)).result(0000).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return CommonResultVO.builder().result(9999).resultMsg(e.getMessage()).build();
+			// TODO Auto-generated catch block
+		}
+
+	}
 }

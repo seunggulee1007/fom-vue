@@ -26,7 +26,7 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 
 	private final FileUtil fileUtil;
 	private final CompanyCardSgErpMapper mapper;
-	private final CompanyCardFimMapper fMapper;
+	private final CompanyCardFimMapper fimMapper;
 //	private final MdiMapper mdiMapper;
 
 	@Override
@@ -50,7 +50,7 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 	public void saveCompanyCardMaster(MultipartHttpServletRequest request, CompanyCardMasterVO vo) throws Exception, NullPointerException {
 		// TODO Auto-generated method stub
 
-		int cardUseSeq = fMapper.getCompanyCardMasterSeq();
+		int cardUseSeq = fimMapper.getCompanyCardMasterSeq();
 		int f_cardUseSeq; //-- 파일 저장시 사용할 키값.
 
 		//-- 법인카드 결제 마스터 저장.
@@ -59,15 +59,15 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 			f_cardUseSeq = cardUseSeq;
 			vo.setLogTag("I");
 			vo.setCardUseSeq(cardUseSeq);
-			fMapper.saveCompanyCardMaster(vo);
-			fMapper.insertCompanyCardMasterLog(vo);
+			fimMapper.saveCompanyCardMaster(vo);
+			fimMapper.insertCompanyCardMasterLog(vo);
 		}
 		else {
 			f_cardUseSeq = vo.getCardUseSeq();
-			mVo = fMapper.getCompanyCardMaster(vo.getCardUseSeq());
+			mVo = fimMapper.getCompanyCardMaster(vo.getCardUseSeq());
 			mVo.setLogTag("U");//-- 변경일때는 U
-			fMapper.saveCompanyCardMaster(vo);
-			fMapper.insertCompanyCardMasterLog(mVo);
+			fimMapper.saveCompanyCardMaster(vo);
+			fimMapper.insertCompanyCardMasterLog(mVo);
 		}
 
 		//-- 법인카드 승인내역 저장.
@@ -78,14 +78,14 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 
 				dVo.setCardUseSeq(cardUseSeq);
 				dVo.setLogTag("I");
-				fMapper.saveCompanyCardDetail(dVo);
-				fMapper.insertCompanyCardDetailLog(dVo);
+				fimMapper.saveCompanyCardDetail(dVo);
+				fimMapper.insertCompanyCardDetailLog(dVo);
 			}
 			else {
-				CompanyCardDetailVO _dVo = fMapper.getCompanyCardDetail(dVo);
+				CompanyCardDetailVO _dVo = fimMapper.getCompanyCardDetail(dVo);
 				_dVo.setLogTag("U");
-				fMapper.insertCompanyCardDetailLog(_dVo);
-				fMapper.saveCompanyCardDetail(dVo);
+				fimMapper.insertCompanyCardDetailLog(_dVo);
+				fimMapper.saveCompanyCardDetail(dVo);
 
 			}
 		}
@@ -102,13 +102,13 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 			fVo.setIsDelete("N");
 			fVo.setLogTag("I");
 
-			fMapper.insertCompanyCardMasterFile(fVo);
-			fMapper.insertCompanyCardMasterFileLog(fVo);
+			fimMapper.insertCompanyCardMasterFile(fVo);
+			fimMapper.insertCompanyCardMasterFileLog(fVo);
 			log.debug("getFileNm ====> " + fileVO.getFileNm());
 			log.debug("getOriginalFilename ====> " + fileVO.getOriginalFileNm());
 		}
 
-//		log.debug(fMapper.getCompanyCardMasterSeq()+"");
+//		log.debug(fimMapper.getCompanyCardMasterSeq()+"");
 
 
 	}
@@ -129,6 +129,16 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 	public void getCompanyCardMaster(String cardUseSeq) throws Exception {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Map<String, Object> getCompanyCardMasterList(String fromYm, String toYm) throws Exception {
+		// TODO Auto-generated method stub
+
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+		rtnMap.put("cardMasterList", fimMapper.getCompanyCardMasterList(fromYm, toYm));
+		return rtnMap;
 	}
 
 }

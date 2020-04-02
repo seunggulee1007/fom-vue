@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script type="text/javascript" src="/resources/fim/js/monthPicker/jquery.ui.monthpicker.js"></script>
-<script type="text/javascript" src="/resources/fim/js/companyCard/accountRequestJquery.js"></script>
+<script type="text/javascript" src="/resources/fim/js/companyCard/accountRequest.js"></script>
+<script type="text/javascript" src="/resources/fim/js/companyCard/accountList.js"></script>
 
 <jsp:include page="/WEB-INF/view/include/companyCardInclude.jsp"/>
 
