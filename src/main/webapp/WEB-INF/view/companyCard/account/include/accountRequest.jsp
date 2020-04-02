@@ -7,12 +7,12 @@
 			<input type="hidden" id="comCd" name="comCd" value="2">
 			<input type="hidden" id="erpCompanySeq" name="erpCompanySeq" value="2">
 			<input type="hidden" id="regDate" name="regDate" value="20200324">
-			<input type="hidden" id="regErpEmpSeq" name="regErpEmpSeq" value="140">
-			<input type="hidden" id="regUserId" name="regUserId" value="140">
-			<input type="hidden" id="regEmpNo" name="regEmpNo" value="140">
+			<input type="hidden" id="erpEmpSeq" name="erpEmpSeq" value="140">
+			<input type="hidden" id="userId" name="userId" value="140">
+			<input type="hidden" id="empNo" name="empNo" value="140">
 			<input type="hidden" id="lastUserId" name="lastUserId" value="140">
-			<input type="hidden" id="regDeptCd" name="regDeptCd" value="33333">
-			<input type="hidden" id="regErpDeptSeq" name="regErpDeptSeq" value="33333">
+			<input type="hidden" id="deptCd" name="regDeptCd" value="33333">
+			<input type="hidden" id="erpDeptSeq" name="regErpDeptSeq" value="33333">
 			<div class="component-group">
 				<div class="table table-chain">
 					<table>
@@ -88,7 +88,6 @@
 									<button type="button" class="btn btn-change-user" id="btnCardUser" style="top: 5px; right:16px;">
 										<span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
 									</button>
-									<span class="table__txt"></span>
 								</td>
 								<th class="table__th">사용자 부서</th>
 								<td class="table__td">
@@ -118,7 +117,6 @@
 									<button id="btnGetUseList" type="button" class="btn btn--orange" onclick="">
 										<span class="btn__txt">카드결제 내역 가져오기</span>
 									</button>
-									<span class="table__txt"></span>
 								</td>
 							</tr>
 						</tbody>

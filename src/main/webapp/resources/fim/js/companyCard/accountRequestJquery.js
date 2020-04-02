@@ -434,11 +434,13 @@ function getfileSize(x) {
 
 async function getCompanyCardList(){
 
+	let companySeq = $("#erpCompanySeq").val();
+	let empSeq = $("#erpEmpSeq").val();
 	await
 	$.ajax({
 	    url:"./getCompanyCardList",
 	    type:"POST",
-	    data: "companySeq=2&empSeq=140",
+	    data: "companySeq=" + companySeq + "&empSeq=" + empSeq,
 	    success: function(resultData) {
 
 	    	console.log(resultData)

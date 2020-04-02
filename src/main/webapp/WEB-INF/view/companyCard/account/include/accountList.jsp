@@ -39,7 +39,7 @@
 					<label class="input-field__title">요청자</label>
 					<input type="text" class="input-field__input" value="홍길동A" disabled>
 				</div>
-				<div class="component-box" style="margin-top: 23px">
+				<div class="component-box">
 					<button type="button" class="btn btn--bgtype">
 						<span class="btn__txt">조회</span>
 					</button>
