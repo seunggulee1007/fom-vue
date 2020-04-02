@@ -29,7 +29,6 @@
         <script type="text/javascript" src="js/html5shiv.min.js"></script>
     <![endif]-->
     <script type="text/babel" src="/resources/fim/js/common.js"></script>
-    
 </head>
 <body>
     <tiles:insertAttribute name="body" />

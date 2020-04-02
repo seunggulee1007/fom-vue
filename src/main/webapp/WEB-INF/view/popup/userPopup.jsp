@@ -8,6 +8,7 @@
 <script type="text/javascript" src="/resources/fim/js/libs/jstree.min.js"></script>   
 <script type="text/javascript" src="/resources/fim/js/common/userPopup.js"></script>
 <div class="popup-wrap popup-layer--user popup-wrap--active">
+    <input type="hidden" id="idx">
     <div class="popup-wrap__align-box">
         <div class="popup-wrap__inner">
             <div class="popup__header">

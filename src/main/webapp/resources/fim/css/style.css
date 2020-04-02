@@ -59,9 +59,9 @@
 }
 .container--include-lnb .table .table__th {
   text-align: center;
-  background-color: #fafaff;
   border: 1px solid #dadce0;
   border-width: 1px 0 0 1px;
+  background-color: #fafaff;
 }
 .container--include-lnb .table .table__td {
   border-width: 1px 1px 0 1px;
@@ -955,14 +955,16 @@ select {
   position: absolute;
   top: false;
   right: false;
-  bottom: 8px;
+  bottom: 10px;
   left: 0;
   content: "";
   height: 2px;
   background-color: #ff5000;
   width: 100%;
 }
-.gnb .lst-gnb .gnb_depth1:hover > a::after, .gnb .lst-gnb .gnb_depth1--active > a::after, .gnb .lst-gnb .gnb_depth1 > a:focus::after {
+.gnb .lst-gnb .gnb_depth1:hover > a::after,
+.gnb .lst-gnb .gnb_depth1--active > a::after,
+.gnb .lst-gnb .gnb_depth1 > a:focus::after {
   -webkit-transform: scaleX(1);
   -moz-transform: scaleX(1);
   -o-transform: scaleX(1);

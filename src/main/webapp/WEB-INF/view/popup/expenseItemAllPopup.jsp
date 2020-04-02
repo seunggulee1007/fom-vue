@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<style>
+    .popup-wrap {
+        padding : 0px !important;
+        min-height : 662px;
+    }
+</style>
+<script src="/resources/fim/js/expenseManagement/expenseItemAll.js"></script>
 <div class="popup-wrap popup-layer--expenses popup-layer--expenses-all popup-wrap--active">
+    <input type="hidden" id="idx">
+    <input type="hidden" id="userNm">
+    <input type="hidden" id="comCd">
     <div class="popup-wrap__align-box">
         <div class="popup-wrap__inner">
             <div class="popup_header">
@@ -15,33 +25,33 @@
                                 <div class="search-form">
                                     <em class="search-form__title">비용항목 - 중분류</em>
                                     <div class="search-form__inner">
-                                        <input type="search">                                                
+                                        <input type="search" id="smKindName" class="expenseInput">
                                     </div>
                                 </div>
                                 <div class="search-form">
                                     <em class="search-form__title">비용항목 - 소분류</em>
                                     <div class="search-form__inner">         
-                                        <input type="search">
+                                        <input type="search" id="costName" class="expenseInput">
                                     </div>
                                 </div>
                             
                                 <div class="search-form">
                                     <em class="search-form__title">SGMA - Activity</em>
                                     <div class="search-form__inner">         
-                                        <input type="search">
+                                        <input type="search" id="activityNm" class="expenseInput">
                                     </div>
                                 </div>
                                 <div class="search-form">
                                     <em class="search-form__title">SGMA - 비용항목</em>
                                     <div class="search-form__inner">         
-                                        <input type="search">
+                                        <input type="search" id="costItemNm" class="expenseInput">
                                     </div>
                                 </div>
                             </fieldset>
                         </form>
                     </div>
                     <div class="component-box">
-                        <button type="button" class="btn btn--bgtype">
+                        <button type="button" class="btn btn--bgtype" id="getExpenseBtn">
                           <span class="btn__txt">검색</span>
                         </button>
                     </div>
@@ -69,214 +79,13 @@
                                         <th class="table__th" scope="col">비용항목</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">야근식대</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_식대</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">식대(야근식대x)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_식대</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사내커뮤니케이션비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">회의비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">간식대(회의비)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">회의비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사내커뮤니케이션</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">회의비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">경조사-복리</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_경조</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">카페물품구매(식품)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_기타</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">건강검진</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_건강검진</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">기타-복리</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생_기타</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">인건비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">수수료,통신,기타</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">게임관련(소액결제)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">게임소액결제</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">총무(카드)-국내출장</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">기타수수료-총무(국내)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">국내출장_기타</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">총무(카드)-국내출장</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">외부인사지원-총무(해외)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">접대비</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">교육</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">직무/소통교육</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">교육_직무/소통_인재개발실</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">복리후생-사내이벤트(ER팀)</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">ER_사내이벤트</span>
-                                        </td>
-                                        <td class="table__td">
-                                            <span class="table__txt">사업추진비</span>
-                                        </td>
-                                    </tr>
+                                <tbody id="expense">
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <button type="button" class="popup__btn-close">
-                <span class="sp icon-close">
-                    <span class="blind">닫기</span>
-                </span>
-            </button>
         </div>
     </div>
 </div>

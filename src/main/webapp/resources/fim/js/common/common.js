@@ -60,8 +60,6 @@ function createPagingNavigator(pageNum, totalPage) {
 	$("#grid_paging").html(retStr);
 }
 
-let EventBus = new Vue();           // 이벤트 전달용 vue
-
 /**
  * date타입을 string으로 변환시키는 함수 yyyymmdd포맷이며 넘겨진 type에 따라 포맷을 변경한다.
  * @param date

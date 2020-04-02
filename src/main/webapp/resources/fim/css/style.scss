@@ -638,7 +638,7 @@ $lst-gnb_height: 272px;
             &::after{
                 @include transform(scaleX(0));
                 @include transition(transform, 0.3s);
-                @include position(absolute, false, false, 8px, 0);
+                @include position(absolute, false, false, 10px, 0);
                 content: "";                
                 height: 2px;
                 background-color: $orange; 
@@ -646,7 +646,9 @@ $lst-gnb_height: 272px;
             }           
         }
 
-        .gnb_depth1:hover > a::after, .gnb_depth1--active > a::after, .gnb_depth1 > a:focus::after{
+        .gnb_depth1:hover > a::after, 
+        .gnb_depth1--active > a::after,
+        .gnb_depth1 > a:focus::after{
             @include transform(scaleX(1));
         }
         

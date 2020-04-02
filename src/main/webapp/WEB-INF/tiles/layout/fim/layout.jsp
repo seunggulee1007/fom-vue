@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="/resources/fim/css/smilegate_ux_template.css">
     <link rel="stylesheet" type="text/css" href="/resources/fim/css/style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- AUIGrid.css -->
     <link href="http://static.smiledev.net/static/AUIGrid/AUIGrid_style.css " rel="stylesheet" type="text/css">
@@ -19,6 +20,7 @@
     <script type="text/javascript" src="/webjars/axios/0.19.0/dist/axios.js"></script>
     <script type="text/javascript" src="/webjars/jquery-blockui/2.70/jquery.blockUI.js"></script>
     <script type="text/javascript" src="/webjars/jquery-form/4.2.2/jquery.form.min.js"></script>
+    <script type="text/javascript" src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
 
     <style>
         [v-cloak] {
@@ -37,10 +39,7 @@
     <!--[if lt IE 9]>
         <script type="text/javascript" src="js/html5shiv.min.js"></script>
     <![endif]-->
-    <!-- vue.js -->
-    <script type="text/javascript" src="/webjars/vue/2.6.11/vue.js"></script>
-    <script type="text/babel" src="/resources/fim/js/common/vueCommon.js"></script>
-    <script type="text/babel" src="/resources/fim/js/common/common.js"></script>
+    <script type="text/javascript" src="/resources/fim/js/common/common.js"></script>
 </head>
 <body>
     <ul class="skip">

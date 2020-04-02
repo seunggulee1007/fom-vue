@@ -70,9 +70,9 @@ $table_th: #fafaff;
     }
     .table__th{
         text-align: center;
-        background-color: $table_th;
         border: 1px solid $border_dark;    
         border-width: 1px 0 0 1px; 
+        background-color: $table_th;
     }
     
     .table__td{

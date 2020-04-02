@@ -48,7 +48,7 @@
             ,dept_type_nm as deptTypeNm
             ,SMKindSeq as smKindSeq
             ,SMKindName as smKindName
-        from tb_result_cost_map
+        from tb_result_cost_map1
         <where>
             <if test="smKindName != null and smKindName != ''">
                 and SMKindName like concat('%',#{smKindName},'%')
@@ -123,7 +123,7 @@
             ,new_cost_item_nm as costItemNm
             ,new_activity_cd as activityCd
             ,new_activity_nm as activityNm
-        from tb_result_cost_map
+        from tb_result_cost_map1
         <where>
             <if test="activityNm != null and activityNm != ''">
                 and new_activity_nm like concat('%',#{activityNm},'%')

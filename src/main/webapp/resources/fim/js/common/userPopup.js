@@ -1,8 +1,8 @@
 var originUserList = [];        // 기존 유저 리스트 정보
 var userInfo = {};              // 추가된 사용자
 var selectedUser = {};          // 선택된 사용자 
-
 $(document).ready(function() {
+    $("#idx").val(opener.document.getElementById('idx').value);
     getDeptList();
 });
 
@@ -139,7 +139,8 @@ function choiceUser() {
         alert("사용자를 선택해 주세요");
         return;
     }
-    opener.choiceUser(this.userInfo);
+    
+    opener.choiceUser(this.userInfo, $("#idx").val());
     closePopup();
 }
 

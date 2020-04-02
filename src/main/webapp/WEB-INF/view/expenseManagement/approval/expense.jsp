@@ -1,21 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script src="/resources/fim/js/expenseManagement/expense.js"></script>
 <!-- container -->
-<script>
-    $(document).ready(function(){
-        $("#frm").submit(function(event){
-            console.log($(this).serializeArray());
-            // event.preventDefault();
-        });
-    });
-    let idx = 0;
-    function openUserPopup() {
-        window.open("/common/userPopup", "_blank", "width=1200,height=662,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no");
-    }
-    function choiceUser(data) {
-        console.log(data);
-    }
-</script>
 <div id="container" class="container container--include-lnb container--fullview container-write">
     
     <h2 class="page-title">지출결의서</h2>
@@ -34,6 +20,10 @@
         </div>                
     </div>
     <div class="grid-layout">
+        <input type="hidden" id="idx">
+        <input type="hidden" id="userNm">
+        <input type="hidden" id="smKindName">
+        <input type="hidden" id="comCd">
         <div class="grid-column grid-column10">                    
             <div class="section section--border section-expense">
                 <div class="component-group">
@@ -62,7 +52,7 @@
                                     <td colspan="5" class="table__td table__td--data"><span class="table__txt">SGH>IT기술본부>기술지원담당>정보시스템실>정보개발팀</span></td>
                                 </tr>
                                 <tr>
-                                    <th class="table__th table__th--required">제목</th>
+                                    <th class="table__th">제목</th>
                                     <td colspan="5" class="table__td">
                                         <div class="input-field input-field-table">
                                             <input type="text" class="input-field__input" value="[SGH][지출결의서(현금)_김연준_2020-02-20]">
@@ -81,11 +71,6 @@
                         </table>
                     </div>
                     <form action="/expenseManagement/approval/expense" method="post" id="frm">
-                        <input type="text" name="tiarCostAmtList[0].currNm">
-                        <input type="text" name="tiarCostAmtList[1].currNm">
-                        <input type="text" name="tiarCostAmtList[2].currNm">
-                        <input type="text" name="tiarCostAmtList[3].currNm">
-                        <button type="submit" class="btn btn--large btn--bgtype">버튼튼</button>
                         <div class="table table-chain">
                             <table>
                                 <caption><span class="blind">비용항목에 따른 내역 작성</span></caption>
@@ -106,83 +91,22 @@
                                     <tr>
                                         <th rowspan="2" scope="col" class="table__th">선택</th>
                                         <th rowspan="2" scope="col" class="table__th">예산부서</th>
-                                        <th rowspan="2" scope="col" class="table__th table__th--required">사용자 (귀속부서)</th>
-                                        <th colspan="2" class="table__th table__th--required align-center">비용항목</th>
-                                        <th colspan="2" scope="col" class="table__th table__th--required align-center">SGMA</th>
-                                        <th rowspan="2" scope="col" class="table__th table__th--required">가맹점</th>
-                                        <th rowspan="2" scope="col" class="table__th table__th--required">사용일자</th>
-                                        <th rowspan="2" scope="col" class="table__th table__th--required">적요</th>
-                                        <th rowspan="2" scope="col" class="table__th table__th--required table__txt--align-right">금액 (VAT포함)</th>
+                                        <th rowspan="2" scope="col" class="table__th">사용자 (귀속부서)</th>
+                                        <th colspan="2" class="table__th align-center">비용항목</th>
+                                        <th colspan="2" scope="col" class="table__th align-center">SGMA</th>
+                                        <th rowspan="2" scope="col" class="table__th">가맹점</th>
+                                        <th rowspan="2" scope="col" class="table__th">사용일자</th>
+                                        <th rowspan="2" scope="col" class="table__th">적요</th>
+                                        <th rowspan="2" scope="col" class="table__th table__txt--align-right">금액 (VAT포함)</th>
                                     </tr>
                                     <tr>
-                                        <th class="table__th table__th--required">중분류</th>
-                                        <th class="table__th table__th--required">소분류</th>
-                                        <th class="table__th table__th--required">Activity</th>
-                                        <th class="table__th table__th--required">비용항목</th>
+                                        <th class="table__th">중분류</th>
+                                        <th class="table__th">소분류</th>
+                                        <th class="table__th">Activity</th>
+                                        <th class="table__th">비용항목</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="table__td">
-                                            <div class="btn_group">
-                                                <span class="btn-checkbox">
-                                                    <input type="checkbox" id="checkbox_memberChk1" class="checkbox_member-leave">
-                                                    <label for="checkbox_memberChk1" class="btn-checkbox__label"><span class="blind">선택</span></label>
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td class="table__td table__td--data">
-                                            <span class="table__txt"></span>
-                                        </td>
-                                        <td class="table__td table__td--btn">
-                                            <span class="table__txt">홍길동A<br>정보개발시스템실</span>
-                                            <button type="button" class="btn btn-change-user" onclick="openUserPopup();">
-                                                <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
-                                            </button>
-                                        </td>
-                                        <td class="table__td">
-                                            <div class="input-field input-field-table">
-                                                <input type="text" class="input-field__input" placeholder="선택해주세요." ondblclick="$('.popup-layer--expenses-all').addClass('popup-wrap--active');$('.popup__dimmed').show();">
-                                            </div>
-                                        </td>
-                                        <td class="table__td table__td--data">
-                                            <span class="table__txt"></span>
-                                        </td>
-                                        <td class="table__td table__td--data">
-                                            <div class="input-field input-field-table">
-                                                <input type="text" class="input-field__input" placeholder="선택해주세요." ondblclick="$('.popup-layer--expenses-sgma').addClass('popup-wrap--active');$('.popup__dimmed').show();">
-                                            </div>
-                                        </td>
-                                        <td class="table__td table__td--data">
-                                            <span class="table__txt"></span>
-                                        </td>
-                                        <td class="table__td">
-                                            <div class="input-field input-field-table">
-                                                <input type="text" class="input-field__input" placeholder="입력해주세요.">
-                                            </div>
-                                        </td>
-                                        <td class="table__td">
-                                            <div class="input-field datepicker__v-calendar">
-                                                <input type="text" v-model='searchEndDt' readonly id="date_input_exchange2" class="input-field__input">
-                                                <v-date-picker :mode='mode' v-model='searchEndDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
-                                                    <span class="sp icon-datepicker">
-                                                        <span class="blind">Calendar 열기</span>
-                                                    </span>
-                                                </v-date-picker>
-                                            </div>
-                                        </td>
-                                        <td class="table__td">
-                                            <div class="input-field input-field-table">
-                                                <input type="text" class="input-field__input" placeholder="입력해주세요.">
-                                            </div>
-                                            <span class="table__txt table__txt-caption txt--blue"></span>
-                                        </td>
-                                        <td class="table__td">
-                                            <div class="input-field input-field-table">
-                                                <input type="text" class="input-field__input table__txt--align-right" placeholder="입력해주세요.">
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="expenseList">
                                 </tbody>
                             </table>                                
                         </div>
@@ -206,7 +130,9 @@
                                     <tr>
                                         <th class="table__th" colspan="10">합계</th>
                                         <td class="table__td table__td--data">
-                                            <span class="table__txt"></span>
+                                            <span class="table__txt" id="totalAmtDisplay">
+                                                <input type="hidden" id="totalAmt" name="totalAmt">
+                                            </span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -214,12 +140,12 @@
                         </div>
                         <div class="component-box btn-box align-right">
                             <div class="component-box">
-                                <button type="button" class="btn btn--small btn--bgtype">
+                                <button type="button" class="btn btn--small btn--bgtype" id="removeExpense">
                                     <span class="btn__txt">삭제</span>
                                 </button>
                             </div>
                             <div class="component-box">
-                                <button type="button" class="btn btn--small btn--orange">
+                                <button type="button" class="btn btn--small btn--orange" id="addExpense">
                                     <span class="btn__txt">+ 추가</span>
                                 </button>
                             </div>
@@ -240,7 +166,7 @@
                                         <th class="table__th">의견입력</th>
                                         <td class="table__td" colspan="5">
                                             <div class="textarea">
-                                                <textarea name="" cols="30" rows="10" style="height:80px"></textarea>
+                                                <textarea name="memo" cols="30" rows="10" style="height:80px"></textarea>
                                             </div>
                                         </td>                                            
                                     </tr>
