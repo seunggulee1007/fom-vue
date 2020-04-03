@@ -11,6 +11,8 @@ var deptVO = {          // 세션에서 가져와야 할 부서 정보
     ,deptNm : ''
     ,budgetErpDeptSeq : ''
     ,budgetErpDeptNm : ''
+    ,budgetDeptNm : ''
+    ,budgetDeptCd : ''
 };
 var costInfoVO = {
     smKindName : ''
@@ -254,7 +256,7 @@ function makeExpenseList() {
         html += '        </div>                                                                                             ';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td table__td--data">                                                                             ';
-        html += '        <span class="table__txt"></span>                                                                             ';
+        html += '        <span class="table__txt">'+expense.deptVO.budgetDeptNm+'</span>                                                                             ';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td table__td--btn">                                                                             ';
         html += '        <span class="table__txt">'+expense.deptVO.userNm+'<br>'+expense.deptVO.deptNm+'</span>                                                                     ';
@@ -262,6 +264,9 @@ function makeExpenseList() {
         html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.useUserId" value="'+expense.deptVO.userId+'">';     // 사용자 아이디
         html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.useDeptCd" value="'+expense.deptVO.deptCd+'">';     // 부서코드 
         html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.useDeptNm" value="'+expense.deptVO.deptNm+'">';     // 부서명
+        html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.budgetDeptCd" value="'+expense.deptVO.budgetDeptCd+'">';     // 부서명
+        html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.budgetErpDeptSeq" value="'+expense.deptVO.budgetErpDeptSeq+'">';     // 부서명
+        html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.budgetDeptNm" value="'+expense.deptVO.budgetDeptNm+'">';     // 부서명
         html += '        <button type="button" class="btn btn-change-user" onclick="openUserPopup(\''+cnt+'\');">                                                         ';
         html += '            <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>                                                     ';
         html += '        </button>                                                                                         ';

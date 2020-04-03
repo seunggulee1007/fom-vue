@@ -16,7 +16,6 @@
     <title><tiles:getAsString name="title" /></title>
     <!-- WEBJARS CSS -->
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.js"></script>
-    <script type="text/javascript" src="/webjars/axios/0.19.0/dist/axios.js"></script>
     <script type="text/javascript" src="/webjars/jquery-blockui/2.70/jquery.blockUI.js"></script>
     <script type="text/javascript" src="/webjars/jquery-form/4.2.2/jquery.form.min.js"></script>
 
@@ -28,7 +27,7 @@
     <!--[if lt IE 9]>
         <script type="text/javascript" src="js/html5shiv.min.js"></script>
     <![endif]-->
-    <script type="text/babel" src="/resources/fim/js/common.js"></script>
+    <script type="text/javascript" src="/resources/fim/js/common/common.js"></script>
 </head>
 <body>
     <tiles:insertAttribute name="body" />

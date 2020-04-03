@@ -73,28 +73,19 @@ function getDeptList() {
     })
 }
 function getUserList(deptCd) {
-    $.ajax({
-        url : "/expenseManagement/approval/getUserList"
-        ,type : "get"
-        ,data : {
-            deptCd
-        }
-        ,async : false
-        ,success (res) {
-            let list = [];
-            if(res.result == 0) {
-                list = res.data.userList;
-            }
-            makeOriginList(list);
-            originUserList = res.data.userList;
-        }
-    })
+    let res = doAjax("/expenseManagement/approval/getUserList", "get", {deptCd : deptCd});
+    let list = [];
+    if(res.result==0) {
+        list = res.data.userList;
+    }
+    makeOriginList(list);
+    originUserList = res.data.userList;
 }
+
 function makeOriginList(userList) {
     let html = '';
     $("#userList").empty();
     for(user of userList) {
-        console.log(user.empNo);
         html += '<div class="popup__contents-txt userList" ondblclick="makeChoiceUser(this);" id="'+user.empNo+'" onclick="selectUser(this);">';
             html += '<span class="user_name">' + user.userNm + '</span>';
             html += '<span class="user_position txt--blue">[' + user.title2Nm + ']</span>';
@@ -106,7 +97,6 @@ function makeOriginList(userList) {
 }
 
 function makeChoiceUser(user) {
-    console.log(this.userInfo);
     if(this.userInfo.empNo) {
         alert("한명 이상은 선택 하실 수 없습니다.");
         return;
@@ -140,6 +130,14 @@ function choiceUser() {
         return;
     }
     
+    const param = {
+        comCd :this.userInfo.comCd
+        ,deptCd : this.userInfo.deptCd
+    }
+    let res = doAjax("/common/getBudgetDeptInfo", "get", param);
+    this.userInfo.budgetDeptCd = res.data.deptSeq;
+    this.userInfo.budgetDeptNm = res.data.deptNm;
+    this.userInfo.budgetErpDeptSeq = res.data.deptSeq;
     opener.choiceUser(this.userInfo, $("#idx").val());
     closePopup();
 }

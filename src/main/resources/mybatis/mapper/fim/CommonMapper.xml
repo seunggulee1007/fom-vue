@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.smilegate.fim.mappers.fim.CommonMapper">
+    
+    <select id="selectBudgetDeptInfo" resultType="map">
+        select
+            dept_cd as deptCd
+            ,dept_nm as deptNm
+            ,DeptSeq as deptSeq
+        from dbo.FNT_Budget_DEPT_CD_SFIM
+        (#{comCd}, left(CONVERT(CHAR(8), GETDATE(), 112),4), #{deptCd})
+    </select>
+    
+</mapper>

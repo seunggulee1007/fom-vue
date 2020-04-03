@@ -17,7 +17,6 @@
     <title><tiles:getAsString name="title" /></title>
     <!-- WEBJARS CSS -->
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.js"></script>
-    <script type="text/javascript" src="/webjars/axios/0.19.0/dist/axios.js"></script>
     <script type="text/javascript" src="/webjars/jquery-blockui/2.70/jquery.blockUI.js"></script>
     <script type="text/javascript" src="/webjars/jquery-form/4.2.2/jquery.form.min.js"></script>
     <script type="text/javascript" src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
