@@ -66,9 +66,12 @@ function createPagingNavigator(pageNum, totalPage) {
  * @param type
  * @returns
  */
-function getDate(date, type){
+function getDate(date, type, days){
     if(!(date instanceof Date)) {
         return date;
+    }
+    if(days) {
+        date.setDate(date.getDate() + days);
     }
     let year = date.getFullYear();
     let month = date.getMonth() +1;
@@ -101,3 +104,116 @@ function getPageList(start, end) {
     }
     return arr;
 }
+
+function setComma(str) {
+    if(typeof(str) == 'number' ){
+        str = str.toString();
+    }
+    return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+$(document).ready(function(){
+    $(".datePicker").datepicker({
+        dateFormat : 'yy-mm-dd'
+        ,showOn : "both"
+        ,buttonImage : "/resources/fim/img/calendar.jpg"
+    });
+})
+
+function getPageList(start, end) {
+    let arr = new Array();
+    let cnt =0;
+    for(let i=start; i<=end; i++) {
+        arr[cnt++] = i;
+    }   
+    return arr;
+}
+
+function makePagingVO(fnName, target) {
+    let html = '';
+    $("#"+target).empty();
+    html += '    <div class="pagination">                                                                                          ';
+    html += '        <a class="pagination__btn';
+    if(pagingVO.pageNo == 1) {
+        html += ' pagination__btn--disabled'
+    }
+    html += '" onclick="'+fnName+'(1)">';
+    html += '        <span class="sp icon-first">                                                                                      ';
+    html += '            <span class="blind">맨 처음 페이지</span>                                                                               ';
+    html += '        </span>                                                                                                  ';
+    html += '        </a>                                                                                                  ';
+    html += '        <a class="pagination__btn';
+    if(pagingVO.pageNo < pagingVO.pageCnt) {
+        html += ' pagination__btn--disabled';
+    }
+    html += '" onclick="'+fnName+'('+pagingVO.startPage-1+')">';
+    html += '        <span class="sp icon-prev">                                                                                      ';
+    html += '            <span class="blind">이전 페이지</span>                                                                                  ';
+    html += '        </span>                                                                                                  ';
+    html += '        </a>                                                                                                  ';
+    html += '        <div class="pagination__inner">                                                                                  ';
+    let pageList = getPageList(pagingVO.startPage, pagingVO.endPage);
+    for(let i=0; i< pageList.length; i++) {
+        let num = pageList[i];
+        html += '        <a class="pagination__btn-txt';
+        if(num == pagingVO.pageNo) {
+            html += ' pagination__btn-txt--active';
+        }
+        html +='" onclick="'+fnName+'(\''+num+'\')">';
+        html += '            <span class="pagination__page-number">'+num+'</span>                                                                      ';
+        html += '            <span class="blind">페이지로 이동</span>                                                                               ';
+        html += '        </a>                                                                                                  ';
+
+    }
+    html += '        </div>                                                                                                  ';
+    html += '        <a class="pagination__btn';
+    if(pagingVO.endPage < pagingVO.totalPage) {
+        html += ' pagination__btn--disabled';
+    }
+    html +='" onclick="'+fnName+'(\''+pagingVO.startPage+1+'\')">                      ';
+    html += '        <span class="sp icon-next">                                                                                      ';
+    html += '            <span class="blind">다음 페이지</span>                                                                                  ';
+    html += '        </span>                                                                                                  ';
+    html += '        </a>                                                                                                  ';
+    html += '        <a class="pagination__btn';
+    if(pagingVO.pageNo == pagingVO.totalPage) {
+        html += ' pagination__btn--disabled';
+    }
+    html +='" @click="'+fnName+'(pagingVO.totalPage)">                          ';
+    html += '        <span class="sp icon-last">                                                                                      ';
+    html += '            <span class="blind">맨 뒤 페이지</span>                                                                                  ';
+    html += '        </span>                                                                                                  ';
+    html += '        </a>                                                                                                  ';
+    html += '    </div>                                                                                                  ';
+
+    $("#"+target).append(html);
+}
+
+function doAjax(url, type, param, config) {
+    let res = {};
+    
+    const ajaxConfig = {
+        url : url
+        ,type : type
+        ,data : param 
+        ,async : false
+        ,success : function(data){
+            res = data;
+        }
+    }
+    for(let temp in config) {
+        ajaxConfig[temp] = config[temp];
+    }
+    $.blockUI({ message: '<h3><img src="/resources/fim/img/icon_loading.gif" /> 처리중입니다. 잠시만 기다려 주세요.</h3>' });
+    $.ajax(ajaxConfig);
+    $.unblockUI();
+    return res;
+
+}
+
+function dateFilter(value, type){
+    if(!value) return '';
+        if(!type) {
+            type = '-';
+        }
+    return value.substr(0,4) + type + value.substr(4,2) + type + value.substr(6,2);
+} 

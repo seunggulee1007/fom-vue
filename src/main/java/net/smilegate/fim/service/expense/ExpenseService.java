@@ -2,7 +2,7 @@ package net.smilegate.fim.service.expense;
 
 import java.util.Map;
 
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import net.smilegate.fim.vo.common.PagingVO;
 import net.smilegate.fim.vo.tiarcost.TiarCostVO;
@@ -17,7 +17,7 @@ public interface ExpenseService {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
-    public Map<String, Object> insertExpense(MultipartHttpServletRequest request ,TiarCostVO tiarCostVO) throws IllegalArgumentException, IllegalAccessException ;
+    public Map<String, Object> insertExpense(HttpServletRequest request ,TiarCostVO tiarCostVO) throws IllegalArgumentException, IllegalAccessException ;
     
     /**
      * 지출결의서 수정
@@ -27,7 +27,7 @@ public interface ExpenseService {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
-    public Map<String, Object> updateExpense(MultipartHttpServletRequest request ,TiarCostVO tiarCostVO)  throws IllegalArgumentException, IllegalAccessException;
+    public Map<String, Object> updateExpense(HttpServletRequest request ,TiarCostVO tiarCostVO)  throws IllegalArgumentException, IllegalAccessException;
     
     /**
      * 지출결의서 조회

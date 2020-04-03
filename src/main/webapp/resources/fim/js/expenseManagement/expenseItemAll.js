@@ -1,5 +1,9 @@
 var expenseList = [];
 
+$(window).resize(function() { 
+      $(".popup-wrap")
+});
+
 $(document).ready(function(){
     $("#smKindName").focus();
     $("#idx").val(opener.document.getElementById('idx').value);
@@ -33,7 +37,7 @@ function getExpenseItemAll() {
         }
         ,async : false
         ,dataType : "json"
-        ,success (res){
+        ,success: function (res){
             console.log(res);
             expenseList = res.data.expenseList;
             makeExpense(res.data.expenseList);
@@ -45,7 +49,8 @@ function makeExpense(dataList) {
     $("#expense").empty();
     let html = '';
     let cnt = 0;
-    for(let data of dataList) {
+    for(let i=0; i<dataList.length; i++) {
+        let data = dataList[i];
         html += '<tr ondblClick="choiceExpenseItemAll(\''+cnt+ '\');">                          ';
         html += '    <td class="table__td">              ';
         html += '        <span class="table__txt">'+ data.smKindName+'</span>       ';
@@ -63,6 +68,7 @@ function makeExpense(dataList) {
         cnt++;
     }
     $("#expense").append(html);
+
 }
 
 

@@ -3,13 +3,14 @@ package net.smilegate.fim.controller.expensemanagement.approval;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -138,14 +139,17 @@ public class ApprovalProcController {
      */
     @ApiOperation(value="지출결의서 저장", notes="지출결의서 파일과 상세 내용 저장")
     @PostMapping("/expense")
-    public CommonResultVO insertExpense(TiarCostVO tiarCostVO)  throws IllegalArgumentException, IllegalAccessException {
+    public CommonResultVO insertExpense(HttpServletRequest request, TiarCostVO tiarCostVO)  throws IllegalArgumentException, IllegalAccessException {
         Map<String, Object> map = new HashMap<>();
         System.err.println(tiarCostVO.toString());
-        /*
-         * int tiCostSeq = tiarCostVO.getTiCostSeq(); if(tiCostSeq == 0) { map =
-         * expenseService.insertExpense(request, tiarCostVO); }else { map =
-         * expenseService.updateExpense(request, tiarCostVO); }
-         */
+        
+        int tiCostSeq = tiarCostVO.getTiCostSeq(); 
+        if(tiCostSeq == 0) { 
+            map = expenseService.insertExpense(request, tiarCostVO); 
+        }else { 
+            map = expenseService.updateExpense(request, tiarCostVO); 
+        }
+         
         return CommonResultVO.builder().resultMsg(CommonMsg.SUCCESS_WRITE.getMsg()).data(map).build();
     }
     

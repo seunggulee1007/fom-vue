@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <script src="/resources/fim/js/expenseManagement/expense.js"></script>
+<style>
+    .non_box { 
+        border : 0px !important;
+    }
+    .input_disable {
+        background-color: #f9f9f9;
+    }
+    .datepicker__v-calendar .icon-datepicker {
+        top : 2.3px !important;
+    }
+</style>
 <!-- container -->
 <div id="container" class="container container--include-lnb container--fullview container-write">
     
@@ -14,7 +25,7 @@
             </button>
         </div>
         <div class="component-box">
-            <a href="expense_history.html" class="btn btn--orange">
+            <a href="/expenseManagement/approval/expenseHistory" class="btn btn--orange">
                 <span class="btn__txt">지출결의서 조회</span>
             </a>
         </div>                
@@ -24,6 +35,9 @@
         <input type="hidden" id="userNm">
         <input type="hidden" id="smKindName">
         <input type="hidden" id="comCd">
+        <input type="hidden" id="smKindSeq">
+        <input type="hidden" id="costSeq">
+        <div id="costInfoVO"></div>
         <div class="grid-column grid-column10">                    
             <div class="section section--border section-expense">
                 <div class="component-group">
@@ -55,7 +69,7 @@
                                     <th class="table__th">제목</th>
                                     <td colspan="5" class="table__td">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" value="[SGH][지출결의서(현금)_김연준_2020-02-20]">
+                                            <input type="text" class="input-field__input" id="title" name="title" value="[SGH][지출결의서(현금)_김연준_2020-02-20]">
                                         </div>
                                     </td>
                                 </tr>
@@ -166,7 +180,7 @@
                                         <th class="table__th">의견입력</th>
                                         <td class="table__td" colspan="5">
                                             <div class="textarea">
-                                                <textarea name="memo" cols="30" rows="10" style="height:80px"></textarea>
+                                                <textarea id="memo" name="memo" cols="30" rows="10" style="height:80px"></textarea>
                                             </div>
                                         </td>                                            
                                     </tr>
@@ -179,52 +193,20 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="table__th">SmileDoc 파일 첨부</th>  
-                                        <td class="table__td" colspan="5">
-                                            <div class="input-field input-field-table">
-                                                <button type="button" class="btn btn-file">
-                                                    <label for="file1" class="btn__txt">파일선택</label>
-                                                </button>
-                                                <input type="file" id="file1" class="input-field__file blind">
-                                                <div class="input-field__file-box">
-                                                    <div class="file-info"></div>
-                                                </div>  
-                                            </div>                                            
-                                        </td>  
-                                    </tr>
-                                    <tr>
                                         <th class="table__th">파일 첨부</th>  
                                         <td class="table__td" colspan="5">
                                             <div class="input-field input-field-table">
                                                 <button type="button" class="btn btn-file">
                                                     <label for="file2" class="btn__txt">파일선택</label>
                                                 </button>
-                                                <input type="file" id="file2" class="input-field__file blind">
-                                                <span class="input__dsc-txt">0 Bytes / 100 MB</span>  
-                                                <div class="input-field__file-box">
-                                                    <div class="file-info">smilegate_test.xlsx</div>
-                                                    <div class="file-info">smilegate_test.xlsx</div>
-                                                    <div class="file-info">smilegate_test.xlsx</div>
-                                                    <div class="file-info">smilegate_test.xlsx</div>
+                                                <input type="file" id="file2" class="input-field__file blind" multiple>
+                                                <span class="input__dsc-txt"><span id="fileSize">0</span> <span id="fileFormat">Bytes</span> / 100 MB</span>  
+                                                <div class="input-field__file-box" id="uploadFile">
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                     
-                                    <tr>
-                                        <th class="table__th">참조결재</th>  
-                                        <td class="table__td" colspan="5">
-                                            <div class="input-field input-field-table">
-                                                <button type="button" class="btn btn-file">
-                                                    <label for="file3" class="btn__txt">파일선택</label>
-                                                </button>
-                                                <input type="file" id="file3" class="input-field__file blind">
-                                                <div class="input-field__file-box">
-                                                    <div class="file-info"></div>
-                                                </div>                                                
-                                            </div>                                            
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -238,7 +220,7 @@
                     </button>
                 </div>
                 <div class="component-box">
-                    <button type="button" class="btn btn--large">
+                    <button type="button" class="btn btn--large" id="doSave">
                         <span class="btn__txt">저장</span>
                     </button>
                 </div>

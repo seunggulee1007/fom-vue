@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -51,7 +53,7 @@ public class ExpenseServiceImpl implements ExpenseService {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
-    public Map<String, Object> insertExpense(MultipartHttpServletRequest request ,TiarCostVO tiarCostVO) throws IllegalArgumentException, IllegalAccessException {
+    public Map<String, Object> insertExpense(HttpServletRequest request ,TiarCostVO tiarCostVO) throws IllegalArgumentException, IllegalAccessException {
         Map<String, Object> map = new HashMap<String, Object>();
         
         if(tiarCostMapper.insertTiarCost(tiarCostVO) > 0 ) {
@@ -67,14 +69,17 @@ public class ExpenseServiceImpl implements ExpenseService {
                     tiarCostAmtLogMapper.insertTiarCostAmtLog(tiarCostAmtLogVO);                        // 로그를 샇는다.
                 }
             }
-            // 파일을 물리적 경로에 만들고 해당 내용을  vo로 만들어서 가져온다.
-            List<FileVO> fileVOList = fileUtil.makeFileVO(request);
-            for(FileVO fileVO : fileVOList) {
-                fileVO.setRefId(tiCostSeq);
-                tiarCostFileService.insertFile(fileVO);
+            if(request instanceof MultipartHttpServletRequest) {
+                MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request;
+                // 파일을 물리적 경로에 만들고 해당 내용을  vo로 만들어서 가져온다.
+                List<FileVO> fileVOList = fileUtil.makeFileVO(mRequest);
+                for(FileVO fileVO : fileVOList) {
+                    fileVO.setRefId(tiCostSeq);
+                    tiarCostFileService.insertFile(fileVO);
+                }
+                tiarCostVO.setFileList(fileVOList);
+                map.put("fileList", fileVOList);
             }
-            tiarCostVO.setFileList(fileVOList);
-            map.put("fileList", fileVOList);
         }
         
         map.put("tiarCostVO", tiarCostVO);
@@ -90,7 +95,7 @@ public class ExpenseServiceImpl implements ExpenseService {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
-    public Map<String, Object> updateExpense(MultipartHttpServletRequest request ,TiarCostVO tiarCostVO) throws IllegalArgumentException, IllegalAccessException {
+    public Map<String, Object> updateExpense(HttpServletRequest request ,TiarCostVO tiarCostVO) throws IllegalArgumentException, IllegalAccessException {
         Map<String, Object> map = new HashMap<String, Object>();
         int tiCostSeq = tiarCostVO.getTiCostSeq();
         
@@ -138,16 +143,18 @@ public class ExpenseServiceImpl implements ExpenseService {
                 tiarCostAmtLogMapper.insertTiarCostAmtLog(tiarCostAmtLogVO);
             }
         }
-        
-        // 파일을 물리적 경로에 만들고 해당 내용을  vo로 만들어서 가져온다.
-        List<FileVO> fileVOList = fileUtil.makeFileVO(request);
-        for(FileVO fileVO : fileVOList) {
-            fileVO.setRefId(tiCostSeq);
-            tiarCostFileService.insertFile(fileVO);
-        }
-        if(fileVOList.size() > 0) {
-            tiarCostVO.setFileList(fileVOList);
-            map.put("fileList", fileVOList);
+        if(request instanceof MultipartHttpServletRequest) {
+            MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request;
+            // 파일을 물리적 경로에 만들고 해당 내용을  vo로 만들어서 가져온다.
+            List<FileVO> fileVOList = fileUtil.makeFileVO(mRequest);
+            for(FileVO fileVO : fileVOList) {
+                fileVO.setRefId(tiCostSeq);
+                tiarCostFileService.insertFile(fileVO);
+            }
+            if(fileVOList.size() > 0) {
+                tiarCostVO.setFileList(fileVOList);
+                map.put("fileList", fileVOList);
+            }
         }
         map.put("tiarCostVO", tiarCostVO);
         return map;
