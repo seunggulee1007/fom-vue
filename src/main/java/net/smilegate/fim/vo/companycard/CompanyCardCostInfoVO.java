@@ -15,16 +15,16 @@ public class CompanyCardCostInfoVO {
     private int tiCostSerl;
 
     /** 비용항목 중분류 */
-    private String erpSmKindSeq;
+    private String smKindSeq;
 
     /** 비용항목 중분류 명*/
-    private String erpSmKindNm;
+    private String smKindNm;
 
     /** 비용항목 소분류 */
-    private String erpCostSeq;
+    private String costSeq;
 
     /** 비용항목 소분류 명 */
-    private String erpCostNm;
+    private String costNm;
 
     /** 비용항목 코드 */
     private String costItemCd;
