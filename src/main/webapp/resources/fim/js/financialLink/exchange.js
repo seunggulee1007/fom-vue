@@ -1,114 +1,90 @@
 $(document).ready(function() {
-    Vue.use(MyPlugin);
-    new Vue({
-        el : "#grid-layout"
-        , data : {
-            exchangeList : []           // 환율정보 리스트
-            ,originDataList : []        // 원본 환율 정보 리스트
-            ,currencyCode : []          // 환율 통화 코드 리스트
-            ,selectedCurrency : ''      // 선택 된 통화
-            ,mode: 'single'             // 날짜 모드(single 단일 multi : 범위)
-            ,masks : {                  // 날짜 마스킹 처리
-                title: 'MMMM YYYY',     // 날짜 타이틀
-                input: 'YYYY-MM-DD',    // input에 보여질 포맷
-            }
-            ,selectedDate: getDate(new Date(),'-')
-            ,selectedName : "전체"
-            ,toggleYn : false
-            ,openFlag : false
-        }
-        , mounted () {
-            this.getCurrencyCode();
-            this.getExchangeList();
-        }
-        ,watch : {
-            /**********************************************
-             * @method : selectedCurrency
-             * @note 환율 변경 감지되면 해당 환율로 필터링 처리
-             * @author : es-seungglee
-             ***********************************************/
-            selectedCurrency () {
-                this.filterExchange();
-            }
-            /**********************************************
-             * @method : selectedDate
-             * @note 날짜가 변경되면 해당 날짜를 string으로 변경 후 재조회
-             * @author : es-seungglee
-             ***********************************************/
-            ,selectedDate() {
-                if(typeof(this.selectedDate) == 'object') {
-                    this.selectedDate = getDate(this.selectedDate,'-');
-                }
-                this.getExchangeList();
-            }
-        }
-        , methods : {
-            /**********************************************
-             * @method : getExchangeList
-             * @note 넘겨진 날짜로 해당 날짜의 환율 조회
-             * @author : es-seungglee
-             ***********************************************/
-            async getExchangeList () {
-                try {
-                    let exchange = await this.doAxios("/financialLink/exRate/" + this.selectedDate.replace(/-/gi, ""));
-                    console.log(exchange);
-                    this.exchangeList = exchange.data.exRateList;
-                    this.originDataList = this.exchangeList;
-                    this.filterExchange();
-                }catch (err) {
-                    alert(err);
-                }
-            }       // end getExchangeList
-            /**********************************************
-             * @method : getCurrencyCode
-             * @note 자바 Enum클래스로 작성 된 환율 정보(코드) 가져오는 함수
-             * @author : es-seungglee
-             ***********************************************/
-            ,getCurrencyCode () {
-                axios({
-                    method : "get"
-                    , url : "/financialLink/getCurrencyCode"
-                }).then(res=> {
-                    this.currencyCode = res.data;
-                    this.currencyCode.unshift({"title":"전체","code" : ""});
-                })
-                .catch(function(e){
-                    console.log(e);
-                });
-            }   // end getCurrencyCode
-            /**********************************************
-             * @method : selectCurrency
-             * @note 
-             * @author : es-seungglee
-             ***********************************************/
-            , selectCurrency(data) {
-                this.selectedCurrency = data.code;
-                this.selectedName = data.title;
-            }   // end selectCurrency
-            /**********************************************
-             * @method : getCurrencyCode
-             * @note 자바 Enum클래스로 작성 된 환율 정보(코드) 가져오는 함수
-             * @author : es-seungglee
-             ***********************************************/
-            , clickToggle() {
-                this.toggleYn = !this.toggleYn;
-            }   // end clickToggle
-            /**********************************************
-             * @method : filterExchange
-             * @note 바뀐 환율로 환율리스트를 필터링 처리 한다.(셀렉트 박스 변경시 작동)
-             * @author : es-seungglee
-             ***********************************************/
-            , filterExchange () {
-                if(!this.selectedCurrency) {        // 전체 선택이라면
-                    this.exchangeList = this.originDataList;
-                } else {                     // 통화가 선택되었다면
-                    this.exchangeList = this.originDataList.filter((data) => {
-                        if(data.CurrName == this.selectedCurrency) {
-                            return data;
-                        }   // end if
-                    }); // end filter
-                }   // end else
-            }   // end filterExchange
-        }
-    });
+   getCurrencyCode();
+   getExchangeList();
 });
+let selectedCurrency = '';
+let exchangeList=[];
+let originDataList = [];
+let currencyCode = [];
+function getCurrencyCode () {
+    $("#selectedDate").val(getToday());
+    $("#selectedDate").change(function(){
+        getExchangeList ();
+    });
+    currencyCode = doAjax("/financialLink/getCurrencyCode","get");
+    currencyCode.unshift({"title":"전체","code" : ""});
+    html = '';
+    $("#currencyCode").empty();
+    for(let i=0; i< currencyCode.length; i++) {
+        let currency = currencyCode[i];
+        html += '<option value="'+ currency.code + '" class="dropdown-select__menu"><span class="dropdown__menu-txt">'+ currency.title + '</span></option>';
+    }
+    $("#currencyCode").append(html);
+    $("#currencyCode").on("change",function(){
+        selectedCurrency = $(this).val();
+        filterExchange();
+    });
+}   // end getCurrencyCode
+
+function getExchangeList () {
+    let exchange = doAjax("/financialLink/exRate/" + $("#selectedDate").val().replace(/-/gi, ""));
+    exchangeList = exchange.data.exRateList;
+    originDataList = exchangeList;
+    filterExchange();
+}
+
+function filterExchange () {
+    if(!selectedCurrency) {        // 전체 선택이라면
+        exchangeList = originDataList;
+    } else {                     // 통화가 선택되었다면
+        exchangeList = originDataList.filter((data) => {
+            if(data.CurrName == selectedCurrency) {
+                return data;
+            }   // end if
+        }); // end filter
+    }   // end else
+     makeExchange();
+}   // end filterExchange
+
+function makeExchange() {
+    $("#exchangeList").empty();
+    html = '';
+    console.log(exchangeList);
+    if(exchangeList.length > 0) {
+
+        for(let i=0; i< exchangeList.length; i++) {
+            let list = exchangeList[i];
+            html += '<tr>                               ';
+            html += '    <td class="table__td">                                   ';
+            html += '        <span class="table__txt table__txt--blue-dark">'+list.KorCurrName+'</span>    ';
+            html += '    </td>                                           ';
+            html += '    <td class="table__td">                                   ';
+            html += '        <span class="table__txt table__txt--align-right">'+list.TTM+'</span>           ';
+            html += '    </td>                                           ';
+            html += '    <td class="table__td">                                   ';
+            html += '        <span class="table__txt table__txt--align-right">'+list.TTB+'</span>           ';
+            html += '    </td>                                           ';
+            html += '    <td class="table__td">                                   ';
+            html += '        <span class="table__txt table__txt--align-right">'+list.TTS+'</span>           ';
+            html += '    </td>                                           ';
+            html += '    <td class="table__td">                                   ';
+            html += '        <span class="table__txt table__txt--align-right">'+list.CASHB+'</span>           ';
+            html += '    </td>                                           ';
+            html += '    <td class="table__td">                                   ';
+            html += '        <span class="table__txt table__txt--align-right">'+list.CASHS+'</span>           ';
+            html += '    </td>                                           ';
+            html += '    <td class="table__td">                                   ';
+            html += '        <span class="table__txt table__txt--align-right">'+list.USAExrate+'</span>    ';
+            html += '    </td>                                           ';
+            html += '    <td class="table__td">                                   ';
+            html += '        <span class="table__txt table__txt--align-right">'+list.ChangeRate+'</span>   ';
+            html += '    </td>                                           ';
+            html += '</tr>                                            ';
+        }
+    }else {
+        html += '<td class="table__td" colspan="8">';
+        html += '   <span class="table__txt align-center">조회된 내용이 없습니다.</span>';
+        html += '</td>';
+    }
+    $("#exchangeList").append(html);
+}

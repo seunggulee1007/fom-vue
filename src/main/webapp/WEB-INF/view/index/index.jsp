@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script type="text/babel" src="/resources/fim/js/index.js"></script>
+<script type="text/javascript" src="/resources/fim/js/index.js"></script>
 <div id="container" class="container container__main">            
     <div class="grid-layout">
         <div class="grid-column grid-column9">
@@ -139,17 +139,17 @@
             <div class="section section--border section--no-padding section-bbs">
                 <div class="tab-area tab-area--top">
                     <ul class="lst-tab">
-                        <li class="lst-tab__item" :class="{'lst-tab__item--active' : noti}" @click="selectTab(1)">
+                        <li class="lst-tab__item">
                             <a class="lst-tab__menu">
                                 <span class="lst-tab__menu-txt">공지사항</span>
                             </a>
                         </li>
-                        <li class="lst-tab__item" :class="{'lst-tab__item--active' : exchange}" @click="selectTab(2)">
+                        <li class="lst-tab__item">
                             <a class="lst-tab__menu">
                                 <span class="lst-tab__menu-txt">환율 정보</span>
                             </a>
                         </li>
-                        <li class="lst-tab__item" :class="{'lst-tab__item--active' : taxSchedule}" @click="selectTab(3)">
+                        <li class="lst-tab__item">
                             <a class="lst-tab__menu">
                                 <span class="lst-tab__menu-txt">월별 세무 일정</span>
                             </a>
@@ -157,7 +157,7 @@
                     </ul>
                 </div>
                 <div class="tab-cnt">
-                    <div class="component-area component-area-info lst-tab-cnt" :class="{'lst-tab-cnt--active' : noti}">
+                    <div class="component-area component-area-info lst-tab-cnt lst-tab-cnt--active">
                         <div class="component-group component-group__table">
                             <div class="table">
                                 <table>
@@ -225,8 +225,8 @@
                             <a href="/portalManagement/info" class="btn btn--link"><span class="btn__txt">+ 더보기</span></a>
                         </div>
                     </div>
-                    <div class="component-area component-area-exchange lst-tab-cnt" :class="{'lst-tab-cnt--active' : exchange}">
-                        <span class="component-area__dsc-txt">{{taxDate}} 기준</span>
+                    <div class="component-area component-area-exchange lst-tab-cnt">
+                        <span class="component-area__dsc-txt" id="taxDate"> </span>
                         <div class="component-group component-group__table">
                             <div class="table">
                                 <table>
@@ -241,15 +241,7 @@
                                             <th scope="col" class="table__th table__txt--align-right">매매기준율</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr v-for="list in exchangeList">
-                                            <td class="table__td">
-                                                <span class="table__txt table__txt--blue-dark">{{list.KorCurrName}}</span>
-                                            </td>
-                                            <td class="table__td table__title">
-                                                <span class="table__txt table__txt--align-right">{{list.TTM}}</span>
-                                            </td>
-                                        </tr>
+                                    <tbody id="exchage">
                                     </tbody>
                                 </table>
                             </div>
@@ -258,7 +250,7 @@
                             <a href="/financialLink/exchange" class="btn btn--link"><span class="btn__txt">+ 더보기</span></a>
                         </div>
                     </div>
-                    <div class="component-area component-area-tax lst-tab-cnt" :class="{'lst-tab-cnt--active' : taxSchedule}">
+                    <div class="component-area component-area-tax lst-tab-cnt">
                         <div class="component-group component-group__table">
                             <div class="table">
                                 <table>
@@ -275,18 +267,7 @@
                                             <th scope="col" class="table__th">비고</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr v-for="list in taxPlanList">
-                                            <td class="table__td">
-                                                <span class="table__txt">{{list.taxDate}}</span>
-                                            </td>
-                                            <td class="table__td table__title">
-                                                <span class="table__txt">{{list.taxPlan}}</span>
-                                            </td>
-                                            <td class="table__td">
-                                                <span class="table__txt table__txt--gray">{{list.note}}</span>
-                                            </td>
-                                        </tr>
+                                    <tbody id="taxPlan">
                                     </tbody>
                                 </table>
                             </div>

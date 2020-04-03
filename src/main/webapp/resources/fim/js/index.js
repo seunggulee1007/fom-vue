@@ -1,40 +1,45 @@
 $(document).ready(function() {
-    Vue.use(MyPlugin);
-    new Vue({
-        el : "#container"
-        ,data : {
-            exchangeList : []
-            ,taxPlanList : []
-            ,noti : true
-            ,exchange : false
-            ,taxSchedule : false
-            ,taxDate : getDate(new Date(), '-')
-        }
-        ,mounted : function() {
-            this.getInitData();
-        }
-        ,methods : {
-            async getInitData () {
-                let initData = await this.doAxios("/index/getInitData","get"); 
-                console.log(initData);
-                this.exchangeList = initData.data.exRateList;
-                this.taxPlanList = initData.data.taxPlanList;
-            }
-            ,selectTab (index) {
-                if(index == 1) {
-                    this.noti = true;
-                    this.exchange = false;
-                    this.taxSchedule = false;
-                }else if(index == 2) {
-                    this.noti = false;
-                    this.exchange = true;
-                    this.taxSchedule = false;
-                }else {
-                    this.noti = false;
-                    this.exchange = false;
-                    this.taxSchedule = true;
-                }
-            }
-        }
-    });
+    let res = doAjax("/index/getInitData","get");
+    let exchangeList = res.data.exRateList;
+    let taxPlanList = res.data.taxPlanList;
+    makeExchange(exchangeList);
+    makeTaxPlan(taxPlanList);
+    $("#taxDate").text(getToday()+'기준');
 });
+
+function makeExchange(exchangeList) {
+    html = '';
+    $("#exchage").empty();
+    for(let i=0; i< exchangeList.length; i++) {
+        let list = exchangeList[i];
+        html += '<tr">';
+        html += '    <td class="table__td">';
+        html += '            <span class="table__txt table__txt--blue-dark">'+list.KorCurrName+'</span>';
+        html += '    </td>';
+        html += '    <td class="table__td table__title">';
+        html += '        <span class="table__txt table__txt--align-right">'+list.TTM+'</span>';
+        html += '    </td>';
+        html += '</tr>';
+    }
+    $("#exchage").append(html);
+}
+
+function makeTaxPlan(taxPlanList) {
+    html = '';
+    $("#taxPlan").empty();
+    for(let i=0; i< taxPlanList.length; i++) {
+        let list = taxPlanList[i];
+        html += '<tr>                    ';
+        html += '    <td class="table__td">                        ';
+        html += '    <span class="table__txt">'+list.taxDate+'</span>        ';
+        html += '    </td>                                ';
+        html += '    <td class="table__td table__title">                ';
+        html += '    <span class="table__txt">'+list.taxPlan+'</span>        ';
+        html += '    </td>                                ';
+        html += '    <td class="table__td">                        ';
+        html += '    <span class="table__txt table__txt--gray">'+list.note+'</span>    ';
+        html += '    </td>                                ';
+        html += '</tr>                                    ';
+    }
+    $("#taxPlan").append(html);
+}

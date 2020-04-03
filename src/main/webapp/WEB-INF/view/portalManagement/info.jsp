@@ -67,7 +67,7 @@
                             <div class="component-box">
                                 <div class="input-field datepicker__v-calendar">
                                  <label for="date_input_exchange1" class="input-field__title">작성일</label>
-                                    <input type="text" id='searchStdDt' readonly class="input-field__input datePicker">
+                                    <input type="text" id='searchStdDt' readonly class="input-field__datepicker--btn">
                                 </div>
                             </div>
                             <div class="component-box component-box--non-label">
@@ -77,7 +77,7 @@
                             </div>   
                             <div class="component-box component-box--non-label">
                                 <div class="input-field input-field--no-title datepicker__v-calendar">
-                                    <input type="text" id='searchEndDt' readonly class="input-field__input datePicker">
+                                    <input type="text" id='searchEndDt' readonly class="input-field__datepicker--btn">
                                 </div>
                             </div>
                         </div>

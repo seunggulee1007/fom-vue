@@ -1,36 +1,45 @@
 $(document).ready(function(){
-    Vue.use(MyPlugin);
-    new Vue({
-        el : "#grid-layout"
-        , data : {
-            trtCntn : ''                    // 결과 메시지
-            ,bizNo : ''                   // 사업자 번호
-            ,smpcBmanEnglTrtCntn : ''
-            ,smpcBmanTrtCntn : ''
-            ,complBizNo : ''              // 완료 이후 사업자 번호(화면에 보여주는 용도)
+
+    $("#biz").keyup(function(event){
+        if(event.keyCode == 13) {
+            getInfo();
         }
-        ,methods : {
-            /**********************************************
-             * @method : getInfo
-             * @note 사업자 휴폐업 조회
-             * @author : es-seungglee
-             ***********************************************/
-            async getInfo (bizNo) {
-                if(!bizNo) {
-                    alert("사업자 번호를 입력해 주세요");
-                    this.$refs.bizNo.focus();
-                    return;
-                }
-                if(!this.checkBizNo(bizNo)) {
-                    alert("사업자 번호가 유효하지 않습니다. 사업자 번호를 확인해 주세요");
-                    this.$refs.bizNo.focus();
-                    return;
-                }
-                let bizInfo = await this.doAxios("/financialLink/biz/bizInfo/fim/"+bizNo, "get");
-                this.trtCntn = bizInfo.data.trtCntn;
-                this.complBizNo = bizInfo.data.bizVO.bizNo;
-            }
-        }
-    });
-    
+    })
+
+    $("#btn").click(function(){
+        getInfo();
+    })
 });
+
+function getInfo() {
+    let bizNo = $("#bizNo");
+    if(!bizNo.val()) {
+        alert("사업자 번호를 입력해 주세요");
+        bizNo.focus();
+        return;
+    }
+    if(!checkBizNo(bizNo.val())) {
+        alert("사업자 번호가 유효하지 않습니다. 사업자 번호를 확인해 주세요");
+        bizNo.focus();
+        return;
+    }
+    let res = doAjax("/financialLink/biz/bizInfo/fim/"+bizNo.val(), "get");
+    
+    let trtCntn = res.data.trtCntn;
+    let complBizNo = res.data.bizVO.bizNo;
+    makeBizResult(trtCntn, complBizNo);
+}
+
+function makeBizResult(trtCntn, complBizNo) {
+    $("#bizResult").empty();
+    let html = '';
+    if(trtCntn) {
+        html += '<tr>';
+        html += '    <td class="table__td"><span class="table__txt">'+bizNoFilter(complBizNo) +'</span></td>';
+        html += '    <td class="table__td"><span class="table__txt">'+trtCntn+'</span></td>';
+        html += '    <td class="table__td"><span class="table__txt">'+getToday()+'</span></td>';
+        html += '</tr>';
+    }
+    $("#bizResult").append(html);
+
+}

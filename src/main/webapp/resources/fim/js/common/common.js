@@ -112,7 +112,7 @@ function setComma(str) {
     return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 $(document).ready(function(){
-    $(".datePicker").datepicker({
+    $(".input-field__datepicker--btn").datepicker({
         dateFormat : 'yy-mm-dd'
         ,showOn : "both"
         ,buttonImage : "/resources/fim/img/calendar.jpg"
@@ -217,3 +217,58 @@ function dateFilter(value, type){
         }
     return value.substr(0,4) + type + value.substr(4,2) + type + value.substr(6,2);
 } 
+
+function bizNoFilter(value, type) {
+    if(!value) return;
+    if(value.includes('-')){
+        return value;
+    }
+    var formatNum = '';
+    try{
+        if (value.length == 10) {
+            if (type == 0) {
+                formatNum = value.replace(/(\d{3})(\d{2})(\d{5})/, '$1-$2-*****');
+            } else {
+                formatNum = value.replace(/(\d{3})(\d{2})(\d{5})/, '$1-$2-$3');
+            }
+        }
+    } catch(e) {
+        formatNum = value;
+        console.log(e);
+    }
+    return formatNum;
+}
+
+function  getToday () {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month =new String(date.getMonth() +1);
+    let day = new String(date.getDate());
+    if(month.length == 1) {
+        month = "0" + month;
+    }
+    if(day.length == 1) {
+        day = "0" + day;
+    }
+    
+    return year + "-" + month + "-" + day;
+}
+
+function checkBizNo (bizNo) {      // 사업자 번호 체크
+              
+    let checkID = new Array(1, 3, 7, 1, 3, 7, 1, 3, 5, 1); 
+    let i, chkSum=0, c2, remander; 
+    bizNo = bizNo.replace(/-/gi,''); 
+    if(bizNo.length != 10) {
+        return false;
+    }
+    for (i=0; i<=7; i++) {
+        chkSum += checkID[i] * bizNo.charAt(i); 
+    }
+    c2 = "0" + (checkID[8] * bizNo.charAt(8)); 
+    c2 = c2.substring(c2.length - 2, c2.length); 
+    chkSum += Math.floor(c2.charAt(0)) + Math.floor(c2.charAt(1)); 
+    remander = (10 - (chkSum % 10)) % 10 ; 
+
+    return (Math.floor(bizNo.charAt(9)) == remander);
+}

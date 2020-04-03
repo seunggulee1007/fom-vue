@@ -4,7 +4,7 @@ $(document).ready(function(){
         url : "/financialLink/taxPlan/taxPlanMonth"
         , dataType: "json"
         , type : "get"
-        , async : true
+        , async : false
         , success : function(data) {
             let calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: [ 'interaction', 'dayGrid', 'list' ]

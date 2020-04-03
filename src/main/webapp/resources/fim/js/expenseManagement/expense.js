@@ -301,7 +301,7 @@ function makeExpenseList() {
         html += '       <div class="datepicker">';
         html += '           <div class="input-field">';
         html += '               <span class="input-field__inner">';
-        html += '                   <input type="text" class="input-field__input datePicker" readonly name="tiarCostAmtList['+cnt+'].userDate" value="'+expense.useDate+'">';
+        html += '                   <input type="text" class="input-field__datepicker--btn" readonly name="tiarCostAmtList['+cnt+'].userDate" value="'+expense.useDate+'">';
         html += '               </span>';
         html += '           </div>';
         html += '       </div>';
@@ -349,12 +349,12 @@ function makeExpenseList() {
         $("#totalAmtDisplay").text(totalAmt);
     });
     // 달력 적용
-    $(".datePicker").datepicker({
+    $(".input-field__datepicker--btn").datepicker({
         dateFormat : 'yy-mm-dd'
         ,showOn : "both"
         ,buttonImage : "/resources/fim/img/calendar.jpg"
         ,onSelect : function (dateText, inst) {
-            let idx = $(".datePicker").index(this);
+            let idx = $(".input-field__datepicker--btn").index(this);
             expenseList[idx].useDate = dateText;
         }
     });

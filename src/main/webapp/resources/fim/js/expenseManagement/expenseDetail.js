@@ -1,10 +1,6 @@
 $(document).ready(function(){
     let smKindSeq = opener.document.getElementById('smKindSeq').value;
     let costSeq = opener.document.getElementById('costSeq').value;
-    console.log(smKindSeq , costSeq)
-    $("#expenseDetail").on("DOMSubtreeModified propertychange",function(){
-       doResize();
-    })
     makeHtml(smKindSeq, costSeq);
 });
 
@@ -190,11 +186,4 @@ function makeHtml(smKindSeq, costSeq) {
 
     $("#expenseDetail").append(html);
    
-}
-
-function doResize() {
-    let height = $(".popup-wrap__inner").height();
-    let width = $(".popup-wrap__inner").width();
-    console.log(height,":" ,width);
-    window.resizeTo(width, height);
 }
