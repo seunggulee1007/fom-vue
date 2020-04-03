@@ -56,4 +56,12 @@ public interface CompanyCardService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> getCompanyCardMasterList(String fromYm, String toYm) throws Exception;
+
+	/**
+	 * 특정 법인카드 정산내역 조회.
+	 * @param cardUseSeq
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getCardUseData(int cardUseSeq) throws Exception;
 }

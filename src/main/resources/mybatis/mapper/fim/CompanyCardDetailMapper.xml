@@ -13,6 +13,10 @@
 		  and CARD_CD = #{cardCd}
 	</select>
 
+	<select id="getCompanyCardDetailList" resultType="companyCardDetailVO">
+		select * from TB_COMPANY_CARD_DETAIL where CARD_USE_SEQ = #{cardUseSeq}
+	</select>
+
 	<insert id="saveCompanyCardDetail" parameterType="companyCardDetailVO">
 		MERGE TB_COMPANY_CARD_DETAIL as a
 		USING ( select

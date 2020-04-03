@@ -36,7 +36,7 @@
 					<input type="text" class="input-field__input" value="홍길동A" disabled>
 				</div>
 				<div class="component-box">
-					<button type="button" class="btn btn--bgtype">
+					<button id="btnGetCalcList" type="button" class="btn btn--bgtype">
 						<span class="btn__txt">조회</span>
 				   </button>
 				</div>

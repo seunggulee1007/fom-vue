@@ -157,4 +157,8 @@
 			select * from TB_COMPANY_CARD_MASTER where CALC_DATE >= #{fromYm} and CALC_DATE <= #{toYm}
 		]]>
 	</select>
+
+	<select id="getFileList" resultType="companyCardMasterFileVO">
+		select * from TB_COMPANY_CARD_FILE where CARD_USE_SEQ = #{cardUseSeq}
+	</select>
 </mapper>

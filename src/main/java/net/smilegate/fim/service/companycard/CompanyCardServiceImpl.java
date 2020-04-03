@@ -141,4 +141,19 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 		return rtnMap;
 	}
 
+	@Override
+	public Map<String, Object> getCardUseData(int cardUseSeq) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+		CompanyCardMasterVO mst = fimMapper.getCompanyCardMaster(cardUseSeq);
+		mst.setCardDetailList(fimMapper.getCompanyCardDetailList(cardUseSeq));
+
+		List<CompanyCardMasterFileVO> fileList = fimMapper.getFileList(cardUseSeq);
+		rtnMap.put("cardData", mst);
+		rtnMap.put("fileList", fileList);
+
+		return rtnMap;
+	}
+
 }
