@@ -95,9 +95,6 @@ $(document).ready(function(){
 		monthNames: ['1월(JAN)', '2월(FEB)', '3월(MAR)', '4월(APR)', '5월(MAY)', '6월(JUN)',
 			'7월(JUL)', '8월(AUG)', '9월(SEP)', '10월(OCT)', '11월(NOV)', '12월(DEC)'],
 			monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-//				showOn: "button",
-//                buttonImage: "../../Images/Goods/calendar.jpg",
-//                buttonImageOnly: true,
 			changeYear: false,
 			yearRange: 'c-2:c+2',
 			dateFormat: 'yy-mm'

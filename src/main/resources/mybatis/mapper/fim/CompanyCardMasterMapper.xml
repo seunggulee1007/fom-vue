@@ -65,7 +65,7 @@
 	<insert id="insertCompanyCardMasterLog" parameterType="companyCardMasterVO">
 		insert
 			into TB_COMPANY_CARD_MASTER_LOG (
-				TCCML_LOG_SEQ   ,
+				LOG_SEQ   ,
 				CARD_USE_SEQ    ,
 				COM_CD	        ,
 				CARD_CD         ,
@@ -81,7 +81,7 @@
 				LAST_USER_ID    ,
 				LAST_DATE_TIME)
 			select
-				next value for SEQ_TCCML_LOG_SEQ,
+				next value for SEQ_COMPANY_CARD_MASTER_LOG,
 				#{cardUseSeq}   ,
 				#{comCd}        ,
 				#{cardCd}       ,
@@ -127,7 +127,7 @@
 	<insert id="insertCompanyCardMasterFileLog" parameterType="companyCardMasterFileVO">
 		insert
 			into TB_COMPANY_CARD_FILE_LOG(
-					TCCFL_LOG_SEQ,
+					LOG_SEQ,
 					CARD_USE_SEQ,
 					FILE_SERL,
 					O_FILE_NAME,
@@ -139,7 +139,7 @@
 					LAST_USER_ID,
 					LAST_DATE_TIME)
 				select
-					next value for SEQ_TCCFL_LOG_SEQ,
+					next value for SEQ_COMPANY_CARD_FILE_LOG,
 					#{cardUseSeq},
 					#{fileSerl},
 					#{oFileName},
@@ -151,4 +151,10 @@
 					#{lastUserId},
 					getdate()
 	</insert>
+
+	<select id="getCompanyCardMasterList" resultType="companyCardMasterVO">
+		<![CDATA[
+			select * from TB_COMPANY_CARD_MASTER where CALC_DATE >= #{fromYm} and CALC_DATE <= #{toYm}
+		]]>
+	</select>
 </mapper>

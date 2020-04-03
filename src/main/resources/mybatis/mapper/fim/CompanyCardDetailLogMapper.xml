@@ -2,189 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="net.smilegate.fim.mappers.fim.companycard.CompanyCardFimMapper">
 
-<!-- 	<insert id="insertCompanyCardDetail" parameterType="companyCardDetailVO"> -->
-<!-- 		MERGE TB_COMPANY_CARD_DETAIL as a -->
-<!-- 		USING ( select -->
-<!-- 					#{cardUseSeq} as cardUseSeq, -->
-<!-- 					#{companySeq} as companySeq, -->
-<!-- 					#{cancelYn} as cancelYn, -->
-<!-- 					#{apprSeq} as apprSeq, -->
-<!-- 					#{apprNo} as apprNo, -->
-<!-- 					#{cardCd} as cardCd, -->
-<!-- 					#{apprDate} as apprDate) AS b -->
-<!-- 		 ON a.CARD_USE_SEQ = b.cardUseSeq -->
-<!-- 		AND a.COMPANY_SEQ = b.companySeq -->
-<!-- 		AND a.CANCEL_YN = b.cancelYn -->
-<!-- 		AND a.APPR_SEQ = b.apprSeq -->
-<!-- 		AND a.APPR_NO = b.apprNo -->
-<!-- 		AND a.CARD_CD = b.cardCd -->
-<!-- 		AND a.APPR_DATE = b.apprDate -->
-<!-- 		WHEN MATCHED THEN -->
-<!-- 			UPDATE set -->
-<!-- 				a.COM_CD              = #{comCd}, -->
-<!-- 				a.COM_NM              = #{comNm}, -->
-<!-- 				a.CHAIN_NM            = #{chainNm}, -->
-<!-- 				a.CHAIN_ID            = #{chainId}, -->
-<!-- 				a.BUDGET_DEPT_CD      = #{budgetDeptCd}, -->
-<!-- 				a.BUDGET_DEPT_NM      = #{budgetDeptNm}, -->
-<!-- 				a.BUDGET_ERP_DEPT_SEQ = #{budgetErpDeptSeq}, -->
-<!-- 				a.USE_USER_ID         = #{useUserId}, -->
-<!-- 				a.USE_USER_NM         = #{useUserNm}, -->
-<!-- 				a.USE_ERP_DEPT_SEQ    = #{useErpDeptSeq}, -->
-<!-- 				a.USE_EMP_NO          = #{useEmpNo}, -->
-<!-- 				a.ERP_SM_KIND_NM      = #{erpSmKindNm}, -->
-<!-- 				a.ERP_SM_KIND_SEQ     = #{erpSmKindSeq}, -->
-<!-- 				a.ERP_COST_SEQ        = #{erpCostSeq}, -->
-<!-- 				a.ERP_COST_NM         = #{erpCostNm}, -->
-<!-- 				a.COST_ITEM_CD        = #{costItemCd}, -->
-<!-- 				a.COST_ITEM_NM        = #{costItemNm}, -->
-<!-- 				a.ACTIVITY_CD         = #{activityCd}, -->
-<!-- 				a.ACTIVITY_NM         = #{activityNm}, -->
-<!-- 				a.CUST_NAME           = #{custName}, -->
-<!-- 				a.USER_NAME           = #{userName}, -->
-<!-- 				a.PURPOSE             = #{purpose}, -->
-<!-- 				a.BUSI_TRIP_CODE      = #{busiTripCode}, -->
-<!-- 				a.BUSI_TRIP_TYPE      = #{busiTripType}, -->
-<!-- 				a.START_AREA          = #{startArea}, -->
-<!-- 				a.DEST_AREA           = #{destArea}, -->
-<!-- 				a.WORK_START          = #{workStart}, -->
-<!-- 				a.WORK_END            = #{workEnd}, -->
-<!-- 				a.DISTANCE            = #{distance}, -->
-<!-- 				a.PERSON_CNT          = #{personCnt}, -->
-<!-- 				a.TRANS_AMT           = #{transAmt}, -->
-<!-- 				a.PERSON_NAME         = #{personName}, -->
-<!-- 				a.SUPPLY_AMT          = #{supplyAmt}, -->
-<!-- 				a.APPR_TAX            = #{apprTax}, -->
-<!-- 				a.TIP_AMT             = #{tipAmt}, -->
-<!-- 				a.APPR_AMT            = #{apprAmt}, -->
-<!-- 				a.CURR_CD             = #{currCd}, -->
-<!-- 				a.CUR_AMT             = #{curAmt}, -->
-<!-- 				a.CHAIN_TYPE          = #{chainType}, -->
-<!-- 				a.AUTH_HH             = #{authHh}, -->
-<!-- 				a.IS_DEFINE           = #{isDefine}, -->
-<!-- 				a.CLOSE_YN            = #{closeYn}, -->
-<!-- 				a.CHAIN_ADDR          = #{chainAddr}, -->
-<!-- 				a.MCC_NAME            = #{mccName}, -->
-<!-- 				a.CHAIN_MASTER        = #{chainMaster}, -->
-<!-- 				a.LAST_DATE_TIME      = getDate(), -->
-<!-- 				a.LAST_USER_ID        = #{lastUserId} -->
-<!-- 		WHEN NOT MATCHED THEN -->
-<!-- 			INSERT ( -->
-<!-- 					a.CARD_USE_SEQ        , -->
-<!-- 					a.COMPANY_SEQ         , -->
-<!-- 					a.CANCEL_YN           , -->
-<!-- 					a.APPR_SEQ            , -->
-<!-- 					a.APPR_NO             , -->
-<!-- 					a.APPR_DATE           , -->
-<!-- 					a.CARD_CD             , -->
-<!-- 					a.COM_CD              , -->
-<!-- 					a.COM_NM              , -->
-<!-- 					a.CHAIN_NM            , -->
-<!-- 					a.CHAIN_ID            , -->
-<!-- 					a.BUDGET_DEPT_CD      , -->
-<!-- 					a.BUDGET_DEPT_NM      , -->
-<!-- 					a.BUDGET_ERP_DEPT_SEQ , -->
-<!-- 					a.USE_USER_ID         , -->
-<!-- 					a.USE_USER_NM         , -->
-<!-- 					a.USE_ERP_DEPT_SEQ    , -->
-<!-- 					a.USE_EMP_NO          , -->
-<!-- 					a.ERP_SM_KIND_NM      , -->
-<!-- 					a.ERP_SM_KIND_SEQ     , -->
-<!-- 					a.ERP_COST_SEQ        , -->
-<!-- 					a.ERP_COST_NM         , -->
-<!-- 					a.COST_ITEM_CD        , -->
-<!-- 					a.COST_ITEM_NM        , -->
-<!-- 					a.ACTIVITY_CD         , -->
-<!-- 					a.ACTIVITY_NM         , -->
-<!-- 					a.CUST_NAME           , -->
-<!-- 					a.USER_NAME           , -->
-<!-- 					a.PURPOSE             , -->
-<!-- 					a.BUSI_TRIP_CODE      , -->
-<!-- 					a.BUSI_TRIP_TYPE      , -->
-<!-- 					a.START_AREA          , -->
-<!-- 					a.DEST_AREA           , -->
-<!-- 					a.WORK_START          , -->
-<!-- 					a.WORK_END            , -->
-<!-- 					a.DISTANCE            , -->
-<!-- 					a.PERSON_CNT          , -->
-<!-- 					a.TRANS_AMT           , -->
-<!-- 					a.PERSON_NAME         , -->
-<!-- 					a.SUPPLY_AMT          , -->
-<!-- 					a.APPR_TAX            , -->
-<!-- 					a.TIP_AMT             , -->
-<!-- 					a.APPR_AMT            , -->
-<!-- 					a.CURR_CD             , -->
-<!-- 					a.CUR_AMT             , -->
-<!-- 					a.CHAIN_TYPE          , -->
-<!-- 					a.AUTH_HH             , -->
-<!-- 					a.IS_DEFINE           , -->
-<!-- 					a.CLOSE_YN            , -->
-<!-- 					a.CHAIN_ADDR          , -->
-<!-- 					a.MCC_NAME            , -->
-<!-- 					a.CHAIN_MASTER        , -->
-<!-- 					a.LAST_DATE_TIME      , -->
-<!-- 					a.LAST_USER_ID ) -->
-<!-- 			values( -->
-<!-- 					#{cardUseSeq}, -->
-<!-- 					#{companySeq}, -->
-<!-- 					#{cancelYn}, -->
-<!-- 					#{apprSeq}, -->
-<!-- 					#{apprNo}, -->
-<!-- 					#{apprDate}, -->
-<!-- 					#{cardCd}, -->
-<!-- 					#{comCd}, -->
-<!-- 					#{comNm}, -->
-<!-- 					#{chainNm}, -->
-<!-- 					#{chainId}, -->
-<!-- 					#{budgetDeptCd}, -->
-<!-- 					#{budgetDeptNm}, -->
-<!-- 					#{budgetErpDeptSeq}, -->
-<!-- 					#{useUserId}, -->
-<!-- 					#{useUserNm}, -->
-<!-- 					#{useErpDeptSeq}, -->
-<!-- 					#{useEmpNo}, -->
-<!-- 					#{erpSmKindNm}, -->
-<!-- 					#{erpSmKindSeq}, -->
-<!-- 					#{erpCostSeq}, -->
-<!-- 					#{erpCostNm}, -->
-<!-- 					#{costItemCd}, -->
-<!-- 					#{costItemNm}, -->
-<!-- 					#{activityCd}, -->
-<!-- 					#{activityNm}, -->
-<!-- 					#{custName}, -->
-<!-- 					#{userName}, -->
-<!-- 					#{purpose}, -->
-<!-- 					#{busiTripCode}, -->
-<!-- 					#{busiTripType}, -->
-<!-- 					#{startArea}, -->
-<!-- 					#{destArea}, -->
-<!-- 					#{workStart}, -->
-<!-- 					#{workEnd}, -->
-<!-- 					#{distance}, -->
-<!-- 					#{personCnt}, -->
-<!-- 					#{transAmt}, -->
-<!-- 					#{personName}, -->
-<!-- 					#{supplyAmt}, -->
-<!-- 					#{apprTax}, -->
-<!-- 					#{tipAmt}, -->
-<!-- 					#{apprAmt}, -->
-<!-- 					#{currCd}, -->
-<!-- 					#{curAmt}, -->
-<!-- 					#{chainType}, -->
-<!-- 					#{authHh}, -->
-<!-- 					#{isDefine}, -->
-<!-- 					#{closeYn}, -->
-<!-- 					#{chainAddr}, -->
-<!-- 					#{mccName}, -->
-<!-- 					#{chainMaster}, -->
-<!-- 					getdate(), -->
-<!-- 					#{lastUserId}); -->
-<!-- 	</insert> -->
-
 	<insert id="insertCompanyCardDetailLog" parameterType="companyCardDetailVO">
 			INSERT into
 				TB_COMPANY_CARD_DETAIL_LOG (
-					TCCDL_LOG_SEQ		,
+					LOG_SEQ		,
 					CARD_USE_SEQ        ,
 					COMPANY_SEQ         ,
 					CANCEL_YN           ,
@@ -203,10 +24,10 @@
 					USE_USER_NM         ,
 					USE_ERP_DEPT_SEQ    ,
 					USE_EMP_NO          ,
-					ERP_SM_KIND_NM      ,
-					ERP_SM_KIND_SEQ     ,
-					ERP_COST_SEQ        ,
-					ERP_COST_NM         ,
+					SM_KIND_NM      ,
+					SM_KIND_SEQ     ,
+					COST_SEQ        ,
+					COST_NM         ,
 					COST_ITEM_CD        ,
 					COST_ITEM_NM        ,
 					ACTIVITY_CD         ,
@@ -240,7 +61,7 @@
 					LAST_DATE_TIME      ,
 					LAST_USER_ID )
 			select
-					next value for SEQ_TCCDL_LOG_SEQ,
+					next value for SEQ_COMPANY_CARD_DETAIL_LOG,
 					#{cardUseSeq},
 					#{companySeq},
 					#{cancelYn},
@@ -259,10 +80,10 @@
 					#{useUserNm},
 					#{useErpDeptSeq},
 					#{useEmpNo},
-					#{costInfoVO.erpSmKindNm},
-					#{costInfoVO.erpSmKindSeq},
-					#{costInfoVO.erpCostSeq},
-					#{costInfoVO.erpCostNm},
+					#{costInfoVO.smKindNm},
+					#{costInfoVO.smKindSeq},
+					#{costInfoVO.costSeq},
+					#{costInfoVO.costNm},
 					#{costInfoVO.costItemCd},
 					#{costInfoVO.costItemNm},
 					#{costInfoVO.activityCd},

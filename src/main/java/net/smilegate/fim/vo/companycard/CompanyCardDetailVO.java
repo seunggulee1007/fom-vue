@@ -70,16 +70,16 @@ public class CompanyCardDetailVO {
 	String useEmpNo;
 
 	/** 비용항목 중분류명 */
-	String erpSmKindNm;
+	String smKindNm;
 
 	/** 비용항목 중분류 */
-	int erpSmKindSeq;
+	int smKindSeq;
 
 	/** 비용항목 소분류 */
-	int erpCostSeq;
+	int costSeq;
 
 	/** 비용항목 소분류명 */
-	String erpCostNm;
+	String costNm;
 
 	/** SGMA_중분류(비용항목코드) */
 	int costItemCd;
