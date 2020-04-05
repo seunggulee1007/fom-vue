@@ -8,7 +8,7 @@
     .input_disable {
         background-color: #f9f9f9;
     }
-    .datepicker__v-calendar .icon-datepicker {
+    . .icon-datepicker {
         top : 2.3px !important;
     }
 </style>

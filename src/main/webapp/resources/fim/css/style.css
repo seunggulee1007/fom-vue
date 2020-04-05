@@ -381,6 +381,7 @@ a:hover {
 }
 .tab-cnt .lst-tab-cnt.lst-tab-cnt--active {
   display: block;
+  width: 100%;
 }
 
 .section.section--no-padding {
@@ -454,27 +455,41 @@ a:hover {
   padding: 0;
 }
 
-.datepicker__v-calendar {
+.input-field {
   position: relative;
 }
-.datepicker__v-calendar input[type=text].input-field__input {
+
+.input-field__datepicker + .ui-datepicker-trigger {
+  position: absolute;
+  top: false;
+  right: 12px;
+  bottom: 8px;
+  left: false;
+  width: 16px;
+  height: 16px;
+}
+
+. {
+  position: relative;
+}
+. input[type=text].input-field__input {
   padding: 1px 6px;
   max-width: 144px;
 }
-.datepicker__v-calendar input[type=text].input-field__input[readonly] {
+. input[type=text].input-field__input[readonly] {
   background-color: #fff;
 }
-.datepicker__v-calendar input[type=text].input-field__input::placeholder {
+. input[type=text].input-field__input::placeholder {
   font-size: 12px;
   color: #b3b3b3;
 }
-.datepicker__v-calendar input[type=input] {
+. input[type=input] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 6px 15px;
 }
-.datepicker__v-calendar .icon-datepicker {
+. .icon-datepicker {
   position: absolute;
   top: false;
   right: 12px;
@@ -589,6 +604,11 @@ select {
 
 .lst-tree__sub {
   padding-left: 22px;
+}
+
+.aui-grid {
+  width: 100%;
+  height: 100%;
 }
 
 /* icon */

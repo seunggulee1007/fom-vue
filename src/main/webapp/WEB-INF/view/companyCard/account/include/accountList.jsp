@@ -7,7 +7,7 @@
 			<div class="component-group">
 				<div class="datepicker--range-type">
 				   <div class="component-box">
-						<div class="input-field datepicker__v-calendar">
+						<div class="input-field ">
 							<label for="fromYm" class="input-field__title">정산년월</label>
 							<input type="text" readonly id="fromYm" class="input-field__input">
 							<span class="sp icon-datepicker">
@@ -21,7 +21,7 @@
 						</p>
 					</div>
 					<div class="component-box component-box--non-label">
-						<div class="input-field input-field--no-title datepicker__v-calendar">
+						<div class="input-field input-field--no-title ">
 							<input type="text" readonly id="toYm" class="input-field__input">
 							<span class="sp icon-datepicker">
 								<span class="blind">Calendar 열기</span>

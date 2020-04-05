@@ -18,10 +18,10 @@
         <div class="grid-column grid-column10">
             <div class="section section--border section-exchange">
                 <div class="component-group">      
-                    <div class="component-box datepicker__v-calendar">
+                    <div class="component-box ">
                         <div class="input-field">
                             <label for="date_input_exchange" class="input-field__title ">환율일자</label>
-                            <input type="text" id='selectedDate' readonly class="input-field__datepicker--btn">
+                            <input type="text" id='selectedDate' readonly class="input-field__datepicker">
                         </div>                                    
                     </div>
                     <div class="component-box component-box--align-right clearfix">

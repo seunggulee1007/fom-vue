@@ -112,7 +112,7 @@ function setComma(str) {
     return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 $(document).ready(function(){
-    $(".input-field__datepicker--btn").datepicker({
+    $(".input-field__datepicker").datepicker({
         dateFormat : 'yy-mm-dd'
         ,showOn : "both"
         ,buttonImage : "/resources/fim/img/calendar.jpg"

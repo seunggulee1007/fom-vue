@@ -22,7 +22,7 @@
                 <div class="component-area clearfix">
                     <div class="component-group datepicker--range-type">
                         <div class="component-box">
-                            <div class="input-field datepicker__v-calendar">
+                            <div class="input-field ">
                              <label for="date_input_info1" class="input-field__title ">조회기준일자</label>
                                 <input type="text" v-model='searchStdDt' readonly class="input-field__input">
                                 <v-date-picker :mode='mode' v-model='searchStdDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
@@ -38,7 +38,7 @@
                             </p>
                         </div>  
                         <div class="component-box component-box--non-label">
-                            <div class="input-field input-field--no-title datepicker__v-calendar">
+                            <div class="input-field input-field--no-title ">
                                 <input type="text" v-model='searchEndDt' readonly class="input-field__input">
                                 <v-date-picker :mode='mode' v-model='searchEndDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
                                     <span class="sp icon-datepicker">

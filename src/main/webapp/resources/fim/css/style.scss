@@ -92,6 +92,7 @@ a:hover {
     display: none;
     &.lst-tab-cnt--active{
         display: block;
+        width: 100%;
     }
 }
 
@@ -159,7 +160,17 @@ a:hover {
 }
 
 //input 
-.datepicker__v-calendar{
+.input-field{
+    position: relative;
+}
+
+.input-field__datepicker + .ui-datepicker-trigger{
+    @include position(absolute, false, 12px, 8px, false);
+    width: 16px;
+    height: 16px;
+}
+
+.{
     position: relative;
     input[type=text].input-field__input{
         padding: 1px 6px;
@@ -289,6 +300,12 @@ select{
   
 .lst-tree__sub{
     padding-left: 22px;
+}
+
+//AUI Grid
+.aui-grid{
+    width: 100%;
+    height: 100%;
 }
 
 

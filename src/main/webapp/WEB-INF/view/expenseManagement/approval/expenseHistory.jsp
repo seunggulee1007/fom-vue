@@ -26,8 +26,8 @@
                     <div class="component-group datepicker--range-type">
                         <div class="component-box">
                         <label for="date_input_exchange1" class="input-field__title ">조회기준일자</label>
-                            <div class="input-field input-field--no-title datepicker__v-calendar">
-                                <input type="text" id='searchStdDt' readonly class="input-field__datepicker--btn">
+                            <div class="input-field input-field--no-title ">
+                                <input type="text" id='searchStdDt' readonly class="input-field__input input-field__datepicker">
                             </div>
                         </div>
                         <div class="component-box component-box--non-label">
@@ -36,8 +36,8 @@
                             </p>
                         </div>   
                         <div class="component-box component-box--non-label">
-                            <div class="input-field input-field--no-title datepicker__v-calendar">
-                                <input type="text" id='searchEndDt' readonly class="input-field__datepicker--btn">
+                            <div class="input-field input-field--no-title ">
+                                <input type="text" id='searchEndDt' readonly class="input-field__datepicker">
                             </div>
                         </div>
                     </div>

@@ -33,6 +33,7 @@ function clickModifyPage(tiCostSeq) {
 function makeHistoryList() {
     let html = '';
     $("#expenseHistory").empty();
+    console.log(expenseHistoryList);
     if(expenseHistoryList) {
         for(let list of expenseHistoryList) {
             html += '    <tr class="expandDetail">                                                              ';
@@ -143,7 +144,7 @@ function makeHistoryList() {
     $("#expenseHistory").append(html);
 
     $(".expandDetail").on("click",function(){
-        $(this).siblings('.table__row-sub--detail').toggleClass('table__row--expanded');
+        $(this).next('.table__row-sub--detail').toggleClass('table__row--expanded');
     });
 }
 

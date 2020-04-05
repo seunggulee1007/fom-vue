@@ -303,13 +303,9 @@ function makeExpenseList() {
         html += '        </div>                                                                                             ';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td">                                                                                     ';
-        html += '       <div class="datepicker">';
         html += '           <div class="input-field">';
-        html += '               <span class="input-field__inner">';
-        html += '                   <input type="text" class="input-field__datepicker--btn" readonly name="tiarCostAmtList['+cnt+'].userDate" value="'+expense.useDate+'">';
-        html += '               </span>';
+        html += '                   <input type="text" class="input-field__input input-field__datepicker" readonly name="tiarCostAmtList['+cnt+'].userDate" value="'+expense.useDate+'">';
         html += '           </div>';
-        html += '       </div>';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td">                                                                                     ';
         html += '        <div class="input-field input-field-table">                                                                         ';
@@ -354,12 +350,12 @@ function makeExpenseList() {
         $("#totalAmtDisplay").text(totalAmt);
     });
     // 달력 적용
-    $(".input-field__datepicker--btn").datepicker({
+    $(".input-field__datepicker").datepicker({
         dateFormat : 'yy-mm-dd'
         ,showOn : "both"
         ,buttonImage : "/resources/fim/img/calendar.jpg"
         ,onSelect : function (dateText, inst) {
-            let idx = $(".input-field__datepicker--btn").index(this);
+            let idx = $(".input-field__datepicker").index(this);
             expenseList[idx].useDate = dateText;
         }
     });
