@@ -33,4 +33,8 @@ public interface CompanyCardFimMapper {
 	public void insertCompanyCardMasterFileLog(CompanyCardMasterFileVO vo) throws Exception;
 
 	public List<CompanyCardMasterVO> getCompanyCardMasterList(@Param("fromYm") String fromYm, @Param("toYm") String toYm) throws Exception;
+
+	public List<CompanyCardDetailVO> getCompanyCardDetailList(@Param("cardUseSeq") int cardUseSeq) throws Exception;
+
+	public List<CompanyCardMasterFileVO> getFileList(@Param("cardUseSeq") int cardUseSeq) throws Exception;
 }

@@ -72,7 +72,7 @@ public class AccountController {
 
 				CompanyCardCostInfoVO costInfo = detail.getCostInfoVO();
 
-				log.debug("costInfo.getErpsmKindSeq ===>>> " + costInfo.getErpSmKindNm());
+				log.debug("costInfo.getErpsmKindSeq ===>>> " + costInfo.getSmKindNm());
 				log.debug("costInfo.getTiCostSerl ===>>> " + costInfo.getTiCostSerl());
 			}
 
@@ -114,7 +114,7 @@ public class AccountController {
 	}
 
 	/**
-	 * 저장된 결제내역 마스터 조회.
+	 * 정산목록 조회.
 	 * @param yyyymm
 	 * @return
 	 */
@@ -123,6 +123,27 @@ public class AccountController {
 
 		try {
 			return CommonResultVO.builder().data(service.getCompanyCardMasterList(fromYm, toYm)).result(0000).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return CommonResultVO.builder().result(9999).resultMsg(e.getMessage()).build();
+			// TODO Auto-generated catch block
+		}
+
+	}
+
+	/**
+	 * 결제내역 조회.
+	 * 정산목록 마스터에서 마스터 키를 탭을 이동 시켜서 조회 한다.
+	 * @param fromYm
+	 * @param toYm
+	 * @return
+	 */
+	@PostMapping("/getCardUseData")
+	public CommonResultVO getCardUseData(@RequestParam("cardUseSeq") int cardUseSeq){
+
+		try {
+			return CommonResultVO.builder().data(service.getCardUseData(cardUseSeq)).result(0000).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 

@@ -136,26 +136,26 @@ $(document).ready(function(){
 			//-- 사용자정보(귀속처리정보)
 			data.comCd = ""; //-- 인사법인코드
 			data.comNm = ""; //-- 인사법인명
-			data.useUserId = ""; //-- 사용자코드
-			data.useUserNm = ""; //-- 사용자명
+			data.useUserId = "140"; //-- 사용자코드
+			data.useUserNm = "김재원"; //-- 사용자명
 			data.useErpDeptSeq = "0"; //-- ERP사용자부서코드
-			data.useEmpNo = ""; //-- 사용자사번
+			data.useEmpNo = "H0000140"; //-- 사용자사번
 
 			//-- 비용항목 중분류
-			data.erpSmKindNm = ""; //-- 비용항목 중분류명
-			data.erpSmKindSeq = "0"; //-- 비용항목 중분류코드
+			data.smKindNm = "접대비"; //-- 비용항목 중분류명
+			data.smKindSeq = "111"; //-- 비용항목 중분류코드
 
 			//-- 비용항목 소분류
-			data.erpCostNm = ""; //-- 비용항목 소분류명
-			data.erpCostSeq = "0"; //-- 비용항목 소분류코드
+			data.costNm = "접대비 소분류"; //-- 비용항목 소분류명
+			data.costSeq = "123"; //-- 비용항목 소분류코드
 
 			//-- SGMA 중분류
-			data.costItemCd = ""; //-- SGMA_중분류코드(액티비티)
-			data.costItemNm = ""; //-- SGMA_중분류명(액티비티)
+			data.costItemCd = "2222"; //-- SGMA_중분류코드(액티비티)
+			data.costItemNm = "SGMA중분류"; //-- SGMA_중분류명(액티비티)
 
 			//-- SGMA 소분류
-			data.activityCd = ""; //-- SGMA_소분류코드(액티비티)
-			data.activityNm = ""; //-- SGMA_소분류명(액티비티)
+			data.activityCd = "3333"; //-- SGMA_소분류코드(액티비티)
+			data.activityNm = "SGMA소분류"; //-- SGMA_소분류명(액티비티)
 
 			//-- 접대비
 			data.custName = ""; //-- 업체명
@@ -237,8 +237,8 @@ function setDetailData(companyCardDetailvo){
 	cTr.find("span[name=spDeptNm]").text(companyCardDetailvo.useUserNm); //-- 사용자 귀속 부서는???
 
 
-	cTr.find("td[name=tdSmKindNm]").find("input").val(companyCardDetailvo.erpSmKindNm); //-- 비용항목 중분류
-	cTr.find("td[name=tdErpCostNm]").find("input").val(companyCardDetailvo.erpCostNm); //-- 비용항목 소분류
+	cTr.find("td[name=tdSmKindNm]").find("input").val(companyCardDetailvo.smKindNm); //-- 비용항목 중분류
+	cTr.find("td[name=tdErpCostNm]").find("input").val(companyCardDetailvo.costNm); //-- 비용항목 소분류
 
 	cTr.find("td[name=tdCostItemNm]").find("input").val(companyCardDetailvo.costItemNm); //-- SGMA 중분류
 	cTr.find("td[name=tdActivityNm]").find("span").text(companyCardDetailvo.costItemNm); //-- SGMA 소분류
@@ -275,12 +275,12 @@ function setDetailData(companyCardDetailvo){
 	htmlStr += "<input type='hidden' name='cardDetailList["+rowListCnt+"].useEmpNo' value='"+companyCardDetailvo.useEmpNo+"'>"; //-- 사용자사번
 
 	//-- 비용항목 중분류
-	htmlStr += "<input type='hidden' name='cardDetailList["+rowListCnt+"].costInfoVO.erpSmKindNm' value='"+companyCardDetailvo.erpSmKindNm+"'>"; //-- 비용항목 중분류명
-	htmlStr += "<input type='hidden' name='cardDetailList["+rowListCnt+"].costInfoVO.erpSmKindSeq' value='"+companyCardDetailvo.erpSmKindSeq+"'>"; //-- 비용항목 중분류코드
+	htmlStr += "<input type='hidden' name='cardDetailList["+rowListCnt+"].costInfoVO.smKindNm' value='"+companyCardDetailvo.smKindNm+"'>"; //-- 비용항목 중분류명
+	htmlStr += "<input type='hidden' name='cardDetailList["+rowListCnt+"].costInfoVO.smKindSeq' value='"+companyCardDetailvo.smKindSeq+"'>"; //-- 비용항목 중분류코드
 
 	//-- 비용항목 소분류
-	htmlStr += "<input type='hidden' name='cardDetailList["+rowListCnt+"].costInfoVO.erpCostSeq' value='"+companyCardDetailvo.erpCostSeq+"'>"; //-- 비용항목 소분류코드
-	htmlStr += "<input type='hidden' name='cardDetailList["+rowListCnt+"].costInfoVO.erpCostNm' value='"+companyCardDetailvo.erpCostNm+"'>"; //-- 비용항목 소분류명
+	htmlStr += "<input type='hidden' name='cardDetailList["+rowListCnt+"].costInfoVO.costSeq' value='"+companyCardDetailvo.costSeq+"'>"; //-- 비용항목 소분류코드
+	htmlStr += "<input type='hidden' name='cardDetailList["+rowListCnt+"].costInfoVO.costNm' value='"+companyCardDetailvo.costNm+"'>"; //-- 비용항목 소분류명
 
 	//-- SGMA 중분류
 	htmlStr += "<input type='hidden' name='cardDetailList["+rowListCnt+"].costInfoVO.costItemCd' value='"+companyCardDetailvo.costItemCd+"'>"; //-- SGMA_중분류코드(액티비티)
@@ -373,13 +373,18 @@ function updateSize(inFile) {
  * @param idx
  * @returns
  */
-function onDeleteFile(idx){
+function onDeleteFile(idx, fileSerl){
 
 	let fileName = fileList[idx].name;
 
-	if(confirm(fileName+"\n파일을 삭제 하시겠습니까?")){
-		fileList.splice(idx, 1);
-		calcFileSize();
+	if(fileSerl == 0){
+		if(confirm(fileName+"\n파일을 삭제 하시겠습니까?")){
+			fileList.splice(idx, 1);
+			calcFileSize();
+		}
+	}
+	else{
+
 	}
 }
 
@@ -390,6 +395,7 @@ var allowFileSize = 100000000 //-- 100MB
 
 /**
  * 파일을 추가 하거나 삭제 할때 파일 사이즈를 다시 계산하고, 파일리스트를 다시 그린다.
+ * @Param fileList 서버에서 조회할때는
  * @returns
  */
 function calcFileSize(){
@@ -411,7 +417,7 @@ function calcFileSize(){
 		console.log("file : " + fileList[i]);
 		console.log("file : " + fileList[i].name);
 		console.log("nBytes : " + nBytes);
-		$("#fileListBox").append("<div class='file-info'>"+fileList[i].name+"<a href='javascript:onDeleteFile("+i+")'>&nbsp;&nbsp;[삭제]</a></div>");
+		$("#fileListBox").append("<div class='file-info'>"+fileList[i].name+"<a href='javascript:onDeleteFile("+i+", 0)'>&nbsp;&nbsp;[삭제]</a></div>");
 	}
 
 	if(nBytes > 0){
@@ -421,6 +427,7 @@ function calcFileSize(){
 	else{
 		$("#fileSize").text("0 byte / 100 MB");
 	}
+
 };
 
 function getfileSize(x) {
@@ -491,11 +498,11 @@ function returnCostItemAct(data) {
 
     let rowTR = $("#useCardList tbody tr:eq("+rowIdx+")");
 
-    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.erpSmKindSeq']").val(data.smKindSeq);
-    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.erpSmKindNm']").val(data.smKindName);
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.smKindSeq']").val(data.smKindSeq);
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.smKindNm']").val(data.smKindName);
 
-    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.erpCostSeq']").val(data.costSeq);
-    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.erpCostNm']").val(data.costName);
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.costSeq']").val(data.costSeq);
+    rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.costNm']").val(data.costName);
 
     rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.costItemCd']").val(data.costItemCd);
     rowTR.find("input[name='cardDetailList["+rowIdx+"].costInfoVO.costItemNm']").val(data.costItemNm);
@@ -661,7 +668,7 @@ function formSubmit(){
 	$("#useCardList tbody tr").each(function(idx, evt){
 
 		let empNo = $(this).find("input[name='cardDetailList["+idx+"].useEmpNo']").val();
-		let erpSmKindSeq = $(this).find("input[name='cardDetailList["+idx+"].costInfoVO.erpSmKindSeq']").val(); //-- 비용항목 중분류
+		let smKindSeq = $(this).find("input[name='cardDetailList["+idx+"].costInfoVO.smKindSeq']").val(); //-- 비용항목 중분류
 		let smKindNm = $(this).find("td[name='tdSmKindNm']").find("input").val(); //-- 비용항목 중분류명
 
 		let costItemCd = $(this).find("input[name='cardDetailList["+idx+"].costInfoVO.costItemCd']").val(); //-- SGMA 중분류
@@ -673,7 +680,7 @@ function formSubmit(){
 			return false;
 		}
 
-		if(erpSmKindSeq == "" || smKindNm == ""){
+		if(smKindSeq == "" || smKindNm == ""){
 			alert("비용항목을 선택 하세요.");
 			isExit = true;
 			return false;
@@ -720,34 +727,60 @@ function formSubmit(){
               console.log(e);
         },
     });
-
-    //-- ajaxForm을 사용하면 멀티파일 업로드시 선택한 여러개의 파일중에 일부 파일을 삭제를 못한다.
-//    $("#accountCardFrm").ajaxForm({
-//    	url: "./saveAccount",
-//        enctype: "multipart/form-data",
-//        dataType : 'json',
-//        processData: false,
-//        contentType: false,
-//        beforeSubmit: function(data, form, option) {
-//
-//        	console.log("option : " + option);
-//        	console.log("form : " + form);
-//        	console.log(data);
-//        	return true;
-//        },
-//        success: function(returnData) {
-//            console.log("returnData : "+returnData);
-//            func(returnData);
-//        },
-//        error: function(x,e){
-//              console.log("[AF]ajax status : "+x.status);
-//              console.log(e);
-//        },
-//    });
-//
-//
-//	$("#accountCardFrm").submit();
-
 }
 
+/**
+ * 결제내역 조회.
+ * 정산목록 마스터에서 탭을 이동 시켜서 조회 한다.
+ * @param item
+ * @return
+ */
+function getCardUseData(item){
+	console.log("getCardUseData");
+
+    $.ajax({
+    	url: "./getCardUseData",
+        method:"POST",
+        dataType : 'json',
+        data:"cardUseSeq=" + item.cardUseSeq,
+        success: function(returnData) {
+        	console.log("returnData : ");
+            console.log(returnData);
+            let detailList = returnData.data.cardData.cardDetailList;
+            let fileItems = returnData.data.fileList;
+
+            for(let i = 0; i < detailList.length; i++){
+            	setDetailData(detailList[i]);
+            }
+
+            let totalSize = 0;
+        	for(let i = 0; i < fileItems.length; i++){
+
+        		console.log("file : " + fileItems[i]);
+        		console.log("file : " + fileList[i].name);
+        		console.log("nBytes : " + nBytes);
+
+        		totalSize += fileItems[i].fileSize;
+        		console.log("totalSize : " + totalSize);
+        		let fileSerl = fileItems[i].fileSerl;
+        		$("#fileListBox").append("<div class='file-info'>"+fileItems[i].oFileName+"<a href='javascript:onDeleteFile("+i+", "+fileSerl+")'>&nbsp;&nbsp;[삭제]</a></div>");
+        	}
+
+//    		$("#fileListBox").append("<div class='file-info'>"+fileList[i].name+"<a href='javascript:onDeleteFile("+i+", 0)'>&nbsp;&nbsp;[삭제]</a></div>");
+//
+//	    	if(nBytes > 0){
+//	    		let sOutput = getfileSize(nBytes);
+//	    		$("#fileSize").text(sOutput + " / 100 MB");
+//	    	}
+//	    	else{
+//	    		$("#fileSize").text("0 byte / 100 MB");
+//	    	}
+
+        },
+        error: function(x,e){
+              console.log("[AF]ajax status : "+x.status);
+              console.log(e);
+        },
+    });
+}
 

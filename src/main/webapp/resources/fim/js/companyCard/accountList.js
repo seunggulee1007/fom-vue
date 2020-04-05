@@ -4,6 +4,13 @@
 var myGridID;
 
 $(document).ready(function(){
+
+	var $tabList = $('.tab-area .lst-tab');
+
+	$("#btnGetCalcList").click(function(){
+		getCompanyCardMasterList();
+	});
+
 	$("#fromYm, #toYm").monthpicker({
 		monthNames: ['1월(JAN)', '2월(FEB)', '3월(MAR)', '4월(APR)', '5월(MAY)', '6월(JUN)',
 			'7월(JUL)', '8월(AUG)', '9월(SEP)', '10월(OCT)', '11월(NOV)', '12월(DEC)'],
@@ -87,9 +94,28 @@ $(document).ready(function(){
 		}
 
 	];
-	myGridID = AUIGrid.create("#companyCardMasterList", companyCardMasterCol);
 
-	getCompanyCardMasterList();
+	var auiGridProps = {
+			showRowNumColumn : false,
+			showRowCheckColumn : false,
+			showAutoNoDataMessage : false,
+			selectionMode : "singleRow"
+	};
+	myGridID = AUIGrid.create("#companyCardMasterList", companyCardMasterCol, auiGridProps);
+
+	// 셀 더블클릭 이벤트 바인딩
+	AUIGrid.bind(myGridID, "cellDoubleClick", function(event) {
+		console.log(event.item);
+		let obj = new Object();
+		obj.tabIdx = 0;
+//		obj.item = event.item;
+
+		$('.tab-area .lst-tab').find('.lst-tab__item .lst-tab__menu').trigger("click",obj);
+
+		getCardUseData(event.item);
+	});
+
+//	getCompanyCardMasterList();
 
 });
 
@@ -101,8 +127,7 @@ async function getCompanyCardMasterList(){
 	$.ajax({
 	    url:"./getCompanyCardMasterList",
 	    type:"POST",
-//	    data: "fromYm=" + fromYm + "&toYm=" + toYm,
-	    data: "fromYm=202003&toYm=202006",
+	    data: "fromYm=" + fromYm + "&toYm=" + toYm,
 	    success: function(resultData) {
 
 	    	console.log(resultData)

@@ -106,12 +106,18 @@
 							<tr>
 								<th class="table__th table__th--required">정산년월</th>
 								<td class="table__td">
-									<div class="input-field">
-										<input type="text" readonly id="calcDate" class="input-field__input" style="max-width: 100%">
-										<span id="btnMonthPicker" class="sp icon-datepicker">
-											<span class="blind">Calendar 열기</span>
-										</span>
-									</div>
+<!-- 									<div class="input-field"> -->
+<!-- 										<input type="text" readonly id="calcDate" class="input-field__input" style="max-width: 100%"> -->
+<!-- 										<span id="btnMonthPicker" class="sp icon-datepicker"> -->
+<!-- 											<span class="blind">Calendar 열기</span> -->
+<!-- 										</span> -->
+<!-- 									</div> -->
+                                                        <div class="input-field datepicker__v-calendar">
+                                                            <input type="text" id="calcDate" readonly id="date_input_exchange2" class="input-field__input" style="max-width: 100%">
+                                                                <span class="sp icon-datepicker">
+                                                                    <span class="blind">Calendar 열기</span>
+                                                                </span>
+                                                        </div>
 								</td>
 								<td class="table__td" colspan="6">
 									<button id="btnGetUseList" type="button" class="btn btn--orange" onclick="">
@@ -316,52 +322,6 @@
 	</div>
 
 	<table id="useCardListClone" style="display:none">
-<!-- 		<caption><span class="blind">카드 사용에 대한 자세한 정산 내역 작성</span></caption> -->
-<!-- 		<colgroup> -->
-<!-- 			<col width="46px"> -->
-<!-- 			<col width="46px"> -->
-<!-- 			<col width="88px"> -->
-<!-- 			<col width="56px"> -->
-<!-- 			<col> -->
-<!-- 			<col> -->
-<!-- 			<col> -->
-<!-- 			<col> -->
-<!-- 			<col> -->
-<!-- 			<col> -->
-<!-- 			<col> -->
-<!-- 			<col> -->
-<!-- 			<col width="80px"> -->
-<!-- 			<col> -->
-<!-- 			<col> -->
-<!-- 			<col> -->
-<!-- 			<col> -->
-<!-- 		</colgroup> -->
-<!-- 			<thead> -->
-<!-- 				<tr> -->
-<!-- 					<th class="table__th" rowspan="2">선택</th> -->
-<!-- 					<th class="table__th" rowspan="2">개인 비용 처리</th> -->
-<!-- 					<th class="table__th" rowspan="2">일자</th> -->
-<!-- 					<th class="table__th" rowspan="2">시간</th> -->
-<!-- 					<th class="table__th" rowspan="2">가맹점</th> -->
-<!-- 					<th class="table__th" rowspan="2">예산부서</th> -->
-<!-- 					<th class="table__th" rowspan="2">사용자<br>(귀속처리)</th> -->
-<!-- 					<th class="table__th align-center" colspan="2">비용항목</th> -->
-<!-- 					<th class="table__th align-center" colspan="2">SGMA</th> -->
-<!-- 					<th class="table__th table__th--required" rowspan="2">적요</th> -->
-<!-- 					<th class="table__th" rowspan="2">현지통화</th> -->
-<!-- 					<th class="table__th align-center" colspan="4">금액</th> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<th class="table__th table__th--required">중분류</th> -->
-<!-- 					<th class="table__th table__th--required">소분류</th> -->
-<!-- 					<th class="table__th table__th--required">중분류</th> -->
-<!-- 					<th class="table__th">소분류</th> -->
-<!-- 					<th class="table__th table__txt--align-right">공급가액</th> -->
-<!-- 					<th class="table__th table__txt--align-right">봉사료</th> -->
-<!-- 					<th class="table__th table__txt--align-right">부가세</th> -->
-<!-- 					<th class="table__th table__txt--align-right">총계</th> -->
-<!-- 				</tr> -->
-<!-- 			</thead> -->
 		<tbody>
 			<tr>
 				<td name="tdCheck" class="table__td"> <!-- 선택 -->
