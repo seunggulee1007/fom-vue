@@ -23,7 +23,11 @@ function getInfo() {
         bizNo.focus();
         return;
     }
-    let res = doAjax("/financialLink/biz/bizInfo/fim/"+bizNo.val(), "get");
+    const param = {
+        serverName : 'fim',
+        bizNo : bizNo.val()
+    }
+    let res = doAjax("/financialLink/biz/bizInfo", "get", param);
     
     let trtCntn = res.data.trtCntn;
     let complBizNo = res.data.bizVO.bizNo;
