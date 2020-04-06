@@ -2,6 +2,73 @@
  * 공통 스크립트
  */
 
+Array.prototype.contains = function(obj) {
+	var i = this.length;
+	while (i--) {
+	    if (this[i] === obj) {
+	        return true;
+	    }
+	}
+	return false;
+}
+
+/*
+ * trim을 사용하기 위해 프로토타입에 trim을 추가한다.
+ * 사용예)
+ * var strTrimTest = " TrimTest ";
+ * var strTrimResult = strTrimTest.trim();
+ * @returns
+ */
+String.prototype.trim = function() {
+    return this.replace(/(^\s*)|(\s*$)/gi, "");
+}
+
+/* Date에 Prototype을 추가 한다.
+ * 날짜를 주어진 포맷으로 변환한다.
+ *  //2011년 09월 11일 오후 03시 45분 42초
+ *  console.log(new Date().format("yyyy년 MM월 dd일 a/p hh시 mm분 ss초"));
+ *
+ * //2011-09-11
+ * console.log(new Date().format("yyyy-MM-dd"));
+ *
+ * //'11 09.11
+ * console.log(new Date().format("'yy MM.dd"));
+ *
+ * //2011-09-11 일요일
+ * console.log(new Date().format("yyyy-MM-dd E"));
+ *
+ * //현재년도 : 2011
+ * console.log("현재년도 : " + new Date().format("yyyy"));
+ * @param f
+ * @returns
+ */
+Date.prototype.format = function(f) {
+    if (!this.valueOf()) return " ";
+
+    var weekName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+    var d = this;
+
+    return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
+        switch ($1) {
+            case "yyyy": return d.getFullYear();
+            case "yy": return (d.getFullYear() % 1000).zf(2);
+            case "MM": return (d.getMonth() + 1).zf(2);
+            case "dd": return d.getDate().zf(2);
+            case "E": return weekName[d.getDay()];
+            case "HH": return d.getHours().zf(2);
+            case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
+            case "mm": return d.getMinutes().zf(2);
+            case "ss": return d.getSeconds().zf(2);
+            case "a/p": return d.getHours() < 12 ? "오전" : "오후";
+            default: return $1;
+        }
+    });
+};
+String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
+String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
+Number.prototype.zf = function(len){return this.toString().zf(len);};
+
+
 // uv, pv 수집 서버로 데이터 전송
 function navilog(userId, docName, clientIp, domain) {
 	var timing = JSON.stringify(window.performance.timing);
@@ -76,7 +143,7 @@ function getDate(date, type, days){
     let year = date.getFullYear();
     let month = date.getMonth() +1;
     let day = date.getDate();
-    
+
     if(month < 10) {
         month = "0"+month;
     }
@@ -87,9 +154,9 @@ function getDate(date, type, days){
     if(!type) {
         type = "";
     }
-    
+
     today = year + type + month + type + day;
-    
+
     return today;
 }
 
@@ -124,7 +191,7 @@ function getPageList(start, end) {
     let cnt =0;
     for(let i=start; i<=end; i++) {
         arr[cnt++] = i;
-    }   
+    }
     return arr;
 }
 
@@ -190,11 +257,11 @@ function makePagingVO(fnName, target) {
 
 function doAjax(url, type, param, config) {
     let res = {};
-    
+
     const ajaxConfig = {
         url : url
         ,type : type
-        ,data : param 
+        ,data : param
         ,async : false
         ,success : function(data){
             res = data;
@@ -216,7 +283,7 @@ function dateFilter(value, type){
             type = '-';
         }
     return value.substr(0,4) + type + value.substr(4,2) + type + value.substr(6,2);
-} 
+}
 
 function bizNoFilter(value, type) {
     if(!value) return;
@@ -250,25 +317,25 @@ function  getToday () {
     if(day.length == 1) {
         day = "0" + day;
     }
-    
+
     return year + "-" + month + "-" + day;
 }
 
 function checkBizNo (bizNo) {      // 사업자 번호 체크
-              
-    let checkID = new Array(1, 3, 7, 1, 3, 7, 1, 3, 5, 1); 
-    let i, chkSum=0, c2, remander; 
-    bizNo = bizNo.replace(/-/gi,''); 
+
+    let checkID = new Array(1, 3, 7, 1, 3, 7, 1, 3, 5, 1);
+    let i, chkSum=0, c2, remander;
+    bizNo = bizNo.replace(/-/gi,'');
     if(bizNo.length != 10) {
         return false;
     }
     for (i=0; i<=7; i++) {
-        chkSum += checkID[i] * bizNo.charAt(i); 
+        chkSum += checkID[i] * bizNo.charAt(i);
     }
-    c2 = "0" + (checkID[8] * bizNo.charAt(8)); 
-    c2 = c2.substring(c2.length - 2, c2.length); 
-    chkSum += Math.floor(c2.charAt(0)) + Math.floor(c2.charAt(1)); 
-    remander = (10 - (chkSum % 10)) % 10 ; 
+    c2 = "0" + (checkID[8] * bizNo.charAt(8));
+    c2 = c2.substring(c2.length - 2, c2.length);
+    chkSum += Math.floor(c2.charAt(0)) + Math.floor(c2.charAt(1));
+    remander = (10 - (chkSum % 10)) % 10 ;
 
     return (Math.floor(bizNo.charAt(9)) == remander);
 }
