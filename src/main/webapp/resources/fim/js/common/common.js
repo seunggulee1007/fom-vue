@@ -23,6 +23,18 @@ String.prototype.trim = function() {
     return this.replace(/(^\s*)|(\s*$)/gi, "");
 }
 
+/**
+ * 문자열 중에 orgChar를 찾아서 모두 newChar로 치환 한다.
+ * @param orgChar
+ * @param newChar
+ * 사용예) var sampleStr = "aaabbbccc";
+ * sampleStr.replaceAll("bbb", "111");
+ * @returns
+ */
+String.prototype.replaceAll = function(orgChar, newChar) {
+    return this.split(orgChar).join(newChar);
+}
+
 /* Date에 Prototype을 추가 한다.
  * 날짜를 주어진 포맷으로 변환한다.
  *  //2011년 09월 11일 오후 03시 45분 42초
