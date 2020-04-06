@@ -1,65 +1,71 @@
 /* jshint esversion: 6 */
 'use strict';
+let bizInfoList = [];
+let pagingVO = {};
 $(document).ready(function(){
-    Vue.use(MyPlugin);
-    Vue.use(onlyInt);
-    new Vue({
-        el : "#app"
-        , data : {
-            searchStdDt : getDate(new Date(), '-')
-            ,searchEndDt : getDate(new Date(), '-')                   // 사업자 번호
-            ,openFlag : true
-            ,mode: 'single'             // 날짜 모드(single 단일 multi : 범위)
-            ,masks : {                  // 날짜 마스킹 처리
-                title: 'MMMM YYYY',     // 날짜 타이틀
-                input: 'YYYY-MM-DD',    // input에 보여질 포맷
-            }
-            ,bizNo : ''
-            ,bizInfoList : []
-            ,userNm : ''
-            ,deptNm : ''
-            ,pagingVO : {}
-        }
-        ,mounted () {
-            this.getBizInfoList();
-        }
-        ,watch : {
-            searchStdDt () {
-                if(typeof(this.searchStdDt) !== 'string') {
-                    this.searchStdDt = getDate(this.searchStdDt,'-');
-                }
-            }
-            ,searchEndDt () {
-                if(typeof(this.searchEndDt) !== 'string') {
-                    this.searchEndDt = getDate(this.searchEndDt,'-');
-                }
-            }
-        }
-        ,methods : {
-            /**********************************************
-             * @method : getBizInfoList
-             * @note 사업자 휴폐업 조회 이력 조
-             * @author : es-seungglee
-             ***********************************************/
-            async getBizInfoList (pageNo) {
-                if(!pageNo) {
-                    pageNo = 1;
-                }
-                console.log(this.bizNo);
-                const param = {
-                    searchStdDt : this.searchStdDt
-                    ,searchEndDt : this.searchEndDt
-                    ,bizNo : this.bizNo
-                    ,pageNo : pageNo
-                    ,userNm : this.userNm
-                    ,deptNm : this.deptNm
-                }
-                let bizInfo = await this.doAxios("/financialLink/biz/bizInfo/bizInfoList","get", param);
-                this.bizInfoList = bizInfo.data.bizInfoList;
-                this.pagingVO = bizInfo.data.pagingVO;
-            }
-            
-        }
+    $("#searchStdDt").val(getDate(new Date(), '-', -7));
+    $("#searchEndDt").val(getDate(new Date(), '-'));
+    getBizInfoList();
+
+    $("#searchBtn").click(function(){
+        getBizInfoList();
     });
-    
+
+    $(".doSearch").keyup(function(e){
+        if(e.keyCode == 13)  {
+            getBizInfoList();
+        }
+    })
 });
+function getBizInfoList(pageNo) {
+    if(!pageNo) {
+        pageNo = 1;
+    }
+    const param = {
+        searchStdDt : $("#searchStdDt").val()
+        ,searchEndDt : $("#searchEndDt").val()
+        ,bizNo : $("#bizNo").val()
+        ,pageNo : pageNo
+        ,userNm : $("#userNm").val()
+        ,deptNm : $("#deptNm").val()
+    }
+    let bizInfo = doAjax("/financialLink/biz/bizInfo/bizInfoList","get", param);
+    bizInfoList = bizInfo.data.bizInfoList;
+    pagingVO = bizInfo.data.pagingVO;
+    if(pagingVO.totalCnt> 0) {
+        makePagingVO('getBizInfoList','pagingVO');
+    }
+    makeBizInfoList();
+}
+
+function makeBizInfoList() {
+    let html = '';
+    $("#bizInfoList").empty();
+    if(bizInfoList.length > 0) {
+        for(let i=0; i<bizInfoList.length; i++) {
+            let list = bizInfoList[i];
+            html += '<tr>                    ';
+            html += '    <td class="table__td">                        ';
+            html += '        <span class="table__txt">'+list.crtDateStr+'</span>        ';
+            html += '    </td>                                ';
+            html += '    <td class="table__td">                        ';
+            html += '        <span class="table__txt">'+list.userNm+'</span>        ';
+            html += '    </td>                                ';
+            html += '    <td class="table__td">                        ';
+            html += '        <span class="table__txt">'+list.deptNm+'</span>        ';
+            html += '    </td>                                ';
+            html += '    <td class="table__td">                        ';
+            html += '        <span class="table__txt">'+bizNoFilter(list.bizNo)+'</span>    ';
+            html += '    </td>                                ';
+            html += '    <td class="table__td">                        ';
+            html += '        <span class="table__txt">'+list.resultMsg+'</span>        ';
+            html += '    </td>                                ';
+            html += '</tr>                                    ';
+        }
+    }else {
+        html += '<tr>';
+        html += '    <td class="table__td align-center" colspan="5"><span class="table__txt">조회된 내용이 없습니다.</span></td>';
+        html += '</tr>';
+    }
+    $("#bizInfoList").append(html);
+}
