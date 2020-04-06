@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="grid-layout">
-        <div class="grid-column10">
+        <div class="grid-column10" style="width : 100%;">
             <!-- <iframe src="http://ekp.smilegate.net/eNovator/GSWF/WebPage/AccountInfo/AccountInfoWrite.aspx" frameborder="0"></iframe> -->
 
             <div class="tab-area tab-area--top">

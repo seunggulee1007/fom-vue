@@ -31,9 +31,46 @@ var expenseList = [{
 }];
 var uploadFiles = [];               // 파일 저장용 리스트 
 var originFileSize = 0;             // 계산용 기존 파일 크기
+var tiarCostVO = {
+    useDate : getDate()
+    ,title : ''
+};
 
 $(document).ready(function(){
-    makeExpenseList();
+    tiarCostVO.tiCostSeq = $("#tiCostSeq").val();
+    tiarCostVO.regDate = getToday();
+    // TODO 세션에서 받아온 값 넣기.
+    tiarCostVO.regUserId = '110204';
+    tiarCostVO.regUserNm = '성준호';
+    tiarCostVO.regEmpNo = 'H10004';
+    tiarCostVO.regDeptCd = 'H0000000';
+    tiarCostVO.regDeptNm = '스마일게이트 홀딩스';
+    tiarCostVO.comCd = 'H0000000';
+    tiarCostVO.title = '[지출결의서(현금)_'+tiarCostVO.regUserNm+'_'+tiarCostVO.regDate+']';
+    if($("#tiCostSeq").val()) {
+        const param = {
+            tiCostSeq : $("#tiCostSeq").val()
+        }
+        let expense = doAjax("/expenseManagement/approval/expenseList", "get", param);
+        tiarCostVO = expense.data.tiarCostVO;
+        expenseList = expense.data.tiCostAmtVOList;
+        if(expense.data.fileList.length > 0) {
+            let fileList = expense.data.fileList;
+            for(let i=0; i< fileList.length; i++) {
+                let file = {};
+                file.name = fileList[i].originalFileNm;
+                file.size = fileList[i].fileSzie;
+                file.type = fileList[i].contentType;
+                file.fileId = fileList[i].fileId;
+                uploadFiles.push(file);
+            }
+            makeFile();
+        }
+        makeTotalAmt();
+    }
+    getBudgetInfo();
+    getBankInfo();
+    bottomHtml();
     // 추가 버튼 클릭
     $("#addExpense").click(function(){
         addExepnseList();
@@ -58,10 +95,10 @@ $(document).ready(function(){
             $("#title").focus();
             return;
         }
+        let formData = new FormData(/* $("#frm")[0] */); 
         let cnt = 1;
         for(let i=0;i <expenseList.length; i++) {
             let expense = expenseList[i];
-            console.log(expense);
             if(!expense.costInfoVO.smKindSeq) {
                 alert(cnt + "번째 비용항목을 선택해 주세요");
                 $("input[name='tiarCostAmtList["+(cnt-1) + "].costInfoVO.smKindName']").focus();
@@ -79,6 +116,22 @@ $(document).ready(function(){
                 $("input[name='tiarCostAmtList["+(cnt-1) + "].curAmt']").focus();
                 return;
             }
+            for(let key in expense) {
+                let subExpense = expense[key];
+                if(typeof(subExpense) == 'object') {
+                    for(let subKey in subExpense) {
+                        if(isNull(subExpense[subKey])) {
+                            continue;
+                        }
+                        formData.append('tiarCostAmtList['+(cnt-1)+'].'+key+"."+subKey, subExpense[subKey]);
+                    }
+                }else {
+                    if(isNull(expense[key])) {
+                        continue;
+                    }
+                    formData.append('tiarCostAmtList['+(cnt-1)+'].'+key, expense[key]);
+                }
+            }
             cnt++;
         }
         if(!$("#memo").val()) {
@@ -86,8 +139,12 @@ $(document).ready(function(){
             $("#memo").focus();
             return;
         }
-        let formData = new FormData($("#frm")[0]); 
-
+        for(let key in tiarCostVO) {
+            if(isNull(tiarCostVO[key])) {
+                continue;
+            }
+            formData.append(key, tiarCostVO[key]);
+        }
         if($("#file2").val()) {
             let cnt = 0;
             for(let i=0; i< uploadFiles.length; i++) {
@@ -102,9 +159,10 @@ $(document).ready(function(){
             ,enctype : "multipart/form-data"
         }
 
-        let res = doAjax("/expenseManagement/approval/expense", "post", formData, ajaxConfig);
+        let res = doAjax("/expenseManagement/approval/saveExpense", "post", formData, ajaxConfig);
 
         console.log(res);
+        alert(res.resultMsg);
 
     });
 
@@ -135,10 +193,62 @@ $(document).ready(function(){
     });
 });
 
+/**********************************************
+ * @method : getBudgetInfo
+ * @note 예산 부서 정보 세팅 
+ * @since 2020.04.06
+ * @author : es-seungglee
+ ***********************************************/
+function getBudgetInfo() {
+    const param = {
+        comCd : tiarCostVO.comCd
+        ,deptCd : tiarCostVO.regDeptCd
+    }
+    let res = doAjax("/common/getBudgetDeptInfo", "get", param);
+    console.log(res);
+    if(res.result == 0) {
+        tiarCostVO.budgetDeptCd = res.data.deptSeq;                 // 예산 부서 코드
+        tiarCostVO.budgetDeptNm = res.data.deptNm;                  // 예산 부서 명
+        tiarCostVO.budgetErpDeptSeq = res.data.deptSeq;             // 예산 부서 erp 코드
+    }
+    setDeptVO();
+    makeExpenseList();
+}
+
+/**********************************************
+ * @method : setDeptVO
+ * @note 부서 정보 세팅 
+ * @since 2020.04.06
+ * @author : es-seungglee
+ ***********************************************/
+function setDeptVO () {
+    deptVO.budgetDeptCd = tiarCostVO.budgetDeptCd;
+    deptVO.budgetDeptNm = tiarCostVO.budgetDeptNm;
+    deptVO.budgetErpDeptSeq = tiarCostVO.budgetErpDeptSeq;
+    deptVO.deptCd = tiarCostVO.regDeptCd;
+    deptVO.deptNm = tiarCostVO.regDeptNm;
+    deptVO.useDeptCd = tiarCostVO.regDeptCd;
+    deptVO.useDeptNm = tiarCostVO.regDeptNm;
+    deptVO.useUserId = tiarCostVO.regUserId;
+    deptVO.useUserNm = tiarCostVO.regUserNm;
+}
+
+/**********************************************
+ * @method : makeFile
+ * @note file 만들기
+ * @since 2020.04.03
+ * @author : es-seungglee
+ ***********************************************/
 function makeFile() {
     makeFileHtml(uploadFiles);
 }
 
+/**********************************************
+ * @method : makeFileHtml
+ * @note 파일 view 리턴
+ * @since 2020.04.03
+ * @author : es-seungglee
+ ***********************************************/
 function makeFileHtml(fileList) {
     $("#uploadFile").empty();
     html = '';
@@ -146,12 +256,23 @@ function makeFileHtml(fileList) {
     for(let i=0; i< fileList.length; i++) {
         let file = fileList[i];
         html += '<div class="file-info">' + file.name + '</div>';
-        html += '<button type="button" class="deleteBtn">삭제</button>';
-        
+        html += '<button type="button" class="deleteBtn" value="'+file.fileId+'">삭제</button>';
     }
     $("#uploadFile").append(html);
     $(".deleteBtn").on("click",function(){
+        if(!confirm("해당 파일을 삭제하시겠습니까?")) {
+            return;
+        }
         let idx = $(".deleteBtn").index(this);
+        
+        if($(this).val()){
+            const param = {
+                fileId : $(this).val()
+            }
+            console.log(param);
+            doAjax("/expenseManagement/approval/deleteTiarCostFileByFileId","get", param);
+        }
+ 
         uploadFiles.splice(idx, 1);
         makeFile();
     });
@@ -174,8 +295,14 @@ function openUserPopup(idx) {
  ***********************************************/
 function choiceUser(data, idx) {
     console.log(data);
-    this.expenseList[idx].deptVO = data;
-    this.expenseList[idx].costInfoVO = costInfoVO;
+    expenseList[idx].deptVO = data;
+    expenseList[idx].deptVO.useDeptCd = data.deptCd;
+    expenseList[idx].deptVO.useDeptNm = data.deptNm;
+    expenseList[idx].deptVO.useUserId = data.userId;
+    expenseList[idx].deptVO.useUserNm = data.userNm;
+    expenseList[idx].deptVO.useEmpNo = data.empNo;
+    
+    expenseList[idx].costInfoVO = costInfoVO;
     makeExpenseList();
 }
 /**********************************************
@@ -223,7 +350,12 @@ function openExpensItemSgmaPopup(idx) {
     $("#userNm").val(this.expenseList[idx].deptVO.userNm);
     window.open("/common/expenseItemSgmaPopup", "_blank", "width=1000,height=662,toolbar=no,menubar=no,scrollbars=no,resizable=yes,location=no");
 }
-
+/**********************************************
+ * @method : openExpenseDetail
+ * @note 비용항목 세부항목 팝업 호출
+ * @since 2020.04.01
+ * @author : es-seungglee
+ ***********************************************/
 function openExpenseDetail(idx) {
     $("#idx").val(idx);
     window.open("/common/expenseDetailPopup", "_blank", "width=560,height=760,toolbar=no,menubar=no,scrollbars=no,resizable=yes,location=no");
@@ -240,8 +372,9 @@ function makeExpenseList() {
     $("#expenseList").empty();
     let cnt = 0;
     html = '';
-    for(let i=0; i< this.expenseList.length; i++) {
-        let expense = this.expenseList[i];
+    console.log(expenseList);
+    for(let i=0; i< expenseList.length; i++) {
+        let expense = expenseList[i];
         html += '<tr>                                                                                                 ';
         html += '    <td class="table__td">                                                                                     ';
         html += '        <div class="btn_group">                                                                                 ';
@@ -259,14 +392,7 @@ function makeExpenseList() {
         html += '        <span class="table__txt">'+expense.deptVO.budgetDeptNm+'</span>                                                                             ';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td table__td--btn">                                                                             ';
-        html += '        <span class="table__txt">'+expense.deptVO.userNm+'<br>'+expense.deptVO.deptNm+'</span>                                                                     ';
-        html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.useUserNm" value="'+expense.deptVO.userNm+'">';     // 사용자 이름
-        html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.useUserId" value="'+expense.deptVO.userId+'">';     // 사용자 아이디
-        html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.useDeptCd" value="'+expense.deptVO.deptCd+'">';     // 부서코드 
-        html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.useDeptNm" value="'+expense.deptVO.deptNm+'">';     // 부서명
-        html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.budgetDeptCd" value="'+expense.deptVO.budgetDeptCd+'">';     // 부서명
-        html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.budgetErpDeptSeq" value="'+expense.deptVO.budgetErpDeptSeq+'">';     // 부서명
-        html +='         <input type="hidden" name="tiarCostAmtList['+cnt+'].deptVO.budgetDeptNm" value="'+expense.deptVO.budgetDeptNm+'">';     // 부서명
+        html += '        <span class="table__txt">'+expense.deptVO.useUserNm+'<br>'+expense.deptVO.useDeptNm+'</span>                                                                     ';
         html += '        <button type="button" class="btn btn-change-user" onclick="openUserPopup(\''+cnt+'\');">                                                         ';
         html += '            <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>                                                     ';
         html += '        </button>                                                                                         ';
@@ -274,19 +400,15 @@ function makeExpenseList() {
         html += '    <td class="table__td">                                                                                     ';
         html += '        <div class="input-field input-field-table">                                                                         ';
         html += '            <input type="text" class="input-field__input non_box" placeholder="선택해주세요." name="tiarCostAmtList['+cnt+'].costInfoVO.smKindName" value="'+ expense.costInfoVO.smKindName+'" ondblClick="openExpensItemAllPopup(\''+cnt + '\');">  ';
-        html += '            <input type="hidden" value="'+ expense.costInfoVO.smKindSeq+'" name="tiarCostAmtList['+cnt+'].costInfoVO.smKindSeq">  ';
         html += '        </div>                                                                                             ';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td table__td--data">                                                                             ';
         html += '        <span class="table__txt">'+expense.costInfoVO.costName+'</span>                                                                             ';
-        html += '        <input type="hidden" value="'+ expense.costInfoVO.costName+'" name="tiarCostAmtList['+cnt+'].costInfoVO.costName">  ';
-        html += '        <input type="hidden" value="'+ expense.costInfoVO.costSeq+'" name="tiarCostAmtList['+cnt+'].costInfoVO.costSeq"> ';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td table__td--data">                                                                             ';
         html += '        <div class="input-field input-field-table">                                                                         ';
         if(expense.costInfoVO.smKindSeq) {
             html += '            <input type="text" class="input-field__input non_box" placeholder="선택해주세요."  name="tiarCostAmtList['+cnt+'].costInfoVO.activityNm" value="'+ expense.costInfoVO.activityNm+'" ondblClick="openExpensItemSgmaPopup(\''+cnt + '\');"> ';
-            html += '            <input type="hidden" value="'+ expense.costInfoVO.activityCd+'" name="tiarCostAmtList['+cnt+'].costInfoVO.activityCd">  ';
         }else {
             html += '<span class="table__txt"></span>';
         }
@@ -294,8 +416,6 @@ function makeExpenseList() {
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td table__td--data">                                                                             ';
         html += '        <span class="table__txt">'+expense.costInfoVO.costItemNm+'</span>                                                                             ';
-        html += '        <input type="hidden" value="'+expense.costInfoVO.costItemNm+'" name="tiarCostAmtList['+cnt+'].costInfoVO.costItemNm">                                                                             ';
-        html += '        <input type="hidden" value="'+expense.costInfoVO.costItemCd+'" name="tiarCostAmtList['+cnt+'].costInfoVO.costItemCd">                                                                             ';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td">                                                                                     ';
         html += '        <div class="input-field input-field-table">                                                                         ';
@@ -315,7 +435,7 @@ function makeExpenseList() {
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td">                                                                                     ';
         html += '        <div class="input-field input-field-table">                                                                         ';
-        html += '            <input type="text" class="input-field__input table__txt--align-right changeCurAmt" placeholder="입력해주세요." name="tiarCostAmtList['+cnt+'].curAmt" value="'+expense.curAmt+'">                                              ';
+        html += '            <input type="text" class="input-field__input table__txt--align-right changeCurAmt" placeholder="입력해주세요." name="tiarCostAmtList['+cnt+'].curAmt" value="'+setComma(expense.curAmt)+'">                                              ';
         html += '        </div>                                                                                             ';
         html += '    </td>                                                                                             ';
         html += '</tr>                                                                                                ';
@@ -340,29 +460,55 @@ function makeExpenseList() {
     });
     // 금액 입력시 변경
     $(".input-field-table > .changeCurAmt").on("change",function(){
+        let value = $(this).val()
+        if(typeof(value) == 'string' && value.indexOf(',') !=-1) {
+            value = value.replace(/,/gi,'');
+        }
         let idx = $(".changeCurAmt").index(this);
-        expenseList[idx].curAmt = $(this).val();
-        let totalAmt = 0;
-        $(".changeCurAmt").each(function(idx, item){
-            totalAmt += Number(this.value);
-        });
-        $("#totalAmt").val(totalAmt);
-        $("#totalAmtDisplay").text(totalAmt);
+        $(this).val(setComma(value));
+        expenseList[idx].curAmt = value;
+        makeTotalAmt();
     });
+
+    $(".input-field-table > .changeCurAmt").keyup(function(){
+        if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+           this.value = this.value.replace(/[^0-9\.]/g, '');
+        }
+    })
+
+    $(".input-field-table > .changeCurAmt").focusin(function(){
+        if (this.value != this.value.replace(/[^0-9\.]/g, '')) {
+           this.value = this.value.replace(/[^0-9\.]/g, '');
+        }
+    })
     // 달력 적용
     $(".input-field__datepicker").datepicker({
-        dateFormat : 'yy-mm-dd'
-        ,showOn : "both"
-        ,buttonImage : "/resources/fim/img/calendar.jpg"
-        ,onSelect : function (dateText, inst) {
+        dateFormat : 'yy-mm-dd',
+        showOn : "both",
+        buttonImage : "/resources/fim/img/calendar.jpg",
+        onSelect : function (dateText, inst) {
             let idx = $(".input-field__datepicker").index(this);
             expenseList[idx].useDate = dateText;
-        }
+        },
+        yearSuffix: '년',
+        monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+        dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
+        showMonthAfterYear: true,
+        prevText: "전월",
+        nextTexT: "차월",
+        currentText: "오늘",
+        closeText: "달력 닫기",
     });
 }
 
+/**********************************************
+ * @method : addExepnseList
+ * @note 상세내역 리스트 한 건 추가
+ * @since 2020.04.01
+ * @author : es-seungglee
+ ***********************************************/
 function addExepnseList () {
-    this.expenseList.push(
+    expenseList.push(
         {
             deptVO : deptVO
             ,costInfoVO : costInfoVO
@@ -376,7 +522,12 @@ function addExepnseList () {
     makeExpenseList();
 }
 
-
+/**********************************************
+ * @method : checkDetailPopupOpenYn
+ * @note 세부항목 팝업 띄울지 여부 리턴하는 함수
+ * @since 2020.04.02
+ * @author : es-seungglee
+ ***********************************************/
 function checkDetailPopupOpenYn(costInfoVO) {
     let smKindSeq = costInfoVO.smKindSeq;        // 중분류
     let costSeq = costInfoVO.costSeq;            // 소분류
@@ -435,4 +586,136 @@ function checkDetailPopupOpenYn(costInfoVO) {
         }
     }
     return false;
+}
+
+/**********************************************
+ * @method : getBankInfo
+ * @note 은행 계좌 정보 가져오는 함수
+ * @since 2020.04.06
+ * @author : es-seungglee
+ ***********************************************/
+function getBankInfo() {
+    const param = {
+        deptCd : tiarCostVO.regDeptCd
+        ,empNo : tiarCostVO.regEmpNo
+    }
+    let bankInfo = this.doAjax("/expenseManagement/approval/getBankInfo","get", param, this.setBankInfo);
+    let bankInfoVO = bankInfo.data.bankInfoVO;
+    tiarCostVO.acctNo = bankInfoVO.AccNo;
+    tiarCostVO.bankNm = bankInfoVO.PayBankName;
+    tiarCostVO.acctOwnerNm = bankInfoVO.OwnerName;
+    makeTopHtml();
+}
+
+/**********************************************
+ * @method : makeTopHtml
+ * @note 기본정보 매핑 시키는 함수
+ * @since 2020.04.06
+ * @author : es-seungglee
+ ***********************************************/
+function makeTopHtml() {
+    $("#topHtml").empty();
+    let html = '';
+    html += '<tr>                                                                    ';
+    html += '    <th class="table__th">문서번호</th>                                                     ';
+    html += '    <td class="table__td table__td--data"><span class="table__txt">';
+    if(tiarCostVO.tiCostSerl) {
+        html += tiarCostVO.tiCostSerl
+    }else {
+        html +='결재 완료 시, 발번됩니다.';
+    }
+    html += '</span></td>                    ';
+    html += '    <th class="table__th">기안일자</th>                                                     ';
+    html += '    <td class="table__td table__td--data"><span class="table__txt">'+tiarCostVO.regDate+ '</span></td>                            ';
+    html += '    <th class="table__th">기안자</th>                                                     ';
+    html += '    <td class="table__td table__td--data"><span class="table__txt">'+tiarCostVO.regUserNm+'</span></td>                            ';
+    html += '</tr>                                                                    ';
+    html += '<tr>                                                                    ';
+    html += '    <th class="table__th">기안부서</th>                                                     ';
+    html += '    <td colspan="5" class="table__td table__td--data"><span class="table__txt">'+tiarCostVO.regDeptNm+'</span></td>  ';
+    html += '</tr>                                                                    ';
+    html += '<tr>                                                                    ';
+    html += '    <th class="table__th">제목</th>                                                    ';
+    html += '    <td colspan="5" class="table__td">                                                    ';
+    html += '    <div class="input-field input-field-table">                                            ';
+    html += '        <input type="text" class="input-field__input" id="title" name="title" value="'+ tiarCostVO.title+ '">        ';
+    html += '    </div>                                                                ';
+    html += '    </td>                                                                ';
+    html += '</tr>                                                                    ';
+    html += '<tr>                                                                    ';
+    html += '    <th class="table__th">계좌번호</th>                                                     ';
+    html += '    <td class="table__td table__td--data"><span class="table__txt">'+tiarCostVO.acctNo+'</span></td>                            ';
+    html += '    <th class="table__th">은행명</th>                                                     ';
+    html += '    <td class="table__td table__td--data"><span class="table__txt">'+tiarCostVO.bankNm+'</span></td>                            ';
+    html += '    <th class="table__th">예금주</th>                                                     ';
+    html += '    <td class="table__td table__td--data"><span class="table__txt">'+tiarCostVO.acctOwnerNm+'</span></td>                            ';
+    html += '</tr>                                                                ';
+    $("#topHtml").append(html);
+}
+
+/**********************************************
+ * @method : makeTotalAmt
+ * @note 총 금액 계산
+ * @since 2020.04.06
+ * @author : es-seungglee
+ ***********************************************/
+function makeTotalAmt() {
+    let totalAmt = 0;
+    for(let i=0; i< expenseList.length; i++) {
+        if(expenseList[i].curAmt) {
+            totalAmt += Number(expenseList[i].curAmt);
+        }
+    }
+    tiarCostVO.totalAmt = totalAmt;
+    console.log(totalAmt);
+    $("#totalAmt").text(totalAmt);
+    $("#totalAmtDisplay").text(setComma(totalAmt));
+}
+
+function bottomHtml() {
+    $("#bottomHtml").empty();
+    let html = '';
+    html += '<tr>                                                            ';
+    html += '    <th class="table__th">의견입력</th>                                             ';
+    html += '    <td class="table__td" colspan="5">                                            ';
+    html += '        <div class="textarea">                                                ';
+    html += '        <textarea id="memo" name="memo" cols="30" rows="10" style="height:80px">'+tiarCostVO.memo+'</textarea>                ';
+    html += '        </div>                                                        ';
+    html += '    </td>                                                                                ';
+    html += '    </tr>                                                        ';
+    html += '    <tr>                                                        ';
+    html += '    <th class="table__th">전표처리여부</th>                                         ';
+    html += '    <td class="table__td" colspan="5">                                            ';
+    html += '        <div class="input-field input-field-table">                                    ';
+    html += '        <input type="text" class="input-field__input">                                    ';
+    html += '        </div>                                                        ';
+    html += '    </td>                                                        ';
+    html += '    </tr>                                                        ';
+    html += '    <tr>                                                        ';
+    html += '    <th class="table__th">파일 첨부</th>                                           ';
+    html += '    <td class="table__td" colspan="5">                                            ';
+    html += '        <div class="input-field input-field-table">                                    ';
+    html += '        <button type="button" class="btn btn-file">                                    ';
+    html += '            <label for="file2" class="btn__txt">파일선택</label>                                 ';
+    html += '        </button>                                                    ';
+    html += '        <input type="file" id="file2" class="input-field__file blind" multiple>                        ';
+    html += '        <span class="input__dsc-txt"><span id="fileSize">0</span> <span id="fileFormat">Bytes</span> / 100 MB</span>      ';
+    html += '        <div class="input-field__file-box" id="uploadFile">                                ';
+    html += '        </div>                                                        ';
+    html += '        </div>                                                        ';
+    html += '    </td>                                                        ';
+    html += '</tr>                                                            ';    
+    $("#bottomHtml").append(html);
+    $("#memo").on("change",function(){
+        tiarCostVO.memo = $(this).val();
+    })
+    makeFile();
+}
+
+function deleteExpense() {
+    let tiCostSeq = tiarCostVO.tiCostSeq;
+    if(tiCostSeq) {
+        let deleteExpense = doAjax("/expenseManagement/approval/deleteExpense", "get", {tiCostSeq : tiCostSeq});
+        alert(deleteExpense.resultMsg);
+    }
 }

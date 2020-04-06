@@ -93,6 +93,7 @@
         <result property="useErpDeptNm" column="useErpDeptNm"/>
         <result property="useEmpNo" column="useEmpNo"/>
         <result property="budgetDeptCd" column="budgetDeptCd"/>
+        <result property="budgetDeptNm" column="budgetDeptNm"/>
         <result property="budgetErpDeptSeq" column="budgetErpDeptSeq"/>
         <result property="useDeptCd" column="useDeptCd"/>
         <result property="useDeptNm" column="useDeptNm"/>

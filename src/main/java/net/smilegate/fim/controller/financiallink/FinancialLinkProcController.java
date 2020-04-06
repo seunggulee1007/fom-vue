@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,8 +57,8 @@ public class FinancialLinkProcController {
      * @return
      */
     @ApiOperation(value="환율 조회", notes="넘겨진 파라미터로 SGERP의 환율을 조회하는 api")
-    @GetMapping("/exRate/{exRateDate}")
-    public CommonResultVO getExRate(@PathVariable("exRateDate") String exRateDate) {
+    @GetMapping("/exRate")
+    public CommonResultVO getExRate(String exRateDate) {
         Map<String, Object> map = sgerpService.selectExRate(exRateDate);
         CommonResultVO commonResultVO = CommonResultVO.builder().data(map).build();
         return commonResultVO;

@@ -3,8 +3,13 @@
  */
 var myGridID;
 
-$(document).ready(function(){
+$(window).resize(function(){
+    if (myGridID){
+    AUIGrid.resize(myGridID);
+    }
+});
 
+$(document).ready(function(){
 	var $tabList = $('.tab-area .lst-tab');
 
 	$("#btnGetCalcList").click(function(){
@@ -106,16 +111,13 @@ $(document).ready(function(){
 	// 셀 더블클릭 이벤트 바인딩
 	AUIGrid.bind(myGridID, "cellDoubleClick", function(event) {
 		console.log(event.item);
-		let obj = new Object();
-		obj.tabIdx = 0;
-//		obj.item = event.item;
 
-		$('.tab-area .lst-tab').find('.lst-tab__item .lst-tab__menu').trigger("click",obj);
+        $('.lst-tab__item .lst-tab__menu').first().trigger("click");
 
-		getCardUseData(event.item);
+        getCardUseData(event.item);
 	});
 
-//	getCompanyCardMasterList();
+	getCompanyCardMasterList();
 
 });
 

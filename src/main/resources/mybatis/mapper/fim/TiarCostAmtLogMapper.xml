@@ -169,7 +169,7 @@
             ,#{tiCostSeq        }                    -- 비용신청 내부키                 
             ,#{tiCostSerl       }                   -- 비용신청 순번                 
             ,#{companySeq        }                  -- 법인코드                  
-            ,#{useDate          }   -- 사용일자                  
+            ,replace(#{useDate          },'-','')   -- 사용일자                  
             ,#{deptVO.useErpEmpSeq        }         -- erp사용자코드(deptVO)       
             ,#{deptVO.useUserId         }            -- 사용자 아이디                  
             ,#{deptVO.useUserNm         }            -- 사용자명                  

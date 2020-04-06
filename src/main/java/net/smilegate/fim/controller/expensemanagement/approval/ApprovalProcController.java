@@ -5,9 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -107,8 +105,8 @@ public class ApprovalProcController {
      * @return
      */
     @ApiOperation(value="임원 여부 조회", notes="해당 이름이 임원인지 여부 조회")
-    @GetMapping("/getImwonCheck/{userName}")
-    public CommonResultVO getImwonCheck(@PathVariable("userNm")String userNm) {
+    @GetMapping("/getImwonCheck")
+    public CommonResultVO getImwonCheck(String userNm) {
         Map<String, Object> map = new HashMap<>();
         map = sgerpmaService.getImwonCheck(userNm);
         return CommonResultVO.builder().data(map).build();
@@ -123,8 +121,8 @@ public class ApprovalProcController {
     @ApiImplicitParams({
         @ApiImplicitParam(name="tiCostSeq", value="지출결의 내부 번호", required = true, dataType="int")
     })
-    @GetMapping("/expenseList/{tiCostSeq}")
-    public CommonResultVO selectExpense(@PathVariable("tiCostSeq")int tiCostSeq) {
+    @GetMapping("/expenseList")
+    public CommonResultVO selectExpense(int tiCostSeq) {
         
         return CommonResultVO.builder().data(expenseService.selectExpense(tiCostSeq)).build();
     }
@@ -138,7 +136,7 @@ public class ApprovalProcController {
      * @throws IllegalAccessException
      */
     @ApiOperation(value="지출결의서 저장", notes="지출결의서 파일과 상세 내용 저장")
-    @PostMapping("/expense")
+    @PostMapping("/saveExpense")
     public CommonResultVO insertExpense(HttpServletRequest request, TiarCostVO tiarCostVO)  throws IllegalArgumentException, IllegalAccessException {
         Map<String, Object> map = new HashMap<>();
         System.err.println(tiarCostVO.toString());
@@ -184,8 +182,8 @@ public class ApprovalProcController {
      * @param fileId
      * @return
      */
-    @DeleteMapping("/deleteTiarCostFileByFileId/{fileId}")
-    public CommonResultVO deleteTiarCostFileByFileId(@PathVariable("fileId") int fileId) {
+    @GetMapping("/deleteTiarCostFileByFileId")
+    public CommonResultVO deleteTiarCostFileByFileId(int fileId) {
         tiarCostFileService.deleteTiarCostFileByFileId(fileId);
         return CommonResultVO.builder().resultMsg("삭제되었습니다").build();
     }
@@ -195,8 +193,8 @@ public class ApprovalProcController {
      * @param tiCostSeq
      * @return
      */
-    @DeleteMapping("/deleteExpense/{tiCostSeq}")
-    public CommonResultVO deleteExpense(@PathVariable("tiCostSeq") int tiCostSeq) {
+    @GetMapping("/deleteExpense")
+    public CommonResultVO deleteExpense(int tiCostSeq) {
         expenseService.deleteExpense(tiCostSeq);
         return CommonResultVO.builder().resultMsg(CommonMsg.SUCCESS_DELETE.getMsg()).build();
     }

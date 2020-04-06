@@ -89,19 +89,9 @@ $(document).ready(function() {
     })
 
     //tab - openclosing
-    $tabList.find('.lst-tab__item .lst-tab__menu').on('click', function(event, data) {
+    $tabList.find('.lst-tab__item .lst-tab__menu').on('click', function() {
 
-    	var tabNum;
-
-    	if(data != null){
-    		tabNum = data.tabIdx;
-    	}
-    	else{
-    		tabNum = $(this).parent().index();
-    	}
-
-        console.log("$tabList.find");
-        console.log(data);
+        let tabNum = $(this).parent().index();
 
         $(this).parent().addClass('lst-tab__item--active').siblings().removeClass('lst-tab__item--active');
         $(this).parents('.tab-area').next('.tab-cnt').children().eq(tabNum).addClass('lst-tab-cnt--active').siblings().removeClass('lst-tab-cnt--active')

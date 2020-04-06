@@ -10,7 +10,7 @@ let originFileList = [];
 let fileList = [];
 let moreFlag = true;
 function getInfo(boardId) {
-    let infoVO = doAjax("/portalManagement/info/" + boardId, "get");
+    let infoVO = doAjax("/portalManagement/info", "get", {boardId : boardId});
     let info = infoVO.data.boardVO;
     $("#title").text(info.title);
     $("#userNm").text(info.userNm);

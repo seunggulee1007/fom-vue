@@ -27,7 +27,10 @@ function getCurrencyCode () {
 }   // end getCurrencyCode
 
 function getExchangeList () {
-    let exchange = doAjax("/financialLink/exRate/" + $("#selectedDate").val().replace(/-/gi, ""));
+    const param = {
+        exRateDate : $("#selectedDate").val().replace(/-/gi, "")
+    }
+    let exchange = doAjax("/financialLink/exRate", "get", param);
     exchangeList = exchange.data.exRateList;
     originDataList = exchangeList;
     filterExchange();

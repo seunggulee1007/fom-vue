@@ -88,13 +88,17 @@ a:hover {
     clear: both;
 }
 
-.tab-cnt .lst-tab-cnt{
-    display: none;
-    &.lst-tab-cnt--active{
-        display: block;
-        width: 100%;
+.tab-cnt {
+    position: relative;
+    .lst-tab-cnt{
+        @include position(absolute, 0, 0, false, 0);
+        visibility: hidden;    
+        &.lst-tab-cnt--active{
+            visibility: visible;
+        }
     }
 }
+
 
 .section.section--no-padding{
     padding: 0;
@@ -164,13 +168,106 @@ a:hover {
     position: relative;
 }
 
+//datepicker
 .input-field__datepicker + .ui-datepicker-trigger{
     @include position(absolute, false, 12px, 8px, false);
     width: 16px;
     height: 16px;
 }
+.ui-datepicker{ 
+    padding: 20px 12px;
+    .ui-datepicker-header{
+        padding: 0 8px;
+    }
+    .ui-widget-header{
+        border: 0;
+        background: transparent;
+        font-weight: normal;
+        .ui-icon{
+            background-size: 222px 213px;
+            background-image: url("../img/sprites/template_pc.png");
+            width: 7px;
+            height: 12px;
+        }
+        .ui-state-hover, .ui-state-focus{
+            border: 0;
+            background: transparent;
+        }
+        .ui-datepicker-next-hover{
+            top: -4px;
+            right: 2px;
+        }
+        .ui-datepicker-prev-hover{
+            top: -4px;
+        }
+    }
+    .ui-datepicker-prev{
+        top: -4px;
+        left: auto;
+        right: 30px;
+        padding: 4px;        
+        span{
+            background-position: -177px -58px
+        }
+    }
+    .ui-datepicker-next{
+        top: -4px;
+        padding: 4px;
+        span{
+            background-position: -177px -36px;
+        }
+    }
+    .ui-datepicker-title{
+        text-align: left;
+        margin: 0;
+    }
+}
+.ui-datepicker .ui-datepicker-calendar{
+    th{
+        color: $txt_gray2;
+    }
+    td{
+        padding: 3px;
+    }
+    .ui-state-default{
+        border-color: transparent;
+        background: transparent;
+        text-align: center;
+        @include borderRadius(50%);
+        &.ui-state-active{
+            background: $blue;
+        }
+        &.ui-state-hover {
+            border-color: $blue;
+        }
+    }
+    .ui-state-highlight{
+        border: 0;
+        background: $ui_hover;
+        color: inherit;        
+    }
+}
 
-.{
+//monthpicker
+.mtz-monthpicker{
+    &.mtz-monthpicker-year{
+        border: 0;
+        padding: 4px 16px 4px 4px;
+        margin-bottom: 12px;
+    }
+    .ui-state-default{
+        background: transparent;
+        &.ui-state-active{
+            background: $blue;
+            border-color: $blue;
+        }
+    }
+}
+.mtz-monthpicker-trigger{
+    background-image: url("../img/icon_calendar.png");
+}
+
+.datepicker__v-calendar{
     position: relative;
     input[type=text].input-field__input{
         padding: 1px 6px;

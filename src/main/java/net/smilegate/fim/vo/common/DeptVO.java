@@ -31,7 +31,7 @@ public class DeptVO {
     /** 사용자 코드 */
     private String userId;
     /** 사용자 사번 */
-    private int empNo;
+    private String empNo;
     /** 예산부서코드2 */
     private int budgetDeptCd;
     

@@ -37,6 +37,7 @@
         <input type="hidden" id="comCd">
         <input type="hidden" id="smKindSeq">
         <input type="hidden" id="costSeq">
+        <input type="hidden" id="tiCostSeq" value="${param.tiCostSeq }">
         <div id="costInfoVO"></div>
         <div class="grid-column grid-column10">                    
             <div class="section section--border section-expense">
@@ -52,35 +53,7 @@
                                 <col width="12%">
                                 <col>
                             </colgroup>
-                            <tbody>
-                                <tr>
-                                    <th class="table__th">문서번호</th>
-                                    <td class="table__td table__td--data"><span class="table__txt">결재 완료 시, 발번됩니다.</span></td>
-                                    <th class="table__th">기안일자</th>
-                                    <td class="table__td table__td--data"><span class="table__txt"></span></td>
-                                    <th class="table__th">기안자</th>
-                                    <td class="table__td table__td--data"><span class="table__txt"></span></td>
-                                </tr>
-                                <tr>
-                                    <th class="table__th">기안부서</th>
-                                    <td colspan="5" class="table__td table__td--data"><span class="table__txt">SGH>IT기술본부>기술지원담당>정보시스템실>정보개발팀</span></td>
-                                </tr>
-                                <tr>
-                                    <th class="table__th">제목</th>
-                                    <td colspan="5" class="table__td">
-                                        <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" id="title" name="title" value="[SGH][지출결의서(현금)_김연준_2020-02-20]">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="table__th">계좌번호</th>
-                                    <td class="table__td table__td--data"><span class="table__txt"></span></td>
-                                    <th class="table__th">은행명</th>
-                                    <td class="table__td table__td--data"><span class="table__txt"></span></td>
-                                    <th class="table__th">예금주</th>
-                                    <td class="table__td table__td--data"><span class="table__txt"></span></td>
-                                </tr>
+                            <tbody id="topHtml">
                             </tbody>
                         </table>
                     </div>
@@ -144,7 +117,7 @@
                                     <tr>
                                         <th class="table__th" colspan="10">합계</th>
                                         <td class="table__td table__td--data">
-                                            <span class="table__txt" id="totalAmtDisplay">
+                                            <span class="table__txt table__txt--align-right" id="totalAmtDisplay">
                                                 <input type="hidden" id="totalAmt" name="totalAmt">
                                             </span>
                                         </td>
@@ -175,7 +148,7 @@
                                     <col>
                                     <col>
                                 </colgroup>
-                                <tbody>
+                                <tbody id="bottomHtml">
                                     <tr>
                                         <th class="table__th">의견입력</th>
                                         <td class="table__td" colspan="5">
