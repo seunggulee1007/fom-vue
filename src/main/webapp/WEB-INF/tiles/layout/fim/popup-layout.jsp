@@ -18,11 +18,11 @@
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.js"></script>
     <script type="text/javascript" src="/webjars/jquery-blockui/2.70/jquery.blockUI.js"></script>
     <script type="text/javascript" src="/webjars/jquery-form/4.2.2/jquery.form.min.js"></script>
-
+    <script type="text/javascript" src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+    
     <!-- AUIGrid.js-->
     <script type="text/javascript" src="http://static.smiledev.net/static/AUIGrid/AUIGridLicense.js"></script>
     <script type="text/javascript" src="http://static.smiledev.net/static/AUIGrid/AUIGrid.js"></script>
-    <script type="text/javascript" src="/resources/fim/js/script.js"></script>
 
     <!--[if lt IE 9]>
         <script type="text/javascript" src="js/html5shiv.min.js"></script>

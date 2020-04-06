@@ -1,7 +1,16 @@
+window.onbeforeunload = function(e) {
+    let confirmMessage = '창을 닫으시면 내용이 사라집니다. 그래도 닫으시겠습니까?';
+    if(!e){
+        return confirmMessage;
+    }else {
+        window.event.returnValue = confirmMessage;
+    }
+};
 $(document).ready(function(){
     let smKindSeq = opener.document.getElementById('smKindSeq').value;
     let costSeq = opener.document.getElementById('costSeq').value;
     makeHtml(smKindSeq, costSeq);
+    $(".table__expenses").focus();
 });
 
 function makeHtml(smKindSeq, costSeq) {

@@ -32,8 +32,10 @@ var expenseList = [{
 var uploadFiles = [];               // 파일 저장용 리스트 
 var originFileSize = 0;             // 계산용 기존 파일 크기
 var tiarCostVO = {
-    useDate : getDate()
-    ,title : ''
+    useDate : getDate(),
+    title : '',
+    memo : '',
+    tiCostSerl : ''
 };
 
 $(document).ready(function(){
@@ -66,11 +68,19 @@ $(document).ready(function(){
             }
             makeFile();
         }
+        makeTopHtml();
+        makeExpenseList();
+        tiarCostVO.budgetDeptCd = expenseList[0].deptVO.budgetDeptCd;
+        tiarCostVO.budgetDeptNm = expenseList[0].deptVO.budgetDeptNm;
+        tiarCostVO.budgetErpDeptSeq  = expenseList[0].deptVO.budgetErpDeptSeq;
+        setDeptVO();
         makeTotalAmt();
+    }else {
+        getBudgetInfo();
+        getBankInfo();
     }
-    getBudgetInfo();
-    getBankInfo();
     bottomHtml();
+    makeButtonHtml();
     // 추가 버튼 클릭
     $("#addExpense").click(function(){
         addExepnseList();
@@ -79,12 +89,18 @@ $(document).ready(function(){
     // 삭제 버튼 클릭
     $("#removeExpense").click(function(){
         // 배열의 체크된 부분들을 뒤에서 부터 지운다.
+        let cnt = 0;
         for(var i= expenseList.length -1; i >= 0; i--) {
             if(expenseList[i].checkYn) {
                 expenseList.splice(i, 1);
+                cnt ++;
             }
         }
-        makeExpenseList();
+        if(cnt == 0) {
+            alert("삭제할 항목을 선택해 주세요 .");
+        }else {
+            makeExpenseList();
+        }
     });
     $("#doSave").click(function(){
         if(!confirm("저장하시겠습니까 ? ")){
@@ -97,6 +113,10 @@ $(document).ready(function(){
         }
         let formData = new FormData(/* $("#frm")[0] */); 
         let cnt = 1;
+        if(expenseList.length == 0) {
+            alert("세부항목을 1건 이상 입력해 주세요.");
+            return;
+        }
         for(let i=0;i <expenseList.length; i++) {
             let expense = expenseList[i];
             if(!expense.costInfoVO.smKindSeq) {
@@ -255,16 +275,16 @@ function makeFileHtml(fileList) {
     
     for(let i=0; i< fileList.length; i++) {
         let file = fileList[i];
-        html += '<div class="file-info">' + file.name + '</div>';
-        html += '<button type="button" class="deleteBtn" value="'+file.fileId+'">삭제</button>';
+        console.log(file);
+        html += '<div class="file-info">' + file.name;
+        html += '<button type="button" class="btn btn--remove deleteBtn" value="'+file.fileId+'"><span class="sp icon-delete"><span class="blind">닫기</span></span></button>';
+        html += '</div>';
     }
     $("#uploadFile").append(html);
-    $(".deleteBtn").on("click",function(){
+    $(".deleteBtn").click(function(){
         if(!confirm("해당 파일을 삭제하시겠습니까?")) {
             return;
         }
-        let idx = $(".deleteBtn").index(this);
-        
         if($(this).val()){
             const param = {
                 fileId : $(this).val()
@@ -399,23 +419,28 @@ function makeExpenseList() {
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td">                                                                                     ';
         html += '        <div class="input-field input-field-table">                                                                         ';
-        html += '            <input type="text" class="input-field__input non_box" placeholder="선택해주세요." name="tiarCostAmtList['+cnt+'].costInfoVO.smKindName" value="'+ expense.costInfoVO.smKindName+'" ondblClick="openExpensItemAllPopup(\''+cnt + '\');">  ';
+        html += '            <input type="text" class="input-field__input" placeholder="선택해주세요." name="tiarCostAmtList['+cnt+'].costInfoVO.smKindName" value="'+ expense.costInfoVO.smKindName+'" ondblClick="openExpensItemAllPopup(\''+cnt + '\');">  ';
         html += '        </div>                                                                                             ';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td table__td--data">                                                                             ';
-        html += '        <span class="table__txt">'+expense.costInfoVO.costName+'</span>                                                                             ';
+        html += '        <div class="input-field input-field-table">';
+        html += '        <input type="text" class="input-field__input" disabled value="'+expense.costInfoVO.costName+'">                                                                             ';
+        html += '        </div>';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td table__td--data">                                                                             ';
         html += '        <div class="input-field input-field-table">                                                                         ';
-        if(expense.costInfoVO.smKindSeq) {
-            html += '            <input type="text" class="input-field__input non_box" placeholder="선택해주세요."  name="tiarCostAmtList['+cnt+'].costInfoVO.activityNm" value="'+ expense.costInfoVO.activityNm+'" ondblClick="openExpensItemSgmaPopup(\''+cnt + '\');"> ';
-        }else {
-            html += '<span class="table__txt"></span>';
+        html += '            <input type="text" class="input-field__input"';
+        if(!expense.costInfoVO.smKindSeq) {
+            html += ' disabled placeholder="선택해주세요."';
         }
+        html += ' name="tiarCostAmtList['+cnt+'].costInfoVO.activityNm" value="'+ expense.costInfoVO.activityNm+'" ondblClick="openExpensItemSgmaPopup(\''+cnt + '\');"> ';
+        
         html += '        </div>                                                                                             ';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td table__td--data">                                                                             ';
-        html += '        <span class="table__txt">'+expense.costInfoVO.costItemNm+'</span>                                                                             ';
+        html += '        <div class="input-field input-field-table">'
+        html += '            <input type="text" class="input-field__input" disabled value="'+expense.costInfoVO.costItemNm+'">                                                                             ';
+        html +='         </div>';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td">                                                                                     ';
         html += '        <div class="input-field input-field-table">                                                                         ';
@@ -444,22 +469,22 @@ function makeExpenseList() {
     
     $("#expenseList").append(html);
     // 체크박스 조작 시 
-    $(".checkbox_member-leave").on("change", function() {
+    $(".checkbox_member-leave").change(function() {
         let idx = $(".checkbox_member-leave").index(this);
         expenseList[idx].checkYn = $(this).is(":checked");
     });
     // 가맹접 입력시 변경
-    $(".input-field-table > .changeStore").on("change",function(){
+    $(".input-field-table > .changeStore").change(function(){
         let idx = $(".changeStore").index(this);
         expenseList[idx].store = $(this).val(); 
     });
     // 적요 입력시 변경
-    $(".input-field-table > .changeRemark").on("change",function(){
+    $(".input-field-table > .changeRemark").change(function(){
         let idx = $(".changeRemark").index(this);
         expenseList[idx].remark = $(this).val(); 
     });
     // 금액 입력시 변경
-    $(".input-field-table > .changeCurAmt").on("change",function(){
+    $(".input-field-table > .changeCurAmt").change(function(){
         let value = $(this).val()
         if(typeof(value) == 'string' && value.indexOf(',') !=-1) {
             value = value.replace(/,/gi,'');
@@ -618,7 +643,8 @@ function makeTopHtml() {
     let html = '';
     html += '<tr>                                                                    ';
     html += '    <th class="table__th">문서번호</th>                                                     ';
-    html += '    <td class="table__td table__td--data"><span class="table__txt">';
+    html += '    <td class="table__td table__td--data"><span class="table__txt bg--white">';
+    
     if(tiarCostVO.tiCostSerl) {
         html += tiarCostVO.tiCostSerl
     }else {
@@ -718,4 +744,32 @@ function deleteExpense() {
         let deleteExpense = doAjax("/expenseManagement/approval/deleteExpense", "get", {tiCostSeq : tiCostSeq});
         alert(deleteExpense.resultMsg);
     }
+}
+
+function makeButtonHtml() {
+    $("#buttonHtml").empty();
+    let html = '';
+    if(tiarCostVO.tiCostSeq) {
+        html += '<div class="component-box">';
+        html += '    <button type="button" class="btn btn--large btn--bgtype" id="deleteBtn">';
+        html += '    <span class="btn__txt">삭제</span>              ';
+        html += '    </button>                              ';
+        html += '</div>                                  ';
+    }
+    html += '<div class="component-box">                      ';
+    html += '    <button type="button" class="btn btn--large" id="doSave">';
+    html += '    <span class="btn__txt">저장</span>              ';
+    html += '    </button>                              ';
+    html += '</div>                                  ';
+    html += '<div class="component-box">                      ';
+    html += '    <button type="button" class="btn btn--large btn--orange">';
+    html += '    <span class="btn__txt">결제상신</span>               ';
+    html += '    </button>                              ';
+    html += '</div>                                  ';
+    $("#buttonHtml").append(html);
+    $("#deleteBtn").click(function(){
+        if(!confirm("삭제하시겠습니까?")){
+            return;
+        }
+    })
 }

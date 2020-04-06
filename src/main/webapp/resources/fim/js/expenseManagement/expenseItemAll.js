@@ -1,9 +1,5 @@
 var expenseList = [];
 
-$(window).resize(function() { 
-      $(".popup-wrap")
-});
-
 $(document).ready(function(){
     $("#smKindName").focus();
     $("#idx").val(opener.document.getElementById('idx').value);
@@ -23,26 +19,17 @@ $(document).ready(function(){
 });
 
 function getExpenseItemAll() {
-    $.ajax({
-        url : "/expenseManagement/approval/getExpense"
-        ,type : "get"
-        ,data : {
-            smKindName : $("#smKindName").val()                      // 중분류명
-            ,costName : $("#costName").val()                         // 소분류명
-            ,activityNm : $("#activityNm").val()                     // 액티비티명
-            ,costItemNm : $("#costItemNm").val()                     // 비용항목 명
-            ,userNm : $("#userNm").val()                             // 사용자명(임원체크용)
-            ,comCd : $("#comCd").val()                               // 회사코드(sgf체크 용)
-
-        }
-        ,async : false
-        ,dataType : "json"
-        ,success: function (res){
-            console.log(res);
-            expenseList = res.data.expenseList;
-            makeExpense(res.data.expenseList);
-        }
-    })
+    const param = {
+        smKindName : $("#smKindName").val()                      // 중분류명
+        ,costName : $("#costName").val()                         // 소분류명
+        ,activityNm : $("#activityNm").val()                     // 액티비티명
+        ,costItemNm : $("#costItemNm").val()                     // 비용항목 명
+        ,userNm : $("#userNm").val()                             // 사용자명(임원체크용)
+        ,comCd : $("#comCd").val()                               // 회사코드(sgf체크 용)
+    }
+    let expense = doAjax("/expenseManagement/approval/getExpense","get",param);
+    expenseList = expense.data.expenseList;
+    makeExpense(expenseList);
 }
 
 function makeExpense(dataList) {

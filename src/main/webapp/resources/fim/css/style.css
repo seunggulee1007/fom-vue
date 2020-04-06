@@ -186,13 +186,21 @@
   max-width: inherit;
   padding: 1px 0;
 }
+.container-write .table .table__td .input-field .input-field__input {
+  padding: 1px 6px;
+}
 .container-write .table .table__td--data span {
   display: block;
   background-color: #f9f9f9;
   padding: 6px 8px;
   border-radius: 4px;
   word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
   min-height: 20px;
+}
+.container-write .table .table__td--data span.bg--white {
+  background: #fff;
 }
 .container-write .table .table__th--btn.table__th--btn-front, .container-write .table .table__td--btn.table__th--btn-front {
   padding-left: 22px;
@@ -296,8 +304,16 @@
   border-radius: 4px;
 }
 .container-write .table .input-field-table .input-field__file-box .file-info {
+  position: relative;
   font-size: 13px;
   padding: 2px 0;
+}
+.container-write .table .input-field-table .input-field__file-box .file-info .btn--remove {
+  position: absolute;
+  top: 3px;
+  right: 0;
+  bottom: false;
+  left: false;
 }
 
 /* popup table */
@@ -323,6 +339,7 @@
   border-color: #dadce0;
 }
 .popup-wrap .popup-wrap__inner .popup__contents-table .table__td .table__txt {
+  cursor: default;
   font-size: 12px;
 }
 .popup-wrap .popup-wrap__inner .popup__contents-table .table__td .btn_group {
@@ -541,6 +558,7 @@ a:hover {
 }
 .ui-datepicker .ui-datepicker-calendar .ui-state-default.ui-state-active {
   background: #4b6baa;
+  color: #fff;
 }
 .ui-datepicker .ui-datepicker-calendar .ui-state-default.ui-state-hover {
   border-color: #4b6baa;
@@ -831,6 +849,14 @@ select {
   background-image: url("../img/sprites/template_pc.png");
   background-size: 222px 213px;
   background-position: -154px 0px;
+}
+
+.icon-delete {
+  width: 18px;
+  height: 18px;
+  background-image: url("../img/sprites/template_pc.png");
+  background-size: 222px 213px;
+  background-position: -120px -170px;
 }
 
 /* ========== header ========== */
@@ -1627,6 +1653,12 @@ select {
 }
 .container-write .dropdown--multi-type {
   width: 100%;
+}
+.container-write .btn--remove {
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
 }
 
 /* container-view */

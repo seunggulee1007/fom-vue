@@ -46,7 +46,7 @@ function makeHistoryList() {
             html += '       <td class="table__td">                                                                      ';
             html += '           <span class="table__txt">'+list.tiCostSeq+'</span>                                                      ';
             html += '       </td>                                                                              ';
-            html += '       <td class="table__td">                                                                      ';
+            html += '       <td class="table__td preventEvent">                                                                      ';
             html += '           <span class="table__txt"><a style="text-decoration:underline; cursor:pointer;" onclick="clickModifyPage(\''+list.tiCostSeq+'\')">'+list.title+'</a></span> ';
             html += '       </td>                                                                              ';
             html += '       <td class="table__td">                                                                      ';
@@ -146,5 +146,10 @@ function makeHistoryList() {
     $(".expandDetail").on("click",function(){
         $(this).next('.table__row-sub--detail').toggleClass('table__row--expanded');
     });
+
+    // 해당 tr클릭시에는 하단의 상세 리스트가 안 뜨도록 설정
+    $(".preventEvent").on("click", function(e){
+        e.stopPropagation();
+    })
 }
 

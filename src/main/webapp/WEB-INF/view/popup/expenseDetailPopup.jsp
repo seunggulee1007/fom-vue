@@ -24,9 +24,6 @@
                     <button type="button" class="btn btn--orange">
                         <span class="btn__txt">저장</span>
                     </button>
-                    <button type="button" class="btn btn--bgtype" onclick="doResize()">
-                        <span class="btn__txt">테스트</span>
-                    </button>
                 </div>
             </div>
         </div>

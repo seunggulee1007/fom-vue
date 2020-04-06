@@ -187,6 +187,12 @@ function getPageList(start, end) {
 function setComma(str) {
     if(typeof(str) == 'number' ){
         str = str.toString();
+    }else if(typeof(str) == 'string') {
+        try {
+            str = Number(str).toString();
+        }catch (e) {
+            str = '0';
+        }
     }
     return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
@@ -215,6 +221,11 @@ function getPageList(start, end) {
     return arr;
 }
 
+/**
+ * 페이징 만들어 주는 함수 
+ * @param {*} fnName 클릭시 조회 될 함수 명 
+ * @param {*} target append될 엘리먼트
+ */
 function makePagingVO(fnName, target) {
     let html = '';
     $("#"+target).empty();

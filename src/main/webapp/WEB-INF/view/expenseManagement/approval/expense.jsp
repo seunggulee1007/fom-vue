@@ -186,22 +186,7 @@
                     </form>
                 </div>                        
             </div>
-            <div class="component-group btn-box align-center">
-                <div class="component-box">
-                    <button type="button" class="btn btn--large btn--bgtype">
-                        <span class="btn__txt">삭제</span>
-                    </button>
-                </div>
-                <div class="component-box">
-                    <button type="button" class="btn btn--large" id="doSave">
-                        <span class="btn__txt">저장</span>
-                    </button>
-                </div>
-                <div class="component-box">
-                    <button type="button" class="btn btn--large btn--orange">
-                        <span class="btn__txt">결제상신</span>
-                    </button>
-                </div>
+            <div class="component-group btn-box align-center" id="buttonHtml">
             </div>
         </div>
     </div>

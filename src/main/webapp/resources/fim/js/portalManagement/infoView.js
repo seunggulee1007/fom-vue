@@ -10,7 +10,7 @@ let originFileList = [];
 let fileList = [];
 let moreFlag = true;
 function getInfo(boardId) {
-    let infoVO = doAjax("/portalManagement/info", "get", {boardId : boardId});
+    let infoVO = doAjax("/portalManagement/getInfo", "get", {boardId : boardId});
     let info = infoVO.data.boardVO;
     $("#title").text(info.title);
     $("#userNm").text(info.userNm);
@@ -36,7 +36,7 @@ function makeFileList(fileList) {
     $("fileList").empty();
     for(let i=0; i< fileList.length; i++) {
         let file = fileList[i];
-        html += '<a class="btn--link file-info>';
+        html += '<a class="btn--link file-info">';
         html += '   <p class="btn__txt" onclick="downFile(\''+ file.fileNm + '\');">' + file.originalFileNm + '</p>';
         html += '</a>';
     }

@@ -236,6 +236,7 @@ a:hover {
         @include borderRadius(50%);
         &.ui-state-active{
             background: $blue;
+            color: $white;
         }
         &.ui-state-hover {
             border-color: $blue;
@@ -244,7 +245,7 @@ a:hover {
     .ui-state-highlight{
         border: 0;
         background: $ui_hover;
-        color: inherit;        
+        color: inherit;      
     }
 }
 
@@ -509,7 +510,13 @@ select{
     background-size: 222px 213px;
     background-position: -154px 0px;
 }
-
+.icon-delete{
+    width: 18px;
+    height: 18px;
+    background-image: url("../img/sprites/template_pc.png");
+    background-size: 222px 213px;
+    background-position: -120px -170px;
+}
 
 /* ========== header ========== */
 .header {
@@ -1279,6 +1286,12 @@ $lst-gnb_height: 272px;
     }
     .dropdown--multi-type{
         width: 100%;
+    }
+    .btn--remove{
+        min-height: auto;
+        padding: 0;
+        border: 0;
+        background-color: transparent;   
     }
 }
 

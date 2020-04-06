@@ -19,49 +19,49 @@ public class MangingViewController extends CommonController {
      * 
      * @return
      */
-    @GetMapping("/com_limit")
+    @GetMapping("/comLimit")
     public String comLimit() {
         saveUrl();
-        return "/fim/company_card/managing/com_limit";
+        return "/fim/companyCard/managing/comLimit";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/limit_management")
+    @GetMapping("/limitManagement")
     public String limitManagement() {
         saveUrl();
-        return "/fim/company_card/managing/limit_management";
+        return "/fim/companyCard/managing/limitManagement";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/list_mail")
+    @GetMapping("/listMail")
     public String listMail() {
         saveUrl();
-        return "/fim/company_card/managing/list_mail";
+        return "/fim/companyCard/managing/listMail";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/send_mail")
+    @GetMapping("/sendMail")
     public String sendMail() {
         saveUrl();
-        return "/fim/company_card/managing/send_mail";
+        return "/fim/companyCard/managing/sendMail";
     }
     
     /**
      * 
      * @return
      */
-    @GetMapping("/user_limit")
+    @GetMapping("/userLimit")
     public String userLimit() {
         saveUrl();
-        return "/fim/company_card/managing/user_limit";
+        return "/fim/companyCard/managing/userLimit";
     }
 }

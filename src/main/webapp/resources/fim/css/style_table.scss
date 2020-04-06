@@ -211,6 +211,9 @@ $table_th: #fafaff;
                 padding: 1px 0;
             }
         }
+        .input-field .input-field__input{
+            padding: 1px 6px;
+        }
     }
     .table__td--data span{
         display: block;
@@ -218,7 +221,13 @@ $table_th: #fafaff;
         padding: 6px 8px;
         border-radius: 4px;
         word-break: break-all;
+        white-space: nowrap;
+        overflow: hidden;
         min-height: 20px;
+        &.bg--white{
+            background: #fff;
+            //border: 1px solid $border_dark;
+        }
     }
     .table__th--btn, .table__td--btn{
         &.table__th--btn-front{
@@ -304,9 +313,12 @@ $table_th: #fafaff;
             border: 1px solid $border_dark;
             border-radius: 4px;
             .file-info{
+                position: relative;
                 font-size: 13px;
                 padding: 2px 0;
-    
+            }
+            .file-info .btn--remove{
+                @include position(absolute, 3px, 0, false, false);
             }
         }
     } 
@@ -333,6 +345,7 @@ $table_th: #fafaff;
         border-width: 1px 1px 0 1px;
         border-color: $border_dark;
         .table__txt{
+            cursor: default;
             font-size: 12px;
         }
         .btn_group{
