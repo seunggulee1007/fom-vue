@@ -40,13 +40,6 @@ public interface CompanyCardService {
 
 	public void getCompanyCardMaster(@Param("cardUseSeq") String cardUseSeq) throws Exception;
 
-	/**
-	 * 법인카드 결제내역조회.
-	 * @param yyyymm 결제년월
-	 * @return
-	 * @throws Exception
-	 */
-	public List<CompanyCardDetailVO> getCompanyCardUseList(String yyyymm) throws Exception;
 
 	/**
 	 * 법인카드 정산내역 마스터 조회.
@@ -74,4 +67,18 @@ public interface CompanyCardService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> doDeleteFile(int cardUseSeq, int fileSerl, String regUserId) throws Exception;
+
+	/**
+	 * 법인카드의 정산내역을 조회 한다.
+	 * @param companySeq erp 법인코드
+	 * @param cardCd 카드 번호(- 제외)
+	 * @param calcDate 정산년월
+	 * @param empSeq 사원번호
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getCompanyCardConfirmList(@Param("companySeq") String companySeq,
+																@Param("cardCd") String cardCd,
+																@Param("calcDate") String calcDate,
+																@Param("empSeq") String empSeq) throws Exception;
 }

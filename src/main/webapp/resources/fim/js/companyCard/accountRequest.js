@@ -7,18 +7,90 @@
 /** 정산내역 테이블에서 클릭한 row index */
 var rowIdx;
 
+//-- 법인카드 결제내역 다이얼로그 리스트.
+var cardPaymentAuiGrid;
+
 //-- 파일 전역변수.
 var fileList = new Array();
+
+
+function initCardPaymentAuiGrid(){
+	let companyCardMasterCol = [
+		{
+			dataField:"isCheck",
+			headerText:"선택",
+			width: "5%",
+			renderer : {
+				type : "CheckBoxEditRenderer",
+				showLabel : false, // 참, 거짓 텍스트 출력여부( 기본값 false )
+				editable : true, // 체크박스 편집 활성화 여부(기본값 : false)
+				checkValue : "Y", // true, false 인 경우가 기본
+				unCheckValue : "N"
+			}
+		},
+		{
+			dataField:"apprDate",
+			headerText:"승인일자",
+
+		},
+		{
+			dataField:"chainNm",
+			headerText:"가맹점",
+
+		},
+		{
+			dataField:"supplyamt",
+			headerText:"공급가액",
+
+		},
+		{
+			dataField:"tipAmt",
+			headerText:"봉사료",
+
+		},
+		{
+			dataField:"apprTax",
+			headerText:"부가세",
+
+		},
+		{
+			dataField:"totalAmt",
+			headerText:"총계",
+			expFunction : function(rowIndex, columnIndex, item, dataField){
+				return item.supplyamt + item.tipAmt + item.apprTax;
+			}
+		},
+		{
+			dataField:"isPersonUse",
+			headerText:"개인사용유무",
+			renderer : {
+				type : "CheckBoxEditRenderer",
+				showLabel : false, // 참, 거짓 텍스트 출력여부( 기본값 false )
+				editable : true, // 체크박스 편집 활성화 여부(기본값 : false)
+				checkValue : "Y", // true, false 인 경우가 기본
+				unCheckValue : "N",
+				checkableFunction : function(rowIndex, columnIndex, value, isChecked, item, dataField ) {
+					return false;
+				}
+			}
+		},
+	];
+
+	let auiGridProps = {
+			showRowNumColumn : false,
+			showRowCheckColumn : false,
+			showAutoNoDataMessage : false,
+			applyRestPercentWidth : true,
+			selectionMode : "singleRow"
+	};
+	cardPaymentAuiGrid = AUIGrid.create("#companyCardPaymentList", companyCardMasterCol, auiGridProps);
+
+}
+
 $(document).ready(function(){
 
-//	$("#useCardList tbody tr td").find("input[name=inSmKindNm]").click(function() {
-//
-//		var column_num = parseInt( $(this).index() ) + 1;
-//		var row_num = parseInt( $(this).parent().parent().parent().index() );
-//
-//		console.log("Row_num =" + row_num + "  ,  Rolumn_num ="+ column_num);
-//
-//	});
+	initCardPaymentAuiGrid();
+
 
 	$("#calcDate").val(new Date().format("yyyy-MM"));
 	$("#spRegDate").text(new Date().format("yyyy-MM-dd"));
@@ -83,15 +155,7 @@ $(document).ready(function(){
 
 	});
 
-	/**
-	 * 카드 결제내역 조회.
-	 */
-	$("#btnGetUseList").click(function(){
 
-		$.ajax({
-
-		});
-	});
 
 	$("#calcDate").monthpicker({
 		monthNames: ['1월(JAN)', '2월(FEB)', '3월(MAR)', '4월(APR)', '5월(MAY)', '6월(JUN)',
@@ -112,95 +176,125 @@ $(document).ready(function(){
 
 	});
 
-
+	/**
+	 * 카드 결제내역 조회.
+	 */
 	$("#btnGetUseList").click(function(){
-		let data = new Object();
 
-		for(let i = 0; i < 4; i++){
+		let companySeq = $("#erpCompanySeq").val();
+		let cardCd = $("#cardCd").val().split("|")[0].replaceAll("-", "");
+		let calcDate = $("#calcDate").val().replaceAll("-", "");
+		let empSeq = $("#regErpEmpSeq").val();
 
-			//-- 키값
-			data.cardUseSeq = "0"; //-- 내부코드(신규 데이터일때는 반드시 0을 넣어야 된다.)
-			data.companySeq = "2"; //-- ERP법인코드
-			data.cancelYn = "N"; //-- 승인취소여부
-			data.apprSeq = i; //-- 승인순번
-			data.apprNo = "1010" + i; //-- 승인번호
-			data.apprDate = "20200303"; //-- 승인일
-			data.cardCd = "111122223333"; //-- 카드번호
+		$.ajax({
+		    url:"./getCompanyCardConfirmList",
+		    type:"POST",
+		    data: "companySeq=" + companySeq + "&cardCd=" + cardCd + "&calcDate=" + calcDate + "&empSeq=" + empSeq,
+		    success: function(returnData) {
 
-			data.apprTime = "2018"; //-- 승인시간
+		    	console.log(returnData);
 
-			//-- 예산부서 정보
-			data.budgetDeptCd = ""; //-- 예산부서코드2
-			data.budgetDeptNm = ""; //-- 예산부서명2
-			data.budgetErpDeptSeq = "0"; //-- ERP예산부서코드
-			data.budgetErpDeptNm = ""; //-- ERP예산부서명
+		    	if(returnData.result == 0){
 
-			//-- 사용자정보(귀속처리정보)
-			data.comCd = ""; //-- 인사법인코드
-			data.comNm = ""; //-- 인사법인명
-			data.useUserId = "140"; //-- 사용자코드
-			data.useUserNm = "김재원"; //-- 사용자명
-			data.useErpDeptSeq = "0"; //-- ERP사용자부서코드
-			data.useEmpNo = "H0000140"; //-- 사용자사번
+		    		AUIGrid.setGridData("#companyCardPaymentList", returnData.data.confirmList);
+		    	}
+		    }
+		});
 
-			//-- 비용항목 중분류
-			data.smKindNm = "접대비"; //-- 비용항목 중분류명
-			data.smKindSeq = "111"; //-- 비용항목 중분류코드
 
-			//-- 비용항목 소분류
-			data.costNm = "접대비 소분류"; //-- 비용항목 소분류명
-			data.costSeq = "123"; //-- 비용항목 소분류코드
-
-			//-- SGMA 중분류
-			data.costItemCd = "2222"; //-- SGMA_중분류코드(액티비티)
-			data.costItemNm = "SGMA중분류"; //-- SGMA_중분류명(액티비티)
-
-			//-- SGMA 소분류
-			data.activityCd = "3333"; //-- SGMA_소분류코드(액티비티)
-			data.activityNm = "SGMA소분류"; //-- SGMA_소분류명(액티비티)
-
-			//-- 접대비
-			data.custName = ""; //-- 업체명
-			data.userName = ""; //-- 업체 담당자
-			data.purpose = ""; //-- 목적
-
-			//-- 출장정보
-			data.busiTripCode = ""; //-- 츨장정보코드
-			data.busiTripType = ""; //-- 츨장구분코드
-
-			//-- 교통비
-			data.startArea = ""; //-- 출발지
-			data.destArea = ""; //-- 목적지
-			data.workStart = ""; //-- 업무 시작시간
-			data.workEnd = ""; //-- 업무 종료시간
-			data.distance = "0"; //-- 거리(Km)
-			data.personCnt = "0"; //-- 인원수
-			data.transAmt = "0"; //-- 금액
-			data.personName = ""; //-- 탑승자
-
-			//-- 결제정보
-			data.chainNm = "하늘아래어딘가"; //-- 가맹점명
-			data.chainId = "1111111111"; //-- 가맹점 사업자번호
-			data.chainAddr = "서울 남산아래 어디쯤"; //-- 가맹점 주소
-			data.mccName = "유흥"; //-- 업종
-			data.chainMaster = "대표자명"; //-- 대표자명
-			data.supplyAmt = "1000000"; //-- 공급가
-			data.apprTax = "100000"; //-- 부가세
-			data.tipAmt = "10000"; //-- 봉사료
-			data.apprAmt = "1110000"; //-- 승인금액
-			data.currCd = "KRW"; //-- 통화
-			data.curAmt = "0"; //-- 외화금액
-			data.chainType = "N"; //-- 간이세액구분
-			data.authHh = ""; //--
-			data.isDefine = "";
-			data.closeYn = "N"; //-- 마감여부
-			data.lastDateTime = ""; //-- 최종수정일
-			data.lastUserId = ""; //-- 최종수정자
-
-			setDetailData(data);
-		}
-
+		$('.popup-layer--payment-history').addClass('popup-wrap--active');
+		AUIGrid.resize(cardPaymentAuiGrid);
+//		$('.popup__dimmed').show();
 	});
+
+//	$("#btnGetUseList").click(function(){
+//		let data = new Object();
+//
+//		for(let i = 0; i < 4; i++){
+//
+//			//-- 키값
+//			data.cardUseSeq = "0"; //-- 내부코드(신규 데이터일때는 반드시 0을 넣어야 된다.)
+//			data.companySeq = "2"; //-- ERP법인코드
+//			data.cancelYn = "N"; //-- 승인취소여부
+//			data.apprSeq = i; //-- 승인순번
+//			data.apprNo = "1010" + i; //-- 승인번호
+//			data.apprDate = "20200303"; //-- 승인일
+//			data.cardCd = "111122223333"; //-- 카드번호
+//
+//			data.apprTime = "2018"; //-- 승인시간
+//
+//			//-- 예산부서 정보
+//			data.budgetDeptCd = ""; //-- 예산부서코드2
+//			data.budgetDeptNm = ""; //-- 예산부서명2
+//			data.budgetErpDeptSeq = "0"; //-- ERP예산부서코드
+//			data.budgetErpDeptNm = ""; //-- ERP예산부서명
+//
+//			//-- 사용자정보(귀속처리정보)
+//			data.comCd = ""; //-- 인사법인코드
+//			data.comNm = ""; //-- 인사법인명
+//			data.useUserId = "140"; //-- 사용자코드
+//			data.useUserNm = "김재원"; //-- 사용자명
+//			data.useErpDeptSeq = "0"; //-- ERP사용자부서코드
+//			data.useEmpNo = "H0000140"; //-- 사용자사번
+//
+//			//-- 비용항목 중분류
+//			data.smKindNm = "접대비"; //-- 비용항목 중분류명
+//			data.smKindSeq = "111"; //-- 비용항목 중분류코드
+//
+//			//-- 비용항목 소분류
+//			data.costNm = "접대비 소분류"; //-- 비용항목 소분류명
+//			data.costSeq = "123"; //-- 비용항목 소분류코드
+//
+//			//-- SGMA 중분류
+//			data.costItemCd = "2222"; //-- SGMA_중분류코드(액티비티)
+//			data.costItemNm = "SGMA중분류"; //-- SGMA_중분류명(액티비티)
+//
+//			//-- SGMA 소분류
+//			data.activityCd = "3333"; //-- SGMA_소분류코드(액티비티)
+//			data.activityNm = "SGMA소분류"; //-- SGMA_소분류명(액티비티)
+//
+//			//-- 접대비
+//			data.custName = ""; //-- 업체명
+//			data.userName = ""; //-- 업체 담당자
+//			data.purpose = ""; //-- 목적
+//
+//			//-- 출장정보
+//			data.busiTripCode = ""; //-- 츨장정보코드
+//			data.busiTripType = ""; //-- 츨장구분코드
+//
+//			//-- 교통비
+//			data.startArea = ""; //-- 출발지
+//			data.destArea = ""; //-- 목적지
+//			data.workStart = ""; //-- 업무 시작시간
+//			data.workEnd = ""; //-- 업무 종료시간
+//			data.distance = "0"; //-- 거리(Km)
+//			data.personCnt = "0"; //-- 인원수
+//			data.transAmt = "0"; //-- 금액
+//			data.personName = ""; //-- 탑승자
+//
+//			//-- 결제정보
+//			data.chainNm = "하늘아래어딘가"; //-- 가맹점명
+//			data.chainId = "1111111111"; //-- 가맹점 사업자번호
+//			data.chainAddr = "서울 남산아래 어디쯤"; //-- 가맹점 주소
+//			data.mccName = "유흥"; //-- 업종
+//			data.chainMaster = "대표자명"; //-- 대표자명
+//			data.supplyAmt = "1000000"; //-- 공급가
+//			data.apprTax = "100000"; //-- 부가세
+//			data.tipAmt = "10000"; //-- 봉사료
+//			data.apprAmt = "1110000"; //-- 승인금액
+//			data.currCd = "KRW"; //-- 통화
+//			data.curAmt = "0"; //-- 외화금액
+//			data.chainType = "N"; //-- 간이세액구분
+//			data.authHh = ""; //--
+//			data.isDefine = "";
+//			data.closeYn = "N"; //-- 마감여부
+//			data.lastDateTime = ""; //-- 최종수정일
+//			data.lastUserId = ""; //-- 최종수정자
+//
+//			setDetailData(data);
+//		}
+//
+//	});
 
 	getCompanyCardList();
 

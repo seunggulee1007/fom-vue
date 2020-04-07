@@ -95,25 +95,6 @@ public class AccountController {
 	}
 
 	/**
-	 * 카드 결제내역 가져오기.
-	 * @param yyyymm
-	 * @return
-	 */
-	@PostMapping("/getCompanyCardUseList")
-	public List<CompanyCardDetailVO> getCompanyCardUseList(@RequestParam("yyyymm") String yyyymm){
-
-		List<CompanyCardDetailVO> list = null;
-		try {
-			list = service.getCompanyCardUseList(yyyymm);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return list;
-	}
-
-	/**
 	 * 정산목록 조회.
 	 * @param yyyymm
 	 * @return
@@ -165,7 +146,21 @@ public class AccountController {
 			return CommonResultVO.builder().result(9999).resultMsg(e.getMessage()).build();
 			// TODO Auto-generated catch block
 		}
-
 	}
 
+	@PostMapping("/getCompanyCardConfirmList")
+	public CommonResultVO getCompanyCardConfirmList(@RequestParam("companySeq") String companySeq,
+													@RequestParam("cardCd") String cardCd,
+													@RequestParam("calcDate") String calcDate,
+													@RequestParam("empSeq") String empSeq) {
+
+		try {
+			return CommonResultVO.builder().data(service.getCompanyCardConfirmList(companySeq, cardCd, calcDate, empSeq)).result(0000).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return CommonResultVO.builder().result(9999).resultMsg(e.getMessage()).build();
+			// TODO Auto-generated catch block
+		}
+	}
 }

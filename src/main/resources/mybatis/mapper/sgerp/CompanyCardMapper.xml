@@ -3,8 +3,11 @@
 <mapper namespace="net.smilegate.fim.mappers.sgerp.CompanyCardSgErpMapper">
 
     <select id="getCompanyCardList" statementType="CALLABLE" resultType="companyCardVO">
-
         exec SG_SDAIFCardALLQuery #{companySeq}, #{empSeq}
-
     </select>
+
+	<select id="getCompanyCardConfirmList" statementType="CALLABLE" resultType="companyCardDetailVO">
+		EXEC SG_SARIFFebCardChgQuery_new #{companySeq}, #{cardCd}, #{calcDate}, #{empSeq}
+	</select>
+
 </mapper>

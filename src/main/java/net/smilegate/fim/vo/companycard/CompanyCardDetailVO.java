@@ -43,7 +43,7 @@ public class CompanyCardDetailVO {
 	String chainNm;
 
 	/** 가맹점 사업자번호 */
-	int chainId;
+	String chainId;
 
 	/** 예산부서코드2 */
 	String budgetDeptCd;

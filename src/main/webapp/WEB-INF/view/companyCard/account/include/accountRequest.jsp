@@ -7,10 +7,10 @@
 			<input type="hidden" id="comCd" name="comCd" value="2">
 			<input type="hidden" id="erpCompanySeq" name="erpCompanySeq" value="2">
 			<input type="hidden" id="regDate" name="regDate" value="20200324">
-			<input type="hidden" id="regErpEmpSeq" name="erpEmpSeq" value="140">
+			<input type="hidden" id="regErpEmpSeq" name="regErpEmpSeq" value="140">
 			<input type="hidden" id="regUserId" name="regUserId" value="140">
 			<input type="hidden" id="regErpDeptSeq" name="regErpDeptSeq" value="33333">
-			<input type="hidden" id="regEmpNo" name="empNo" value="140">
+			<input type="hidden" id="regEmpNo" name="regEmpNo" value="140">
 			<input type="hidden" id="regDeptCd" name="regDeptCd" value="33333">
 			<div class="component-group">
 				<div class="table table-chain">

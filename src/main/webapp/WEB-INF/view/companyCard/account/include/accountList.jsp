@@ -45,7 +45,7 @@
 		<div class="component-area">
 			<div class="component-group">
 				<div class="table">
-					<div id="companyCardMasterList" style="width:1619px;height:480px;"></div>
+					<div id="companyCardMasterList" ></div>
 <!-- 					<table> -->
 <!-- 						<caption><span class="blind">법인카드 정산목록</span></caption> -->
 <!-- 						<colgroup> -->
@@ -113,42 +113,42 @@
 			</div>
 		</div>
 	</div>
-	<div class="component-group">
-		<div class="pagination">
-			<a href="#" class="pagination__btn pagination__btn--disabled">
-				<span class="sp icon-first">
-					<span class="blind">맨 처음 페이지</span>
-				</span>
-			</a>
-			<a href="#" class="pagination__btn pagination__btn--disabled">
-				<span class="sp icon-prev">
-					<span class="blind">이전 페이지</span>
-				</span>
-			</a>
-			<div class="pagination__inner">
-				<a href="#" class="pagination__btn-txt pagination__btn-txt--active">
-					<span class="pagination__page-number">1</span>
-					<span class="blind">페이지로 이동</span>
-				</a>
-				<a href="#" class="pagination__btn-txt">
-					<span class="pagination__page-number">2</span>
-					<span class="blind">페이지로 이동</span>
-				</a>
-				<a href="#" class="pagination__btn-txt">
-					<span class="pagination__page-number">3</span>
-					<span class="blind">페이지로 이동</span>
-				</a>
-			</div>
-			<a href="#" class="pagination__btn">
-				<span class="sp icon-next">
-					<span class="blind">다음 페이지</span>
-				</span>
-			</a>
-			<a href="#" class="pagination__btn">
-				<span class="sp icon-last">
-					<span class="blind">맨 뒤 페이지</span>
-				</span>
-			</a>
-		</div>
-	</div>
+<!-- 	<div class="component-group"> -->
+<!-- 		<div class="pagination"> -->
+<!-- 			<a href="#" class="pagination__btn pagination__btn--disabled"> -->
+<!-- 				<span class="sp icon-first"> -->
+<!-- 					<span class="blind">맨 처음 페이지</span> -->
+<!-- 				</span> -->
+<!-- 			</a> -->
+<!-- 			<a href="#" class="pagination__btn pagination__btn--disabled"> -->
+<!-- 				<span class="sp icon-prev"> -->
+<!-- 					<span class="blind">이전 페이지</span> -->
+<!-- 				</span> -->
+<!-- 			</a> -->
+<!-- 			<div class="pagination__inner"> -->
+<!-- 				<a href="#" class="pagination__btn-txt pagination__btn-txt--active"> -->
+<!-- 					<span class="pagination__page-number">1</span> -->
+<!-- 					<span class="blind">페이지로 이동</span> -->
+<!-- 				</a> -->
+<!-- 				<a href="#" class="pagination__btn-txt"> -->
+<!-- 					<span class="pagination__page-number">2</span> -->
+<!-- 					<span class="blind">페이지로 이동</span> -->
+<!-- 				</a> -->
+<!-- 				<a href="#" class="pagination__btn-txt"> -->
+<!-- 					<span class="pagination__page-number">3</span> -->
+<!-- 					<span class="blind">페이지로 이동</span> -->
+<!-- 				</a> -->
+<!-- 			</div> -->
+<!-- 			<a href="#" class="pagination__btn"> -->
+<!-- 				<span class="sp icon-next"> -->
+<!-- 					<span class="blind">다음 페이지</span> -->
+<!-- 				</span> -->
+<!-- 			</a> -->
+<!-- 			<a href="#" class="pagination__btn"> -->
+<!-- 				<span class="sp icon-last"> -->
+<!-- 					<span class="blind">맨 뒤 페이지</span> -->
+<!-- 				</span> -->
+<!-- 			</a> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 </div>

@@ -21,6 +21,9 @@
 <!-- 비용항목 상세 다이얼로그. -->
 <jsp:include page="/WEB-INF/view/include/expense/expenseDetail.jsp"/>
 
+<!-- 조직도 다이얼로그. -->
+<jsp:include page="./include/companyCardPaymentList.jsp"/>
+
 <div id="container" class="container container--include-lnb container--fullview container-write container--include-tab">
     <h2 class="page-title">법인카드 정산</h2>
     <!-- <p class="page-title__dsc">· 법인카드 정산 페이지입니다.</p> -->

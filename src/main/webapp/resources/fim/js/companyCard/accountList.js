@@ -103,10 +103,11 @@ $(document).ready(function(){
 
 	];
 
-	var auiGridProps = {
+	let auiGridProps = {
 			showRowNumColumn : false,
 			showRowCheckColumn : false,
 			showAutoNoDataMessage : false,
+			applyRestPercentWidth : true,
 			selectionMode : "singleRow"
 	};
 	myGridID = AUIGrid.create("#companyCardMasterList", companyCardMasterCol, auiGridProps);
@@ -118,15 +119,15 @@ $(document).ready(function(){
         $('.lst-tab__item .lst-tab__menu').first().trigger("click");
 //		$('.tab-area .lst-tab').find('.lst-tab__item .lst-tab__menu').trigger("click",obj);
 
-		$('.tab-area .lst-tab').find('.lst-tab__item .lst-tab__menu').parent().addClass('lst-tab__item--active').siblings().removeClass('lst-tab__item--active');
-		$('.tab-area .lst-tab').find('.lst-tab__item .lst-tab__menu').parents('.tab-area').next('.tab-cnt').children().eq(0).addClass('lst-tab-cnt--active').siblings().removeClass('lst-tab-cnt--active')
+//		$('.tab-area .lst-tab').find('.lst-tab__item .lst-tab__menu').parent().addClass('lst-tab__item--active').siblings().removeClass('lst-tab__item--active');
+//		$('.tab-area .lst-tab').find('.lst-tab__item .lst-tab__menu').parents('.tab-area').next('.tab-cnt').children().eq(0).addClass('lst-tab-cnt--active').siblings().removeClass('lst-tab-cnt--active')
 //        $(this).parent().addClass('lst-tab__item--active').siblings().removeClass('lst-tab__item--active');
 //        $(this).parents('.tab-area').next('.tab-cnt').children().eq(tabNum).addClass('lst-tab-cnt--active').siblings().removeClass('lst-tab-cnt--active')
 
         getCardUseData(event.item);
 	});
 
-	getCompanyCardMasterList();
+//	getCompanyCardMasterList();
 
 });
 

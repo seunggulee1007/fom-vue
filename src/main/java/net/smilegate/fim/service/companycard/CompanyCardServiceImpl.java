@@ -25,7 +25,7 @@ import net.smilegate.fim.vo.companycard.CompanyCardVO;
 public class CompanyCardServiceImpl implements CompanyCardService{
 
 	private final FileUtil fileUtil;
-	private final CompanyCardSgErpMapper mapper;
+	private final CompanyCardSgErpMapper erpMapper;
 	private final CompanyCardFimMapper fimMapper;
 //	private final MdiMapper mdiMapper;
 
@@ -39,7 +39,7 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 
-		List<CompanyCardVO> list =  mapper.getCompanyCardList(param);
+		List<CompanyCardVO> list =  erpMapper.getCompanyCardList(param);
 
 		rtnMap.put("companyCardList", list);
 		return rtnMap;
@@ -120,12 +120,6 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 	}
 
 	@Override
-	public List<CompanyCardDetailVO> getCompanyCardUseList(String yyyymm) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getCompanyCardMasterSeq() throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
@@ -176,6 +170,19 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 
 		List<CompanyCardMasterFileVO> fileList = fimMapper.getFileList(cardUseSeq);
 		rtnMap.put("fileList", fileList);
+
+		return rtnMap;
+	}
+
+	@Override
+	public Map<String, Object> getCompanyCardConfirmList(String companySeq, String cardCd, String calcDate,
+			String empSeq) throws Exception {
+
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+		List<CompanyCardDetailVO> list = erpMapper.getCompanyCardConfirmList(companySeq, cardCd, calcDate, empSeq);
+
+		rtnMap.put("confirmList", list);
 
 		return rtnMap;
 	}
