@@ -101,11 +101,18 @@ function makeOriginList(userList) {
 }
 
 function makeChoiceUser(user) {
-    if(this.userInfo.empNo) {
-        alert("한명 이상은 선택 하실 수 없습니다.");
-        return;
-    }
     let empNo = user.getAttribute("id");
+    if(this.userInfo.empNo) {
+        if(this.userInfo.empNo == empNo) {
+            alert("이미 선택한 사용자 입니다.");
+            return;
+        }
+        if(!confirm("한명 이상은 선택할 수 없습니다. \n계속하면 기존 선택한 유저는 사라지고 선택한 사용자만 남게됩니다. \n계속 하시겠습니까?")) {
+            return;
+        }
+        this.userInfo = {};
+    }
+    
     let userInfo = this.originUserList.filter(data => {
         if(data.empNo == empNo) {
             return data;
@@ -139,6 +146,10 @@ function choiceUser() {
         ,deptCd : this.userInfo.deptCd
     }
     let res = doAjax("/common/getBudgetDeptInfo", "get", param);
+    if(!res.data) {
+        alert("예산 부서가 없습니다. 다른 사용자를 선택해 주세요.");
+        return;
+    }
     this.userInfo.budgetDeptCd = res.data.deptSeq;
     this.userInfo.budgetDeptNm = res.data.deptNm;
     this.userInfo.budgetErpDeptSeq = res.data.deptSeq;

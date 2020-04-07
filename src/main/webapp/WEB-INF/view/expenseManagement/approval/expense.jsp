@@ -39,7 +39,7 @@
         <input type="hidden" id="costSeq">
         <input type="hidden" id="tiCostSeq" value="${param.tiCostSeq }">
         <input type="hidden" id="temp">
-        <input type="text" id="deptCd">
+        <input type="hidden" id="deptCd">
         <div id="costInfoVO"></div>
         <div class="grid-column grid-column10">                    
             <div class="section section--border section-expense">

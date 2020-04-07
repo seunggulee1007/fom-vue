@@ -25,7 +25,7 @@ var expenseList = [{
     ,remark : ''
     ,curAmt : 0
     ,checkYn : false
-    ,useDate : getDate(new Date(),'-')
+    ,useDate : getDate(new Date())
 }];
 var uploadFiles = [];               // 파일 저장용 리스트 
 var originFileSize = 0;             // 계산용 기존 파일 크기
@@ -461,7 +461,7 @@ function makeTopHtml() {
     html += '    <th class="table__th">제목</th>                                                    ';
     html += '    <td colspan="5" class="table__td">                                                    ';
     html += '    <div class="input-field input-field-table">                                            ';
-    html += '        <input type="text" class="input-field__input" id="title" name="title" value="'+ tiarCostVO.title+ '">        ';
+    html += '        <input type="text" class="input-field__input" id="title" name="title" value="'+ tiarCostVO.title+ '" maxlength="300">        ';
     html += '    </div>                                                                ';
     html += '    </td>                                                                ';
     html += '</tr>                                                                    ';
@@ -538,7 +538,7 @@ function makeExpenseList() {
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td">                                                                                     ';
         html += '        <div class="input-field input-field-table">                                                                         ';
-        html += '            <input type="text" class="changeStore input-field__input" placeholder="입력해주세요." name="tiarCostAmtList['+cnt+'].store" value="'+expense.store+'">                                                          ';
+        html += '            <input type="text" class="changeStore input-field__input" placeholder="입력해주세요." name="tiarCostAmtList['+cnt+'].store" value="'+expense.store+'" maxlength="300">                                                          ';
         html += '        </div>                                                                                             ';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td">                                                                                     ';
@@ -548,13 +548,13 @@ function makeExpenseList() {
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td">                                                                                     ';
         html += '        <div class="input-field input-field-table">                                                                         ';
-        html += '            <input type="text" class="input-field__input changeRemark" placeholder="입력해주세요." name="tiarCostAmtList['+cnt+'].remark" value="'+expense.remark+'">                                                          ';
+        html += '            <input type="text" class="input-field__input changeRemark" placeholder="입력해주세요." name="tiarCostAmtList['+cnt+'].remark" value="'+expense.remark+'" maxlength="300">                                                          ';
         html += '        </div>                                                                                             ';
         html += '        <span class="table__txt table__txt-caption txt--blue"></span>                                                                 ';
         html += '    </td>                                                                                             ';
         html += '    <td class="table__td">                                                                                     ';
         html += '        <div class="input-field input-field-table">                                                                         ';
-        html += '            <input type="text" class="input-field__input table__txt--align-right changeCurAmt" placeholder="입력해주세요." name="tiarCostAmtList['+cnt+'].curAmt" value="'+setComma(expense.curAmt)+'">                                              ';
+        html += '            <input type="text" class="input-field__input table__txt--align-right changeCurAmt" placeholder="입력해주세요." name="tiarCostAmtList['+cnt+'].curAmt" value="'+setComma(expense.curAmt)+'" maxlength="9">                                              ';
         html += '        </div>                                                                                             ';
         html += '    </td>                                                                                             ';
         html += '</tr>                                                                                                ';
@@ -667,7 +667,7 @@ function makeBottomHtml() {
     html += '    <th class="table__th">의견입력</th>                                             ';
     html += '    <td class="table__td" colspan="5">                                            ';
     html += '        <div class="textarea">                                                ';
-    html += '        <textarea id="memo" name="memo" cols="30" rows="10" style="height:80px"></textarea>                ';
+    html += '        <textarea id="memo" name="memo" cols="30" rows="10" style="height:80px" maxlength="4000"></textarea>                ';
     html += '        </div>                                                        ';
     html += '    </td>                                                                                ';
     html += '    </tr>                                                        ';
