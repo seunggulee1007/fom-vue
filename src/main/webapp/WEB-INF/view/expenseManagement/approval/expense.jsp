@@ -38,6 +38,8 @@
         <input type="hidden" id="smKindSeq">
         <input type="hidden" id="costSeq">
         <input type="hidden" id="tiCostSeq" value="${param.tiCostSeq }">
+        <input type="hidden" id="temp">
+        <input type="text" id="deptCd">
         <div id="costInfoVO"></div>
         <div class="grid-column grid-column10">                    
             <div class="section section--border section-expense">
@@ -187,6 +189,31 @@
                 </div>                        
             </div>
             <div class="component-group btn-box align-center" id="buttonHtml">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/resources/fim/js/expenseManagement/expenseDetail.js"></script>
+<div class="popup-wrap popup-layer--medium popup-layer--expenses-detail ">
+    <div class="popup-wrap__align-box">
+        <div class="popup-wrap__inner">
+            <div class="popup__header" id="popup__header">
+                <strong class="popup__header-txt">
+                    <span>교통비</span> - <span>야근교통비</span> 정보 입력
+                </strong>
+            </div>
+            <div class="popup__contents" id="expenseDetail">
+            </div>
+            <div class="popup__bottom">
+                <div class="popup__btn-box">
+                    <button type="button" class="btn btn--bgtype" id="cancleDetail">
+                        <span class="btn__txt">취소</span>
+                    </button>
+                    <button type="button" class="btn btn--orange" id="saveDetail">
+                        <span class="btn__txt">저장</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

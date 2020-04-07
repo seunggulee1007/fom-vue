@@ -173,7 +173,7 @@ function getDate(date, type, days){
 }
 
 function isNull(str) {
-    return (str === null || str === 'null' || str === undefined || str === 'undefined');
+    return (str == null || str == undefined || str == '');
 }
 
 function getPageList(start, end) {
@@ -288,7 +288,6 @@ function makePagingVO(fnName, target) {
 
 function doAjax(url, type, param, config) {
     let res = {};
-
     const ajaxConfig = {
         url : url
         ,type : type
@@ -298,6 +297,8 @@ function doAjax(url, type, param, config) {
             res = data;
         }
     }
+    console.log(param);
+    // 추가 될 ajax 설정이 있다면 추가 시킨다.
     for(let temp in config) {
         ajaxConfig[temp] = config[temp];
     }

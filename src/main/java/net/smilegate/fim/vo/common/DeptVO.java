@@ -6,12 +6,16 @@ import lombok.Data;
 
 @Data
 public class DeptVO {
+    
+    private String id;
 
     private String deptCd;
     
     private String parentCd;
     
     private String deptNm;
+    
+    private String text;
     
     private int deptLevel;
     
@@ -25,7 +29,7 @@ public class DeptVO {
     
     private String comNm;
     
-    private List<DeptVO> child;
+    private List<DeptVO> children;
     /** erp사용자 코드 */
     private int useErpEmpSeq;
     /** 사용자 코드 */

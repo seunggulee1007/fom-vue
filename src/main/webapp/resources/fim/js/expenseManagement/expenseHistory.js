@@ -33,7 +33,6 @@ function clickModifyPage(tiCostSeq) {
 function makeHistoryList() {
     let html = '';
     $("#expenseHistory").empty();
-    console.log(expenseHistoryList);
     if(expenseHistoryList) {
         for(let list of expenseHistoryList) {
             html += '    <tr class="expandDetail">                                                              ';
@@ -46,8 +45,8 @@ function makeHistoryList() {
             html += '       <td class="table__td">                                                                      ';
             html += '           <span class="table__txt">'+list.tiCostSeq+'</span>                                                      ';
             html += '       </td>                                                                              ';
-            html += '       <td class="table__td preventEvent">                                                                      ';
-            html += '           <span class="table__txt"><a style="text-decoration:underline; cursor:pointer;" onclick="clickModifyPage(\''+list.tiCostSeq+'\')">'+list.title+'</a></span> ';
+            html += '       <td class="table__td">                                                                      ';
+            html += '           <span class="table__txt"><a class="preventEvent" style="text-decoration:underline; cursor:pointer;" onclick="clickModifyPage(\''+list.tiCostSeq+'\')">'+list.title+'</a></span> ';
             html += '       </td>                                                                              ';
             html += '       <td class="table__td">                                                                      ';
             html += '           <span class="table__txt">'+list.regDate+'</span>                                                      ';

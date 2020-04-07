@@ -1,25 +1,40 @@
-window.onbeforeunload = function(e) {
-    let confirmMessage = '창을 닫으시면 내용이 사라집니다. 그래도 닫으시겠습니까?';
-    if(!e){
-        return confirmMessage;
-    }else {
-        window.event.returnValue = confirmMessage;
-    }
-};
+let costInfoDetail = {};
 $(document).ready(function(){
-    let smKindSeq = opener.document.getElementById('smKindSeq').value;
-    let costSeq = opener.document.getElementById('costSeq').value;
-    makeHtml(smKindSeq, costSeq);
-    $(".table__expenses").focus();
+    $("#cancleDetail").click(function(){
+        if(!confirm("팝업창을 닫으시면 작성하신 내용이 사라집니다.\n 팝업창을 닫으시겠습니까? ")) {
+            return;
+        }
+        $(".popup-layer--expenses-detail").toggleClass("popup-wrap--active")
+    });
+
+    $("#saveDetail").click(function(){
+        if(!validation()) {
+            return;
+        }
+        expenseDetailCallBack(costInfoDetail);
+        $(".popup-layer--expenses-detail").toggleClass("popup-wrap--active")
+    });
 });
 
-function makeHtml(smKindSeq, costSeq) {
+function makeDetailHtml(costInfoVO) {
+    costInfoDetail = costInfoVO;
     let html = '';
+    let smKindSeq = costInfoDetail.smKindSeq;
+    let costSeq = costInfoDetail.costSeq;
+    let smKindName = costInfoDetail.smKindName;
+    let costName = costInfoDetail.costName;
+    $("#popup__header").empty();
+    html += '<strong class="popup__header-txt>'
+    html += '   <span>'+smKindName + '</span>-<span>'+costName+'</span>정보입력';
+    html += '</strong>';
+    $("#popup__header").append(html);
+    html = '';
+    $("#expenseDetail").empty();
     if(smKindSeq == '4503006') {
         html += '<div class="table__expenses table__expenses-transportation">                            ';
         html += '    <div class="table table-chain">                                                                ';
         html += '    <table>                                                                            ';
-        html += '        <caption><span class="blind">교통비 추가 정보 기입</span></caption>                                             ';
+        html += '        <caption><span class="blind">'+costName+' 추가 정보 기입</span></caption>                                             ';
         html += '        <colgroup>                                                                        ';
         html += '        <col width="35%">                                                                ';
         html += '        <col width="65%">                                                                ';
@@ -95,7 +110,7 @@ function makeHtml(smKindSeq, costSeq) {
             html += '        <tr>                                                        ';
             html += '            <th class="table__th">금액(자동계산)</th>                                                     ';
             html += '            <td class="table__td table__td--data>                                            ';
-            html += '            <span class="table__txt" id="transAmt"></span>                                            ';
+            html += '            <span class="table__txt" id="transAmtAuto"></span>                                            ';
             html += '            </td>                                                                    ';
             html += '        </tr>                                                                                        ';
         }
@@ -163,7 +178,7 @@ function makeHtml(smKindSeq, costSeq) {
         html += '        <tr>                                                                        ';
         html += '            <th class="table__th">출장정보</th>                                                         ';
         html += '            <td class="table__td">                                                            ';
-        html += '            <select name="expenseBizTrip1" id="expenseBizTrip1" class="dropdown-select" id="busiTripCode">    ';
+        html += '            <select name="expenseBizTrip1" class="dropdown-select" id="busiTripCode">    ';
         html += '                <option value="search_period-draft" class="dropdown-select__menu">                                    ';
         html += '                <span class="dropdown__menu-txt">선택1</span>                                            ';
         html += '                </option>                                                                ';
@@ -176,7 +191,7 @@ function makeHtml(smKindSeq, costSeq) {
         html += '        <tr>                                                                        ';
         html += '            <th class="table__th">출장구분</th>                                                         ';
         html += '            <td class="table__td">                                                            ';
-        html += '            <select name="expenseBizTrip2" id="expenseBizTrip2" id="busiTripType">    ';
+        html += '            <select name="expenseBizTrip2" id="busiTripType">    ';
         html += '                <option value="search_period-draft" class="dropdown-select__menu">                                    ';
         html += '                <span class="dropdown__menu-txt">선택1</span>                                            ';
         html += '                </option>                                                                ';
@@ -194,5 +209,120 @@ function makeHtml(smKindSeq, costSeq) {
     }
 
     $("#expenseDetail").append(html);
+
+    $("#startArea").change(function(){
+        costInfoDetail.startArea = $(this).val();
+    });
+
+    $("#destArea").change(function(){
+        costInfoDetail.destArea = $(this).val();
+    });
+
+    $("#transAmt").change(function(){
+        costInfoDetail.transAmt = $(this).val();
+    });
+
+    $("#distance").change(function(){
+        costInfoDetail.distance = $(this).val();
+    });
+
+    $("#personCnt").change(function(){
+        costInfoDetail.personCnt = $(this).val();
+    });
+
+    $("#personName").change(function(){
+        costInfoDetail.personName = $(this).val();
+    });
+
+    $("#custName").change(function(){
+        costInfoDetail.custName = $(this).val();
+    });
+
+    $("#userName").change(function(){
+        costInfoDetail.userName = $(this).val();
+    });
+
+    $("#purpose").change(function(){
+        costInfoDetail.purpose = $(this).val();
+    });
+
+    $("#busiTripCode").change(function(){
+        costInfoDetail.busiTripCode = $(this).val();
+    });
+
+    $("#busiTripType").change(function(){
+        costInfoDetail.busiTripType = $(this).val();
+    })
    
+}
+
+function validation() {
+    let cost = costInfoDetail;
+    let smKind = cost.smKindSeq;
+    let costSeq = cost.costSeq;
+    if(smKind == '4503006') {           // 중분류가 교통비 일떄
+        if(!cost.startArea) {
+            alert("출발지를 입력해 주세요");
+            $("#startArea").focus();
+            return false;
+        }else if(!cost.destArea) {
+            alert("목적지를 입력해 주세요.");
+            $("#destArea").focus();
+            return false;
+        }
+        if(costSeq === 10 || costSeq === 11) {
+            if(!cost.transAmt) {
+                alert("금액을 입력해 주세요.");
+                $("#transAmt").focus();
+                return false;
+            }
+        }
+        if(costSeq === 10) {        //  야근교통비
+            // TODO 업무시작/ 종료 시간 체크
+        }
+        if(costSeq === 86) {        // 유류대-직원
+            if(!cost.distance) {
+                alert("거리를 입력해 주세요.");
+                $("#distance").focus();
+                return false;
+            }else if(!cost.personCnt) {
+                alert("인원수를 입력해 주세요.");
+                $("#personCnt").focus();
+                return false;
+            }else if(!cost.personName) {
+                alert("탑승자를 입력해 주세요.");
+                $("#personName").focus();
+                return false;
+            }else if(!cost.transAmt) {
+                alert("금액을 계산해 주세요.");
+                $("#autoTransAmt").focus();
+                return false;
+            }
+        }
+    }else if(smKind === '4503010') {            // 중분류가 접대비 일때
+        if(!cost.custName) {
+            alert("업체명을 입력해 주세요.");
+            $("#custName").focus();
+            return false;
+        }else if(!cost.userName) {
+            alert("업체 담당자를 입력해 주세요");
+            $("#userName").focus();
+            return false;
+        }else if(!cost.purpose) {
+            alert("목적을 입력해 주세요.");
+            $("#purpose").focus();
+            return false;
+        }
+    }else if(smKind === '4503008' || smKind === '4503009') {        // 중분류가 국내 출장 혹은 해외 출장일때
+        if(!cost.busiTripCode) {
+            alert("출장정보를 선택해 주세요.");
+            $("#busiTripCode").focus();
+            return false;
+        }else if(!cost.busiTripType) {
+            alert("출장구분을 선택해 주세요.");
+            $("#busiTripType").focus();
+            return false;
+        }
+    }
+    return true;
 }

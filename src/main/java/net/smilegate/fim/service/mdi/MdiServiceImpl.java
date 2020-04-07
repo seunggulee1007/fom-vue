@@ -26,7 +26,7 @@ public class MdiServiceImpl implements MdiService {
         List<DeptVO> deptList = mdiMapper.selectDeptList();
         
         for(DeptVO deptVO : deptList) {         // 해당 부서 내역은 계층형이 아니므로 부모 코드와 부서코드가 일치한다면 자식 리스트로 만들어서 vo에 담아준다.
-            deptVO.setChild(deptList.stream().filter(dept -> dept.getParentCd().equals(deptVO.getDeptCd())).collect(Collectors.toList()));
+            deptVO.setChildren(deptList.stream().filter(dept -> dept.getParentCd().equals(deptVO.getDeptCd())).collect(Collectors.toList()));
         }
         
         // 현재 필요한 내용은 가장 최상위 층의 부서가 갖고 있는 tree구조만 필요하므로 해당 내용만 필터링 처리하고 정렬을 한다.

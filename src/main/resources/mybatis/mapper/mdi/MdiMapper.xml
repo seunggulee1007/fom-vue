@@ -7,8 +7,10 @@
     <select id="selectDeptList" resultType="deptVO">
         select
             DEPT_CD         as deptCd
+            ,dept_cd        as id
             ,PARENT_CD      as parentCd
             ,DEPT_NM        as deptNm
+            ,dept_nm        as text
             ,DEPT_LEVEL     as deptLevel
             ,DEPT_SORT      as deptSort
             ,DEPT_CD_PATH   as deptCdPath
