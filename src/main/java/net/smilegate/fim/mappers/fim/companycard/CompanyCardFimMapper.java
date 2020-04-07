@@ -37,4 +37,8 @@ public interface CompanyCardFimMapper {
 	public List<CompanyCardDetailVO> getCompanyCardDetailList(@Param("cardUseSeq") int cardUseSeq) throws Exception;
 
 	public List<CompanyCardMasterFileVO> getFileList(@Param("cardUseSeq") int cardUseSeq) throws Exception;
+
+	public CompanyCardMasterFileVO getFile(@Param("cardUseSeq") int cardUseSeq, @Param("fileSerl") int fileSerl) throws Exception;
+
+	public void doDeleteFile(@Param("cardUseSeq") int cardUseSeq, @Param("fileSerl") int fileSerl, @Param("regUserId") String regUserId) throws Exception;
 }

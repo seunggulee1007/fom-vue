@@ -152,4 +152,20 @@ public class AccountController {
 		}
 
 	}
+
+	@PostMapping("/doDeleteFile")
+	public CommonResultVO doDeleteFile(@RequestParam("cardUseSeq") int cardUseSeq,
+										@RequestParam("fileSerl") int fileSerl,
+										@RequestParam("regUserId") String regUserId){
+		try {
+			return CommonResultVO.builder().data(service.doDeleteFile(cardUseSeq, fileSerl, regUserId)).result(0000).resultMsg("삭제 되었습니다.").build();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			return CommonResultVO.builder().result(9999).resultMsg(e.getMessage()).build();
+			// TODO Auto-generated catch block
+		}
+
+	}
+
 }

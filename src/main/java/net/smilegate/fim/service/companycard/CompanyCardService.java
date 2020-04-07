@@ -64,4 +64,14 @@ public interface CompanyCardService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> getCardUseData(int cardUseSeq) throws Exception;
+
+	/**
+	 * 첨부파일을 삭제 한다.
+	 * @param cardUseSeq 법인카드 내부키
+	 * @param fileSerl 파일순번.
+	 * @param 등록자 userid
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> doDeleteFile(int cardUseSeq, int fileSerl, String regUserId) throws Exception;
 }

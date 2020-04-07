@@ -58,6 +58,7 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 		if(vo.getCardUseSeq() == 0) {
 			f_cardUseSeq = cardUseSeq;
 			vo.setLogTag("I");
+			vo.setLogUserId(vo.getRegUserId());
 			vo.setCardUseSeq(cardUseSeq);
 			fimMapper.saveCompanyCardMaster(vo);
 			fimMapper.insertCompanyCardMasterLog(vo);
@@ -66,6 +67,7 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 			f_cardUseSeq = vo.getCardUseSeq();
 			mVo = fimMapper.getCompanyCardMaster(vo.getCardUseSeq());
 			mVo.setLogTag("U");//-- 변경일때는 U
+			mVo.setLogUserId(vo.getRegUserId());
 			fimMapper.saveCompanyCardMaster(vo);
 			fimMapper.insertCompanyCardMasterLog(mVo);
 		}
@@ -78,12 +80,14 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 
 				dVo.setCardUseSeq(cardUseSeq);
 				dVo.setLogTag("I");
+				dVo.setLogUserId(vo.getRegUserId());
 				fimMapper.saveCompanyCardDetail(dVo);
 				fimMapper.insertCompanyCardDetailLog(dVo);
 			}
 			else {
 				CompanyCardDetailVO _dVo = fimMapper.getCompanyCardDetail(dVo);
 				_dVo.setLogTag("U");
+				_dVo.setLogUserId(vo.getRegUserId());
 				fimMapper.insertCompanyCardDetailLog(_dVo);
 				fimMapper.saveCompanyCardDetail(dVo);
 
@@ -101,6 +105,8 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 			fVo.setFilePath(fileVO.getFilePath());
 			fVo.setIsDelete("N");
 			fVo.setLogTag("I");
+			fVo.setLastUserId(vo.getRegUserId());
+			fVo.setLogUserId(vo.getRegUserId());
 
 			fimMapper.insertCompanyCardMasterFile(fVo);
 			fimMapper.insertCompanyCardMasterFileLog(fVo);
@@ -156,4 +162,21 @@ public class CompanyCardServiceImpl implements CompanyCardService{
 		return rtnMap;
 	}
 
+	@Override
+	public Map<String, Object> doDeleteFile(int cardUseSeq, int fileSerl, String regUserId) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+		CompanyCardMasterFileVO fVo = new CompanyCardMasterFileVO();
+		fVo = fimMapper.getFile(cardUseSeq, fileSerl);
+		fVo.setLogTag("D");
+		fVo.setLogUserId(regUserId);
+		fimMapper.doDeleteFile(cardUseSeq, fileSerl, regUserId);
+		fimMapper.insertCompanyCardMasterFileLog(fVo);
+
+		List<CompanyCardMasterFileVO> fileList = fimMapper.getFileList(cardUseSeq);
+		rtnMap.put("fileList", fileList);
+
+		return rtnMap;
+	}
 }

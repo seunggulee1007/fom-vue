@@ -79,7 +79,10 @@
 				REG_EMP_NO      ,
 				REG_DEPT_CD     ,
 				LAST_USER_ID    ,
-				LAST_DATE_TIME)
+				LAST_DATE_TIME  ,
+				LOG_TAG			,
+				LOG_USER_ID		,
+				LOG_DATE_TIME   )
 			select
 				next value for SEQ_COMPANY_CARD_MASTER_LOG,
 				#{cardUseSeq}   ,
@@ -95,6 +98,9 @@
 				#{regEmpNo}     ,
 				#{regDeptCd}    ,
 				#{lastUserId}   ,
+				#{lastDateTime} ,
+				#{logTag}		,
+				#{logUserId}	,
 				getdate()
 	</insert>
 
@@ -135,9 +141,11 @@
 					FILE_SIZE,
 					FILE_PATH,
 					IS_DELETE,
-					LOG_TAG,
 					LAST_USER_ID,
-					LAST_DATE_TIME)
+					LAST_DATE_TIME,
+					LOG_TAG,
+					LOG_USER_ID,
+					LOG_DATE_TIME)
 				select
 					next value for SEQ_COMPANY_CARD_FILE_LOG,
 					#{cardUseSeq},
@@ -147,8 +155,10 @@
 					#{fileSize},
 					#{filePath},
 					#{isDelete},
-					#{logTag},
 					#{lastUserId},
+					#{lastDateTime},
+					#{logTag},
+					#{logUserId},
 					getdate()
 	</insert>
 
@@ -159,6 +169,25 @@
 	</select>
 
 	<select id="getFileList" resultType="companyCardMasterFileVO">
-		select * from TB_COMPANY_CARD_FILE where CARD_USE_SEQ = #{cardUseSeq}
+		select *
+		  from TB_COMPANY_CARD_FILE
+		 where CARD_USE_SEQ = #{cardUseSeq}
+		   and IS_DELETE = 'N'
 	</select>
+
+	<select id="getFile" resultType="companyCardMasterFileVO">
+		select *
+		  from TB_COMPANY_CARD_FILE
+		 where CARD_USE_SEQ = #{cardUseSeq}
+		   and FILE_SERL = #{fileSerl}
+		   and IS_DELETE = 'N'
+	</select>
+
+ 	<update id="doDeleteFile">
+ 		update TB_COMPANY_CARD_FILE
+ 		   set IS_DELETE = 'Y',
+ 		       LAST_USER_ID = #{regUserId}
+ 		 where CARD_USE_SEQ = #{cardUseSeq}
+ 		   and FILE_SERL = #{fileSerl}
+ 	</update>
 </mapper>

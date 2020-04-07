@@ -27,12 +27,18 @@ public class CompanyCardMasterFileVO {
 	/** 삭제여부 */
 	private String isDelete;
 
-	/** 작업구분 */
-	private String logTag;
-
 	/** 파일용량  */
 	private long fileSize;
 
 	/** 파일 저장경로 */
 	private String filePath;
+
+	/** 작업구분 */
+	String logTag;
+
+	/** 로그작업자. */
+	private String logUserId;
+
+	/** 로그 작업일시 */
+	private String logDateTime;
 }

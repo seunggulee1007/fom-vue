@@ -7,9 +7,9 @@
 /** 정산내역 테이블에서 클릭한 row index */
 var rowIdx;
 
+//-- 파일 전역변수.
+var fileList = new Array();
 $(document).ready(function(){
-
-
 
 //	$("#useCardList tbody tr td").find("input[name=inSmKindNm]").click(function() {
 //
@@ -20,6 +20,8 @@ $(document).ready(function(){
 //
 //	});
 
+	$("#calcDate").val(new Date().format("yyyy-MM"));
+	$("#spRegDate").text(new Date().format("yyyy-MM-dd"));
 
 	/**
 	 * 조직도 팝업.
@@ -345,8 +347,6 @@ function openDeptPopup(idx){
     EventBus.$emit('openExpenseAllPopup', $(this).val(), userNm, comCd);
 }
 
-
-var fileList = new Array();
 function updateSize(inFile) {
 
 	let nBytes = 0;
@@ -370,21 +370,73 @@ function updateSize(inFile) {
 
 /**
  * 파일 리스트에서 선택한 파일을 삭제 하고 리스트를 다시 그린다.
- * @param idx
+ * @param idx 지우고자 하는 파일의 화면상의 index
+ * @param cardUseSeq 법인카드 내부코드
+ * @param fileSerl 서버에 저장된 파일의 순번.
  * @returns
  */
-function onDeleteFile(idx, fileSerl){
+function onDeleteFile(idx, cardUseSeq, fileSerl){
 
-	let fileName = fileList[idx].name;
+	let fileName = $("#fileListBox div:eq("+idx+")").text().replaceAll("[삭제]", "").trim();
 
-	if(fileSerl == 0){
+	if(parseInt(cardUseSeq) == 0){ //-- 정산신청 신규일때.
 		if(confirm(fileName+"\n파일을 삭제 하시겠습니까?")){
 			fileList.splice(idx, 1);
 			calcFileSize();
 		}
 	}
 	else{
+		if(parseInt(fileSerl) == 0){// 정산신청 수정일경우 신규로 파일을 등록하고 서버 저장하기전에 삭제시.
+			if(confirm(fileName+"\n파일을 삭제 하시겠습니까?")){
+				fileList.splice(idx, 1);
+				calcFileSize();
+			}
+		}
+		else{ //-- 서버에서 조회한 파일을 삭제시
 
+			if(!confirm(fileName+"\n파일을 삭제 하시겠습니까?")){
+				return false;
+			}
+
+			$("#fileListBox").html("");
+
+			$.ajax({
+			    url:"./doDeleteFile",
+			    type:"POST",
+			    data: "cardUseSeq=" + cardUseSeq + "&fileSerl=" + fileSerl + "&regUserId=" + $("#regUserId").val(),
+			    success: function(returnData) {
+
+			    	console.log(returnData);
+
+			    	if(returnData.result == 0){
+			    		let fileItems = returnData.data.fileList;
+
+			    		let totalSize = 0;
+			    		for(let i = 0; i < fileItems.length; i++){
+
+			    			console.log("file : " + fileItems[i]);
+			    			console.log("file : " + fileItems[i].ofileName);
+//		        		console.log("nBytes : " + nBytes);
+
+			    			totalSize += fileItems[i].fileSize;
+			    			console.log("totalSize : " + totalSize);
+			    			let fileSerl = fileItems[i].fileSerl;
+			    			$("#fileListBox").append("<div class='file-info'>"+fileItems[i].ofileName+"<a href='javascript:onDeleteFile("+i+", "+fileItems[i].cardUseSeq+", "+fileSerl+")'>&nbsp;&nbsp;[삭제]</a></div>");
+			    		}
+
+			    		if(totalSize > 0){
+			    			let sOutput = getfileSize(totalSize);
+			    			$("#fileSize").text(sOutput + " / 100 MB");
+			    		}
+			    		else{
+			    			$("#fileSize").text("0 byte / 100 MB");
+			    		}
+
+			    		alert(returnData.resultMsg);
+			    	}
+			    }
+			});
+		}
 	}
 }
 
@@ -417,7 +469,7 @@ function calcFileSize(){
 		console.log("file : " + fileList[i]);
 		console.log("file : " + fileList[i].name);
 		console.log("nBytes : " + nBytes);
-		$("#fileListBox").append("<div class='file-info'>"+fileList[i].name+"<a href='javascript:onDeleteFile("+i+", 0)'>&nbsp;&nbsp;[삭제]</a></div>");
+		$("#fileListBox").append("<div class='file-info'>"+fileList[i].name+"<a href='javascript:onDeleteFile("+i+", 0, 0)'>&nbsp;&nbsp;[삭제]</a></div>");
 	}
 
 	if(nBytes > 0){
@@ -439,7 +491,7 @@ function getfileSize(x) {
 async function getCompanyCardList(){
 
 	let companySeq = $("#erpCompanySeq").val();
-	let empSeq = $("#erpEmpSeq").val();
+	let empSeq = $("#regErpEmpSeq").val();
 	await
 	$.ajax({
 	    url:"./getCompanyCardList",
@@ -665,6 +717,11 @@ function formSubmit(){
 	let cardDetailList = new Array();
 	let isExit = false;
 
+	if($("#useCardList tbody tr").length == 0){
+		alert("정산내역이 없습니다.");
+		return false;
+	}
+
 	$("#useCardList tbody tr").each(function(idx, evt){
 
 		let empNo = $(this).find("input[name='cardDetailList["+idx+"].useEmpNo']").val();
@@ -700,9 +757,15 @@ function formSubmit(){
 
 	formData.delete("cardCd");
 	formData.delete("files");
+	formData.delete("calcDate");
 
+	//-- 카드 번호만 추출해서 '-' 지운다.
 	let cardCd = $("#cardCd").val().split("|")[0].replace(/-/gi, "");
 	formData.append("cardCd", cardCd);
+
+	//-- 정산년월의 yyyy-mm 중에서 '-' 지운다.
+	let calcDate = $("#calcDate").val().replaceAll("-", "");
+	formData.append("calcDate", calcDate);
 
     for(let i=0; i< fileList.length;i++) {                // 파일 내용 저장
     	console.log(fileList[i].name);
@@ -738,6 +801,9 @@ function formSubmit(){
 function getCardUseData(item){
 	console.log("getCardUseData");
 
+	$("#useCardList tbody").html("");
+	$("#fileListBox").html("");
+
     $.ajax({
     	url: "./getCardUseData",
         method:"POST",
@@ -749,6 +815,7 @@ function getCardUseData(item){
             let detailList = returnData.data.cardData.cardDetailList;
             let fileItems = returnData.data.fileList;
 
+            console.log(fileItems);
             for(let i = 0; i < detailList.length; i++){
             	setDetailData(detailList[i]);
             }
@@ -756,15 +823,43 @@ function getCardUseData(item){
             let totalSize = 0;
         	for(let i = 0; i < fileItems.length; i++){
 
+//        		fileList[i] = fileItems[i];
         		console.log("file : " + fileItems[i]);
-        		console.log("file : " + fileList[i].name);
-        		console.log("nBytes : " + nBytes);
+        		console.log("file : " + fileItems[i].ofileName);
+//        		console.log("nBytes : " + nBytes);
 
+//        		fileList[i] = fileItems[i].ofileName;
         		totalSize += fileItems[i].fileSize;
         		console.log("totalSize : " + totalSize);
         		let fileSerl = fileItems[i].fileSerl;
-        		$("#fileListBox").append("<div class='file-info'>"+fileItems[i].oFileName+"<a href='javascript:onDeleteFile("+i+", "+fileSerl+")'>&nbsp;&nbsp;[삭제]</a></div>");
+        		$("#fileListBox").append("<div class='file-info'>"+fileItems[i].ofileName+"<a href='javascript:onDeleteFile("+i+", "+item.cardUseSeq+", "+fileSerl+")'>&nbsp;&nbsp;[삭제]</a></div>");
         	}
+
+        	if(totalSize > 0){
+        		let sOutput = getfileSize(totalSize);
+        		$("#fileSize").text(sOutput + " / 100 MB");
+        	}
+        	else{
+        		$("#fileSize").text("0 byte / 100 MB");
+        	}
+
+        	let index = 0;
+        	$('#cardCd option').each(function(idx){
+        		let cardCd = this.value.split("|");
+
+
+        		if (cardCd[0].replaceAll("-", "") == item.cardCd) {
+        			console.log('cardNo[0].replaceAll("-", "") : ' + cardCd[0].replaceAll("-", ""));
+        			index = idx;
+        			return false;
+        		}
+        	});
+
+        	console.log("index");
+        	console.log(index);
+
+        	$("#cardCd option:eq("+index+")").attr("selected", "selected");
+        	$("#cardCd").trigger("change");
 
 //    		$("#fileListBox").append("<div class='file-info'>"+fileList[i].name+"<a href='javascript:onDeleteFile("+i+", 0)'>&nbsp;&nbsp;[삭제]</a></div>");
 //

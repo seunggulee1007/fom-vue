@@ -7,12 +7,11 @@
 			<input type="hidden" id="comCd" name="comCd" value="2">
 			<input type="hidden" id="erpCompanySeq" name="erpCompanySeq" value="2">
 			<input type="hidden" id="regDate" name="regDate" value="20200324">
-			<input type="hidden" id="erpEmpSeq" name="erpEmpSeq" value="140">
-			<input type="hidden" id="userId" name="userId" value="140">
-			<input type="hidden" id="empNo" name="empNo" value="140">
-			<input type="hidden" id="lastUserId" name="lastUserId" value="140">
-			<input type="hidden" id="deptCd" name="regDeptCd" value="33333">
-			<input type="hidden" id="erpDeptSeq" name="regErpDeptSeq" value="33333">
+			<input type="hidden" id="regErpEmpSeq" name="erpEmpSeq" value="140">
+			<input type="hidden" id="regUserId" name="regUserId" value="140">
+			<input type="hidden" id="regErpDeptSeq" name="regErpDeptSeq" value="33333">
+			<input type="hidden" id="regEmpNo" name="empNo" value="140">
+			<input type="hidden" id="regDeptCd" name="regDeptCd" value="33333">
 			<div class="component-group">
 				<div class="table table-chain">
 					<table>
@@ -35,7 +34,7 @@
 								</td>
 								<th class="table__th">기안일자</th>
 								<td class="table__td table__td--data">
-									<span class="table__txt">20/03/10</span>
+									<span id="spRegDate" class="table__txt"></span>
 								</td>
 								<th class="table__th">기안자</th>
 								<td class="table__td table__td--data">
@@ -56,8 +55,7 @@
 								<th class="table__th table__th--required">제목</th>
 								<td colspan="7" class="table__td">
 									<div class="input-field input-field-table">
-
-										<input id="title" name="title" type="text" class="input-field__input" value="[SGH][테스트_홍길동A_2020-03-24]">
+										<input id="title" name="title" type="text" class="input-field__input" value="">
 									</div>
 								</td>
 							</tr>
@@ -106,18 +104,12 @@
 							<tr>
 								<th class="table__th table__th--required">정산년월</th>
 								<td class="table__td">
-<!-- 									<div class="input-field"> -->
-<!-- 										<input type="text" readonly id="calcDate" class="input-field__input" style="max-width: 100%"> -->
-<!-- 										<span id="btnMonthPicker" class="sp icon-datepicker"> -->
-<!-- 											<span class="blind">Calendar 열기</span> -->
-<!-- 										</span> -->
-<!-- 									</div> -->
-                                                        <div class="input-field datepicker__v-calendar">
-                                                            <input type="text" id="calcDate" readonly id="date_input_exchange2" class="input-field__input" style="max-width: 100%">
-                                                                <span class="sp icon-datepicker">
-                                                                    <span class="blind">Calendar 열기</span>
-                                                                </span>
-                                                        </div>
+									<div class="input-field datepicker__v-calendar">
+										<input type="text" id="calcDate" name="calcDate" readonly id="date_input_exchange2" class="input-field__input" style="max-width: 100%">
+										<span class="sp icon-datepicker">
+											<span class="blind">Calendar 열기</span>
+										</span>
+									</div>
 								</td>
 								<td class="table__td" colspan="6">
 									<button id="btnGetUseList" type="button" class="btn btn--orange" onclick="">

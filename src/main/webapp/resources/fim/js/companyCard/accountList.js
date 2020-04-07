@@ -12,6 +12,9 @@ $(window).resize(function(){
 $(document).ready(function(){
 	var $tabList = $('.tab-area .lst-tab');
 
+	$("#fromYm").val(new Date().format("yyyy-MM"));
+	$("#toYm").val(new Date().format("yyyy-MM"));
+
 	$("#btnGetCalcList").click(function(){
 		getCompanyCardMasterList();
 	});
@@ -113,6 +116,12 @@ $(document).ready(function(){
 		console.log(event.item);
 
         $('.lst-tab__item .lst-tab__menu').first().trigger("click");
+//		$('.tab-area .lst-tab').find('.lst-tab__item .lst-tab__menu').trigger("click",obj);
+
+		$('.tab-area .lst-tab').find('.lst-tab__item .lst-tab__menu').parent().addClass('lst-tab__item--active').siblings().removeClass('lst-tab__item--active');
+		$('.tab-area .lst-tab').find('.lst-tab__item .lst-tab__menu').parents('.tab-area').next('.tab-cnt').children().eq(0).addClass('lst-tab-cnt--active').siblings().removeClass('lst-tab-cnt--active')
+//        $(this).parent().addClass('lst-tab__item--active').siblings().removeClass('lst-tab__item--active');
+//        $(this).parents('.tab-area').next('.tab-cnt').children().eq(tabNum).addClass('lst-tab-cnt--active').siblings().removeClass('lst-tab-cnt--active')
 
         getCardUseData(event.item);
 	});

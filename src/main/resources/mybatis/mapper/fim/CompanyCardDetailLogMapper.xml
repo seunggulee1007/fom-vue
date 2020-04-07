@@ -52,14 +52,15 @@
 					CURR_CD             ,
 					CUR_AMT             ,
 					CHAIN_TYPE          ,
-					AUTH_HH             ,
-					IS_DEFINE           ,
 					CLOSE_YN            ,
 					CHAIN_ADDR          ,
 					MCC_NAME            ,
 					CHAIN_MASTER        ,
 					LAST_DATE_TIME      ,
-					LAST_USER_ID )
+					LAST_USER_ID 		,
+					LOG_TAG				,
+					LOG_USER_ID			,
+					LOG_DATE_TIME)
 			select
 					next value for SEQ_COMPANY_CARD_DETAIL_LOG,
 					#{cardUseSeq},
@@ -108,14 +109,15 @@
 					#{currCd},
 					#{curAmt},
 					#{chainType},
-					#{authHh},
-					#{isDefine},
 					#{closeYn},
 					#{chainAddr},
 					#{mccName},
 					#{chainMaster},
-					getdate(),
-					#{lastUserId}
+					#{lastDateTime},
+					#{lastUserId},
+					#{logTag},
+					#{logUserId},
+					getdate()
 	</insert>
 
 </mapper>

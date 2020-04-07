@@ -153,12 +153,6 @@ public class CompanyCardDetailVO {
 	/** 간이세액구분 */
 	String chainType;
 
-	/** 새 컬럼14 */
-	String authHh;
-
-	/** 새 컬럼15 */
-	String isDefine;
-
 	/** 마감여부 */
 	String closeYn;
 
@@ -179,6 +173,12 @@ public class CompanyCardDetailVO {
 
 	/** 작업구분 */
 	String logTag;
+
+	/** 로그작업자. */
+	private String logUserId;
+
+	/** 로그 작업일시 */
+	private String logDateTime;
 
     /** 비용항목 관리 */
     private CompanyCardCostInfoVO costInfoVO;

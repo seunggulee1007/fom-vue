@@ -32,7 +32,7 @@ public class CompanyCardMasterVO {
 	private int regErpEmpSeq;
 
 	/** 기안자 사원 코드 */
-	private int regUserId;
+	private String regUserId;
 
 	/** 기안자 ERP부서코드 */
 	private int regErpDeptSeq;
@@ -52,6 +52,11 @@ public class CompanyCardMasterVO {
 	/** 작업구분 */
 	private String logTag;
 
+	/** 로그작업자. */
+	private String logUserId;
+
+	/** 로그 작업일시 */
+	private String logDateTime;
 
 	/** 법인카드 상세 리스트 항목 */
 	private List<CompanyCardDetailVO> cardDetailList;
