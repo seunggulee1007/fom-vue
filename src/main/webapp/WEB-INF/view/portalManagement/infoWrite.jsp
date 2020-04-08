@@ -56,190 +56,192 @@
         <div class="grid-column grid-column10">
             <div class="section section--border">
                 <div class="component-group">
-                    <div class="table table-chain">
-                        <table>
-                            <caption><span class="blind">공지사항 게시글 등록</span></caption>
-                            <tbody>
-                                <tr>
-                                    <th class="table__th table__th--required">작성자</th>
-                                    <td class="table__td table__td--data">
-                                        <span class="table__txt">홍길동</span>
-                                    </td>
-                                    <th class="table__th table__th--required">작성일</th>
-                                    <td class="table__td table__td--data">
-                                        <span class="table__txt">20/02/17</span>
-                                    </td>
-                                    <th class="table__th table__th--required">분류</th>
-                                    <td class="table__td">
-                                        <select name="bbsGroup" id="bbsGroup" class="dropdown-select">
-                                            <option value="notice" class="dropdown-select__menu">
-                                                <span class="dropdown__menu-txt">공지사항</span>
-                                            </option>
-                                            <option value="accounting" class="dropdown-select__menu">
-                                                <span class="dropdown__menu-txt">재무회계</span>
-                                                
-                                            </option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="table__th table__th--required">제목</th>
-                                    <td class="table__td" colspan="5">
-                                        <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" id="title" ref="title">
-                                        </div>
-                                    </td>                                             
-                                </tr>
-                                <tr>
-                                    <th class="table__th table__th--required">메일발송</th>
-                                    <td class="table__td">
-                                        <div class="dropdown">
-                                            <!-- <a href="#" class="dropdown__button dropdown__button--selected">
-                                                <span class="dropdown__button-text">미발송</span>
-                                                <span class="sp icon-arrow"><span class="blind">옵션창 열기</span></span>
-                                            </a>
-                                            <ul class="dropdown__list">
-                                                <li class="dropdown__item">
-                                                    <a href="#" class="dropdown__menu">
-                                                        <span class="dropdown__menu-txt">미발송</span>
-                                                    </a>
-                                                </li>
-                                                <li class="dropdown__item">
-                                                    <a href="#" class="dropdown__menu">
-                                                    <span class="dropdown__menu-txt">발송</span>
-                                                    </a>
-                                                </li>	
-                                            </ul> -->
-                                            <select id="sendMailYn" class="dropdown-select" name="sendMailYn">
-                                                <option value="N" class="dropdown-select__menu"><span class="dropdown__menu-txt">미 발송</span></option>
-                                                <option value="Y" class="dropdown-select__menu"><span class="dropdown__menu-txt">발송</span></option>
+                    <form id="frm">
+                        <div class="table table-chain">
+                            <table>
+                                <caption><span class="blind">공지사항 게시글 등록</span></caption>
+                                <tbody>
+                                    <tr>
+                                        <th class="table__th table__th--required">작성자</th>
+                                        <td class="table__td table__td--data">
+                                            <span class="table__txt">홍길동</span>
+                                        </td>
+                                        <th class="table__th table__th--required">작성일</th>
+                                        <td class="table__td table__td--data">
+                                            <span class="table__txt" id="today">20/02/17</span>
+                                        </td>
+                                        <th class="table__th table__th--required">분류</th>
+                                        <td class="table__td">
+                                            <select name="bbsGroup" id="bbsGroup" class="dropdown-select">
+                                                <option value="notice" class="dropdown-select__menu">
+                                                    <span class="dropdown__menu-txt">공지사항</span>
+                                                </option>
+                                                <option value="accounting" class="dropdown-select__menu">
+                                                    <span class="dropdown__menu-txt">재무회계</span>
+                                                    
+                                                </option>
                                             </select>
-                                        </div>
-                                    </td>                                             
-                                    <td class="table__td" colspan="4">
-                                        <span class="table__txt">* 발송 선택 시 열람 대상자들에게 알림 메일이 발송됩니다.</span>
-                                    </td>                                             
-                                </tr>
-                                <tr>
-                                    <th class="table__th table__th--required">열람권한 설정</th>
-                                    <td colspan="3"class="table__td">
-                                        <div class="table">
-                                            <table>
-                                                <caption><span class="blind">열람권한 리스트</span></caption>
-                                                <colgroup>
-                                                    <col style="width:48px">
-                                                    <col>
-                                                </colgroup>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="table__td">
-                                                            <div class="btn-group">
-                                                                <span class="btn-checkbox">
-                                                                    <input type="checkbox" id="table_checkbox1">
-                                                                    <label for="table_checkbox1" class="btn-checkbox__label"></label>
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="table__td">
-                                                            <span class="table__txt table__txt--blue-dark">국내 전체</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="table__td">
-                                                            <div class="btn-group">
-                                                                <span class="btn-checkbox">
-                                                                    <input type="checkbox" id="table_checkbox1">
-                                                                    <label for="table_checkbox1" class="btn-checkbox__label"></label>
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="table__td">
-                                                            <span class="table__txt table__txt--blue-dark">스마일게이트 홀딩스</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="table__td">
-                                                            <div class="btn-group">
-                                                                <span class="btn-checkbox">
-                                                                    <input type="checkbox" id="table_checkbox1">
-                                                                    <label for="table_checkbox1" class="btn-checkbox__label"></label>
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="table__td">
-                                                            <span class="table__txt table__txt--blue-dark">Smilegate Europe</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="table__td">
-                                                            <div class="btn-group">
-                                                                <span class="btn-checkbox">
-                                                                    <input type="checkbox" id="table_checkbox1">
-                                                                    <label for="table_checkbox1" class="btn-checkbox__label"></label>
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="table__td">
-                                                            <span class="table__txt table__txt--blue-dark">인사시스템팀</span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-
-                                            </table>
-                                        </div>
-                                    </td> 
-                                    <td class="table__td" colspan="2">
-                                        <button type="button" class="btn btn-add"><span class="btn__txt">국내 전체 일괄 추가</span></button>
-                                        <button type="button" class="btn btn-add"><span class="btn__txt">해외 전체 일괄 추가</span></button>
-                                        <button type="button" class="btn btn-add"><span class="btn__txt">법인 추가</span></button>
-                                        <button type="button" class="btn btn-add"><span class="btn__txt">부서 추가</span></button>
-                                        <button type="button" class="btn btn-add"><span class="btn__txt">멤버 추가</span></button>
-                                        <button type="button" class="btn btn-delete"><span class="btn__txt">모두 삭제</span></button>
-                                    </td> 
-                                </tr>
-                                <tr>
-                                  <th class="table__th">본문 작성</th>  
-                                  <td class="table__td" colspan="5">
-                                      <div class="textarea">
-                                          <textarea cols="30" rows="10" id="cont" name="cont"></textarea>
-                                        </div>
-                                  </td>  
-                                </tr>
-                                <tr>
-                                  <th class="table__th">SmileDoc 파일 첨부</th>  
-                                  <td class="table__td" colspan="5">
-                                    <div class="input-field input-field-table">
-                                        <button type="button" class="btn btn-file"><span class="btn__txt">파일선택</span></button>
-                                        <input type="text" class="input-field__input" readonly>
-                                    </div>                                            
-                                  </td>  
-                                </tr>
-                                <tr>
-                                  <th class="table__th">파일 첨부</th>  
-                                  <td class="table__td" colspan="5">
-                                    <div class="input-field input-field-table">
-                                        <button type="button" class="btn btn-file">
-                                            <label for="file2" class="btn__txt">파일선택</label>
-                                        </button>
-                                        <input type="file" id="file2" class="input-field__file blind" multiple>
-                                        <span class="input__dsc-txt"><span id="fileSize">0</span> <span id="fileFormat">Bytes</span> / 100 MB</span>
-                                        <div class="input-field__file-box" id="uploadFile">
-                                    </div>                                            
-                                  </td>  
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table__th table__th--required">제목</th>
+                                        <td class="table__td" colspan="5">
+                                            <div class="input-field input-field-table">
+                                                <input type="text" class="input-field__input" id="title" name="title">
+                                            </div>
+                                        </td>                                             
+                                    </tr>
+                                    <tr>
+                                        <th class="table__th table__th--required">메일발송</th>
+                                        <td class="table__td">
+                                            <div class="dropdown">
+                                                <!-- <a href="#" class="dropdown__button dropdown__button--selected">
+                                                    <span class="dropdown__button-text">미발송</span>
+                                                    <span class="sp icon-arrow"><span class="blind">옵션창 열기</span></span>
+                                                </a>
+                                                <ul class="dropdown__list">
+                                                    <li class="dropdown__item">
+                                                        <a href="#" class="dropdown__menu">
+                                                            <span class="dropdown__menu-txt">미발송</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="dropdown__item">
+                                                        <a href="#" class="dropdown__menu">
+                                                        <span class="dropdown__menu-txt">발송</span>
+                                                        </a>
+                                                    </li>	
+                                                </ul> -->
+                                                <select id="sendMailYn" class="dropdown-select" name="sendMailYn">
+                                                    <option value="N" class="dropdown-select__menu"><span class="dropdown__menu-txt">미 발송</span></option>
+                                                    <option value="Y" class="dropdown-select__menu"><span class="dropdown__menu-txt">발송</span></option>
+                                                </select>
+                                            </div>
+                                        </td>                                             
+                                        <td class="table__td" colspan="4">
+                                            <span class="table__txt">* 발송 선택 시 열람 대상자들에게 알림 메일이 발송됩니다.</span>
+                                        </td>                                             
+                                    </tr>
+                                    <tr>
+                                        <th class="table__th table__th--required">열람권한 설정</th>
+                                        <td colspan="3"class="table__td">
+                                            <div class="table">
+                                                <table>
+                                                    <caption><span class="blind">열람권한 리스트</span></caption>
+                                                    <colgroup>
+                                                        <col style="width:48px">
+                                                        <col>
+                                                    </colgroup>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="table__td">
+                                                                <div class="btn-group">
+                                                                    <span class="btn-checkbox">
+                                                                        <input type="checkbox" id="table_checkbox1">
+                                                                        <label for="table_checkbox1" class="btn-checkbox__label"></label>
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td class="table__td">
+                                                                <span class="table__txt table__txt--blue-dark">국내 전체</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="table__td">
+                                                                <div class="btn-group">
+                                                                    <span class="btn-checkbox">
+                                                                        <input type="checkbox" id="table_checkbox1">
+                                                                        <label for="table_checkbox1" class="btn-checkbox__label"></label>
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td class="table__td">
+                                                                <span class="table__txt table__txt--blue-dark">스마일게이트 홀딩스</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="table__td">
+                                                                <div class="btn-group">
+                                                                    <span class="btn-checkbox">
+                                                                        <input type="checkbox" id="table_checkbox1">
+                                                                        <label for="table_checkbox1" class="btn-checkbox__label"></label>
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td class="table__td">
+                                                                <span class="table__txt table__txt--blue-dark">Smilegate Europe</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="table__td">
+                                                                <div class="btn-group">
+                                                                    <span class="btn-checkbox">
+                                                                        <input type="checkbox" id="table_checkbox1">
+                                                                        <label for="table_checkbox1" class="btn-checkbox__label"></label>
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td class="table__td">
+                                                                <span class="table__txt table__txt--blue-dark">인사시스템팀</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+    
+                                                </table>
+                                            </div>
+                                        </td> 
+                                        <td class="table__td" colspan="2">
+                                            <button type="button" class="btn btn-add"><span class="btn__txt">국내 전체 일괄 추가</span></button>
+                                            <button type="button" class="btn btn-add"><span class="btn__txt">해외 전체 일괄 추가</span></button>
+                                            <button type="button" class="btn btn-add"><span class="btn__txt">법인 추가</span></button>
+                                            <button type="button" class="btn btn-add"><span class="btn__txt">부서 추가</span></button>
+                                            <button type="button" class="btn btn-add"><span class="btn__txt">멤버 추가</span></button>
+                                            <button type="button" class="btn btn-delete"><span class="btn__txt">모두 삭제</span></button>
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                      <th class="table__th">본문 작성</th>  
+                                      <td class="table__td" colspan="5">
+                                          <div class="textarea">
+                                              <textarea cols="30" rows="10" id="cont" name="cont"></textarea>
+                                            </div>
+                                      </td>  
+                                    </tr>
+                                    <tr>
+                                      <th class="table__th">SmileDoc 파일 첨부</th>  
+                                      <td class="table__td" colspan="5">
+                                        <div class="input-field input-field-table">
+                                            <button type="button" class="btn btn-file"><span class="btn__txt">파일선택</span></button>
+                                            <input type="text" class="input-field__input" readonly>
+                                        </div>                                            
+                                      </td>  
+                                    </tr>
+                                    <tr>
+                                      <th class="table__th">파일 첨부</th>  
+                                      <td class="table__td" colspan="5">
+                                        <div class="input-field input-field-table">
+                                            <button type="button" class="btn btn-file">
+                                                <label for="file2" class="btn__txt">파일선택</label>
+                                            </button>
+                                            <input type="file" id="file2" class="input-field__file blind" multiple>
+                                            <span class="input__dsc-txt"><span id="fileSize">0</span> <span id="fileFormat">Bytes</span> / 100 MB</span>
+                                            <div class="input-field__file-box" id="uploadFile">
+                                        </div>                                            
+                                      </td>  
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
                 </div>                   
             </div>
             <div class="component-group btn-box align-center">
                 <div class="component-box">
-                    <button type="button" class="btn btn--large btn--bgtype btn-back">
+                    <button type="button" class="btn btn--large btn--bgtype btn-back" id="cnclBtn">
                         <span class="btn__txt">취소</span>
                     </button>
                 </div>
                 <div class="component-box">
-                    <button type="button" class="btn btn--large btn--orange" @click="doWrite();">
+                    <button type="button" class="btn btn--large btn--orange" id="saveBtn">
                         <span class="btn__txt">작성완료</span>
                     </button>
                 </div>

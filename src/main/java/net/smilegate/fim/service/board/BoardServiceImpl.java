@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import lombok.RequiredArgsConstructor;
 import net.smilegate.common.util.StringUtil;
+import net.smilegate.fim.enums.CommonMsg;
 import net.smilegate.fim.mappers.fim.BoardMapper;
 import net.smilegate.fim.mappers.fim.JpaBoardMapper;
 import net.smilegate.fim.service.file.board.FileService;
@@ -50,7 +51,7 @@ public class BoardServiceImpl implements BoardService {
             }
         }
 
-        return CommonResultVO.builder().build();
+        return CommonResultVO.builder().resultMsg(CommonMsg.SUCCESS_WRITE.getMsg()).build();
     }
 
     public CommonResultVO infoList(Pageable pageable, BoardVO boardVO) {

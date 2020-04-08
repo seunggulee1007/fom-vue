@@ -196,6 +196,10 @@ $(document).ready(function(){
         console.log(res);
         alert(res.resultMsg);
 
+        if(res.result == 0) {
+            location.reload();
+        }
+
     });
 
     $("#file2").on("change",function(){

@@ -341,7 +341,10 @@ function bizNoFilter(value, type) {
     return formatNum;
 }
 
-function  getToday () {
+function  getToday (type) {
+    if(!type) {
+        type = "";
+    }
     let date = new Date();
     let year = date.getFullYear();
     let month =new String(date.getMonth() +1);
@@ -353,7 +356,7 @@ function  getToday () {
         day = "0" + day;
     }
 
-    return year + "-" + month + "-" + day;
+    return year + type + month + type + day;
 }
 
 function checkBizNo (bizNo) {      // 사업자 번호 체크

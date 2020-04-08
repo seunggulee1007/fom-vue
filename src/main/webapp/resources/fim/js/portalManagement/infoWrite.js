@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    let today = getToday('-');     // 오늘 날짜
+    $("#today").val(today);
+    today = getToday();
     $("#file2").on("change",function(){
         console.log("?");
         let copyFiles = Array.prototype.slice.call(uploadFiles);
@@ -24,6 +27,51 @@ $(document).ready(function(){
         $("#fileSize").text(setComma(fileSize));
         $("#fileFormat").text(fileFormat);
         makeFile();
+    });
+
+    $("#cnclBtn").click(function(){
+        if(!confirm("작성을 취소하시겠습니까?\n취소하시면 목록으로 돌아갑니다.")) {
+            return;
+        }
+        location.href="/portalManagement/info";
+    });
+    $("#saveBtn").click(function(){
+        if(!confirm("등록하시겠습니까?")) {
+            return;
+        }
+
+        if(!$("#title").val()) {
+            alert("제목을 입력해 주세요 .");
+            $("#title").focus();
+            return;
+        }else if(!$("#cont").val()) {
+            alert("본문을 작성해 주세요.");
+            $("#cont").focus();
+            return;
+        }
+
+        let ajaxConfig = {
+            contentType :  false,
+            processData : false,
+            enctype : "multipart/form-data",
+        };
+        let formData = new FormData($("#frm")[0]);
+        formData.append("masterId",1);
+        // 파일이 있다면
+        if($("#file2").val()) {
+            let cnt = 0;
+            for(let i=0; i< uploadFiles.length; i++) {
+                let file = uploadFiles[i];
+                formData.append('file['+cnt +']', file );
+            }
+        }
+
+        let res = doAjax("/portalManagement/writeInfo", "post", formData, ajaxConfig);
+
+        console.log(res);
+
+        alert(res.resultMsg);
+
     });
 })
 

@@ -22,7 +22,6 @@ import net.smilegate.fim.vo.common.CommonResultVO;
 public class ExceptionAdvice {
     
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     protected CommonResultVO defaultException(Exception e) {
         CommonResultVO commonResultVo = CommonResultVO.builder()
                 .result(CommonCode.FAIL.getCode())
