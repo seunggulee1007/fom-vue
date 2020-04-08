@@ -29,20 +29,21 @@ function getDeptList () {
                 },
                 
             })
-            .bind('loaded.jstree',function(event, datas){
+            .bind('loaded.jstree',function(event, datas){       // 기본적으로 state속성을 직접 건들이면 작동을 하지 않지만 opend는 먹힌다. 따라서 다른 작업들은 instance의 메서드를 사용하여 작업한다.
+                datas.instance.select_node(parentDeptCd);
                 let data = datas.instance._model.data;
+
                 for(let temp in  data) {
                     if(temp == parentDeptCd) {
                         
                         let id = openParent(data, temp);
-                        data[temp].state.selected = true;
                         let parent = data[temp].parent;
                         if(parent == '#') {     // 부모가 #이라는 것은 최상단 엘리먼트라는 뜻이므로 열지 않고 멈춘다.
                             break;
                         }
                         // 최상단 엘리먼트가 opend속성을 주면 먹히긴 하나 실제로 dom에서는 열리지 않고 내부적으로만 열린것으로 처리 되어서
                         // 강제로 최상단 엘리먼트 하나만 강제로 open되도록 수정
-                        datas.instance.get_container().find('li').each(function(idx){
+                        datas.instance.get_container().find('li').each(function(){
                             let elId = $(this).attr("id");
                             if(elId == id) {
                                 datas.instance.open_node($(this));
