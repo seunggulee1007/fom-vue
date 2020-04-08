@@ -82,7 +82,7 @@ function initCardPaymentAuiGrid(){
 			showAutoNoDataMessage : false,
 			applyRestPercentWidth : true,
 			selectionMode : "singleRow",
-			rowHeight : 50,
+//			rowHeight : 50,
 	};
 	cardPaymentAuiGrid = AUIGrid.create("#companyCardPaymentList", companyCardMasterCol, auiGridProps);
 
@@ -182,9 +182,9 @@ $(document).ready(function(){
 	 */
 	$("#btnGetUseList").click(function(){
 
-//		$('.popup-layer--payment-history').addClass('popup-wrap--active');
-//		$('.popup__dimmed').show();
-//		AUIGrid.resize(cardPaymentAuiGrid);
+		$('.popup-layer--payment-history').addClass('popup-wrap--active');
+		$('.popup__dimmed').show();
+		AUIGrid.resize(cardPaymentAuiGrid);
 
 		let companySeq = $("#erpCompanySeq").val();
 		let cardCd = $("#cardCd").val().split("|")[0].replaceAll("-", "");
@@ -195,10 +195,10 @@ $(document).ready(function(){
 		let returnData = doAjax("./getCompanyCardConfirmList", "post", param);
 //    	console.log(returnData);
 //
-//    	if(returnData.result == 0){
-//
-//    		AUIGrid.setGridData("#companyCardPaymentList", returnData.data.confirmList);
-//    	}
+    	if(returnData.result == 0){
+
+    		AUIGrid.setGridData("#companyCardPaymentList", returnData.data.confirmList);
+    	}
 
 	});
 
