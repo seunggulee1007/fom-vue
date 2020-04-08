@@ -22,7 +22,7 @@
 <jsp:include page="/WEB-INF/view/include/expense/expenseDetail.jsp"/>
 
 <!-- 조직도 다이얼로그. -->
-<jsp:include page="./include/companyCardPaymentList.jsp"/>
+<jsp:include page="./include/companyCardPaymentDialog.jsp"/>
 
 <div id="container" class="container container--include-lnb container--fullview container-write container--include-tab">
     <h2 class="page-title">법인카드 정산</h2>

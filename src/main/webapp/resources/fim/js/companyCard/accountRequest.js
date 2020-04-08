@@ -181,32 +181,30 @@ $(document).ready(function(){
 	 */
 	$("#btnGetUseList").click(function(){
 
+		$('.popup-layer--payment-history').addClass('popup-wrap--active');
+		$('.popup__dimmed').show();
+		AUIGrid.resize(cardPaymentAuiGrid);
+
 		let companySeq = $("#erpCompanySeq").val();
 		let cardCd = $("#cardCd").val().split("|")[0].replaceAll("-", "");
 		let calcDate = $("#calcDate").val().replaceAll("-", "");
 		let empSeq = $("#regErpEmpSeq").val();
 
-		$.ajax({
-		    url:"./getCompanyCardConfirmList",
-		    type:"POST",
-		    data: "companySeq=" + companySeq + "&cardCd=" + cardCd + "&calcDate=" + calcDate + "&empSeq=" + empSeq,
-		    success: function(returnData) {
+		let param = "companySeq=" + companySeq + "&cardCd=" + cardCd + "&calcDate=" + calcDate + "&empSeq=" + empSeq;
+		let returnData = doAjax("./getCompanyCardConfirmList", "post", param);
+    	console.log(returnData);
 
-		    	console.log(returnData);
+    	if(returnData.result == 0){
 
-		    	if(returnData.result == 0){
+    		AUIGrid.setGridData("#companyCardPaymentList", returnData.data.confirmList);
+    	}
 
-		    		AUIGrid.setGridData("#companyCardPaymentList", returnData.data.confirmList);
-		    	}
-		    }
-		});
-
-
-		$('.popup-layer--payment-history').addClass('popup-wrap--active');
-		$('.popup__dimmed').show();
-		AUIGrid.resize(cardPaymentAuiGrid);
 	});
 
+	$("#btnXClose").click(function(){
+		$('.popup-layer--payment-history').removeClass('popup-wrap--active');
+		$('.popup__dimmed').hide();
+	});
 //	$("#btnGetUseList").click(function(){
 //		let data = new Object();
 //
