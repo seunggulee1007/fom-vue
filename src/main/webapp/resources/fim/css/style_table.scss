@@ -73,6 +73,7 @@ $table_th: #fafaff;
         border: 1px solid $border_dark;    
         border-width: 1px 0 0 1px; 
         background-color: $table_th;
+        background-clip: padding-box;
     }
     
     .table__td{

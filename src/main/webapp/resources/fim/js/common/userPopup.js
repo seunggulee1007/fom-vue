@@ -16,58 +16,52 @@ $(document).ready(function() {
  * 최초 부서 조회
  */
 function getDeptList () {
-    $.ajax({
-        url : "/expenseManagement/approval/getDeptList"
-        ,type : "get"
-        ,async : false
-        ,success (res) {
-            // let data = new Array();
-            let data = res.data.deptList;
-            $("#jstree").jstree({
-                core : {
-                    data : data
-                },
-                
-            })
-            .bind('loaded.jstree',function(event, datas){       // 기본적으로 state속성을 직접 건들이면 작동을 하지 않지만 opend는 먹힌다. 따라서 다른 작업들은 instance의 메서드를 사용하여 작업한다.
-                datas.instance.select_node(parentDeptCd);
-                let data = datas.instance._model.data;
-
-                for(let temp in  data) {
-                    if(temp == parentDeptCd) {
-                        
-                        let id = openParent(data, temp);
-                        let parent = data[temp].parent;
-                        if(parent == '#') {     // 부모가 #이라는 것은 최상단 엘리먼트라는 뜻이므로 열지 않고 멈춘다.
-                            break;
-                        }
-                        // 최상단 엘리먼트가 opend속성을 주면 먹히긴 하나 실제로 dom에서는 열리지 않고 내부적으로만 열린것으로 처리 되어서
-                        // 강제로 최상단 엘리먼트 하나만 강제로 open되도록 수정
-                        datas.instance.get_container().find('li').each(function(){
-                            let elId = $(this).attr("id");
-                            if(elId == id) {
-                                datas.instance.open_node($(this));
-                                return false;
-                            }
-                        });
-                        break;
-                    }
-                }
-                getUserList(parentDeptCd);
-
-            })
-            .bind('select_node.jstree', function(event, data){        // 해당 노트 선택 이벤트
-                var deptCd = data.instance.get_node(data.selected).id;
-                console.log(data);
-                if(data.node.state.opened == false) {
-                    data.instance.open_node(deptCd);
-                }else {
-                    data.instance.close_node(deptCd);
-                }
-                getUserList(deptCd);
-            })
-        }
+    let res = doAjax("/expenseManagement/approval/getDeptList","get");
+    let data = res.data.deptList;
+    $("#jstree").jstree({
+        core : {
+            data : data
+        },
+        
     })
+    .bind('loaded.jstree',function(event, datas){       // 기본적으로 state속성을 직접 건들이면 작동을 하지 않지만 opend는 먹힌다. 따라서 다른 작업들은 instance의 메서드를 사용하여 작업한다.
+        datas.instance.select_node(parentDeptCd);
+        let data = datas.instance._model.data;
+
+        for(let temp in  data) {
+            if(temp == parentDeptCd) {
+                
+                let id = openParent(data, temp);
+                let parent = data[temp].parent;
+                if(parent == '#') {     // 부모가 #이라는 것은 최상단 엘리먼트라는 뜻이므로 열지 않고 멈춘다.
+                    break;
+                }
+                // 최상단 엘리먼트가 opend속성을 주면 먹히긴 하나 실제로 dom에서는 열리지 않고 내부적으로만 열린것으로 처리 되어서
+                // 강제로 최상단 엘리먼트 하나만 강제로 open되도록 수정
+                datas.instance.get_container().find('li').each(function(){
+                    let elId = $(this).attr("id");
+                    if(elId == id) {
+                        datas.instance.open_node($(this));
+                        return false;
+                    }
+                });
+                break;
+            }
+        }
+        getUserList(parentDeptCd);
+
+    })
+    .bind('select_node.jstree', function(event, data){        // 해당 노트 선택 이벤트
+        var deptCd = data.instance.get_node(data.selected).id;
+        console.log(data);
+        if(data.node.state.opened == false) {
+            data.instance.open_node(deptCd);
+        }else {
+            data.instance.close_node(deptCd);
+        }
+        getUserList(deptCd);
+    })
+    
 }
 
 function openParent(data, temp) {
@@ -94,7 +88,8 @@ function getUserList(deptCd) {
 function makeOriginList(userList) {
     let html = '';
     $("#userList").empty();
-    for(user of userList) {
+    for(let i=0; i<userList.length; i++) {
+        let user = userList[i];
         html += '<div class="popup__contents-txt userList" ondblclick="makeChoiceUser(this);" id="'+user.empNo+'" onclick="selectUser(this);">';
             html += '<span class="user_name">' + user.userNm + '</span>';
             html += '<span class="user_position txt--blue">[' + user.title2Nm + ']</span>';
@@ -117,7 +112,7 @@ function makeChoiceUser(user) {
         }
     }
     
-    let userInfo = this.originUserList.filter(data => {
+    let userInfo = this.originUserList.filter(function(data) {
         if(data.empNo == empNo) {
             return data;
         }
@@ -144,7 +139,6 @@ function choiceUser() {
         alert("사용자를 선택해 주세요");
         return;
     }
-    console.log(this.userInfo);
     const param = {
         comCd :this.userInfo.comCd
         ,deptCd : this.userInfo.deptCd
@@ -180,7 +174,7 @@ function selectUser(obj) {
             $(this).removeClass("popup__contents-txt--selected");
         }
     });
-    let userInfo = this.originUserList.filter(data =>{
+    let userInfo = this.originUserList.filter(function(data) {
         if(data.empNo == id) {
             return data;
         }

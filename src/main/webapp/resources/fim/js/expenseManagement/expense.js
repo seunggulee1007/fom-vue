@@ -391,6 +391,7 @@ function choiceUser(data, idx) {
  ***********************************************/
 function openExpensItemAllPopup(idx) {
     $("#idx").val(idx);
+    console.log(expenseList[idx].deptVO.comCd);
     $("#comCd").val(expenseList[idx].deptVO.comCd);
     $("#userNm").val(expenseList[idx].deptVO.userNm);
     window.open("/common/expenseItemAllPopup", "_blank", "width=1000,height=662,toolbar=no,menubar=no,scrollbars=no,resizable=yes,location=no");

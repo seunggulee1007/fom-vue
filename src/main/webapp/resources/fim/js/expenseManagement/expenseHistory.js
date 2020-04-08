@@ -34,7 +34,8 @@ function makeHistoryList() {
     let html = '';
     $("#expenseHistory").empty();
     if(expenseHistoryList) {
-        for(let list of expenseHistoryList) {
+        for(let i=0; i<expenseHistoryList.length; i++) {
+            let list = expenseHistoryList[i];
             html += '    <tr class="expandDetail">                                                              ';
             html += '       <td class="table__td">                                                                      ';
             html += '           <span class="table__txt">'+list.grstatus+'</span>                                                      ';
@@ -96,7 +97,8 @@ function makeHistoryList() {
                 html += '                   </tr>                                                                      ';
                 html += '                   </thead>                                                                      ';
                 html += '                   <tbody>                                                                      ';
-                for(let history of list.tiarCostAmtList) {
+                for(let j=0; j< list.tiarCostAmtList.length; j++) {
+                    let history = list.tiarCostAmtList[j];
                     html += '                       <tr>                                                  ';
                     html += '                           <td class="table__td">                                                          ';
                     html += '                               <span class="table__txt">'+dateFilter(history.useDate) +'</span>                                  ';

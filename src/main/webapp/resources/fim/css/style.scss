@@ -344,6 +344,9 @@ select{
 }
 
 //jstree
+.tree-area{
+    overflow: hidden;
+}
 .jstree .jstree-anchor{
     outline: none;
     &.jstree-hovered{
@@ -426,9 +429,10 @@ select{
 .aui-grid{
     input[type=checkbox]{
        position: static;
+       margin: 0;
        width: 15px;
        height: 15px;
-       border: 1px solid $border_dark; 
+       border: 1px solid $txt; 
        clip: auto;
        clip-path: none;
        outline: none;       

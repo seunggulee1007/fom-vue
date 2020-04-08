@@ -664,6 +664,10 @@ select {
   color: #1c1c1c;
 }
 
+.tree-area {
+  overflow: hidden;
+}
+
 .jstree .jstree-anchor {
   outline: none;
 }
@@ -743,9 +747,10 @@ select {
  */
 .aui-grid input[type=checkbox] {
   position: static;
+  margin: 0;
   width: 15px;
   height: 15px;
-  border: 1px solid #dadce0;
+  border: 1px solid #595959;
   clip: auto;
   clip-path: none;
   outline: none;
