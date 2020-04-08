@@ -10,11 +10,12 @@ $(document).ready(function() {
 function makeExchange(exchangeList) {
     html = '';
     $("#exchage").empty();
+    console.log(exchangeList);
     for(let i=0; i< exchangeList.length; i++) {
         let list = exchangeList[i];
-        html += '<tr">';
+        html += '<tr>';
         html += '    <td class="table__td">';
-        html += '            <span class="table__txt table__txt--blue-dark">'+list.KorCurrName+'</span>';
+        html += '            <span class="table__txt table__txt--blue-dark">'+list.KorCurrName+' '+list.CurrName+'</span>';
         html += '    </td>';
         html += '    <td class="table__td table__title">';
         html += '        <span class="table__txt table__txt--align-right">'+list.TTM+'</span>';

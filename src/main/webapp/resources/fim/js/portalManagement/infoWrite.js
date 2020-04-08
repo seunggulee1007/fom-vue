@@ -1,78 +1,74 @@
-$(document).ready(function() {
-    Vue.use(MyPlugin);
-    let vue = new Vue({
-        el : "#container"
-        , data : {
-            boardType : ''
-            ,title : ''
-            ,sendMailYn : 'N'
-            ,cont : ''
-            ,fileName : ''
-            ,files: []
-            ,fileSize : 0
+$(document).ready(function(){
+    $("#file2").on("change",function(){
+        console.log("?");
+        let copyFiles = Array.prototype.slice.call(uploadFiles);
+        let fileFormat = $("#fileFormat").text();
+        let fileSize = originFileSize;
+        for(let i=0; i< $(this)[0].files.length; i++) {
+            let uploadFile = $(this)[0].files[i];
+            uploadFiles.push(uploadFile);
+            fileSize += uploadFile.size;
+            if(fileSize / 1e+8 > 1) {
+                alert("100MB 이상의 파일은 올리실 수 없습니다.");
+                uploadFiles = copyFiles;
+                return;
+            }
         }
-        , mounted () {
+        originFileSize = fileSize;
+        if(fileSize / 1e+6 > 1) {           // 메가 바이트를 넘는다면
+            fileSize = Math.round(fileSize / 1e+6);
+            fileFormat = 'MB';
+        }else {                             // 여전히 바이트라면
+            fileFormat = "Bytes";
         }
-        ,watch : {
-            
-        }
-        , methods : {
-            handleFilesUpload(){
-                let uploadedFiles = this.$refs.files.files;
-                /*
-                  Adds the uploaded file to the files array
-                */
-                for( var i = 0; i < uploadedFiles.length; i++ ){
-                  this.files.push( uploadedFiles[i] );
-                }
-                console.log(this.files);
-                this.fileSize = this.files[0].size;
-                this.fileName = this.files[0].name;
-            }   // end handleFilesUpload
-            ,doWrite () {
-                if(!this.title) {
-                    alert("제목을 입력해 주세요");
-                    this.$refs.title.focus();
-                    return;
-                }else if(!this.cont) {
-                    alert("본문을 작성해 주세요.");
-                    this.$refs.cont.focus();
-                    return;
-                }else if(!confirm("등록하시겠습니까? ")) {
-                    return;
-                }
-                let formData = new FormData();              // 파일 같이 올릴 formdata 선언
-                for(var i=0; i<this.files.length; i++) {    // 파일 객체만큼 반복 문 돌며 파일 추가.
-                    let file = this.files[i];
-                    formData.append('files['+i+']', file);
-                }
-                const param = {
-                    title : this.title
-                    ,cont : this.cont
-                    ,masterId : 1
-                }
-                for(var key in param) {
-                    formData.append(key, param[key]);
-                }
-                axios.post("/portalManagement/info"
-                    ,formData
-                    ,{
-                        'Content-Type' : 'multipart/form-data'
-                    }
-                ).then((res) => {
-                    alert(res.resultMsg);
-                    location.reload;
-                }).catch(err=>{
-                    alert(err);
-                });
-            }       // end doWrite
-            ,removeFile( key ){
-                if(!confirm("삭제하시겠습니까?")) {
-                    return;
-                }
-                this.files.splice( key, 1 );
-            }       // end removeFile
-            
-        }
+        $("#fileSize").text(setComma(fileSize));
+        $("#fileFormat").text(fileFormat);
+        makeFile();
     });
-});
+})
+
+let uploadFiles = [];
+let originFileSize = 0;
+/**********************************************
+ * @method : makeFile
+ * @note file 만들기
+ * @since 2020.04.03
+ * @author : es-seungglee
+ ***********************************************/
+function makeFile() {
+    makeFileHtml(uploadFiles);
+}
+
+/**********************************************
+ * @method : makeFileHtml
+ * @note 파일 view 리턴
+ * @since 2020.04.03
+ * @author : es-seungglee
+ ***********************************************/
+function makeFileHtml(fileList) {
+    $("#uploadFile").empty();
+    html = '';
+    
+    for(let i=0; i< fileList.length; i++) {
+        let file = fileList[i];
+        html += '<div class="file-info">' + file.name;
+        html += '<button type="button" class="btn btn--remove deleteBtn" value="'+file.fileId+'"><span class="sp icon-delete"><span class="blind">닫기</span></span></button>';
+        html += '</div>';
+    }
+    $("#uploadFile").append(html);
+    $(".deleteBtn").click(function(){
+        if(!confirm("해당 파일을 삭제하시겠습니까?")) {
+            return;
+        }
+        if(!isNull($(this).val())){
+            const param = {
+                fileId : $(this).val()
+            }
+            doAjax("/expenseManagement/approval/deleteTiarCostFileByFileId","get", param);
+        }
+        let idx = $(".deleteBtn").index(this);
+ 
+        uploadFiles.splice(idx, 1);
+        makeFile();
+    });
+}

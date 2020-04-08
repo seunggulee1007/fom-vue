@@ -3,7 +3,7 @@
 <style>
     .input-field input[type="file"] {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 </style>
-<script type="text/babel" src="/resources/fim/js/portalManagement/infoWrite.js"></script>
+<script type="text/javascript" src="/resources/fim/js/portalManagement/infoWrite.js"></script>
 <div class="lnb lnb-area">
     <ul class="lst-lnb">                    
         <li class="lst-lnb__item lst-lnb__item--active">
@@ -86,7 +86,7 @@
                                     <th class="table__th table__th--required">제목</th>
                                     <td class="table__td" colspan="5">
                                         <div class="input-field input-field-table">
-                                            <input type="text" class="input-field__input" v-model="title" ref="title">
+                                            <input type="text" class="input-field__input" id="title" ref="title">
                                         </div>
                                     </td>                                             
                                 </tr>
@@ -110,7 +110,7 @@
                                                     </a>
                                                 </li>	
                                             </ul> -->
-                                            <select v-model="sendMailYn" class="dropdown-select">
+                                            <select id="sendMailYn" class="dropdown-select" name="sendMailYn">
                                                 <option value="N" class="dropdown-select__menu"><span class="dropdown__menu-txt">미 발송</span></option>
                                                 <option value="Y" class="dropdown-select__menu"><span class="dropdown__menu-txt">발송</span></option>
                                             </select>
@@ -201,7 +201,7 @@
                                   <th class="table__th">본문 작성</th>  
                                   <td class="table__td" colspan="5">
                                       <div class="textarea">
-                                          <textarea cols="30" rows="10" v-model="cont" ref="cont"></textarea>
+                                          <textarea cols="30" rows="10" id="cont" name="cont"></textarea>
                                         </div>
                                   </td>  
                                 </tr>
@@ -218,12 +218,12 @@
                                   <th class="table__th">파일 첨부</th>  
                                   <td class="table__td" colspan="5">
                                     <div class="input-field input-field-table">
-                                        <button type="button" class="btn btn-file"><label for="btnFile" class="btn__txt">파일선택</label></button>
-                                        <input type="file" id="btnFile" class="input-field__file blind" multiple v-on:change="handleFilesUpload()" ref="files">
-                                        <span class="input__dsc-txt">{{fileSize}} Bytes / 100 MB</span>  
-                                        <div class="input-field__file-box" v-show="files.length > 0">
-                                            <div class="file-info" v-for="(file, key) in files">{{ file.name }} <span class="remove-file" v-on:click="removeFile( key )">Remove</span></div>
-                                        </div>
+                                        <button type="button" class="btn btn-file">
+                                            <label for="file2" class="btn__txt">파일선택</label>
+                                        </button>
+                                        <input type="file" id="file2" class="input-field__file blind" multiple>
+                                        <span class="input__dsc-txt"><span id="fileSize">0</span> <span id="fileFormat">Bytes</span> / 100 MB</span>
+                                        <div class="input-field__file-box" id="uploadFile">
                                     </div>                                            
                                   </td>  
                                 </tr>

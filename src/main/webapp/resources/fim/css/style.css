@@ -723,9 +723,17 @@ select {
   padding-left: 22px;
 }
 
-.aui-grid {
-  width: 100%;
-  height: 100%;
+.aui-grid input[type=checkbox] {
+  position: static;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #dadce0;
+  clip: auto;
+  clip-path: none;
+}
+.aui-grid input[type=checkbox]:checked {
+  background-color: #4b6baa;
+  border-color: #f1f8fd;
 }
 
 /* icon */
@@ -1249,7 +1257,7 @@ select {
 }
 .container__main .component-area-exchange .component-area__dsc-txt {
   position: absolute;
-  top: 28px;
+  top: -28px;
   right: 10%;
   bottom: false;
   left: false;
@@ -1368,9 +1376,17 @@ select {
 .container__main .section-bbs .tab-area .lst-tab__item--active .lst-tab__menu-txt {
   color: #1c1c1c;
 }
+.container__main .section-bbs .tab-cnt .lst-tab-cnt {
+  position: static;
+  visibility: visible;
+  display: none;
+}
+.container__main .section-bbs .tab-cnt .lst-tab-cnt.lst-tab-cnt--active {
+  display: block;
+}
 .container__main .section-bbs .component-area .component-box {
   position: absolute;
-  top: 10px;
+  top: -45px;
   right: 24px;
   bottom: false;
   left: false;

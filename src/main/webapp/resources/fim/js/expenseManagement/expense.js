@@ -292,6 +292,7 @@ function makeFileHtml(fileList) {
     }
     $("#uploadFile").append(html);
     $(".deleteBtn").click(function(){
+        
         if(!confirm("해당 파일을 삭제하시겠습니까?")) {
             return;
         }
@@ -301,7 +302,7 @@ function makeFileHtml(fileList) {
             }
             doAjax("/expenseManagement/approval/deleteTiarCostFileByFileId","get", param);
         }
- 
+        let idx = $(".deleteBtn").index(this);
         uploadFiles.splice(idx, 1);
         makeFile();
     });
@@ -318,6 +319,15 @@ function tempUser(data) {
     tiarCostVO.regDeptNm = data.deptNm;
     tiarCostVO.comCd = data.comCd;
     tiarCostVO.title = '[지출결의서(현금)_'+tiarCostVO.regUserNm+'_'+tiarCostVO.regDate+']';
+    expenseList = [{
+        deptVO : deptVO
+        ,costInfoVO : costInfoVO
+        ,store : ''
+        ,remark : ''
+        ,curAmt : 0
+        ,checkYn : false
+        ,useDate : getDate(new Date())
+    }];
     getBudgetInfo();
     getBankInfo();
 }
@@ -717,7 +727,7 @@ function addExepnseList () {
             ,remark : ''
             ,curAmt : 0
             ,checkYn : false
-            ,useDate : getDate(new Date(),'-')
+            ,useDate : getDate(new Date())
         }
     )
     makeExpenseList();

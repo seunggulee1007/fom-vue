@@ -173,7 +173,7 @@ function getDate(date, type, days){
 }
 
 function isNull(str) {
-    return (str == null || str == undefined || str == '');
+    return (str == null || str == undefined || str == '' || str == 'undefined' || str == 'null');
 }
 
 function getPageList(start, end) {
@@ -296,13 +296,16 @@ function doAjax(url, type, param, config) {
         ,success : function(data){
             res = data;
         }
+        ,error : function(data) {
+            res = data;
+        }
     }
     console.log(param);
     // 추가 될 ajax 설정이 있다면 추가 시킨다.
     for(let temp in config) {
         ajaxConfig[temp] = config[temp];
     }
-    $.blockUI({ message: '<h3><img src="/resources/fim/img/icon_loading.gif" /> 처리중입니다. 잠시만 기다려 주세요.</h3>' });
+    $.blockUI({ message: '<img src="/resources/fim/img/icon_loading.gif" / style="display:inline-block;"> <h3>처리중입니다. 잠시만 기다려 주세요.</h3>' });
     $.ajax(ajaxConfig);
     $.unblockUI();
     return res;

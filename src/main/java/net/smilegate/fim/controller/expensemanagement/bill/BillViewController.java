@@ -12,7 +12,7 @@ import net.smilegate.fim.controller.CommonController;
  *
  */
 @Controller
-@RequestMapping("/expense_management/bill")
+@RequestMapping("/expenseManagement/bill")
 public class BillViewController extends CommonController {
     
     private final String prefix = "/fim/expenseManagement/bill";

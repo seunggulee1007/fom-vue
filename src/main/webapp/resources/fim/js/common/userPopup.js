@@ -37,30 +37,34 @@ function getDeptList () {
                         let id = openParent(data, temp);
                         data[temp].state.selected = true;
                         let parent = data[temp].parent;
-                        if(!data[parent]) {     // 더이상 부모가 없을수도 있으니 체크.
-                            return;
+                        if(parent == '#') {     // 부모가 #이라는 것은 최상단 엘리먼트라는 뜻이므로 열지 않고 멈춘다.
+                            break;
                         }
-                        data[temp].state.opened = true;
-
                         // 최상단 엘리먼트가 opend속성을 주면 먹히긴 하나 실제로 dom에서는 열리지 않고 내부적으로만 열린것으로 처리 되어서
                         // 강제로 최상단 엘리먼트 하나만 강제로 open되도록 수정
                         datas.instance.get_container().find('li').each(function(idx){
                             let elId = $(this).attr("id");
                             if(elId == id) {
                                 datas.instance.open_node($(this));
-                                return;
+                                return false;
                             }
                         });
-
+                        break;
                     }
                 }
                 getUserList(parentDeptCd);
 
-            }).bind('select_node.jstree', function(event, data){
+            })
+            .bind('select_node.jstree', function(event, data){        // 해당 노트 선택 이벤트
                 var deptCd = data.instance.get_node(data.selected).id;
+                console.log(data);
+                if(data.node.state.opened == false) {
+                    data.instance.open_node(deptCd);
+                }else {
+                    data.instance.close_node(deptCd);
+                }
                 getUserList(deptCd);
-            });
-
+            })
         }
     })
 }
@@ -110,7 +114,6 @@ function makeChoiceUser(user) {
         if(!confirm("한명 이상은 선택할 수 없습니다. \n계속하면 기존 선택한 유저는 사라지고 선택한 사용자만 남게됩니다. \n계속 하시겠습니까?")) {
             return;
         }
-        this.userInfo = {};
     }
     
     let userInfo = this.originUserList.filter(data => {
@@ -186,6 +189,19 @@ function selectUser(obj) {
 }
 
 function insertUser() {
+    if(!this.selectedUser.empNo) {
+        alert("사용자를 선택해 주세요");
+        return;
+    }
+    if(this.userInfo.empNo) {
+        if(this.userInfo.empNo == this.selectedUser.empNo) {
+            alert("이미 선택한 사용자 입니다.");
+            return;
+        }
+        if(!confirm("한명 이상은 선택할 수 없습니다. \n계속하면 기존 선택한 유저는 사라지고 선택한 사용자만 남게됩니다. \n계속 하시겠습니까?")) {
+            return;
+        }
+    }
     let html = '';
     html += '<div class="popup__contents-txt" ondblclick="deleteChoiceUser();">';
         html += '<span class="user_name">' + this.selectedUser.userNm + '</span>';
