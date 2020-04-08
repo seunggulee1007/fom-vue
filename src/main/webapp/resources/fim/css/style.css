@@ -1,8 +1,8 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /* ========== import ========== */
 /* ========== import ========== */
 /*
-  Font 설정방법 : 
+  Font 설정방법 :
   @include font-size(14, 18, 400);
   or @include font-size(14, false, 400);
   or @include font-size(14, 18px, "normal");
@@ -697,7 +697,7 @@ select {
     }
     > .lst-tree__menu {
         cursor: pointer;
-        padding-left: 0px; 
+        padding-left: 0px;
 
         &:before {
             left: 12px
@@ -749,11 +749,24 @@ select {
 .aui-grid input[type=checkbox]:hover {
   border-color: #34528c;
 }
+
 .aui-grid input[type=checkbox]:checked {
   background-image: url("../img/sprites/template_pc.png");
   background-size: 222px 213px;
   background-position: -190px -20px;
   border: 0;
+
+.aui-grid input[type=checkbox] {
+  position: static;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #dadce0;
+  clip: auto;
+  clip-path: none;
+}
+.aui-grid input[type=checkbox]:checked {
+  background-color: #4b6baa;
+  border-color: #f1f8fd;
 }
 
 /* icon */
@@ -965,11 +978,11 @@ select {
             &.btn--link{
                 float: right;
                 margin-top: 14px;
-                margin-right: 16px; 
+                margin-right: 16px;
                 width: 13px;
                 height: 13px;
-                min-height: auto;                    
-                border: 1px solid $txt_gray;                    
+                min-height: auto;
+                border: 1px solid $txt_gray;
                 color: $txt_gray;
                 @include font-size(11px, 11px, bold);
                 @include borderRadius(50%);
@@ -978,7 +991,7 @@ select {
                     padding-left: 0;
                 }
             }
-        }        
+        }
     }
 } */
 .header__util .header__util-item {

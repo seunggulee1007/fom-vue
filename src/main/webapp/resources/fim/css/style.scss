@@ -433,6 +433,15 @@ select{
         background-size: 222px 213px;
         background-position: -190px -20px;
         border: 0;
+        width: 12px;
+       height: 12px;
+       border: 1px solid $border_dark; 
+       clip: auto;
+       clip-path: none;
+    }
+    input[type='checkbox']:checked{
+        background-color: $blue;
+        border-color: $ui_hover;
     }
 }
 
