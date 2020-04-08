@@ -5,7 +5,6 @@ $(document).ready(function(){
             return;
         }
         $(".popup-layer--expenses-detail").toggleClass("popup-wrap--active")
-        $('.popup__dimmed').hide();
     });
 
     $("#saveDetail").click(function(){
@@ -13,8 +12,7 @@ $(document).ready(function(){
             return;
         }
         expenseDetailCallBack(costInfoDetail);
-        $(".popup-layer--expenses-detail").toggleClass("popup-wrap--active");
-        $('.popup__dimmed').hide();
+        $(".popup-layer--expenses-detail").toggleClass("popup-wrap--active")
     });
 });
 

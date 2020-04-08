@@ -139,7 +139,7 @@
             <div class="section section--border section--no-padding section-bbs">
                 <div class="tab-area tab-area--top">
                     <ul class="lst-tab">
-                        <li class="lst-tab__item lst-tab__item--active">
+                        <li class="lst-tab__item">
                             <a class="lst-tab__menu">
                                 <span class="lst-tab__menu-txt">공지사항</span>
                             </a>

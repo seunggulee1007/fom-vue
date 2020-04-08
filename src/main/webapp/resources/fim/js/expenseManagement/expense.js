@@ -417,8 +417,7 @@ function openExpensItemSgmaPopup(idx) {
  ***********************************************/
 function openExpenseDetail(idx) {
     $("#idx").val(idx);
-    $(".popup-layer--expenses-detail").addClass("popup-wrap--active");
-    $('.popup__dimmed').show();
+    $(".popup-layer--expenses-detail").toggleClass("popup-wrap--active");
     makeDetailHtml(expenseList[idx].costInfoVO);
 }
 
@@ -431,7 +430,6 @@ function openExpenseDetail(idx) {
 function expenseDetailCallBack(data) {
     let idx = $("#idx").val();
     expenseList[idx].costInfoVO = data;
-    $('.popup__dimmed').hide();
     makeExpenseList();
 }
 

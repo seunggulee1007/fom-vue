@@ -189,4 +189,3 @@
     <span class="header--bg-pattern header--bg-pattern-left"></span>
     <span class="header--bg-pattern header--bg-pattern-right"></span>
 </header>
-<div class="popup__dimmed"></div>

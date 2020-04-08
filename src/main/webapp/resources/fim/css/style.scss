@@ -334,19 +334,7 @@ select{
     color: $txt_black;
 }
 
-//jstree
-.jstree .jstree-anchor{
-    outline: none;
-    &.jstree-hovered{
-        font-weight: bold;
-    }
-    &.jstree-clicked{
-        color: $orange;
-        font-weight: bold;
-    }
-}
-
-/* //tree menu - vue
+//tree menu - vue
 .lst-tree__item{
     position: relative;
     line-height: 24px;
@@ -411,22 +399,16 @@ select{
 .lst-tree__sub{
     padding-left: 22px;
 }
- */
 
 //AUI Grid
 .aui-grid{
     input[type=checkbox]{
        position: static;
-       width: 16px;
-       height: 16px;
+        width: 12px;
+       height: 12px;
        border: 1px solid $border_dark; 
        clip: auto;
        clip-path: none;
-       outline: none;
-       @include borderRadius(2px);
-    }
-    input[type='checkbox']:hover{
-        border-color: $blue_dark
     }
     input[type='checkbox']:checked{
         background-image: url("../img/sprites/template_pc.png");
@@ -440,6 +422,7 @@ select{
        clip-path: none;
     }
     input[type='checkbox']:checked{
+
         background-color: $blue;
         border-color: $ui_hover;
     }
