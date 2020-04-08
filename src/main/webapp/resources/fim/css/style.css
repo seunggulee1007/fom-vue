@@ -657,83 +657,103 @@ select {
   color: #1c1c1c;
 }
 
-.lst-tree__item {
-  position: relative;
-  line-height: 24px;
+.jstree .jstree-anchor {
+  outline: none;
 }
-.lst-tree__item:before {
-  position: absolute;
-  top: 0;
-  right: false;
-  bottom: 2px;
-  left: 5px;
-  content: "";
-  width: 1px;
-  border-left: 1px dashed #b3b3b3;
-}
-.lst-tree__item:last-of-type:before {
-  bottom: auto;
-  height: 11px;
-}
-.lst-tree__item > div {
-  position: relative;
-  padding-left: 24px;
-}
-.lst-tree__item > div:before {
-  position: absolute;
-  top: 50%;
-  right: false;
-  bottom: false;
-  left: 6px;
-  content: "";
-  width: 8px;
-  border-top: 1px dashed #b3b3b3;
-}
-.lst-tree__item > .lst-tree__menu {
-  cursor: pointer;
-  padding-left: 0px;
-}
-.lst-tree__item > .lst-tree__menu:before {
-  left: 12px;
-}
-
-.lst-tree > .lst-tree__item:first-child:before {
-  border: 0;
-}
-.lst-tree > .lst-tree__item:first-child > .lst-tree__menu:before {
-  border: 0;
-}
-
-.lst-tree__menu .icon-folder-open {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  line-height: 8px;
-  text-align: center;
-  color: #34528c;
-  border-radius: 2px;
-  border: 1px solid #e6e8eb;
-  margin-right: 8px;
-  font-size: 12px;
+.jstree .jstree-anchor.jstree-hovered {
   font-weight: bold;
-  background-color: #fff;
+}
+.jstree .jstree-anchor.jstree-clicked {
+  color: #ff5000;
+  font-weight: bold;
 }
 
-.lst-tree__sub {
-  padding-left: 22px;
+/* //tree menu - vue
+.lst-tree__item{
+    position: relative;
+    line-height: 24px;
+
+    &:before{
+        @include position(absolute, 0, false, 2px, 5px);
+        content: "";
+        width: 1px;
+        border-left: 1px dashed $txt_gray2;
+    }
+    &:last-of-type:before{
+        bottom: auto;
+        height: 11px
+    }
+
+    > div {
+        position: relative;
+        padding-left: 24px;
+
+        &:before{
+            @include position(absolute, 50%, false, false, 6px);
+            content: "";
+            width: 8px;
+            border-top: 1px dashed $txt_gray2;
+        }
+    }
+    > .lst-tree__menu {
+        cursor: pointer;
+        padding-left: 0px; 
+
+        &:before {
+            left: 12px
+        }
+    }
 }
 
+.lst-tree > .lst-tree__item:first-child{
+    &:before{
+        border: 0;
+    }
+    > .lst-tree__menu:before{
+        border: 0;
+    }
+
+}
+
+.lst-tree__menu .icon-folder-open{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    line-height: 8px;
+    text-align: center;
+    color: #34528c;
+    border-radius: 2px;
+    border: 1px solid #e6e8eb;
+    margin-right: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #fff;
+}
+
+.lst-tree__sub{
+    padding-left: 22px;
+}
+ */
 .aui-grid input[type=checkbox] {
   position: static;
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   border: 1px solid #dadce0;
   clip: auto;
   clip-path: none;
+  outline: none;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.aui-grid input[type=checkbox]:hover {
+  border-color: #34528c;
 }
 .aui-grid input[type=checkbox]:checked {
-  background-color: #4b6baa;
-  border-color: #f1f8fd;
+  background-image: url("../img/sprites/template_pc.png");
+  background-size: 222px 213px;
+  background-position: -190px -20px;
+  border: 0;
 }
 
 /* icon */
