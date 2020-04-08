@@ -92,7 +92,6 @@
     </div>
 </div>
 
-<div class="popup__dimmed"></div>
 <div class="popup-wrap popup-layer--xxlarge popup-layer--allmenu">
     <div class="popup-wrap__align-box">
         <div class="popup-wrap__inner">
