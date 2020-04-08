@@ -81,7 +81,8 @@ function initCardPaymentAuiGrid(){
 			showRowCheckColumn : false,
 			showAutoNoDataMessage : false,
 			applyRestPercentWidth : true,
-			selectionMode : "singleRow"
+			selectionMode : "singleRow",
+			rowHeight : 50,
 	};
 	cardPaymentAuiGrid = AUIGrid.create("#companyCardPaymentList", companyCardMasterCol, auiGridProps);
 
@@ -181,9 +182,9 @@ $(document).ready(function(){
 	 */
 	$("#btnGetUseList").click(function(){
 
-		$('.popup-layer--payment-history').addClass('popup-wrap--active');
-		$('.popup__dimmed').show();
-		AUIGrid.resize(cardPaymentAuiGrid);
+//		$('.popup-layer--payment-history').addClass('popup-wrap--active');
+//		$('.popup__dimmed').show();
+//		AUIGrid.resize(cardPaymentAuiGrid);
 
 		let companySeq = $("#erpCompanySeq").val();
 		let cardCd = $("#cardCd").val().split("|")[0].replaceAll("-", "");
@@ -192,15 +193,18 @@ $(document).ready(function(){
 
 		let param = "companySeq=" + companySeq + "&cardCd=" + cardCd + "&calcDate=" + calcDate + "&empSeq=" + empSeq;
 		let returnData = doAjax("./getCompanyCardConfirmList", "post", param);
-    	console.log(returnData);
-
-    	if(returnData.result == 0){
-
-    		AUIGrid.setGridData("#companyCardPaymentList", returnData.data.confirmList);
-    	}
+//    	console.log(returnData);
+//
+//    	if(returnData.result == 0){
+//
+//    		AUIGrid.setGridData("#companyCardPaymentList", returnData.data.confirmList);
+//    	}
 
 	});
 
+	/**
+	 * 법인카드 사용내역 다이얼로그 X버튼 닫기.
+	 */
 	$("#btnXClose").click(function(){
 		$('.popup-layer--payment-history').removeClass('popup-wrap--active');
 		$('.popup__dimmed').hide();
