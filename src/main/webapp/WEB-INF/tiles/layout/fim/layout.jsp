@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="/resources/fim/css/smilegate_ux_template.css">
-    <link rel="stylesheet" type="text/css" href="/resources/fim/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/resources/fim/css/style.css?v_20200408_v1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- AUIGrid.css -->
