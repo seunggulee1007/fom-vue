@@ -62,6 +62,7 @@
   border: 1px solid #dadce0;
   border-width: 1px 0 0 1px;
   background-color: #fafaff;
+  background-clip: padding-box;
 }
 .container--include-lnb .table .table__td {
   border-width: 1px 1px 0 1px;
@@ -358,6 +359,12 @@ body {
   line-height: 1.6em;
   letter-spacing: -0.2px;
   background-color: #f9f9f9;
+  scrollbar-face-color: #b3b3b3;
+  scrollbar-track-color: #efefef;
+  scrollbar-highlight-color: #fff;
+  scrollbar-3dlight-color: #fff;
+  scrollbar-darkshadow-Color: #fff;
+  scrollbar-arrow-color: #efefef;
 }
 
 body, input, select, textarea, button {
@@ -736,8 +743,8 @@ select {
  */
 .aui-grid input[type=checkbox] {
   position: static;
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   border: 1px solid #dadce0;
   clip: auto;
   clip-path: none;
@@ -751,11 +758,17 @@ select {
 }
 .aui-grid input[type=checkbox]:checked {
   background-image: url("../img/sprites/template_pc.png");
-  background-size: 222px 213px;
-  background-position: -190px -20px;
+  background-size: 210px 200px;
+  background-position: -180px -19px;
   border: 0;
 }
 
+/* .aui-grid .aui-grid-table{
+    .aui-grid-default-header{
+        background-image: none;
+        background: $table_th;
+    }
+} */
 /* icon */
 .icon-alert {
   width: 20px;
@@ -1486,7 +1499,7 @@ select {
 .container__main .grid-column3 .component-area-user .component-group-approvalbox .component-box {
   position: relative;
   margin-left: 0;
-  width: calc(100% / 3);
+  width: 33.33333%;
 }
 .container__main .grid-column3 .component-area-user .component-group-approvalbox .component-box::before {
   content: "";
@@ -1808,7 +1821,7 @@ select {
 }
 
 .table--scroll-vertical .table-box-monthly-card {
-  max-height: 41vh;
+  max-height: 40vh;
   margin-top: 60px;
 }
 .table--scroll-vertical .table-box-monthly-card thead .table__th:first-of-type {

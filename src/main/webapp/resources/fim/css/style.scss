@@ -60,6 +60,14 @@ body{
     line-height: 1.6em;
     letter-spacing: -.2px;
     background-color: $bg_default;
+
+    //scroll(IE)
+    scrollbar-face-color: $txt_gray2;
+    scrollbar-track-color: $bg_lightgray;
+    scrollbar-highlight-color: $white;
+    scrollbar-3dlight-color: $white;
+    scrollbar-darkshadow-Color:$white;
+    scrollbar-arrow-color: $bg_lightgray;
 }
 body, input, select, textarea, button{
     font-family: "맑은고딕", "Malgun Gothic","Spoqa Han Sans";
@@ -88,6 +96,7 @@ a:hover {
     clear: both;
 }
 
+//tab
 .tab-cnt {
     position: relative;
     .lst-tab-cnt{
@@ -417,12 +426,12 @@ select{
 .aui-grid{
     input[type=checkbox]{
        position: static;
-       width: 16px;
-       height: 16px;
+       width: 15px;
+       height: 15px;
        border: 1px solid $border_dark; 
        clip: auto;
        clip-path: none;
-       outline: none;
+       outline: none;       
        @include borderRadius(2px);
     }
     input[type='checkbox']:hover{
@@ -430,12 +439,17 @@ select{
     }
     input[type='checkbox']:checked{
         background-image: url("../img/sprites/template_pc.png");
-        background-size: 222px 213px;
-        background-position: -190px -20px;
+        background-size: 210px 200px;
+        background-position: -180px -19px;
         border: 0;
     }
 }
-
+/* .aui-grid .aui-grid-table{
+    .aui-grid-default-header{
+        background-image: none;
+        background: $table_th;
+    }
+} */
 
 /* icon */
 .icon-alert{
@@ -1125,7 +1139,7 @@ $lst-gnb_height: 272px;
             .component-box{
                 position: relative;
                 margin-left: 0;
-                width: calc(100% / 3);
+                width: 33.33333%;
             }
 
             .component-box::before{
@@ -1433,13 +1447,13 @@ $lst-gnb_height: 272px;
         @include transform(rotate(90deg) scale(0.7))
     } 
     .icon-arrow{
-    @include transform(rotate(0));
-    margin-top: -2px;
+        @include transform(rotate(0));
+        margin-top: -2px;
     }
 }
 
 .table--scroll-vertical .table-box-monthly-card{
-    max-height: 41vh;
+    max-height: 40vh;
     margin-top: 60px;
     thead{
         .table__th:first-of-type{
