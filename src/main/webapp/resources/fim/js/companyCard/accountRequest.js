@@ -202,9 +202,9 @@ $(document).ready(function(){
 		});
 
 
+		$('.popup__dimmed').show();
 		$('.popup-layer--payment-history').addClass('popup-wrap--active');
 		AUIGrid.resize(cardPaymentAuiGrid);
-//		$('.popup__dimmed').show();
 	});
 
 //	$("#btnGetUseList").click(function(){
