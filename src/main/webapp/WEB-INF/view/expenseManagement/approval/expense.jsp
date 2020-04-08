@@ -195,7 +195,7 @@
 </div>
 
 <script src="/resources/fim/js/expenseManagement/expenseDetail.js"></script>
-<div class="popup-wrap popup-layer--medium popup-layer--expenses-detail">
+<div class="popup-wrap popup-layer--medium popup-layer--expenses-detail ">
     <div class="popup-wrap__align-box">
         <div class="popup-wrap__inner">
             <div class="popup__header" id="popup__header">

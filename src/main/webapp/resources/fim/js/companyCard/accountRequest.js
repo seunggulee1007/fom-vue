@@ -202,8 +202,8 @@ $(document).ready(function(){
 		});
 
 
-		$('.popup__dimmed').show();
-		$('.popup-layer--payment-history').addClass('popup-wrap--active');
+//		$('.popup-layer--payment-history').addClass('popup-wrap--active');
+//		$('.popup__dimmed').show();
 		AUIGrid.resize(cardPaymentAuiGrid);
 	});
 
