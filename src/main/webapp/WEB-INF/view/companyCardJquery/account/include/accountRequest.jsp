@@ -107,7 +107,7 @@
 							<tr>
 								<th class="table__th table__th--required">정산년월</th>
 								<td class="table__td">
-									<div class="input-field ">
+									<div class="input-field datepicker__v-calendar">
 										<input type="text" readonly id="yyyymm" class="input-field__input" style="max-width: 100%">
 										<span id="btnMonthPicker" class="sp icon-datepicker">
 											<span class="blind">Calendar 열기</span>

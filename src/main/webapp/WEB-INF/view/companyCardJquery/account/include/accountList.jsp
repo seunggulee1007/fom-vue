@@ -7,7 +7,7 @@
 			<div class="component-group">
 				<div class="datepicker--range-type">
 					<div class="component-box">
-						<div class="input-field ">
+						<div class="input-field datepicker__v-calendar">
 							<label for="date_input_exchange1" class="input-field__title">정산년월</label>
 							<input type="text" v-model='searchStdDt' readonly id="date_input_exchange1" class="input-field__input">
 							<v-date-picker :mode='mode' v-model='searchStdDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
@@ -23,7 +23,7 @@
 						</p>
 					</div>
 					<div class="component-box component-box--non-label">
-						<div class="input-field input-field--no-title ">
+						<div class="input-field input-field--no-title datepicker__v-calendar">
 							<input type="text" v-model='searchEndDt' readonly id="date_input_exchange2" class="input-field__input">
 							<v-date-picker :mode='mode' v-model='searchEndDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
 							<span class="sp icon-datepicker">

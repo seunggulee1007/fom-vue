@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script type="text/javascript" src="/resources/fim/js/financialLink/bizChk/bizInfo.js"></script>
+<script type="text/babel" src="/resources/fim/js/financialLink/bizChk/bizInfo.js"></script>
     
 <jsp:include page="/WEB-INF/view/include/financialLinkInclude.jsp"/>
     
@@ -19,7 +19,7 @@
             </button>
         </div>
     </div>
-    <div class="grid-layout"  id="grid-layout">
+    <div class="grid-layout"  id="grid-layout" v-cloak>
         <div class="grid-column grid-column10">
             <div class="section section--border section--align-horizontal">
                 <div class="component-area">
@@ -30,7 +30,7 @@
                                 <em class="search-form__title">사업자등록번호</em>
                                 <div class="search-form__inner">
                                     <span class="sp icon-search"><span class="blind">Search</span></span>
-                                    <input type="search" placeholder="사업자 번호를 입력해 주세요" id="bizNo">
+                                    <input type="search" placeholder="사업자 번호를 입력해 주세요" v-model="bizNo" ref="bizNo" maxlength="13" @keyup.enter="getInfo(bizNo)">
                                     <div class="search-form__bx-btn">
                                         <input type="reset" class="search-form__btn-delete">
                                         <span class="blind">Reset</span>
@@ -40,7 +40,7 @@
                         </fieldset>
                     </div>                    
                     <div class="component-group">
-                        <button type="button" class="btn btn--bgtype" onclick="getInfo()">
+                        <button type="button" class="btn btn--bgtype" @click="getInfo(bizNo)">
                           <span class="btn__txt">조회</span>
                         </button>
                     </div>
@@ -67,7 +67,12 @@
                                         <th scope="col" class="table__th">조회 기준일자</th>
                                     </tr>
                                 </thead>
-                                <tbody id="bizResult">
+                                <tbody>
+                                    <tr v-show="!isNull(complBizNo)">
+                                        <td class="table__td"><span class="table__txt">{{complBizNo | bizNoFilter}}</span></td>
+                                        <td class="table__td"><span class="table__txt">{{trtCntn}}</span></td>
+                                        <td class="table__td"><span class="table__txt">{{getToday()}}</span></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

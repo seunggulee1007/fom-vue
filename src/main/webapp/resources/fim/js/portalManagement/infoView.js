@@ -1,53 +1,55 @@
 /* jshint esversion: 6 */
 'use strict';
 $(document).ready(function(){
-    let boardId = document.querySelector("#boardId").value;
-    if(boardId) {
-        getInfo(boardId);
-    }
-});
-let originFileList = [];
-let fileList = [];
-let moreFlag = true;
-function getInfo(boardId) {
-    let infoVO = doAjax("/portalManagement/getInfo", "get", {boardId : boardId});
-    let info = infoVO.data.boardVO;
-    $("#title").text(info.title);
-    $("#userNm").text(info.userNm);
-    for(let key in info) {
-        if(key == 'fileList') {
-            continue;
+    Vue.use(MyPlugin);
+    new Vue({
+        el : "#app"
+        , data : {
+            info : [],
+            originFileList : [],
+            fileList : [],
+            moreFlag : true,
         }
-        $("#"+key).text(info[key]);
-    }
-    if(info.fileList) {
-        originFileList = Array.prototype.slice.call(info.fileList);
-        fileList = info.fileList.splice(0,5);
-        if(fileList.length > 4) {
-            moreFlag = false;
+        , mounted () {
+            let boardId = document.querySelector("#boardId").value;
+            if(boardId) {
+                this.getInfo(boardId);
+            }
         }
-
-        makeFileList(fileList);
-    }
-}
-
-function makeFileList(fileList) {
-    let html = '';
-    $("fileList").empty();
-    for(let i=0; i< fileList.length; i++) {
-        let file = fileList[i];
-        html += '<a class="btn--link file-info">';
-        html += '   <p class="btn__txt" onclick="downFile(\''+ file.fileNm + '\');">' + file.originalFileNm + '</p>';
-        html += '</a>';
-    }
-    if(!moreFlag) {
-        html += '<button type="button" class="btn btn--small btn-more-file" onclick="viewMoreFileList();">';
-        html += '   <span class="sp icon-arrow"><span class="blind">첨부파일 더보기 </span></span>';
-        html += '</button>';
-    }
-    $("#fileList").append(html);
-}
-
-function downFile (fileNm) {
-    location.href="/common/download-file/"+fileNm;
-}
+        , methods : {
+            /**********************************************
+             * @method : getInfo
+             * @note 해당 게시글 조회
+             * @author : es-seungglee
+             ***********************************************/
+            async getInfo (boardId) {
+                let info = await this.doAxios( "/portalManagement/info/" + boardId, "get");
+                this.info = info.data.boardVO;
+                if(this.info.fileList) {
+                    this.originFileList = this.info.fileList;
+                    this.fileList = this.originFileList.splice(0,5);
+                    if(this.fileList.length > 4) {
+                        this.moreFlag = false;
+                    }
+                }
+            }
+            /**********************************************
+             * @method : downFile
+             * @note 파일 다운로드
+             * @author : es-seungglee
+             ***********************************************/
+            ,downFile (fileNm) {
+                location.href="/common/download-file/"+fileNm;
+            }
+            /**********************************************
+             * @method : viewMoreFileList
+             * @note 더보기 클릭시
+             * @author : es-seungglee
+             ***********************************************/
+            ,viewMoreFileList() {
+                this.fileList = this.originFileList;
+                this.moreFlag = true;
+            }
+        }
+    });
+})

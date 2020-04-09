@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,8 +35,9 @@ public class BizChkProcController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "bizNo", value = "사업자번호", required = true, dataType = "string", defaultValue = "214-86-08930"),
             @ApiImplicitParam(name = "serverName", value = "요청 서버 명", required = true, dataType = "string", defaultValue = "fim") })
-    @GetMapping("/biz/bizInfo")
-    public CommonResultVO getBizInfo(String serverName, String bizNo) {
+    @GetMapping("/biz/bizInfo/{serverName}/{bizNo}")
+    public CommonResultVO getBizInfo(@PathVariable("serverName") String serverName,
+            @PathVariable("bizNo") String bizNo) {
         Map<String, Object> map = new HashMap<>();
         map = bizService.getBizInfo(serverName, bizNo);
         CommonResultVO commonResultVO = CommonResultVO.builder().resultMsg((String) map.get("trtCntn")).data(map)

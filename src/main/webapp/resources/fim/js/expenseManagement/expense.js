@@ -1,873 +1,540 @@
-var deptVO = {          // 세션에서 가져와야 할 부서 정보
-    comCd : ''              // 회사 코드
-    ,deptCd : ''            // 부서 코드
-    ,useDeptCd : ''         // 세부 부서 코드
-    ,useUserId : ''         // 사용자 아이디
-    ,useUserNm : ''         // 사용자명 
-    ,useDeptNm : ''         // 부서 명
-    ,userId : ''            // 아이디
-    ,userNm : ''            // 이름
-    ,deptNm : ''            // 부서명
-    ,budgetErpDeptSeq : ''  // 예산 erp부서 코드
-    ,budgetDeptNm : ''      // 예산 부서명
-    ,budgetDeptCd : ''      // 예산 부서 코드 
-};
-var costInfoVO = {
-    smKindName : ''
-    ,costName : ''
-    ,activityNm : ''
-    ,costItemNm : ''
-}
-var expenseList = [{
-    deptVO : deptVO
-    ,costInfoVO : costInfoVO
-    ,store : ''
-    ,remark : ''
-    ,curAmt : 0
-    ,checkYn : false
-    ,useDate : getDate(new Date())
-}];
-var uploadFiles = [];               // 파일 저장용 리스트 
-var originFileSize = 0;             // 계산용 기존 파일 크기
-var tiarCostVO = {
-    useDate : getDate(),
-    title : '',
-    memo : '',
-    tiCostSerl : ''
-};
-
 $(document).ready(function(){
-    tiarCostVO.tiCostSeq = $("#tiCostSeq").val();
-    tiarCostVO.regDate = getToday();
-    // TODO 세션에서 받아온 값 넣기.
-    tiarCostVO.regUserId = '110204';
-    tiarCostVO.regUserNm = '성준호';
-    tiarCostVO.regEmpNo = 'H10004';
-    tiarCostVO.regDeptCd = 'H0000000';
-    tiarCostVO.regDeptNm = '스마일게이트 홀딩스';
-    tiarCostVO.comCd = 'H0000000';
-    tiarCostVO.title = '[지출결의서(현금)_'+tiarCostVO.regUserNm+'_'+dateFilter(tiarCostVO.regDate)+']';
-    if($("#tiCostSeq").val()) {
-        const param = {
-            tiCostSeq : $("#tiCostSeq").val()
-        }
-        let expense = doAjax("/expenseManagement/approval/expenseList", "get", param);
-        tiarCostVO = expense.data.tiarCostVO;
-        expenseList = expense.data.tiCostAmtVOList;
-        if(expense.data.fileList.length > 0) {
-            let fileList = expense.data.fileList;
-            for(let i=0; i< fileList.length; i++) {
-                let file = {};
-                file.name = fileList[i].originalFileNm;
-                file.size = fileList[i].fileSzie;
-                file.type = fileList[i].contentType;
-                file.fileId = fileList[i].fileId;
-                uploadFiles.push(file);
+    Vue.use(MyPlugin);                      // 전역 vue 플러그인
+    Vue.use(onlyInt);
+    new Vue({
+        el : "#app"
+        , data : {
+            mode: 'single'                // 날짜 모드(single 단일 multi : 범위)
+            , masks : {                     // 날짜 마스킹 처리
+                title: 'YYYY.MM',         // 날짜 타이틀
+                input: 'YYYY-MM-DD',        // input에 보여질 포맷
             }
-            makeFile();
+            , expenseList : [
+                {
+                    deptVO : {}
+                    , useDate : new Date()
+                    , remark : ""
+                    , curAmt : 0
+                    , costInfoVO : {}
+                    , checked : false
+                }
+            ]
+            , expenseIdx : 0
+            , expenseAllPopupFlag : false
+            , files: []                  // 파일 담을 객체(리스트)
+            , fileSize : 0               // 보여줄 파일 전체 크기
+            , fileFormat : "bytes"
+            , tiarCostVO : {
+                 title : ""
+                 , regDeptNm : ""
+                 , regDate : ''
+                 , acctNo : ''
+                 , bankNm : ''
+                 , ownerNm : ''
+                 , regEmpNm : ''
+                 , companySeq : '1'             // 임시
+                 , totalAmt : 0               // 합계용 금액
+            }             // 저장용 VO
+            , deptList : []
         }
-        makeTopHtml();
-        makeExpenseList();
-        tiarCostVO.budgetDeptCd = expenseList[0].deptVO.budgetDeptCd;
-        tiarCostVO.budgetDeptNm = expenseList[0].deptVO.budgetDeptNm;
-        tiarCostVO.budgetErpDeptSeq  = expenseList[0].deptVO.budgetErpDeptSeq;
-        setDeptVO();
-        makeTotalAmt();
-    }else {
-        getBudgetInfo();
-        getBankInfo();
-    }
-    makeBottomHtml();
-    makeButtonHtml();
-    // 추가 버튼 클릭
-    $("#addExpense").click(function(){
-        addExepnseList();
-    });
-
-    // 삭제 버튼 클릭
-    $("#removeExpense").click(function(){
-        // 배열의 체크된 부분들을 뒤에서 부터 지운다.
-        let cnt = 0;
-        for(var i= expenseList.length -1; i >= 0; i--) {
-            if(expenseList[i].checkYn) {
-                expenseList.splice(i, 1);
-                cnt ++;
+        ,computed : {
+            
+        }
+        ,created () {
+            // this.getBankInfo('h0000000','H20044');
+            let tiCostSeq = document.querySelector("#tiCostSeq").value;
+            if(tiCostSeq) {
+                this.getTiarCostInfo(tiCostSeq);
             }
         }
-        if(cnt == 0) {
-            alert("삭제할 항목을 선택해 주세요 .");
-        }else {
-            makeExpenseList();
+        ,mounted () {
+            EventBus.$on('setExpenseData', this.setExpenseData);
+            EventBus.$on('setExpenseItemAll', this.setExpenseItemAll);
+            EventBus.$on('setExpenseItemSgma', this.setExpenseItemSgma);
+            EventBus.$on('setExpenseDetail',this.setExpenseDetail);
+            // 임시... 삭제해야 함(sso가 없어서 임시로 만들라고 해서 만듦)
+            EventBus.$on('sendTempData',this.setTempData);
         }
-    });
-
-    /**********************************************
-     * @method : doSave
-     * @note 저장 함수 
-     * @since 2020.04.01
-     * @author : es-seungglee
-     ***********************************************/
-    $("#doSave").click(function(){
-        if(!confirm("저장하시겠습니까 ? ")){
-            return;
+        ,watch : {
+            
         }
-        saveExpense(false);
-    });
-
-    $("#doApproval").click(function(){
-        if(!confirm("상신하시겠습니까?")) {
-            return;
-        }
-        saveExpense(true);
-    })
-
-    $("#file2").on("change",function(){
-        let copyFiles = Array.prototype.slice.call(uploadFiles);
-        let fileFormat = $("#fileFormat").text();
-        let fileSize = originFileSize;
-        for(let i=0; i< $(this)[0].files.length; i++) {
-            let uploadFile = $(this)[0].files[i];
-            uploadFiles.push(uploadFile);
-            fileSize += uploadFile.size;
-            if(fileSize / 1e+8 > 1) {
-                alert("100MB 이상의 파일은 올리실 수 없습니다.");
-                uploadFiles = copyFiles;
-                return;
+        ,methods : {
+            /**********************************************
+             * @method : getTiarCostInfo
+             * @note 지출결의 내역 조회
+             * @author : es-seungglee
+             ***********************************************/
+            getTiarCostInfo(ticostSeq) {
+                axios({
+                    url : "/expenseManagement/approval/expenseList/" + ticostSeq
+                    ,method : "get"
+                }).then(res =>{
+                    this.tiarCostVO = res.data.data.tiarCostVO;
+                    this.expenseList = res.data.data.tiCostAmtVOList;
+                    this.files = [];
+                    if(res.data.data.fileList) {
+                        let fileList = res.data.data.fileList;
+                        for(let i=0; i<fileList.length; i++) {
+                            let file = {};
+                            file.name = fileList[i].originalFileNm;
+                            file.size = fileList[i].fileSize;
+                            file.type = fileList[i].contentType;
+                            file.fileId = fileList[i].fileId;
+                            this.files.push(file);
+                        }
+                    }
+                }).catch(err => {
+                    console.log(err);
+                });
             }
-        }
-        originFileSize = fileSize;
-        if(fileSize / 1e+6 > 1) {           // 메가 바이트를 넘는다면
-            fileSize = Math.round(fileSize / 1e+6);
-            fileFormat = 'MB';
-        }else {                             // 여전히 바이트라면
-            fileFormat = "Bytes";
-        }
-        $("#fileSize").text(setComma(fileSize));
-        $("#fileFormat").text(fileFormat);
-        makeFile();
-    });
-});
-
-function saveExpense(flag) {
-    if(!$("#title").val()){
-        alert("제목을 입력해 주세요");
-        $("#title").focus();
-        return;
-    }
-    let formData = new FormData(); 
-    let cnt = 1;
-    if(expenseList.length == 0) {
-        alert("세부항목을 1건 이상 입력해 주세요.");
-        return;
-    }
-
-    // 세부 항목만큼 반복문 돌면서 form 데이터를 만드는 동시에 유효성 체크를 한다.
-    for(let i=0;i <expenseList.length; i++) {
-        let expense = expenseList[i];
-        if(!expense.costInfoVO.smKindSeq) {
-            alert(cnt + "번째 비용항목을 선택해 주세요");
-            $("input[name='tiarCostAmtList["+(cnt-1) + "].costInfoVO.smKindName']").focus();
-            return;
-        }else if(!expense.store) {
-            alert(cnt + "번째 가맹점을 입력해 주세요");
-            $("input[name='tiarCostAmtList["+(cnt-1) + "].store']").focus();
-            return;
-        }else if(!expense.remark) {
-            alert(cnt + "번째 적요를 입력해 주세요");
-            $("input[name='tiarCostAmtList["+(cnt-1) + "].remark']").focus();
-            return;
-        }else if(!expense.curAmt) {
-            alert(cnt + "번째 금액을 입력해 주세요");
-            $("input[name='tiarCostAmtList["+(cnt-1) + "].curAmt']").focus();
-            return;
-        }
-        for(let key in expense) {
-            let subExpense = expense[key];
-            if(typeof(subExpense) == 'object') {
-                for(let subKey in subExpense) {
-                    if(isNull(subExpense[subKey])) {
+            /**********************************************
+             * @method : getBankInfo
+             * @note 은행 정보 조회
+             * @author : es-seungglee
+             ***********************************************/
+            , async getBankInfo(deptCd , empNo) {
+                const param = {
+                        deptCd : deptCd
+                        ,empNo : empNo
+                }
+                let bankInfo = await this.doAxios("/expenseManagement/approval/getBankInfo","get", param, this.setBankInfo);
+                let bankInfoVO = bankInfo.data.bankInfoVO;
+                if(bankInfoVO) {
+                    this.tiarCostVO.acctNo = bankInfoVO.AccNo;
+                    this.tiarCostVO.bankNm = bankInfoVO.PayBankName;
+                    this.tiarCostVO.acctOwnerNm = bankInfoVO.OwnerName;
+                    this.tiarCostVO.regDate = getDate(new Date(), '-');
+                }else {
+                    this.tiarCostVO.acctNo          = "";
+                    this.tiarCostVO.bankNm          = "";
+                    this.tiarCostVO.acctOwnerNm     = "";
+                    this.tiarCostVO.regDate         = "";
+                }
+            }
+            /**********************************************
+             * @method : setTempData
+             * @note 임시 데이터 세팅 (rbac이 아직 없으므로.)
+             * @author : es-seungglee
+             ***********************************************/
+            ,setTempData(data) {
+                this.tiarCostVO.regDeptNm = data.deptNm;    // 부서 이름
+                this.tiarCostVO.regDeptCd = data.deptCd;   // 부서코드
+                this.tiarCostVO.comCd = data.comCd;         // 법인 코드
+                this.tiarCostVO.comNm = data.comNm;         // 법인 
+                this.tiarCostVO.regUserId = data.userId;         // 사용자 아이디
+                this.tiarCostVO.regUserNm = data.userNm;        // 사용자명
+                this.tiarCostVO.regEmpNo = data.empNo;         // 사용자 사
+                this.tiarCostVO.title = "[" + data.comNm+"][지출결의서(현금)_"+data.userNm+"_"+getDate(new Date(), "-")+"]";
+                this.getBankInfo(data.deptCd, data.empNo);
+                
+                this.expenseList[0].deptVO.comCd = data.comCd; // 법인 코드
+                this.expenseList[0].deptVO.comNm = data.comNm;
+                /** 데이터 베이스 저장용 */
+                this.expenseList[0].deptVO.useEmpNo = data.empNo;   // 사용자 사번
+                this.expenseList[0].deptVO.useDeptCd = data.deptCd; // 부서 코드
+                this.expenseList[0].deptVO.useDeptNm = data.deptNm; // 부서명
+                this.expenseList[0].deptVO.useUserId = data.userId; // 사용자 아이디
+                this.expenseList[0].deptVO.useUserNm = data.userNm; // 사용자명
+                
+                
+                
+            }
+            /**********************************************
+             * @method : addExpenseList
+             * @note 비용 항목 리스트 추가
+             * @author : es-seungglee
+             ***********************************************/
+            ,addExpenseList() {
+                let deptVO = this.expenseList[this.expenseList.length-1].deptVO;
+                this.expenseList.push(
+                        {
+                            deptVO
+                            , useDate : new Date()
+                            , remark : ""
+                            , curAmt : 0
+                            , costInfoVO : {}
+                        }
+                );
+            }
+            /**********************************************
+             * @method : openDeptPopup
+             * @note 부서 조회 팝업 열기
+             * @author : es-seungglee
+             ***********************************************/
+            ,openDeptPopup(idx, flag) {     // 임시...기안자도 이 팝업으로 가져와야 해서 임시로 만듦. 나중에 삭제.
+                // ,openDeptPopup(idx) {
+                if(typeof(idx) === 'number') {
+                    this.expenseIdx = idx;
+                }
+                // EventBus.$emit('openDeptPopup');
+                EventBus.$emit('openDeptPopup', flag);
+            }
+            /**********************************************
+             * @method : setExpenseData
+             * @note 부서 모달에서 넘어온 부서 정보 세팅
+             * @author : es-seungglee
+             ***********************************************/
+            ,setExpenseData (data) {
+                let deptVO = {};
+                deptVO.useErpEmpSeq = data.erpEmpSeq;                   // erp사용자 코드(*)
+                deptVO.useUserId = data.userId;                     // 사용자 코드
+                deptVO.useErpDeptSeq = data.erpDeptCd;                 // 사용자 부서 코드
+                deptVO.useDeptCd = data.deptCd;
+                deptVO.useEmpNo = data.empNo;                       // 사용자 사번
+                deptVO.budgetDeptCd = data.budgetDeptCd;            // 예산부서코드2(*)
+                deptVO.budgetErpDeptSeq = data.budgetErpDeptSeq;    // 예산부서코드(*)
+                deptVO.useDeptNm = data.deptNm;
+                deptVO.useUserNm = data.userNm;
+                this.expenseList[this.expenseIdx].deptVO = deptVO;
+            }
+            /**********************************************
+             * @method : openExpenseAll
+             * @note 비용항목(중분류 더블클릭시) 중분류 항목 모달 띄우기
+             * @author : es-seungglee
+             ***********************************************/
+            ,openExpenseAll(idx, smKindName) {
+                this.expenseIdx = idx;
+                let userNm = this.expenseList[idx].deptVO.useUserNm;       // 사용자 명
+                let comCd = this.expenseList[idx].deptVO.comCd;         // 회사 코드
+                EventBus.$emit('openExpenseAllPopup',smKindName, userNm, comCd);
+            }
+            /**********************************************
+             * @method : setExpenseItemAll
+             * @note 비용항목 데이터 세팅(중분류 팝업에서 넘어온 값)
+             * @author : es-seungglee
+             ***********************************************/
+            ,setExpenseItemAll(data) { 
+                this.expenseList[this.expenseIdx].costInfoVO = data;
+                this.expenseList[this.expenseIdx].remark = data.costName;
+                this.onCompleted(this.expenseIdx, this.expenseList[this.expenseIdx].costInfoVO);
+            }
+            
+            /**********************************************
+             * @method : openExpenseSgma
+             * @note 비용항목 activity 더블 클릭시 팝업띄우는 함수
+             * @author : es-seungglee
+             ***********************************************/
+            ,openExpenseSgma(idx, activityNm) {                         // 
+                this.expenseIdx = idx;
+                let userNm = this.expenseList[idx].deptVO.useUserNm;       // 사용자 명
+                let comCd = this.expenseList[idx].deptVO.comCd;         // 회사 코드
+                EventBus.$emit('openExpenseSgmaPopup', activityNm, userNm, comCd);
+            }
+            /**********************************************
+             * @method : setExpenseItemSgma
+             * @note 비용항목 activity 세팅 팝업에서 넘어온 정보 세팅
+             * @author : es-seungglee
+             ***********************************************/
+            ,setExpenseItemSgma(data) { 
+                let costInfoVO = this.expenseList[this.expenseIdx].costInfoVO;
+                costInfoVO.activityNm = data.activityNm;                 // activity 명
+                costInfoVO.activityCd = data.activityCd;                 // activity 코드
+                costInfoVO.costItemNm = data.costItemNm;                 // 비용항목 명
+                costInfoVO.costItemCd = data.costItemCd;           // 비용항목 코드
+                this.onCompleted(this.expenseIdx, this.expenseList[this.expenseIdx].costInfoVO);      // 4가지 다 입력시 발생하는 팝업
+            }
+            /**********************************************
+             * @method : handleFilesUpload
+             * @note 파일 선택 이벤트
+             * @author : es-seungglee
+             ***********************************************/
+            ,handleFilesUpload(){
+                let uploadedFiles = this.$refs.files.files;             // 해당 파일의 엘리먼트에 접근해서 변수에 담는다.
+                /*
+                  Adds the uploaded file to the files array
+                 */
+                let copyFiles = Array.prototype.slice.call(this.files);     // 임시용 파일 객체
+                let fileSize = this.fileFormat == 'MB' ? this.fileSize * 1e+6 : this.fileSize;
+                for( let uploadFile of uploadedFiles){
+                    console.log(uploadFile);
+                    fileSize += uploadFile.size;
+                    if(fileSize / 1e+8 > 1) {
+                        alert("100MB 이상의 파일은 올리실 수 없습니다.");
+                        this.files = copyFiles;
+                        return;
+                    }
+                    this.files.push( uploadFile );
+                }
+                this.calcFileSize();
+                
+            }   // end handleFilesUpload
+            /**********************************************
+             * @method : calcFileSize
+             * @note 파일 용량 계산
+             * @author : es-seungglee
+             ***********************************************/
+            ,calcFileSize() {
+                let fileSize = 0;
+                for(let file of this.files) {
+                    fileSize += file.size;
+                }
+                if(fileSize / 1e+6 > 1) {           // 메가 바이트를 넘는다면
+                    fileSize = fileSize / 1e+6;
+                    this.fileFormat = 'MB';
+                }else {                             // 여전히 바이트라면
+                    this.fileFormat = "Bytes";
+                }
+                this.fileSize = fileSize;
+            }
+            /**********************************************
+             * @method : removeFile
+             * @note 넘겨진 인덱스로 해당 순서에 있는 파일 삭제하는 함수
+             * @author : es-seungglee
+             ***********************************************/
+            ,removeFile( key ){                                         // 파일 삭제(해당 순서)
+                if(!confirm("삭제하시겠습니까?")) {
+                    return;
+                }
+                if(this.files[key].fileId){
+                    this.doAxios("/expenseManagement/approval/deleteTiarCostFileByFileId/" + this.files[key].fileId, "delete");
+                }
+                this.files.splice( key, 1 );
+                this.calcFileSize();
+            }       // end removeFile
+            /**********************************************
+             * @method : saveExpense
+             * @note 지출 결의 저장
+             * @author : es-seungglee
+             ***********************************************/
+            , saveExpense (flag) {
+                
+                if(!flag) {
+                    if(!confirm("저장하시겠습니까?")) {
+                        return
+                    }
+                }
+                
+                let formData = new FormData();
+                for(let i=0; i< this.files.length;i++) {                // 파일 내용 저장
+                    formData.append('files['+i+']', this.files[i]);
+                }
+                
+                for(let key in this.tiarCostVO) {
+                    if(isNull(this.tiarCostVO[key])) {
                         continue;
                     }
-                    formData.append('tiarCostAmtList['+(cnt-1)+'].'+key+"."+subKey, subExpense[subKey]);
+                    formData.append(key, this.tiarCostVO[key]);
                 }
-            }else {
-                if(isNull(expense[key])) {
-                    continue;
+                
+                let cnt = 0;
+                for(let expense of this.expenseList) {                  // 비용정산 상세 부분은 배열이므로 해당 배열은 직접 만들어 줘야 한다.
+                    if(typeof(expense.useDate) === 'string' && expense.useDate.indexOf('-') != -1) {
+                        expense.useDate = expense.useDate.replace(/-/gi, "");
+                    }
+                    if(expense.useDate instanceof Date) {
+                        expense.useDate = getDate(expense.useDate);
+                    }
+                    if(typeof(expense.curAmt) == 'string') {
+                        if(expense.curAmt.indexOf(',') != -1) {
+                            expense.curAmt = expense.curAmt.replace(/,/gi, "");
+                        }
+                    }
+                    // 배열 생성하며 유효성 체크
+                    if(!expense.costInfoVO.smKindSeq) {
+                        alert((cnt+1) + "번째 항목의 중분류를 선택해 주세요");
+                        return;
+                    }else if(!expense.costInfoVO.activityCd) {
+                        alert((cnt+1) +"번째 항목의 Activity를 선택해 주세요");
+                        return;
+                    }else if(!expense.store) {
+                        alert((cnt+1) + "번째 항목의 가맹점을 입력해 주세요");
+                        return;
+                    }else if(!expense.remark) {
+                        alert((cnt+1) + "번째 항목의 적요를 입력해 주세요");
+                        return;
+                    }else if(!expense.curAmt) {
+                        alert((cnt+1) + "번째 항목의 금액을 입력해 주세요");
+                        return;
+                    }
+                    
+                    for(let key in expense) {
+                        let subExpense = expense[key];
+                        if(typeof(subExpense) == 'object') {
+                            for(let subKey in subExpense) {
+                                if(isNull(subExpense[subKey])) {
+                                    continue;
+                                }
+                                formData.append('tiarCostAmtList['+cnt+'].'+key+"."+subKey, subExpense[subKey]);
+                            }
+                        }else {
+                            if(isNull(expense[key])) {
+                                continue;
+                            }
+                            formData.append('tiarCostAmtList['+cnt+'].'+key, expense[key]);
+                        }
+                    }
+                    cnt++;
                 }
-                formData.append('tiarCostAmtList['+(cnt-1)+'].'+key, expense[key]);
+                this.viewFormData(formData);
+                axios.post("/expenseManagement/approval/expense"
+                        ,formData
+                        ,{
+                            'Content-Type' : 'multipart/form-data'
+                        }
+                ).then(res => {
+                    if(!flag) {
+                        alert(res.data.resultMsg);
+                    }
+                    let tiCostSeq = document.querySelector("#tiCostSeq").value;
+                    if(tiCostSeq) {
+                        this.getTiarCostInfo(tiCostSeq);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                    alert(err.response.data.resultMsg);
+                })
+                
             }
-        }
-        cnt++;
-    }
-    if(!$("#memo").val()) {
-        alert("의견입력을 해 주세요.");
-        $("#memo").focus();
-        return;
-    }
-
-    // 기본 정보 매핑
-    for(let key in tiarCostVO) {
-        if(isNull(tiarCostVO[key])) {
-            continue;
-        }
-        formData.append(key, tiarCostVO[key]);
-    }
-
-    // ajax에 추가할 내용 세팅
-    let ajaxConfig = {
-        contentType :  false,
-        processData : false,
-        enctype : "multipart/form-data",
-    }
-
-    // 파일이 있다면
-    if($("#file2").val()) {
-        let cnt = 0;
-        for(let i=0; i< uploadFiles.length; i++) {
-            let file = uploadFiles[i];
-            formData.append('file['+cnt +']', file );
-        }
-    }
-
-    let res = doAjax("/expenseManagement/approval/saveExpense", "post", formData, ajaxConfig);
-
-    console.log(res);
-    if(flag) {
-        if(res.result != 0) {
-            alert(res.resultMsg);
-            return;
-        }
-        // TODO 상신 처리...
-        alert("상신되었습니다.");
-    }else {
-        alert(res.resultMsg);
-    }
-}
-
-/**********************************************
- * @method : getBudgetInfo
- * @note 예산 부서 정보 세팅 
- * @since 2020.04.06
- * @author : es-seungglee
- ***********************************************/
-function getBudgetInfo() {
-    const param = {
-        comCd : tiarCostVO.comCd
-        ,deptCd : tiarCostVO.regDeptCd
-    }
-    let res = doAjax("/common/getBudgetDeptInfo", "get", param);
-    if(res.result == 0) {
-        tiarCostVO.budgetDeptCd = res.data.deptSeq;                 // 예산 부서 코드
-        tiarCostVO.budgetDeptNm = res.data.deptNm;                  // 예산 부서 명
-        tiarCostVO.budgetErpDeptSeq = res.data.deptSeq;             // 예산 부서 erp 코드
-    }
-    setDeptVO();
-    makeExpenseList();
-}
-
-/**********************************************
- * @method : setDeptVO
- * @note 부서 정보 세팅 
- * @since 2020.04.06
- * @author : es-seungglee
- ***********************************************/
-function setDeptVO () {
-    deptVO.budgetDeptCd = tiarCostVO.budgetDeptCd;
-    deptVO.budgetDeptNm = tiarCostVO.budgetDeptNm;
-    deptVO.budgetErpDeptSeq = tiarCostVO.budgetErpDeptSeq;
-    deptVO.deptCd = tiarCostVO.regDeptCd;
-    deptVO.deptNm = tiarCostVO.regDeptNm;
-    deptVO.useDeptCd = tiarCostVO.regDeptCd;
-    deptVO.useDeptNm = tiarCostVO.regDeptNm;
-    deptVO.useUserId = tiarCostVO.regUserId;
-    deptVO.useUserNm = tiarCostVO.regUserNm;
-}
-
-/**********************************************
- * @method : makeFile
- * @note file 만들기
- * @since 2020.04.03
- * @author : es-seungglee
- ***********************************************/
-function makeFile() {
-    makeFileHtml(uploadFiles);
-}
-
-/**********************************************
- * @method : makeFileHtml
- * @note 파일 view 리턴
- * @since 2020.04.03
- * @author : es-seungglee
- ***********************************************/
-function makeFileHtml(fileList) {
-    $("#uploadFile").empty();
-    html = '';
-    
-    for(let i=0; i< fileList.length; i++) {
-        let file = fileList[i];
-        html += '<div class="file-info">' + file.name;
-        html += '<button type="button" class="btn btn--remove deleteBtn" value="'+file.fileId+'"><span class="sp icon-delete"><span class="blind">닫기</span></span></button>';
-        html += '</div>';
-    }
-    $("#uploadFile").append(html);
-    $(".deleteBtn").click(function(){
-        
-        if(!confirm("해당 파일을 삭제하시겠습니까?")) {
-            return;
-        }
-        if($(this).val()){
-            const param = {
-                fileId : $(this).val()
-            }
-            doAjax("/expenseManagement/approval/deleteTiarCostFileByFileId","get", param);
-        }
-        let idx = $(".deleteBtn").index(this);
-        uploadFiles.splice(idx, 1);
-        makeFile();
-    });
-}
-
-
-
-function tempUser(data) {
-    console.log(data);
-    tiarCostVO.regUserId = data.userId;
-    tiarCostVO.regUserNm = data.userNm;
-    tiarCostVO.regEmpNo = data.empNo;
-    tiarCostVO.regDeptCd = data.deptCd;
-    tiarCostVO.regDeptNm = data.deptNm;
-    tiarCostVO.comCd = data.comCd;
-    tiarCostVO.title = '[지출결의서(현금)_'+tiarCostVO.regUserNm+'_'+dateFilter(tiarCostVO.regDate)+']';
-    expenseList = [{
-        deptVO : deptVO
-        ,costInfoVO : costInfoVO
-        ,store : ''
-        ,remark : ''
-        ,curAmt : 0
-        ,checkYn : false
-        ,useDate : getDate(new Date())
-    }];
-    getBudgetInfo();
-    getBankInfo();
-}
-
-
-/**********************************************
- * @method : openUserPopup
- * @note 사용자 선택 팝업 호출
- * @since 2020.04.01
- * @author : es-seungglee
- ***********************************************/
-function openUserPopup(idx, temp) {
-    $("#idx").val(idx);
-    // temp
-    $("#temp").val(temp);
-    $("#deptCd").val(tiarCostVO.regDeptCd);
-    // temp end
-    window.open("/common/userPopup", "_blank", "width=1200,height=662,toolbar=no,menubar=no,scrollbars=no,resizable=yes,location=no");
-}
-/**********************************************
- * @method : choiceUser
- * @note 사용자 선택 콜백 함수 
- * @since 2020.04.01
- * @author : es-seungglee
- ***********************************************/
-function choiceUser(data, idx) {
-    expenseList[idx].deptVO = data;
-    expenseList[idx].deptVO.useDeptCd = data.deptCd;
-    expenseList[idx].deptVO.useDeptNm = data.deptNm;
-    expenseList[idx].deptVO.useUserId = data.userId;
-    expenseList[idx].deptVO.useUserNm = data.userNm;
-    expenseList[idx].deptVO.useEmpNo = data.empNo;
-    
-    expenseList[idx].costInfoVO = costInfoVO;
-    makeExpenseList();
-}
-/**********************************************
- * @method : openExpensItemAllPopup
- * @note 비용항목 팝업 호출
- * @since 2020.04.01
- * @author : es-seungglee
- ***********************************************/
-function openExpensItemAllPopup(idx) {
-    $("#idx").val(idx);
-    console.log(expenseList[idx].deptVO.comCd);
-    $("#comCd").val(expenseList[idx].deptVO.comCd);
-    $("#userNm").val(expenseList[idx].deptVO.userNm);
-    window.open("/common/expenseItemAllPopup", "_blank", "width=1000,height=662,toolbar=no,menubar=no,scrollbars=no,resizable=yes,location=no");
-}
-/**********************************************
- * @method : choiceExpenseItemAll
- * @note 비용항목 콜백 함수
- * @since 2020.04.01
- * @author : es-seungglee
- ***********************************************/
-function choiceExpenseItemAll(data, idx) {
-    expenseList[idx].costInfoVO = data;
-    expenseList[idx].remark = data.costName;
-    makeExpenseList();
-    if(checkDetailPopupOpenYn(data)) {
-        openExpenseDetail(idx);
-        $("#costSeq").val(expenseList[idx].costInfoVO.costSeq);
-        $("#smKindSeq").val(expenseList[idx].costInfoVO.smKindSeq);
-        $("#costInfoVO").val(expenseList[idx].costInfoVO);
-        expenseList[idx].costInfoVO = costInfoVO;
-        makeExpenseList();
-    };
-}
-
-/**********************************************
- * @method : openExpensItemSgmaPopup
- * @note 비용항목 smga 팝업 호출
- * @since 2020.04.01
- * @author : es-seungglee
- ***********************************************/
-function openExpensItemSgmaPopup(idx) {
-    $("#idx").val(idx);
-    $("#comCd").val(expenseList[idx].deptVO.comCd);
-    $("#userNm").val(expenseList[idx].deptVO.userNm);
-    window.open("/common/expenseItemSgmaPopup", "_blank", "width=1000,height=662,toolbar=no,menubar=no,scrollbars=no,resizable=yes,location=no");
-}
-
-/**********************************************
- * @method : openExpenseDetail
- * @note 비용항목 세부항목 팝업 호출
- * @since 2020.04.01
- * @author : es-seungglee
- ***********************************************/
-function openExpenseDetail(idx) {
-    $("#idx").val(idx);
-    $(".popup-layer--expenses-detail").addClass("popup-wrap--active");
-    $('.popup__dimmed').show();
-    makeDetailHtml(expenseList[idx].costInfoVO);
-}
-
-/**********************************************
- * @method : expenseDetailCallBack
- * @note 상세 비용 항목 콜백 함수
- * @since 2020.04.07
- * @author : es-seungglee
- ***********************************************/
-function expenseDetailCallBack(data) {
-    let idx = $("#idx").val();
-    expenseList[idx].costInfoVO = data;
-    $('.popup__dimmed').hide();
-    makeExpenseList();
-}
-
-/**********************************************
- * @method : makeTopHtml
- * @note 기본정보 매핑 시키는 함수
- * @since 2020.04.06
- * @author : es-seungglee
- ***********************************************/
-function makeTopHtml() {
-    $("#topHtml").empty();
-    let html = '';
-    html += '<tr>                                                                    ';
-    html += '    <th class="table__th">문서번호</th>                                                     ';
-    html += '    <td class="table__td table__td--data"><span class="table__txt bg--white">';
-    
-    if(tiarCostVO.tiCostSerl) {
-        html += tiarCostVO.tiCostSerl
-    }else {
-        html +='결재 완료 시, 발번됩니다.';
-    }
-    html += '</span></td>                    ';
-    html += '    <th class="table__th">기안일자</th>                                                     ';
-    html += '    <td class="table__td table__td--data"><span class="table__txt">'+dateFilter(tiarCostVO.regDate)+ '</span></td>                            ';
-    html += '    <th class="table__th">기안자</th>                                                     ';
-    html += '    <td class="table__td table__td--data"><span class="table__txt">'+tiarCostVO.regUserNm+'</span>';
-    // temp
-    html += '        <button type="button" class="btn btn-change-user" onclick="openUserPopup(0,\'temp\');">                                                         ';
-    html += '            <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>                                                     ';
-    html += '        </button>                                                                                         ';
-    // temp end
-    html +='</td>                            ';
-    html += '</tr>                                                                    ';
-    html += '<tr>                                                                    ';
-    html += '    <th class="table__th">기안부서</th>                                                     ';
-    html += '    <td colspan="5" class="table__td table__td--data"><span class="table__txt">'+tiarCostVO.regDeptNm+'</span></td>  ';
-    html += '</tr>                                                                    ';
-    html += '<tr>                                                                    ';
-    html += '    <th class="table__th">제목</th>                                                    ';
-    html += '    <td colspan="5" class="table__td">                                                    ';
-    html += '    <div class="input-field input-field-table">                                            ';
-    html += '        <input type="text" class="input-field__input" id="title" name="title" value="'+ tiarCostVO.title+ '" maxlength="300">        ';
-    html += '    </div>                                                                ';
-    html += '    </td>                                                                ';
-    html += '</tr>                                                                    ';
-    html += '<tr>                                                                    ';
-    html += '    <th class="table__th">계좌번호</th>                                                     ';
-    html += '    <td class="table__td table__td--data"><span class="table__txt">'+tiarCostVO.acctNo+'</span></td>                            ';
-    html += '    <th class="table__th">은행명</th>                                                     ';
-    html += '    <td class="table__td table__td--data"><span class="table__txt">'+tiarCostVO.bankNm+'</span></td>                            ';
-    html += '    <th class="table__th">예금주</th>                                                     ';
-    html += '    <td class="table__td table__td--data"><span class="table__txt">'+tiarCostVO.acctOwnerNm+'</span></td>                            ';
-    html += '</tr>                                                                ';
-    $("#topHtml").append(html);
-}
-
-
-/**********************************************
- * @method : makeExpenseList
- * @note 지출결의 상세 내역 그려주는 함수
- * @since 2020.04.01
- * @author : es-seungglee
- ***********************************************/
-function makeExpenseList() {
-    $("#expenseList").empty();
-    let cnt = 0;
-    html = '';
-    for(let i=0; i< expenseList.length; i++) {
-        let expense = expenseList[i];
-        html += '<tr>                                                                                                 ';
-        html += '    <td class="table__td">                                                                                     ';
-        html += '        <div class="btn_group">                                                                                 ';
-        html += '            <span class="btn-checkbox">                                                                             ';
-        if(expense.checkYn) {
-            html += '                <input type="checkbox" class="checkbox_member-leave" id="checkbox_member'+cnt + '" checked>                                                     ';
-        }else {
-            html += '                <input type="checkbox" class="checkbox_member-leave" id="checkbox_member'+cnt + '">                                                     ';
-        }
-        html += '                <label for="checkbox_member'+cnt + '" class="btn-checkbox__label"><span class="blind">선택</span></label>                                         ';
-        html += '            </span>                                                                                         ';
-        html += '        </div>                                                                                             ';
-        html += '    </td>                                                                                             ';
-        html += '    <td class="table__td table__td--data">                                                                             ';
-        html += '        <span class="table__txt">'+expense.deptVO.budgetDeptNm+'</span>                                                                             ';
-        html += '    </td>                                                                                             ';
-        html += '    <td class="table__td table__td--btn">                                                                             ';
-        html += '        <span class="table__txt">'+expense.deptVO.useUserNm+'<br>'+expense.deptVO.useDeptNm+'</span>                                                                     ';
-        html += '        <button type="button" class="btn btn-change-user" onclick="openUserPopup(\''+cnt+'\');">                                                         ';
-        html += '            <span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>                                                     ';
-        html += '        </button>                                                                                         ';
-        html += '    </td>                                                                                             ';
-        html += '    <td class="table__td">                                                                                     ';
-        html += '        <div class="input-field input-field-table">                                                                         ';
-        html += '            <input type="text" class="input-field__input" placeholder="선택해주세요." name="tiarCostAmtList['+cnt+'].costInfoVO.smKindName" value="'+ expense.costInfoVO.smKindName+'" ondblClick="openExpensItemAllPopup(\''+cnt + '\');">  ';
-        html += '        </div>                                                                                             ';
-        html += '    </td>                                                                                             ';
-        html += '    <td class="table__td table__td--data">                                                                             ';
-        html += '        <div class="input-field input-field-table">';
-        html += '        <input type="text" class="input-field__input" disabled value="'+expense.costInfoVO.costName+'">                                                                             ';
-        html += '        </div>';
-        html += '    </td>                                                                                             ';
-        html += '    <td class="table__td table__td--data">                                                                             ';
-        html += '        <div class="input-field input-field-table">                                                                         ';
-        html += '            <input type="text" class="input-field__input"';
-        if(!expense.costInfoVO.smKindSeq) {
-            html += ' disabled';
-        }
-        html += ' name="tiarCostAmtList['+cnt+'].costInfoVO.activityNm" value="'+ expense.costInfoVO.activityNm+'" ondblClick="openExpensItemSgmaPopup(\''+cnt + '\');"> ';
-        
-        html += '        </div>                                                                                             ';
-        html += '    </td>                                                                                             ';
-        html += '    <td class="table__td table__td--data">                                                                             ';
-        html += '        <div class="input-field input-field-table">'
-        html += '            <input type="text" class="input-field__input" disabled value="'+expense.costInfoVO.costItemNm+'">                                                                             ';
-        html +='         </div>';
-        html += '    </td>                                                                                             ';
-        html += '    <td class="table__td">                                                                                     ';
-        html += '        <div class="input-field input-field-table">                                                                         ';
-        html += '            <input type="text" class="changeStore input-field__input" placeholder="입력해주세요." name="tiarCostAmtList['+cnt+'].store" value="'+expense.store+'" maxlength="300">                                                          ';
-        html += '        </div>                                                                                             ';
-        html += '    </td>                                                                                             ';
-        html += '    <td class="table__td">                                                                                     ';
-        html += '           <div class="input-field">';
-        html += '                   <input type="text" class="input-field__input input-field__datepicker" readonly name="tiarCostAmtList['+cnt+'].userDate" value="'+dateFilter(expense.useDate)+'">';
-        html += '           </div>';
-        html += '    </td>                                                                                             ';
-        html += '    <td class="table__td">                                                                                     ';
-        html += '        <div class="input-field input-field-table">                                                                         ';
-        html += '            <input type="text" class="input-field__input changeRemark" placeholder="입력해주세요." name="tiarCostAmtList['+cnt+'].remark" value="'+expense.remark+'" maxlength="300">                                                          ';
-        html += '        </div>                                                                                             ';
-        html += '        <span class="table__txt table__txt-caption txt--blue"></span>                                                                 ';
-        html += '    </td>                                                                                             ';
-        html += '    <td class="table__td">                                                                                     ';
-        html += '        <div class="input-field input-field-table">                                                                         ';
-        html += '            <input type="text" class="input-field__input table__txt--align-right changeCurAmt" placeholder="입력해주세요." name="tiarCostAmtList['+cnt+'].curAmt" value="'+setComma(expense.curAmt)+'" maxlength="9">                                              ';
-        html += '        </div>                                                                                             ';
-        html += '    </td>                                                                                             ';
-        html += '</tr>                                                                                                ';
-        cnt++;
-    }
-    
-    $("#expenseList").append(html);
-    // 체크박스 조작 시 
-    $(".checkbox_member-leave").change(function() {
-        let idx = $(".checkbox_member-leave").index(this);
-        expenseList[idx].checkYn = $(this).is(":checked");
-    });
-    // 가맹접 입력시 변경
-    $(".input-field-table > .changeStore").change(function(){
-        let idx = $(".changeStore").index(this);
-        expenseList[idx].store = $(this).val(); 
-    });
-    // 적요 입력시 변경
-    $(".input-field-table > .changeRemark").change(function(){
-        let idx = $(".changeRemark").index(this);
-        expenseList[idx].remark = $(this).val(); 
-    });
-    // 금액 입력시 변경
-    $(".input-field-table > .changeCurAmt").change(function(){
-        let value = $(this).val()
-        if(typeof(value) == 'string' && value.indexOf(',') !=-1) {
-            value = value.replace(/,/gi,'');
-        }
-        let idx = $(".changeCurAmt").index(this);
-        $(this).val(setComma(value));
-        expenseList[idx].curAmt = value;
-        makeTotalAmt();
-    });
-
-    $(".input-field-table > .changeCurAmt").keyup(function() {
-        if ($(this).val() != $(this).val().replace(/[^0-9\.]/g, '')) {
-            $(this).val(this.value.replace(/[^0-9\.]/g, ''));
-        }
-    });
-
-    $(".input-field-table > .changeCurAmt").focusin(function(){
-        if ($(this).val() != $(this).val().replace(/[^0-9\.]/g, '')) {
-            $(this).val(this.value.replace(/[^0-9\.]/g, ''));
-        }
-    });
-    // 달력 적용
-    $(".input-field__datepicker").datepicker({
-        dateFormat : 'yy-mm-dd',
-        showOn : "both",
-        buttonImage : "/resources/fim/img/calendar.jpg",
-        onSelect : function (dateText) {
-            let idx = $(".input-field__datepicker").index(this);
-            expenseList[idx].useDate = dateText;
-        },
-        yearSuffix: '년',
-        monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
-        dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
-        showMonthAfterYear: true,
-        prevText: "전월",
-        nextTexT: "차월",
-        currentText: "오늘",
-        closeText: "달력 닫기",
-    });
-}
-
-/**********************************************
- * @method : makeButtonHtml
- * @note 버늩 html 만들어주는 함수
- * @since 2020.04.06
- * @author : es-seungglee
- ***********************************************/
-function makeButtonHtml() {
-    $("#buttonHtml").empty();
-    let html = '';
-    if(tiarCostVO.tiCostSeq) {
-        html += '<div class="component-box">';
-        html += '    <button type="button" class="btn btn--large btn--bgtype" id="deleteBtn">';
-        html += '    <span class="btn__txt">삭제</span>              ';
-        html += '    </button>                              ';
-        html += '</div>                                  ';
-    }
-    html += '<div class="component-box">                      ';
-    html += '    <button type="button" class="btn btn--large" id="doSave">';
-    html += '    <span class="btn__txt">저장</span>              ';
-    html += '    </button>                              ';
-    html += '</div>                                  ';
-    html += '<div class="component-box">                      ';
-    html += '    <button type="button" class="btn btn--large btn--orange" id="doApproval">';
-    html += '    <span class="btn__txt">결제상신</span>               ';
-    html += '    </button>                              ';
-    html += '</div>                                  ';
-    $("#buttonHtml").append(html);
-    $("#deleteBtn").click(function(){
-        if(!confirm("삭제하시겠습니까?")){
-            return;
-        }
-    })
-}
-
-/**********************************************
- * @method : makeBottomHtml
- * @note 하단 html 만들어주는 함수
- * @since 2020.04.06
- * @author : es-seungglee
- ***********************************************/
-function makeBottomHtml() {
-    $("#makeBottomHtml").empty();
-    let html = '';
-    html += '<tr>                                                            ';
-    html += '    <th class="table__th">의견입력</th>                                             ';
-    html += '    <td class="table__td" colspan="5">                                            ';
-    html += '        <div class="textarea">                                                ';
-    html += '        <textarea id="memo" name="memo" cols="30" rows="10" style="height:80px" maxlength="4000"></textarea>                ';
-    html += '        </div>                                                        ';
-    html += '    </td>                                                                                ';
-    html += '    </tr>                                                        ';
-    html += '    <tr>                                                        ';
-    html += '    <th class="table__th">전표처리여부</th>                                         ';
-    html += '    <td class="table__td" colspan="5">                                            ';
-    html += '        <div class="input-field input-field-table">                                    ';
-    html += '        <input type="text" class="input-field__input">                                    ';
-    html += '        </div>                                                        ';
-    html += '    </td>                                                        ';
-    html += '    </tr>                                                        ';
-    html += '    <tr>                                                        ';
-    html += '    <th class="table__th">파일 첨부</th>                                           ';
-    html += '    <td class="table__td" colspan="5">                                            ';
-    html += '        <div class="input-field input-field-table">                                    ';
-    html += '        <button type="button" class="btn btn-file">                                    ';
-    html += '            <label for="file2" class="btn__txt">파일선택</label>                                 ';
-    html += '        </button>                                                    ';
-    html += '        <input type="file" id="file2" class="input-field__file blind" multiple>                        ';
-    html += '        <span class="input__dsc-txt"><span id="fileSize">0</span> <span id="fileFormat">Bytes</span> / 100 MB</span>      ';
-    html += '        <div class="input-field__file-box" id="uploadFile">                                ';
-    html += '        </div>                                                        ';
-    html += '        </div>                                                        ';
-    html += '    </td>                                                        ';
-    html += '</tr>                                                            ';    
-    $("#makeBottomHtml").append(html);
-    $("#memo").html(tiarCostVO.memo);
-    $("#memo").on("change",function(){
-        tiarCostVO.memo = $(this).val();
-    })
-    makeFile();
-}
-
-
-/**********************************************
- * @method : addExepnseList
- * @note 상세내역 리스트 한 건 추가
- * @since 2020.04.01
- * @author : es-seungglee
- ***********************************************/
-function addExepnseList () {
-    expenseList.push(
-        {
-            deptVO : deptVO
-            ,costInfoVO : costInfoVO
-            ,store : ''
-            ,remark : ''
-            ,curAmt : 0
-            ,checkYn : false
-            ,useDate : getDate(new Date())
-        }
-    )
-    makeExpenseList();
-}
-
-/**********************************************
- * @method : checkDetailPopupOpenYn
- * @note 세부항목 팝업 띄울지 여부 리턴하는 함수
- * @since 2020.04.02
- * @author : es-seungglee
- ***********************************************/
-function checkDetailPopupOpenYn(costInfoVO) {
-    let smKindSeq = costInfoVO.smKindSeq;        // 중분류
-    let costSeq = costInfoVO.costSeq;            // 소분류
-    let arr = [
-        {
-            smKind : '4503006'      // 교통비
-                ,child : [
-                    10              // 야근 교통비
-                    ,11             // 외근 교통비
-                    ,86             // 유류대-직원
-                    ]
-        }
-        ,{
-            smKind : '4503010'
-                ,child : [          // 접대비
-                    42              // 해외-접대비
-                    , 44            // 경조사-접대비
-                    , 45            // 일반접대비
-                    ]
-        }
-        ,{
-            smKind : '4503008'  // 해외 출장
-                ,child : [
-                    24              // 식대-해외출장
-                    ,26             // 교통비-해외출장
-                    ,31             // 기타
-                    ,81             // 커뮤니케이션
-                    ,87             // 렌터카
-                    ,88             // 항공료
-                    ,89             // 로밍
-                    ,90             // 호텔 
-                    ,25             // 접대비
-                    ]
-        }
-        ,{
-            smKind : '4503009'  // 국내출장
-                ,child : [
-                    34              // 식대
-                    ,36             // 교통비
-                    ,82             // 커뮤니케이션
-                    ,91             // 렌터카
-                    ,92             // 호텔
-                    ,93             // 항공료
-                    ]
-        }
-    ];
-    for(let i=0; i<arr.length; i++) {
-        let smKind = arr[i].smKind;                         // 중분류
-        if(smKind === smKindSeq ) {                         // 해당 중분류가 배열에도 있다면
-            for(let j=0; j<arr[i].child.length; j++) {      // 해당 중분류의 소분류를 비교
-                let cost = arr[i].child[j];
-                if(cost === costSeq) {                      // 맞는게 있다면
-                    return true;                            // 참을 리턴하고 종료
+            /**********************************************
+             * @method : doApproval
+             * @note 상신
+             * @author : es-seungglee
+             ***********************************************/
+            ,doApproval () {
+                if(!confirm("상신하시겠습니까? ")) {
+                    return;
+                }
+                if(!this.tiarCostVO.tiCostSeq) {
+                    this.saveExpense();
                 }
             }
+            /**********************************************
+             * @method : removeExpenseList
+             * @note 선택된 비용항목 리스트 삭제
+             *          각 리스트에 pk값이 없어서 선택된 항목만 뺀 나머지를 다시 배열로 만드는 함수
+             * @author : es-seungglee
+             ***********************************************/
+            , removeExpenseList() {
+                let expenseCopyList = [];                                               // 복사할 리스트
+                for(let expense of this.expenseList) {                                  // 하나만 선택된것이 아니기 때문에 반복문 돌린다.
+                    if(!expense.checked) {                                              // 체크 되지 않은 항목만
+                        expenseCopyList.push(expense);                                  // 새로운 배열에 담는다.
+                    }
+                }
+                this.expenseList = expenseCopyList;                                     // 체크 되지 않은 항목만 담은 배열을 다시 해당 배열에 담는다.
+                this.calcTotalAmt();
+            }
+            /**********************************************
+             * @method : onCompleted
+             * @note 중분류, 비용항목 완성시 감지해서 팝업 띄우는 함수
+             * @author : es-seungglee
+             ***********************************************/
+            , onCompleted (idx, costInfoVO) {
+                if(!costInfoVO.costSeq || !costInfoVO.costItemCd || !costInfoVO.activityCd || !costInfoVO.smKindSeq) {          // 4가지 필드 중 하나라도 없다면 
+                    return;
+                }
+                if(costInfoVO.costSeq == 1 && costInfoVO.smKindSeq == '4503005') {
+                    // TODO 근태정보 받아서 적요란 하단에 뿌리기. 
+                }
+                let flag = this.checkDetailPopupOpenYn(costInfoVO);
+                if(!flag) {                           // 팝업 띄어야 할 항목 체크
+                    return;
+                }
+                this.expenseIdx = idx;
+                let copyCostInfo = Object.assign({},costInfoVO);
+                this.expenseList[idx].costInfoVO = {};
+                EventBus.$emit('openDetailPopup',copyCostInfo)
+                
+            }
+            /**********************************************
+             * @method : checkDetailPopupOpenYn
+             * @note 해당 비용항목이 상세 정보를 입력해야 하는 정보인지 판단
+             * @author : es-seungglee
+             ***********************************************/
+            , checkDetailPopupOpenYn(costInfoVO) {
+                let smKindSeq = costInfoVO.smKindSeq;        // 중분류
+                let costSeq = costInfoVO.costSeq;            // 소분류
+                let arr = [
+                    {
+                        smKind : '4503006'      // 교통비
+                            ,child : [
+                                10              // 야근 교통비
+                                ,11             // 외근 교통비
+                                ,86             // 유류대-직원
+                                ]
+                    }
+                    ,{
+                        smKind : '4503010'
+                            ,child : [          // 접대비
+                                42              // 해외-접대비
+                                , 44            // 경조사-접대비
+                                , 45            // 일반접대비
+                                ]
+                    }
+                    ,{
+                        smKind : '4503008'  // 해외 출장
+                            ,child : [
+                                24              // 식대-해외출장
+                                ,26             // 교통비-해외출장
+                                ,31             // 기타
+                                ,81             // 커뮤니케이션
+                                ,87             // 렌터카
+                                ,88             // 항공료
+                                ,89             // 로밍
+                                ,90             // 호텔 
+                                ,25             // 접대비
+                                ]
+                    }
+                    ,{
+                        smKind : '4503009'  // 국내출장
+                            ,child : [
+                                34              // 식대
+                                ,36             // 교통비
+                                ,82             // 커뮤니케이션
+                                ,91             // 렌터카
+                                ,92             // 호텔
+                                ,93             // 항공료
+                                ]
+                    }
+                ];
+                for(let i=0; i<arr.length; i++) {
+                    let smKind = arr[i].smKind;                         // 중분류
+                    if(smKind === smKindSeq ) {                         // 해당 중분류가 배열에도 있다면
+                        for(let j=0; j<arr[i].child.length; j++) {      // 해당 중분류의 소분류를 비교
+                            let cost = arr[i].child[j];
+                            if(cost === costSeq) {                      // 맞는게 있다면
+                                return true;                            // 참을 리턴하고 종료
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+            /**********************************************
+             * @method : calcTotalAmt
+             * @note 합계 비용 나타내는 함수
+             * @author : es-seungglee
+             ***********************************************/
+            , calcTotalAmt () {
+                this.tiarCostVO.totalAmt = 0;
+                for(let expenseVO of this.expenseList) {                // 합계를 위한 반복문
+                    let curAmt = expenseVO.curAmt;
+                    if(typeof(curAmt) == 'string' && curAmt.indexOf(",") != -1) {
+                        curAmt = curAmt.replace(/,/gi,"");
+                    }
+                    this.tiarCostVO.totalAmt += Number(curAmt);
+                    expenseVO.curAmt = this.setComma(expenseVO.curAmt);
+                }
+                if(typeof(this.tiarCostVO.totalAmt) != 'number') {                 // 혹시모를 예외처리(숫자 타입이 아니라면)
+                    this.tiarCostVO.totalAmt = 0;                                  // 0원으로 처리
+                }
+            }
+            /**********************************************
+             * @method : setExpenseDetail
+             * @note 세부 항목 저장 함수
+             * @author : es-seungglee
+             ***********************************************/
+            , setExpenseDetail(data) {
+                this.expenseList[this.expenseIdx].costInfoVO = data;
+            }
+            ,async deleteExpense() {
+                if(!confirm("해당 지출결의서를 삭제하시겠습니까?")) {
+                    return;
+                }
+                let result = await this.doAxios("/expenseManagement/approval/deleteExpense/" + this.tiarCostVO.tiCostSeq, "delete");
+                alert(result.resultMsg);
+            }
+
         }
-    }
-    return false;
-}
-
-/**********************************************
- * @method : getBankInfo
- * @note 은행 계좌 정보 가져오는 함수
- * @since 2020.04.06
- * @author : es-seungglee
- ***********************************************/
-function getBankInfo() {
-    const param = {
-        deptCd : tiarCostVO.regDeptCd
-        ,empNo : tiarCostVO.regEmpNo
-    }
-    let bankInfo = this.doAjax("/expenseManagement/approval/getBankInfo","get", param, this.setBankInfo);
-    let bankInfoVO = bankInfo.data.bankInfoVO;
-    if(bankInfoVO) {
-        tiarCostVO.acctNo = bankInfoVO.AccNo;
-        tiarCostVO.bankNm = bankInfoVO.PayBankName;
-        tiarCostVO.acctOwnerNm = bankInfoVO.OwnerName;
-    }else {
-        tiarCostVO.acctNo = '';
-        tiarCostVO.bankNm = '등록하신 은행이 없습니다.';
-        tiarCostVO.acctOwnerNm = '등록하신 은행이 없습니다.';
-    }
-    makeTopHtml();
-}
-
-/**********************************************
- * @method : makeTotalAmt
- * @note 총 금액 계산
- * @since 2020.04.06
- * @author : es-seungglee
- ***********************************************/
-function makeTotalAmt() {
-    let totalAmt = 0;
-    for(let i=0; i< expenseList.length; i++) {
-        if(expenseList[i].curAmt) {
-            totalAmt += Number(expenseList[i].curAmt);
-        }
-    }
-    tiarCostVO.totalAmt = totalAmt;
-    $("#totalAmt").text(totalAmt);
-    $("#totalAmtDisplay").text(setComma(totalAmt));
-}
-
-function deleteExpense() {
-    let tiCostSeq = tiarCostVO.tiCostSeq;
-    if(tiCostSeq) {
-        let deleteExpense = doAjax("/expenseManagement/approval/deleteExpense", "get", {tiCostSeq : tiCostSeq});
-        alert(deleteExpense.resultMsg);
-    }
-}
+    });
+});

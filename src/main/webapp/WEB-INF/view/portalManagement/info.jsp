@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script type="text/javascript" src="/resources/fim/js/portalManagement/info.js"></script>
+<script src='https://unpkg.com/v-calendar@next'></script>
+<script type="text/babel" src="/resources/fim/js/portalManagement/info.js"></script>
 <div class="lnb lnb-area">
     <ul class="lst-lnb">                    
         <li class="lst-lnb__item lst-lnb__item--active">
@@ -65,9 +66,14 @@
                     <div class="component-group">
                         <div class="datepicker--range-type">
                             <div class="component-box">
-                                <div class="input-field ">
+                                <div class="input-field datepicker__v-calendar">
                                  <label for="date_input_exchange1" class="input-field__title">작성일</label>
-                                    <input type="text" id='searchStdDt' readonly class="input-field__datepicker">
+                                    <input type="text" v-model='searchStdDt' readonly id="date_input_exchange1" class="input-field__input">
+                                    <v-date-picker :mode='mode' v-model='searchStdDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
+                                        <span class="sp icon-datepicker">
+                                            <span class="blind">Calendar 열기</span>
+                                        </span>
+                                    </v-date-picker>
                                 </div>
                             </div>
                             <div class="component-box component-box--non-label">
@@ -76,15 +82,20 @@
                                 </p>
                             </div>   
                             <div class="component-box component-box--non-label">
-                                <div class="input-field input-field--no-title ">
-                                    <input type="text" id='searchEndDt' readonly class="input-field__datepicker">
+                                <div class="input-field input-field--no-title datepicker__v-calendar">
+                                    <input type="text" v-model='searchEndDt' readonly id="date_input_exchange2" class="input-field__input">
+                                    <v-date-picker :mode='mode' v-model='searchEndDt' :popover="{ placement: 'bottom', visibility: 'click' }" :masks='masks' :input-props='{readonly : true}'>
+                                        <span class="sp icon-datepicker">
+                                            <span class="blind">Calendar 열기</span>
+                                        </span>
+                                    </v-date-picker>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="component-box">
                             <em class="component__title">검색 조건</em>
-                            <select name="searchItem" class="dropdown-select" id="searchKind">
+                            <select name="searchItem" id="searchItem" class="dropdown-select" v-model="searchKind">
                                 <option  class="dropdown-select__menu" value="title">
                                     <span class="dropdown__menu-txt">제목</span>
                                 </option>
@@ -106,7 +117,7 @@
                                     <em class="search-form__title">검색어로 찾기</em>
                                     <div class="search-form__inner">
                                         <span class="ip icon-search"><span class="blind">search</span></span>
-                                        <input type="search" placeholder="검색어를 입력하세요." maxlength="100" id="search">
+                                        <input type="search" placeholder="검색어를 입력하세요." maxlength="100" v-model="search" @keyup.enter="getInfoList();">
                                         <div class="search-form__bx-btn">
                                             <input type="reset" class="search-form__btn-delete">
                                             <span class="blind">reset</span>
@@ -116,7 +127,7 @@
                             </fieldset>
                         </div>
                         <div class="component-box">
-                            <button type="button" class="btn btn--bgtype" onclick="getInfoList();"><span class="btn__txt">검색</span></button>  
+                            <button type="button" class="btn btn--bgtype" @click="getInfoList();"><span class="btn__txt">검색</span></button>  
                         </div>
                     </div>
                 </div>

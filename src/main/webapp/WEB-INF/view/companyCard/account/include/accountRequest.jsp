@@ -9,9 +9,9 @@
 			<input type="hidden" id="regDate" name="regDate" value="20200324">
 			<input type="hidden" id="regErpEmpSeq" name="regErpEmpSeq" value="140">
 			<input type="hidden" id="regUserId" name="regUserId" value="140">
-			<input type="hidden" id="regErpDeptSeq" name="regErpDeptSeq" value="33333">
 			<input type="hidden" id="regEmpNo" name="regEmpNo" value="140">
-			<input type="hidden" id="regDeptCd" name="regDeptCd" value="33333">
+			<input type="hidden" id="lastUserId" name="lastUserId" value="140">
+
 			<div class="component-group">
 				<div class="table table-chain">
 					<table>
@@ -34,7 +34,7 @@
 								</td>
 								<th class="table__th">기안일자</th>
 								<td class="table__td table__td--data">
-									<span id="spRegDate" class="table__txt"></span>
+									<span class="table__txt">20/03/10</span>
 								</td>
 								<th class="table__th">기안자</th>
 								<td class="table__td table__td--data">
@@ -55,7 +55,9 @@
 								<th class="table__th table__th--required">제목</th>
 								<td colspan="7" class="table__td">
 									<div class="input-field input-field-table">
-										<input id="title" name="title" type="text" class="input-field__input" value="">
+										<input type="hidden" id="regDeptCd" name="regDeptCd" value="33333">
+										<input type="hidden" id="regErpDeptSeq" name="regErpDeptSeq" value="33333">
+										<input id="title" name="title" type="text" class="input-field__input" value="[SGH][테스트_홍길동A_2020-03-24]">
 									</div>
 								</td>
 							</tr>
@@ -86,6 +88,7 @@
 									<button type="button" class="btn btn-change-user" id="btnCardUser" style="top: 5px; right:16px;">
 										<span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
 									</button>
+									<span class="table__txt"></span>
 								</td>
 								<th class="table__th">사용자 부서</th>
 								<td class="table__td">
@@ -93,20 +96,21 @@
 								</td>
 								<th class="table__th table__th--required">카드번호</th>
 								<td class="table__td">
-									<select name="cardCd" id="cardCd" class="dropdown-select">
+									<select name="cardCd" id="cardCd" v-model="selectedCard" class="dropdown-select">
+										<option v-for="cardItem in companyCardList" v-bind:value="{cardNo:cardItem.cardNo, cardDivName:cardItem.cardDivName}">{{cardItem.cardName}}</option>
 									</select>
 								</td>
 								<th class="table__th">카드구분</th>
 								<td class="table__td table__td--data">
-									<span id="cardDiv" class="table__txt"></span>
+									<span id="cardDiv" class="table__txt">{{selectedCard.cardDivName}}</span>
 								</td>
 							</tr>
 							<tr>
 								<th class="table__th table__th--required">정산년월</th>
 								<td class="table__td">
-									<div class="input-field datepicker__v-calendar">
-										<input type="text" id="calcDate" name="calcDate" readonly id="date_input_exchange2" class="input-field__input" style="max-width: 100%">
-										<span class="sp icon-datepicker">
+									<div class="input-field">
+										<input type="text" readonly id="yyyymm" class="input-field__input" style="max-width: 100%">
+										<span id="btnMonthPicker" class="sp icon-datepicker">
 											<span class="blind">Calendar 열기</span>
 										</span>
 									</div>
@@ -115,6 +119,7 @@
 									<button id="btnGetUseList" type="button" class="btn btn--orange" onclick="">
 										<span class="btn__txt">카드결제 내역 가져오기</span>
 									</button>
+									<span class="table__txt"></span>
 								</td>
 							</tr>
 						</tbody>
@@ -268,9 +273,10 @@
 										<button type="button" id="btnFile" class="btn btn-file">
 											<label for="attFile" class="btn__txt">파일선택</label>
 										</button>
-										<input type="file" id="attFile" name="files" multiple="multiple" class="input-field__file blind">
+										<input type="file" id="attFile" v-on:change="attachFile()" ref="files" name="files" multiple="multiple" class="input-field__file blind">
 										<span id="fileSize" class="input__dsc-txt" ref="fileSizeStr">0 byte / 100 MB</span>
 										<div id="fileListBox" class="input-field__file-box">
+											<div class='file-info' v-for="(file, idx) in fileList">{{file.name}}<a href='#' v-on:click="onDeleteFile(idx)">&nbsp;&nbsp;[삭제]</a></div>
 										</div>
 									</div>
 								</td>
@@ -312,105 +318,5 @@
 			</button>
 		</div>
 	</div>
-
-	<table id="useCardListClone" style="display:none">
-		<tbody>
-			<tr>
-				<td name="tdCheck" class="table__td"> <!-- 선택 -->
-					<div class="btn_group">
-						<span class="btn-checkbox">
-						</span>
-					</div>
-				</td>
-				<td name="tdPersonProcCheck" class="table__td"> <!-- 개인 비용 처리 -->
-					<div class="btn_group">
-						<span class="btn-checkbox">
-						</span>
-					</div>
-				</td>
-				<td class="table__td"> <!-- 날짜 -->
-					<span name="spApprDate" class="table__txt"></span>
-				</td>
-				<td class="table__td"> <!-- 시간 -->
-					<span name="spApprTime" class="table__txt"></span>
-				</td>
-				<td class="table__td"> <!-- 가맹점 -->
-					<div class="tooltip-box tooltip--hover tooltip--right">
-						<span name="spChainNm" class="table__txt">(주)너와집 백현점</span>
-						<span class="sp icon-info"></span>
-						<div class="tooltip__inner">
-							<p name="pChainNm" class="tooltip__txt">
-								가맹점명: (주)너와집 백현점
-							</p>
-							<p name="pChainAddr" class="tooltip__txt">
-								주소: 경기 성남시 분당구 안양판교로 1201번길 45, 지상1층 (백현동)
-							</p>
-							<p name="pChainId" class="tooltip__txt">
-								사업자번호: 1298553548
-							</p>
-							<p name="pMccName" class="tooltip__txt">
-								업종: 일반음식점
-							</p>
-							<p name="pApprNo" class="tooltip__txt">
-								승인번호: 12345679
-							</p>
-						</div>
-					</div>
-				</td>
-				<td name="tdComNm" class="table__td"> <!-- 예산부서 -->
-					<span name="tdBudgetDeptNm" class="table__txt"></span>
-				</td>
-				<td name="tdUseUser" class="table__td table__td--btn"> <!-- 사용자(귀속처리) -->
-					<span name="spUseName" class="table__txt"></span><br><span name="spDeptNm" class="table__txt-caption"></span>
-					<button type="button" class="btn btn-change-user" name="btnAccountUser">
-						<span class="sp icon-change-user"><span class="blind">사용자 선택</span></span>
-					</button>
-				</td>
-				<td name="tdSmKindNm" class="table__td"> <!-- 비용항목 중분류 -->
-					<div class="input-field input-field-table">
-						<input type="text" class="input-field__input" value="">
-					</div>
-				</td>
-				<td name="tdErpCostNm" class="table__td table__td--data"> <!-- 비용항목 소분류 -->
-					<span class="table__txt" ></span>
-				</td>
-				<td name="tdCostItemNm" class="table__td table__td--data"> <!-- SGMS 중분류 -->
-					<div class="input-field input-field-table">
-						<input type="text" name="inRemValSeq" disabled class="input-field__input" value="">
-					</div>
-				</td>
-				<td name="tdActivityNm" class="table__td table__td--data"> <!-- SGMS 소분류 -->
-					<span class="table__txt" ></span>
-				</td>
-				<td class="table__td"><!-- 적요 -->
-					<div class="input-field input-field-table">
-						<input type="text" class="input-field__input">
-					</div>
-					<span class="table__txt table__txt-caption txt--blue"></span>
-				</td>
-				<td  class="table__td table__td--data"> <!-- 통화 -->
-					<span name="spCurrCd" class="table__txt"></span>
-	<!-- 				<input type="hidden" name="currCd" class="input-field__input" value=""> -->
-				</td>
-				<td class="table__td table__td--data"> <!-- 공급가 -->
-					<span name="spSupplyAmt" class="table__txt table__txt--align-right"></span>
-	<!-- 				<input type="hidden" name="supplyAmt" class="input-field__input" value=""> -->
-				</td>
-				<td class="table__td table__td--data"> <!-- 봉사료 -->
-					<span name="spTipAmt" class="table__txt table__txt--align-right"></span>
-	<!-- 				<input type="hidden" name="tipAmt" class="input-field__input" value=""> -->
-				</td>
-				<td class="table__td table__td--data"> <!-- 부가세 -->
-					<span name="spApprTax" class="table__txt table__txt--align-right"></span>
-	<!-- 				<input type="hidden" name="apprTax" class="input-field__input" value=""> -->
-				</td>
-				<td class="table__td table__td--data">
-					<span name="spSumAmt" class="table__txt table__txt--align-right"></span>
-	<!-- 				<input type="hidden" name="sumAmt" class="input-field__input" value=""> -->
-				</td>
-			</tr>
-		</tbody>
-	</table>
-
 </div>
 
